@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure;
@@ -7,6 +6,7 @@ using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
 using OwlStock.Services.Common.HelperClasses;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.Interfaces;
+using SixLabors.ImageSharp;
 
 namespace OwlStock.Services
 {
@@ -114,6 +114,7 @@ namespace OwlStock.Services
 
         public async Task<PhotoShoot> Add(CreatePhotoShootDTO dto)
         {
+            string number = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType);
             if (dto == null)
             {
                 throw new ArgumentNullException(nameof(dto));
@@ -149,7 +150,8 @@ namespace OwlStock.Services
                 Price = totalPrice,
                 IdentityUserId = dto.IdentityUserId,
                 Status = PhotoshootStatus.New,
-                PlaceId = dto.PlaceId == Guid.Empty ? null : dto.PlaceId
+                PlaceId = dto.PlaceId == Guid.Empty ? null : dto.PlaceId,
+                PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType)
             };
 
             //not used anymore
@@ -306,6 +308,28 @@ namespace OwlStock.Services
                 .FirstOrDefaultAsync();
 
             return name ?? throw new NullReferenceException($"{nameof(name)} is null or empty");
+        }
+
+        private static string GeneratePhotoshootNumber(string email, PhotoShootType photoShootType)
+        {
+            string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            //generate three random numbers to get three random letters from the alphabet
+            Random random = new();
+            int randomNumber1 = random.Next(0, alphabet.Length);
+            int randomNumber2 = random.Next(0, alphabet.Length);
+            int randomNumber3 = random.Next(0, alphabet.Length);
+
+            string number = 
+                        "PH-" +
+                        DateTime.Now.Year.ToString().Substring(2) +
+                        DateTime.Now.Month +
+                        DateTime.Now.Day +
+                        photoShootType.ToString().Substring(0, 3).ToUpper() +
+                        email.ToUpper().Substring(0, 3) + "-" +
+                        alphabet[randomNumber1] + alphabet[randomNumber2] + alphabet[randomNumber3];
+            
+            return number;
         }
     }
 }

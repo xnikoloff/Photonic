@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-12 mx-auto text-center">
             <h1>Фотосесия</h1>
-            <h3>#@Model.Id</h3>
+            <h3>@(Model?.PhotoshootNumber ?? "N/A")</h3>
         </div>
     </div>
     <div class="row">
@@ -24,25 +24,34 @@
                         }
                         <th>Град</th>
                         <th>Област</th>
-                        <th>Получаване на снимки</th>
-                        <th>Адрес за получаване</th>
+                        <th>Получаване</th>
                         <th>Цена</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>@Model?.PersonFullName</td>
-                        <td>@Model?.ReservationDate</td>
-                        <td>@Model?.PhotoShootType</td>
-                        <td>@Model?.CreatedOn</td>
+                        <td>@Model?.ReservationDate.ToString("dd.MM.yyyy") г. @Model?.ReservationDate.ToString("hh:mm") ч.</td>
+                        <td>
+                            @{
+                                DisplayAttribute attributeValue = Model?.PhotoShootType.GetAttribute<DisplayAttribute>();
+                            }
+                            @attributeValue?.Name
+                        </td>
+                        <td>@Model?.CreatedOn.ToString("dd.MM.yyyy") г. @Model?.CreatedOn.ToString("hh:mm") ч.</td>
                         @if (Model?.PlaceId != null)
                         {
                             <td>@Model?.Place?.Name</td>
                         }
                         <td>@(Model?.Place?.City?.Name ?? "N/A")</td>
                         <td>@(Model?.Place?.City?.Region?.Name ?? "N/A")</td>
-                        <td>@(string.IsNullOrEmpty(Model?.PhotoDeliveryMethod.ToString()) ? "В профила Ви" : Model?.PhotoDeliveryMethod)</td>
-                        <td>@(Model?.PhotoDeliveryAddress ?? "N/A")</td>
+                        <td>
+                            @(string.IsNullOrEmpty(Model?.PhotoDeliveryMethod.ToString()) ? 
+                                "В профила Ви" : 
+                                Model?.PhotoDeliveryMethod)
+                            @(Model?.PhotoDeliveryAddress != null ? ", " : "")
+                            @(Model?.PhotoDeliveryAddress ?? "")
+                        </td>
                         <td>@(Model?.Price.ToString() ?? "N/A") лв</td>
                     </tr>
                 </tbody>
@@ -55,7 +64,7 @@
     {
         <div class="row">
             <div class="col-12">
-                <p class="text-center"><i>Снимките Ви ще се покажат скоро тук :)</i></p>
+                <p class="text-center"><i>Снимките ще се покажат скоро тук</i></p>
             </div>
         </div>
     }

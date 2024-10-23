@@ -367,7 +367,6 @@
         let lastClickedTimeSlotBtn = null;
 
         $("#booking-form").submit(function (event) {
-            console.log($(".settlement:visible").length > 0);
             if ($(".settlement:visible").length > 0 && $("#SelectedSettlementId").val() == undefined) {
                 event.preventDefault();
                 $("#settlement-validation-message").css("display", "block");
@@ -512,7 +511,7 @@
             //set the currect clicked button as last clicked
             lastClickedDateBtn = $(this);
 
-            showTimeSlots($(this).find(".card-header h6").html());
+            showTimeSlots($(this).find(".card-header h4").html());
         });
 
         $(document).on("click", ".btn-date", function () {
@@ -629,9 +628,10 @@
     }
 
     function setDate(){
-        $(".btn-date").click(function () {
+         $(".btn-date").click(function () {
             let currentDate = new Date();
-            let selectedDay = formatSelectedDate($(this).find(".date-text").text());
+            let dateText = $(this).find(".date-text").text();
+            let selectedDay = formatSelectedDate(dateText);
             $('input[name="ReservationDate"]').val(selectedDay);
         });
     }
@@ -652,14 +652,11 @@
     }
 
     function showTimeSlots(selectedDate){
-
         let selectedDateFormated = formatSelectedDate(selectedDate);
         let calendar = @Html.Raw(Json.Serialize(calendar));
         let isAvailable = false;
         let time = '';
         let timeSubstring = '';
-
-        console.log(calendar);
 
         $('#hours-container').empty();
         $('#hours-container').css("display", "block");
@@ -692,8 +689,6 @@
 
     function getForecast(settlementId, isSettlement) {
         let forecastURL = isSettlement ? "@Url.Action("forecast", "Weather")" : "@Url.Action("forecastForPlace", "Weather")";
-        console.log(isSettlement);
-        console.log(forecastURL);
         var request = $.ajax({
             url: forecastURL,
             method: "GET",
@@ -749,7 +744,6 @@
             data: { "regionId": $("#Region").find(":selected").val() },
             method: "GET",
             success: function (response) {
-                console.log(response);
                 let json = JSON.parse(JSON.stringify(response));
                 $("#PopularPlaces").selectize({
                     respect_word_boundaries: false,
@@ -764,14 +758,12 @@
                     onChange: function (value) {
                         json.find
                         updatePrice();
-                        console.log('value: ' + value);
                         getForecast(value, false);
                         $("#row-dates-weather").css("display", "flex");
                         $("#IsPlace").val(true);
                         $("#PlaceId").val(value);
                         $("#SelectedSettlementId").val((findElementById(json, value)).cityId);
                         $("#IsPlaceSelected").val(true);
-                        console.log('value ' + value);
                         /*if ($("#IsDecidedByUs").prop('checked') == false) {
                             $(".place-addition-info").css("display", "block");
                             $("#row-dates-weather").css("transition", ".4s");
@@ -815,7 +807,6 @@
                         options: response,
                         onChange: function (value) {
                             updatePrice();
-                            console.log('hello settlement');
                             getForecast(value, true);
                             $("#IsPlace").val(false);
                             $("#SelectedSettlementId").val(value);
@@ -908,7 +899,6 @@
 
     function updatePrice(){
         $("#total-price").html('0');
-        console.log('updateprice');
         //hide curreny by default
         $("#currency").css("display", "none");
 
