@@ -1,7 +1,6 @@
 ﻿@model CreatePhotoShootDTO
 
 @{
-    List<DateTime> remainingDates = Model.RemainingDates ?? new();
     Dictionary<DateOnly, IEnumerable<TimeSlot>> calendar = Model.Calendar ?? new();
 }
 
@@ -167,10 +166,17 @@
                                     <h4 class="date-text">@calendarKVP.Key.ToString("dd.MM")</h4>
                                 </div>
                                 <div class="card-body card-body-weather text-center" style="background: @(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("#8dba8d") : Html.Raw("#f57976"))">
-                                    <h6 class="temperatureCurrent"></h6>
-                                    <div class="icon"></div>
+                                    @foreach (TimeSlot slot in calendarKVP.Value)
+                                    {
+                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-success" : "btn-danger") btn-sm my-1 btn-time-slot" id="time-slot">
+                                            @(slot.Time.Hour < 10 ? $"0{slot.Time.Hour}" : slot.Time.Hour):@(slot.Time.Minute == 0 ? "00" : "30")
+                                        </button>
+                                    }
+                                    <hr />
+                                    <p class="temperatureCurrent weather-info-text"></p>
+                                    <p class="icon weather-info-text"></p>
                                     <p class="forecastText">Нямаме информация за времето</p>
-                                    <p class="precipitation"></p>
+                                    <p class="precipitation weather-info-text"></p>
                                 </div>
                                 <div class="card-footer">
                                     <span>@(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("<i class=\"fa-solid fa-check fa-lg\"></i>") : Html.Raw("<i class=\"fa-solid fa-xmark fa-lg\"></i>"))</span>
@@ -180,8 +186,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 hours-container mx-auto text-center" id="hours-container" style="display:none">
+            @*<div class="row">
+                <div class="col-12 hours-container mx-auto text-center" id="hours-container">
                     <hr />
                     @foreach (TimeSlot slot in Model?.AllTimeSlots ?? throw new NullReferenceException("Time slots are null"))
                     {
@@ -190,7 +196,7 @@
                         </button>
                     }
                 </div>
-            </div>
+            </div>*@
         </div>
         <div class="price-container my-5" style="display:none">
             <div class="row row-total-price">
@@ -357,6 +363,12 @@
 
     #DoNotUploadPhotos, #IsDecidedByUs {
         transform: scale(1.2);
+    }
+
+    .weather-info-text{
+        margin: 0;
+        padding: 0;
+        line-height: 15px;
     }
 
 </style>
@@ -526,13 +538,13 @@
             //bg-success is set as default because style is change for available buttons only
             if (lastClickedTimeSlotBtn != null) {
                 lastClickedTimeSlotBtn.removeClass('btn-primary');
-                lastClickedTimeSlotBtn.addClass('btn-outline-success');
+                lastClickedTimeSlotBtn.addClass('btn-success');
             }
 
-            if ($(this).hasClass("btn-outline-success")) {
+            if ($(this).hasClass("btn-success")) {
                 $("#ReservationTime").val($(this).text());
                 $("#btn-book").prop("disabled", false);
-                $(this).removeClass('btn-outline-success');
+                $(this).removeClass('btn-success');
                 $(this).addClass('btn-primary');
             }
             

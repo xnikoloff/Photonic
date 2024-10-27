@@ -10,6 +10,7 @@ namespace OwlStock.Services
         private readonly DateTime _currentDateTime;
         private readonly IEnumerable<DateTime> _remainingDates;
 
+        //Available working hours
         private readonly TimeSlot[] _timeSlots =
         {
             new(new(8, 0), true),
@@ -27,20 +28,28 @@ namespace OwlStock.Services
             _remainingDates = GetRemainingDates();
         }
 
+        /// <summary>
+        /// Modifies the Calendar by adding booked dates with booked timeslots for each date
+        /// </summary>
+        /// <param name="reservationDates">Dates that are already booked</param>
+        /// <returns>Full calendar with booked dates and booked timeslots for each date</returns>
         public Dictionary<DateOnly, IEnumerable<TimeSlot>> GetPhotoShootsCalendar(List<DateTime> reservationDates)
         {
+            //build calendar
             Dictionary<DateOnly, IEnumerable<TimeSlot>> calendar = GetDefaultCalendar();
-            List<DateTime> modifiedDates = new();
-            TimeSlot[] timeSlots = GetTimeSlots().ToArray();
             
+            //modifies the calendar
+            //assigns booked timeslots for each date
             for (int i = 0; i < reservationDates.Count; i++)
             {
+                //holds modified timeslots for each iteration
+                //prevents changing timeslots for the other dates in the dictionary
                 List<TimeSlot> modifiedTimeSlots = new();
 
-                //assign new objects for the booked hours for differented dates
-                for (int j = 0; j < timeSlots.Length; j++)
+                //assign timeslots of the booked hours for each iteration
+                for (int j = 0; j < _timeSlots.Length; j++)
                 {
-                    modifiedTimeSlots.Add(new(timeSlots[j].Time, timeSlots[j].IsAvailable));
+                    modifiedTimeSlots.Add(new(_timeSlots[j].Time, _timeSlots[j].IsAvailable));
                 }
                 
                 //make it not available
@@ -51,15 +60,12 @@ namespace OwlStock.Services
 
                 //assign the modified timeslots to the key for the current reservation
                 calendar[DateOnly.FromDateTime(reservationDates[i].Date)] = modifiedTimeSlots;
-
-                //Add modified dates to check if the date has already been modified
-                modifiedDates.Add(reservationDates[i]);
             }
 
             return calendar;
         }
 
-        //remove, it's the same as the readonly {_timeSlots} array
+        //Expose private {_timeSlots} to external services
         public TimeSlot[] GetTimeSlots()
         {
             TimeSlot[] timeSlots = new TimeSlot[_timeSlots.Length];
@@ -73,14 +79,21 @@ namespace OwlStock.Services
             return timeSlots;
         }
 
+        /// <summary>
+        /// Builds Dictionary of dates
+        /// starting from today and timelosts for each date 
+        /// </summary>
+        /// <returns>Dictionary of date and timelosts for each date</returns>
         public Dictionary<DateOnly, IEnumerable<TimeSlot>> GetDefaultCalendar()
         {
             Dictionary<DateOnly, IEnumerable<TimeSlot>> calendar = new();
-            
+            //convert {_remainingDates} to List
+            List<DateTime> remainingDatesList = _remainingDates.ToList();
 
-            for(int i = 0; i < GetRemainingDates().Count(); i++)
+            //build Dictionary of dates and available timeslots for each date
+            for (int i = 0; i < remainingDatesList.Count; i++)
             {
-                calendar.Add(DateOnly.FromDateTime(_remainingDates.ToList()[i]), _timeSlots);
+                calendar.Add(DateOnly.FromDateTime(remainingDatesList[i]), _timeSlots);
             }
 
             return calendar;

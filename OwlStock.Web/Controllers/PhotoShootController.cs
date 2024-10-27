@@ -13,15 +13,12 @@ namespace OwlStock.Web.Controllers
     public class PhotoShootController : Controller
     {
         private readonly IPhotoShootService _photoShootService;
-        private readonly ICalendarService _calendarService;
         private readonly ISettlementService _settlementService;
         private readonly IPlaceService _placeService;
         
-        public PhotoShootController(IPhotoShootService photoShootService, ICalendarService calendarService, 
-            ISettlementService settlementService, IPlaceService placeService)
+        public PhotoShootController(IPhotoShootService photoShootService, ISettlementService settlementService, IPlaceService placeService)
         {
             _photoShootService = photoShootService;
-            _calendarService = calendarService;
             _settlementService = settlementService;
             _placeService = placeService;
         }
@@ -38,8 +35,6 @@ namespace OwlStock.Web.Controllers
             CreatePhotoShootDTO dto = new()
             {
                 Calendar = await _photoShootService.GetPhotoShootsCalendar(),
-                AllTimeSlots = _calendarService.GetTimeSlots(),
-                RemainingDates = _calendarService.GetRemainingDates().ToList(),
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
             };
             
@@ -49,39 +44,35 @@ namespace OwlStock.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Reserve(CreatePhotoShootDTO dto)
         {
-            if (dto.IsDecidedByUs)
-            {
-                ModelState.Remove("SelectedSettlementId");
-            }
+            //When photoshoot's place is decided by the studio or a popular place is selected
+            //UserPlace (the name of the place that is created by the user) is no longer required
             if (dto.IsDecidedByUs || dto.IsPlaceSelected)
             {
                 ModelState.Remove("UserPlace");
             }
 
+            //return to the view if the ModelState is not vaild
             if (!ModelState.IsValid)
             {
                 dto.Calendar = await _photoShootService.GetPhotoShootsCalendar();
-                dto.AllTimeSlots = _calendarService.GetTimeSlots();
-                dto.RemainingDates = _calendarService.GetRemainingDates().ToList();
                 dto.ServicedRegions = (await _settlementService.GetServicedRegion()).ToList();
                 return View(dto);
             }
 
+            //Photoshoot description is required when photshoot type is Other
             if(dto.PhotoShootType == PhotoShootType.Other && dto.PhotoShootTypeDescription.IsNullOrEmpty())
             {
                 ModelState.AddModelError(string.Empty, "Описането на фотосесията е задължително");
 
                 dto.Calendar = await _photoShootService.GetPhotoShootsCalendar();
-                dto.AllTimeSlots = _calendarService.GetTimeSlots();
-                dto.RemainingDates = _calendarService.GetRemainingDates().ToList();
-
                 return View(dto);
             }
 
+            //get user id and email
             dto.IdentityUserId = GetUserId();
             dto.PersonEmail = User.FindFirstValue(ClaimTypes.Email);
 
-
+            //Create new place if UserPlace is not null
             if (!string.IsNullOrEmpty(dto.UserPlace))
             {
                 Place? place = await _placeService.Create(new()
@@ -93,14 +84,18 @@ namespace OwlStock.Web.Controllers
 
                 });
 
+                //Return error if place was not created
                 if (place == null)
                 {
                     return View("Error", "Нещо се обърка повреме на резервирането...");
                 }
-            
+                
+                //Set the newly created place id
                 dto.PlaceId = place.Id;
             }
            
+            //If reached that line, everything is OK,
+            //create the photoshoot
             await _photoShootService.Add(dto);
             return View("_SucessfulReservation");
         }
@@ -115,13 +110,13 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> PhotoShootById(Guid id)
         {
-            PhotoShoot? photoshoot = await _photoShootService.PhotoShootById(id, GetUserId());
+            PhotoShootByIdDTO? dto = await _photoShootService.PhotoShootById(id, GetUserId());
             
-            if (photoshoot == null)
+            if (dto == null)
             {
                 return View("Error", "Несъществуваща фотосесия");
             }
-            return View(photoshoot);
+            return View(dto);
         }
 
         private string GetUserId()

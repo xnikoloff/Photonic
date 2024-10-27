@@ -1,4 +1,4 @@
-﻿@model PhotoShoot
+﻿@model PhotoShootByIdDTO
 
 <div class="container">
     <div class="row">
@@ -18,7 +18,7 @@
                         <th>Дата</th>
                         <th>Тип</th>
                         <th>Създаден на</th>
-                        @if (Model?.PlaceId != null)
+                        @if (Model?.IsPopularPlaceSelected != null)
                         {
                             <th>Място</th>
                         }
@@ -39,12 +39,12 @@
                             @attributeValue?.Name
                         </td>
                         <td>@Model?.CreatedOn.ToString("dd.MM.yyyy") г. @Model?.CreatedOn.ToString("hh:mm") ч.</td>
-                        @if (Model?.PlaceId != null)
+                        @if (Model?.IsPopularPlaceSelected != null)
                         {
-                            <td>@Model?.Place?.Name</td>
+                            <td>@Model?.Place</td>
                         }
-                        <td>@(Model?.Place?.City?.Name ?? "N/A")</td>
-                        <td>@(Model?.Place?.City?.Region?.Name ?? "N/A")</td>
+                        <td>@(Model?.Settlement ?? "N/A")</td>
+                        <td>@(Model?.Region ?? "N/A")</td>
                         <td>
                             @(string.IsNullOrEmpty(Model?.PhotoDeliveryMethod.ToString()) ? 
                                 "В профила Ви" : 

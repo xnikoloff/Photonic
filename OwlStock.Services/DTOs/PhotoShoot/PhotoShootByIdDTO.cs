@@ -1,21 +1,25 @@
-﻿using Microsoft.AspNetCore.Identity;
-using OwlStock.Domain.Entities;
+﻿using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
-using System.ComponentModel.DataAnnotations;
 
 namespace OwlStock.Services.DTOs.PhotoShoot
 {
     public class PhotoShootByIdDTO
     {
         public Guid Id { get; set; }
+        public string? PhotoshootNumber { get; set; }
         public string? PersonFullName { get; set; }
         public DateTime ReservationDate { get; set; }
-        public DateTime CreatedOn { get; set; }
         public PhotoShootType PhotoShootType { get; set; }
+        public DateTime CreatedOn { get; set; }
         public string? PhotoShootTypeDescription { get; set; }
+        public bool IsPopularPlaceSelected { get; set; }
+        public string? Place { get; set; }
+        public string? Settlement { get; set; }
+        public string? Region { get; set; }
+        public PhotoDeliveryMethod? PhotoDeliveryMethod { get; set; }
+        public string? PhotoDeliveryAddress { get; set; }
+        public decimal Price { get; set; }
         public string? IdentityUserId { get; set; }
-
-        [Required]
-        public List<string>? FileNames { get; set; }
+        public ICollection<PhotoShootPhoto>? PhotoShootPhotos { get; set; }
     }
 }

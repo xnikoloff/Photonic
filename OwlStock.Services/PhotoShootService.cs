@@ -64,22 +64,45 @@ namespace OwlStock.Services
             return dto;
         }
 
-        public async Task<PhotoShoot?> PhotoShootById(Guid id, string userId)
+        public async Task<PhotoShootByIdDTO?> PhotoShootById(Guid id, string userId)
         {
             if (_context.PhotoShoots is null)
             {
                 throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
             }
 
-            //List<string> files = await _fileService.GetFilesNamesForPhotoShoot(id);
-
-            PhotoShoot? dto = await _context.PhotoShoots
+            PhotoShoot? photoshoot = await _context.PhotoShoots
                 .Include(phs => phs.PhotoShootPhotos)
                 .Include(phs => phs.Place)
                     .ThenInclude(p => p.City)
                     .ThenInclude(c => c.Region)
                 .Where(phs => phs.Id == id && phs.IdentityUserId!.Equals(userId))
                 .FirstOrDefaultAsync();
+
+            if (photoshoot == null)
+            {
+                throw new NullReferenceException($"{nameof(photoshoot)} with Id {id} cannot be found");
+            }
+
+            PhotoShootByIdDTO dto = new()
+            {
+                Id = photoshoot.Id,
+                PhotoshootNumber = photoshoot.PhotoshootNumber,
+                PersonFullName = photoshoot.PersonFullName,
+                ReservationDate = photoshoot.ReservationDate,
+                PhotoShootType = photoshoot.PhotoShootType,
+                PhotoShootTypeDescription = photoshoot?.PhotoShootTypeDescription,
+                CreatedOn = photoshoot.CreatedOn,
+                IsPopularPlaceSelected = photoshoot?.PlaceId != null,
+                Place = photoshoot?.Place?.Name,
+                Settlement = photoshoot?.Place?.City?.Name,
+                Region = photoshoot?.Place?.City?.Region?.Name,
+                PhotoDeliveryAddress = photoshoot?.PhotoDeliveryAddress,
+                PhotoDeliveryMethod = photoshoot?.PhotoDeliveryMethod,
+                Price = photoshoot.Price,
+                PhotoShootPhotos = photoshoot?.PhotoShootPhotos,
+                IdentityUserId = userId,
+            };
 
             return dto;
         }
@@ -114,11 +137,14 @@ namespace OwlStock.Services
 
         public async Task<PhotoShoot> Add(CreatePhotoShootDTO dto)
         {
-            string number = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType);
             if (dto == null)
             {
                 throw new ArgumentNullException(nameof(dto));
             }
+
+            string number = GeneratePhotoshootNumber(dto.PersonEmail ?? 
+                throw new NullReferenceException($"{nameof(dto.PersonEmail)} is null"),
+                dto.PhotoShootType);
 
             if (_context.PhotoShoots is null)
             {
@@ -141,8 +167,6 @@ namespace OwlStock.Services
                 PhotoShootType = dto.PhotoShootType,
                 PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
                 CreatedOn = DateTime.Now,
-                //UserPlace = dto.UserPlace, //not used anymore
-                //GoogleMapsLink = dto.GoogleMapsLink, //not used anymore
                 IsDecidedByUs = dto.IsDecidedByUs,
                 DoNotUploadPhotos = dto.DoNotUploadPhotos,
                 PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
@@ -153,19 +177,6 @@ namespace OwlStock.Services
                 PlaceId = dto.PlaceId == Guid.Empty ? null : dto.PlaceId,
                 PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType)
             };
-
-            //not used anymore
-            //now the PhotoShoot has PlaceId that contains the 
-            //full information about Place's City and Region
-            /*if(dto.IsPlace)
-            {
-                photoShoot.PlaceId = new Guid(dto.SelectedSettlementId ?? throw new ArgumentNullException(dto.SelectedSettlementId));
-            }
-
-            else
-            {
-                photoShoot.CityId = (Convert.ToInt32(dto.SelectedSettlementId));
-            }*/
 
             //not used for now
             //double timeForTravel = _calculationsService.CalculateTimeForTravel(DefaultValue.DefaultSettlementLatitude, DefaultValue.DefaultSettlementLongitude,
