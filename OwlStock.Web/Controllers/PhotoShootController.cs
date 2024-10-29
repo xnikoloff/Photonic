@@ -41,6 +41,19 @@ namespace OwlStock.Web.Controllers
             return View(dto);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ReserveByType(PhotoShootType photoShootType)
+        {
+            CreatePhotoShootDTO dto = new()
+            {
+                PhotoShootType = photoShootType,
+                Calendar = await _photoShootService.GetPhotoShootsCalendar(),
+                ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
+            };
+
+            return View(nameof(Reserve), dto);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Reserve(CreatePhotoShootDTO dto)
         {
