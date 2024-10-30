@@ -26,7 +26,7 @@
                 <h1>Резервация</h1>
             </div>
         </div>*@
-        <div class="row mt-5">
+        <div class="row mt-3">
             <div class="col-12">
                 <h4>Фотосесия</h4>
             </div>
@@ -36,7 +36,7 @@
                 <span asp-validation-for="PhotoShootType" class="text-danger"></span>
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-3">
             <div class="col-12">
                 <h4>Вашите данни</h4>
             </div>
@@ -70,7 +70,7 @@
                 <span asp-validation-for="PhotoShootTypeDescription" class="text-danger"></span>
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-3">
             <div class="col-12">
                 <h4>Място</h4>
             </div>
@@ -139,7 +139,7 @@
             </div>
         </div>
         <div class="dates-container" style="display:none">
-            <div class="row mt-5">
+            <div class="row mt-3">
                 <div class="col-12">
                     <h4>Дата и час</h4>
                 </div>
@@ -206,16 +206,16 @@
         <div class="price-container my-5" style="display:none">
             <div class="row row-total-price">
                 <div class="col-12 mt-5 text-center ">
-                    <h1>Цена: <span id="total-price"></span> <span id="currency"> лв</span></h1>
+                    
                             
                 </div>
             </div>
         </div>
-        <div class="gdpr-container mt-5">
+        <div class="gdpr-container mt-3">
             <div class="col-12">
                 <h4>GDPR</h4>
             </div>
-            <div class="row mt-4">
+            <div class="row mt-3">
                 <div class="col-12">
                     <div class="form-group">
                         <input asp-for="DoNotUploadPhotos" class="form-check-input"/>
@@ -239,27 +239,44 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <!--<div class="row">
                 <div class="col-12">
-                    <span class="alert-text text-muted">*С избирането на опцията „<b>Не желая снимките ми да се качват тук</b>“ отказвате снимките Ви да бъдат качени на уебсайта на DreamPix. Ще получите снимките по метода, който сте избрали отгоре.</span>
+                    <span class="alert-text text-muted">*С избирането на опцията „<b>Не желая снимките ми да се качват тук</b>“ отказвате снимките Ви да бъдат качени на уебсайта на DreamPix. Ще ги получите по метода, който сте избрали.</span>
                 </div>
-            </div>
-            <div class="row mt-2">
+            </div>-->
+            <div class="row mt-1">
                 <div class="col-12">
-                    <span class="alert-text text-muted">*С натискането на бутона „<b>Резервирай</b>“ се съгласявате да изполваме въведетите от вас данни. Те ще бъдат използвани единствено за целите на работния процес на DreamPix.</span>
+                    <span class="alert-text text-muted">*С натискането на бутона „<b>Резервирай</b>“ се съгласявате да изполваме въведетите от Вас данни. Те ще бъдат използвани единствено за целите на работния процес.</span>
                 </div>
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-12 text-center">
-                <button type="submit" class="btn btn-outline-secondary btn-lg" id="btn-book" disabled>Резервирай</button>
+            
+        </div>
+        <div class="row row-price-bottom py-3 bg-primary fixed-bottom">
+            <div class="col-12 col-md-6 col-lg-4 col-price-bottom text-center">
+                <h4><span>ФОТОСЕСИЯ</span> <span class="text-dark" id="photoshootTypeBottom">N/A</span></h4>
+
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 col-price-bottom text-center">
+                <h4><span>ЦЕНА</span> <span class="text-dark" id="total-price">N/A</span> <span class="text-dark" id="currency">лв</span></h4>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mt-3 text-center">
+                <button type="submit" class="btn btn-light" id="btn-book" disabled>РЕЗЕРВИРАЙ</button>
             </div>
         </div>
     </form>
 </div>
+
  
 
 <style>
+    .row-price-bottom{
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 1px 4px 8px #000;
+    }
+
     .left-column {
         height: 100vh;
         overflow-y: auto;
@@ -477,6 +494,8 @@
             }
             
             togglePlacesButton();
+
+            $("#regionBottom").text($('#Region').find(":selected").text());
         });
         
         /*$("#Settlement").change(function () {
@@ -592,6 +611,8 @@
             checkPhotoShootTypeDescriptionEmpty();
             updatePrice();
             togglePlacesButton();
+
+            $("#photoshootTypeBottom").html($('#PhotoShootType').find(":selected").text());
         });
 
         $("#showPopularPlaces").click(function(){
