@@ -253,17 +253,36 @@
         <div class="row mt-5">
             
         </div>
-        <div class="row row-price-bottom py-3 bg-primary fixed-bottom">
-            <div class="col-12 col-md-6 col-lg-4 col-price-bottom text-center">
+        
+        <div class="row row-price-bottom py-2 px-3 bg-primary fixed-bottom">
+            <table class="text-center">
+                <thead>
+                    <tr>
+                        <th>ФОТОСЕСИЯ</th>
+                        <th>РЕГИОН</th>
+                        <th>ЦЕНА</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="text-dark" id="photoshootTypeBottom">N/A</span></td>
+                        <td><span class="text-dark" id="regionBottom">N/A</span></td>
+                        <td><span class="text-dark" id="total-price">N/A</span> <span class="text-dark" id="currency">лв</span></td>
+                        <td><button type="submit" class="btn btn-light" id="btn-book" disabled>РЕЗЕРВИРАЙ</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--<div class="col-12 col-md-6 col-lg-4 col-price-bottom text-center">
                 <h4><span>ФОТОСЕСИЯ</span> <span class="text-dark" id="photoshootTypeBottom">N/A</span></h4>
 
             </div>
             <div class="col-12 col-md-6 col-lg-4 col-price-bottom text-center">
                 <h4><span>ЦЕНА</span> <span class="text-dark" id="total-price">N/A</span> <span class="text-dark" id="currency">лв</span></h4>
             </div>
-            <div class="col-12 col-md-6 col-lg-4 mt-3 text-center">
+            <div class="col-12 col-md-6 col-lg-4 text-center col-btn-book">
                 <button type="submit" class="btn btn-light" id="btn-book" disabled>РЕЗЕРВИРАЙ</button>
-            </div>
+            </div>-->
         </div>
     </form>
 </div>
@@ -399,6 +418,10 @@
     $(document).ready(function(){
         let lastClickedDateBtn = null;
         let lastClickedTimeSlotBtn = null;
+
+        //check photoshoot type and price on page load
+        $("#photoshootTypeBottom").html($('#PhotoShootType').find(":selected").text());
+        updatePrice();
 
         $("#booking-form").submit(function (event) {
             if ($(".settlement:visible").length > 0 && $("#SelectedSettlementId").val() == undefined) {
@@ -888,7 +911,7 @@
             method: "GET",
             data: { 'regionId': regionId },
             success: function (response) {
-                calculateTotalPrice($("#PhotoShootType").find(":selected").val(), response);
+                //calculateTotalPrice($("#PhotoShootType").find(":selected").val(), response);
                 $("#price").text(response);
                 $("#FuelPrice").val(response);
                 
