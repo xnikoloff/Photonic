@@ -1,0 +1,43 @@
+﻿@model List<GalleryPhoto>
+
+@{
+    ViewData["Title"] = "Галерия";
+}
+
+<div class="container">
+    <div class="grid">
+        @foreach(GalleryPhoto photo in Model)
+        {
+            <div class="grid-item">
+                <a asp-controller="Photo" asp-action="PhotoById" asp-route-id="@photo.Id">
+                    <img src="~/resources/@photo.FilePathSmall" />
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .grid-item, img {
+        width: 350px;
+    }
+
+    .grid-item{
+        margin-bottom: 10px;
+    }
+
+    .grid-item:hover{
+        transform: scale(.9);
+        transition: .2s;
+    }
+    
+</style>
+
+<script>
+    $('.grid').masonry({
+        // options
+        itemSelector: '.grid-item',
+        columnWidth: 350,
+        gutter: 10
+    });
+</script>

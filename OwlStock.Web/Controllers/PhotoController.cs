@@ -7,6 +7,7 @@ using OwlStock.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
+using System.Reflection.Metadata.Ecma335;
 
 namespace OwlStock.Web.Controllers
 {
@@ -31,6 +32,12 @@ namespace OwlStock.Web.Controllers
             _galleryService = galleryService;
             _fileService = fileService;
             _commonServices = commonServices;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _galleryService.All());
         }
 
         [HttpGet]

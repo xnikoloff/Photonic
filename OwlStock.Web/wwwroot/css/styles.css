@@ -10955,6 +10955,11 @@ header.masthead {
     background-position: center center;
     background-size: cover;
 }
+header.masthead .masthead-heading-wrapper{
+    background: rgba(0, 0, 0, 0.4);
+    padding: 40px 0;
+    border-radius: 5px;
+}
 header.masthead .masthead-subheading {
   font-size: 1.2rem;
   /*font-style: italic;*/

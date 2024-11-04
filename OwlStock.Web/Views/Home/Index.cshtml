@@ -7,9 +7,11 @@
 <!-- Masthead-->
 <header class="masthead">
     <div class="container wrapper">
-        <div class="masthead-heading text-uppercase">DreamPix</div>
-        <div class="masthead-subheading">Нашето вдъхновение са вашите спомени</div>
-        <a asp-controller="Photoshoot" asp-action="Reserve" class="btn btn-primary btn-xl text-uppercase mt-3">Резервирай</a>
+        <div class="masthead-heading-wrapper">
+            <div class="masthead-heading text-uppercase">DreamPix</div>
+            <div class="masthead-subheading">Нашето вдъхновение са вашите спомени</div>
+        </div>
+        <a asp-controller="Photoshoot" asp-action="Reserve" class="btn btn-primary btn-xl text-uppercase mt-5">Резервирай</a>
     </div>
 </header>
 <div class="container icons-container">
@@ -17,13 +19,13 @@
         <div class="col-12 col-md-6 col-lg-3 icons-column">
             <span class="icon"><i class="fa-solid fa-camera fa-2xl"></i></span>
             <h4 class="icon-title">Услуги</h4>
-            <p class="icon-text">Потърсете ни за всеки повод, който искате се превърне в спомен</p>
+            <p class="icon-text">Потърсете ни за всичко, което искате да се превърне в спомен</p>
             <a asp-controller="StaticContent" asp-action="Services" class="btn btn-outline-primary icon-cta-btn">Повече</a>
         </div>
         <div class="col-12 col-md-6 col-lg-3 icons-column">
             <span class="icon"><i class="fa-solid fa-coins fa-2xl"></i></span>
             <h4 class="icon-title">Цени</h4>
-            <p class="icon-text">Разгледайте ценовата ни гама, за предлаганите от нас услуги</p>
+            <p class="icon-text">Разгледайте ценовата гама на предлаганите от нас услуги</p>
             <a asp-controller="StaticContent" asp-action="Pricing" class="btn btn-outline-primary icon-cta-btn">Повече</a>
         </div>
         <div class="col-12 col-md-6 col-lg-3 icons-column">
@@ -155,7 +157,7 @@
 
     /*Override from styles.css*/
     header.masthead {
-        background-image: url(@ViewBag.HomePhoto);
+        background-image: url(@(Url.Content($"~/resources/{ViewBag.HomePhoto}")));
     }
 
     .icons-container {
@@ -247,6 +249,12 @@
     @@media only screen and (max-width: 900px) {
         .masthead .wrapper{
             padding-top: 80px;
+        }
+    }
+
+    @@media only screen and (max-width: 768px){
+        .icons-container .icons-column .icon-text {
+            min-height: 40px;
         }
     }
 </style>
