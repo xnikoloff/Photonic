@@ -6,12 +6,14 @@
 
 <!-- Masthead-->
 <header class="masthead">
-    <div class="container wrapper">
-        <div class="masthead-heading-wrapper">
-            <div class="masthead-heading text-uppercase">DreamPix</div>
-            <div class="masthead-subheading">Нашето вдъхновение са вашите спомени</div>
+    <div class="dimmer">
+        <div class="container wrapper">
+            <div class="masthead-heading-wrapper">
+                <div class="masthead-heading text-uppercase"><img src="~/DreamPixW.png"/></div>
+                <div class="masthead-subheading">Нашето вдъхновение са <span id="your-colored">вашите</span> спомени</div>
+            </div>
+            <a asp-controller="Photoshoot" asp-action="Reserve" class="btn btn-primary btn-xl text-uppercase mt-5 btn-book">Резервирай</a>
         </div>
-        <a asp-controller="Photoshoot" asp-action="Reserve" class="btn btn-primary btn-xl text-uppercase mt-5">Резервирай</a>
     </div>
 </header>
 <div class="container icons-container">
@@ -160,6 +162,41 @@
         background-image: url(@(Url.Content($"~/resources/{ViewBag.HomePhoto}")));
     }
 
+    header.masthead .dimmer{
+        margin-top: -30px;
+        background: rgba(0, 0, 0, 0.8);
+        width: 100%;
+        height: 100%;
+        padding: 0 0;
+        animation-name: animateBoxShadowMasthead;
+        animation-duration: 2s;
+        box-shadow: 0px 0px 46px 5px rgba(0, 0, 0, 0.6);
+        padding: 50px 0;
+    }
+
+    .masthead-heading-wrapper{
+        transform: scale(.5);
+        animation-name: animateMastheadTexts;
+        animation-duration: 2s;
+        transform: scale(1);
+    }
+
+    #your-colored{
+        color: #ffc800;
+        font-weight: bold;
+    }
+
+    .btn-book{
+        animation-name: animateBookButton;
+        animation-delay: 2s;
+        animation-iteration-count: infinite;
+        animation-duration: 2s;
+    }
+
+    .btn-book:hover {
+        animation-name: unset;
+    }
+
     .icons-container {
         padding: 150px 0;
     }
@@ -255,6 +292,42 @@
     @@media only screen and (max-width: 768px){
         .icons-container .icons-column .icon-text {
             min-height: 40px;
+        }
+    }
+
+    @@keyframes animateBoxShadowMasthead {
+      from {
+            box-shadow: 0px 0px 46px 5px rgba(0, 0, 0, 0.6);
+            padding: 0 0;
+      }
+      to {
+            box-shadow: 0px 0px 46px 5px rgba(0, 0, 0, 0.6);
+            padding: 50px 0;
+      }
+    }
+    @@keyframes animateMastheadTexts {
+        from {
+            transform: scale(.5);
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+
+    @@keyframes animateBookButton{
+        0% {
+            transform: unset;
+            box-shadow: 0px 0px 22px #ffc800;
+        }
+
+        50% {
+            transform: scale(0.9);
+            box-shadow: 0px 0px 8px #ffc800;
+        }
+
+        100%{
+            box-shadow: 0px 0px 22px #ffc800;
         }
     }
 </style>

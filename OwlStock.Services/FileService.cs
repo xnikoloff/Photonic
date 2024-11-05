@@ -1,11 +1,20 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwlStock.Domain.Entities;
+using OwlStock.Domain.Enumerations;
 using OwlStock.Services.DTOs;
+using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Services
 {
     public class FileService : IFileService
     {
+        private readonly IPhotoResizer _photoResizer;
+
+        public FileService(IPhotoResizer photoResizer)
+        {
+            _photoResizer = photoResizer;
+        }
+
         public bool CreatePhotoFile(PhotoBase photo)
         {
             if (File.Exists(photo.FilePath))
@@ -36,7 +45,8 @@ namespace OwlStock.Services
                     using FileStream streamSmallSize = File.OpenWrite(Path.Combine(photo.FilePath, $"Small_{photo.FileName}").Replace('\\', '/'));
                     
                     streamOriginalSize.Write(photo.FileData, 0, photo.FileData.Length);
-                    streamSmallSize.Write(photo.FileData, 0, photo.FileData.Length);
+                    byte[] resized = _photoResizer.Resize(photo.FileData, PhotoSize.Small);
+                    streamSmallSize.Write(resized, 0, resized.Length);
                     
                     break;
                 }
