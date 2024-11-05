@@ -9,7 +9,7 @@
     <div class="dimmer">
         <div class="container wrapper">
             <div class="masthead-heading-wrapper">
-                <div class="masthead-heading text-uppercase"><img src="~/DreamPixW.png"/></div>
+                <div class="masthead-heading text-uppercase"><img src="~/DreamPixW.png" class="logo-homepage"/></div>
                 <div class="masthead-subheading">Нашето вдъхновение са <span id="your-colored">вашите</span> спомени</div>
             </div>
             <a asp-controller="Photoshoot" asp-action="Reserve" class="btn btn-primary btn-xl text-uppercase mt-5 btn-book">Резервирай</a>
@@ -292,6 +292,11 @@
     @@media only screen and (max-width: 768px){
         .icons-container .icons-column .icon-text {
             min-height: 40px;
+        }
+
+        .logo-homepage {
+            width: 350px;
+
         }
     }
 
