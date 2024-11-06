@@ -126,9 +126,15 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    var attemptsLeft = _userManager.Options.Lockout.MaxFailedAccessAttempts - await _userManager.GetAccessFailedCountAsync(user);
-
-                    ModelState.AddModelError(string.Empty, $"Неправилен имейл или парола. Оставащи опити {attemptsLeft}");
+                    if (user != null)
+                    {
+                        var attemptsLeft = _userManager.Options.Lockout.MaxFailedAccessAttempts - await _userManager.GetAccessFailedCountAsync(user);
+                        ModelState.AddModelError(string.Empty, $"Неправилна парола. Оставащи опити {attemptsLeft}");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, $"Несъществуващ имейл или неправилна парола.");
+                    }
                     return Page();
                 }
             }
