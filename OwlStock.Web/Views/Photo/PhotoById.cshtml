@@ -4,7 +4,7 @@
     ViewData["Title"] = Model?.Photo?.Name;
 }
 
-<div class="container-fluid">
+<div class="container">
     <div class="row py-4">
         @if (User.IsInRole("Administrator"))
         {
@@ -23,122 +23,131 @@
             </div>
         }
     </div>
-    
     <div class="row">
-        
-
-            <div class="col-12 col-md-6 col-lg-8 col-image">
+        <div class="col-12 col-image text-center mx-auto">
             <img src="~/resources/gallery-photos/@(PhotoSize.Small.ToString() + "_" + Model?.Photo?.FileName)" />
-            </div>
-            <div class="col-12 col-md-6 col-lg-4 col-details">
-                <form asp-controller="Order" asp-action="OrderInfo" method="GET" enctype="multipart/form-data">
-                    <input type="hidden" asp-for="Photo.Id" />
-                    <input type="hidden" asp-for="Photo.FileData" />
-                    <input type="hidden" asp-for="Photo.FileName" />
-                    <input type="hidden" asp-for="Photo.FileType" />
-                    <input type="hidden" asp-for="Photo.Name" />
-                    <input type="hidden" asp-for="Photo.IsFree" />
-                    <h1>@Model?.Photo?.Name</h1>
-                    <p class="photo-description">@Model?.Photo?.Description</p>
-                    @if (Model.Photo.IsDownloadable && !Model.Photo.IsFree)
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 col-md-6 col-lg-8">
+            <h1>@Model?.Photo?.Name</h1>
+            <p class="photo-description">@Model?.Photo?.Description</p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 col-details">
+            <form asp-controller="Order" asp-action="OrderInfo" method="GET" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Photo.Id" />
+                <input type="hidden" asp-for="Photo.FileData" />
+                <input type="hidden" asp-for="Photo.FileName" />
+                <input type="hidden" asp-for="Photo.FileType" />
+                <input type="hidden" asp-for="Photo.Name" />
+                <input type="hidden" asp-for="Photo.IsFree" />
+                
+                @if (Model.Photo.IsDownloadable && !Model.Photo.IsFree)
+                {
+                    <h3 id="price-text-wrapper"></h3>
+                }
+                 <select asp-for="PhotoSize" asp-items="Html.GetEnumSelectList<PhotoSize>()" class="form-control"></select>
+                   
+                    @if (Model.Photo.IsFree)
                     {
-                        <h3 id="price-text-wrapper"></h3>
+                        <button class="btn btn-primary btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
                     }
-                    <div class="row">
-                        <div class="col-6">
-                        <select asp-for="PhotoSize" asp-items="Html.GetEnumSelectList<PhotoSize>()" class="form-control"></select>
-                        </div>
-                    
-                        <div class="col-6">
-                        @if (Model.Photo.IsFree)
-                        {
-                            <button class="btn btn-primary btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
-                        }
 
-                        else
-                        {
-                            <input type="hidden" asp-for="Photo.Price" />
-                            <button class="btn btn-primary btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
-                        }
-                        </div>
-                    </div>
-                    <div class="photo-details-container">
-                        <div class="photo-details-item">
-                            <span><i class="fa-solid fa-location-dot fa-lg"></i></span><span class="details-text" id="location">@Model.Photo.GeoLocation</span>
-                        </div>
-                        <div class="photo-details-item">
-                        <span><i class="fa-solid fa-camera-retro fa-lg"></i></span><span class="details-text" id="gear">@Model?.Photo?.Gear?.CameraBrand @Model?.Photo?.Gear?.CameraModel, @Model?.Photo?.Gear?.CameraLens, @Model?.Photo?.Gear?.AdditionalInformation</span>
-                        </div>
-                        <div class="photo-details-item">
-                            <span><i class="fa-solid fa-hashtag fa-lg"></i></span>
-                            @foreach (Tag tag in Model.Photo.Tags)
-                            {
-                                <span class="details-text" id="tags"><a asp-controller="Photo" asp-action="AllByTag" asp-route-tag="@tag.Text">#@tag.Text</a></span>
-                            }
-                        </div>
-                        <div class="photo-details-item">
-                            <span><i class="fa-solid fa-layer-group fa-lg"></i></span>
-                            @foreach (PhotoCategory photoCategory in Model.Photo.PhotoCategories)
-                            {
-                                <span class="details-text" id="featured-in">
-                                    <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@photoCategory.Category">@photoCategory.Category</a>
-                                </span>
-                            }
-                        </div>
-                    </div>
-                </form>
+                    else
+                    {
+                        <input type="hidden" asp-for="Photo.Price" />
+                        <button class="btn btn-primary btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
+                    }
+               
+            </form>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-3 photo-details-container">
+            <div class="icon mx-auto text-center">
+                <span><i class="fa-solid fa-location-dot fa-2x"></i></span>
             </div>
+            <div class="photo-details-item text-center mx-auto mt-3">
+                <span class="details-text" id="location">@Model.Photo.GeoLocation</span>
+            </div>
+        </div>
+        <div class="col-3 photo-details-container">
+            <div class="icon mx-auto text-center">
+                <span><i class="fa-solid fa-camera-retro fa-2x"></i></span>
+            </div>
+            <div class="photo-details-item text-center mx-auto mt-3">
+                <span class="details-text" id="gear">@Model?.Photo?.Gear?.CameraBrand @Model?.Photo?.Gear?.CameraModel, @Model?.Photo?.Gear?.CameraLens, @Model?.Photo?.Gear?.AdditionalInformation</span>
+            </div>
+        </div>
+        <div class="col-3 photo-details-container">
+            <div class="icon mx-auto text-center">
+                <span><i class="fa-solid fa-hashtag fa-2x"></i></span>
+            </div>
+            <div class="photo-details-item text-center mx-auto mt-3">
+                
+                @foreach (Tag tag in Model.Photo.Tags)
+                {
+                    <span class="details-text tags-text" id="tags"><a asp-controller="Photo" asp-action="AllByTag" asp-route-tag="@tag.Text">#@tag.Text</a></span>
+                }
+            </div>
+        </div>
+        <div class="col-3 photo-details-container">
+            <div class="icon mx-auto text-center">
+                <span><i class="fa-solid fa-layer-group fa-2x"></i></span>
+            </div>
+            <div class="photo-details-item text-center mx-auto mt-3">
+                
+                @foreach (PhotoCategory photoCategory in Model.Photo.PhotoCategories)
+                {
+                    <span class="details-text featured-in-text" id="featured-in">
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@photoCategory.Category">@photoCategory.Category</a>
+                    </span>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
 <style>
-    .container-fluid{
-        margin: 0 !important;
-        padding: 0 !important;
-        margin-top: 40px;
-    }
+    
 
-    .container-fluid .row .col-image img{
+    .container .row .col-image img{
         width: 100%;
     }
 
-    .container-fluid .row .col-details{
+    .container .row .col-details{
         padding-top: 30px;
     }
 
-    .container-fluid .row .col-details h1{
+    .container .row .col-details h1{
         text-align: center;
     }
 
-    .container-fluid .row .col-details .photo-description{
+    .container .row .col-details .photo-description{
         margin-top: 40px;
     }
 
-    .container-fluid .row .col-details #price{
+    .container .row .col-details #price{
       margin-top: 20px;
     }
 
-    .container-fluid .row .col-details select{
-      margin-top: 20px;
+    .container .row .col-details select{
+      margin-top: 30px;
       height: 50px;
     }
 
-    .container-fluid .row .col-details .btn-download{
+    .container .row .col-details .btn-download{
         width: 100%;
         margin-top: 20px;
         color: #fff;
     }
 
-    .container-fluid .row .col-details .photo-details-container{
-      margin-top: 10px;
+    .tags-text, .featured-in-text {
+        line-height: 10px;
     }
 
-    .container-fluid .row .col-details .photo-details-container .photo-details-item{
-      margin-top: 30px;
-    }
-
-    .container-fluid .row .col-details .photo-details-container .photo-details-item .details-text{
-      margin-left: 20px;
+    .icon-span{
+        text-
     }
 </style>
 
