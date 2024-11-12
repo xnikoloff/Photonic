@@ -2,69 +2,70 @@
 
 <div class="container">
     <div class="row">
-    </div>
-    <div class="row">
         <div class="col-12 mx-auto text-center">
             <h1>Фотосесия</h1>
-            <h3>@(Model?.PhotoshootNumber ?? "N/A")</h3>
+            <h4>@(Model?.PhotoshootNumber ?? "N/A")</h4>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 mx-auto mt-5">
-            <table class="table mt-4">
-                <thead>
-                    <tr>
-                        <th>Модел</th>
-                        <th>Дата</th>
-                        <th>Тип</th>
-                        <th>Създаден на</th>
-                        @if (Model?.IsPopularPlaceSelected != null)
-                        {
-                            <th>Място</th>
-                        }
-                        <th>Град</th>
-                        <th>Област</th>
-                        <th>Получаване</th>
-                        <th>Цена</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@Model?.PersonFullName</td>
-                        <td>@Model?.ReservationDate.ToString("dd.MM.yyyy") г. @Model?.ReservationDate.ToString("hh:mm") ч.</td>
-                        <td>
-                            @{
-                                DisplayAttribute attributeValue = Model?.PhotoShootType.GetAttribute<DisplayAttribute>();
-                            }
-                            @attributeValue?.Name
-                        </td>
-                        <td>@Model?.CreatedOn.ToString("dd.MM.yyyy") г. @Model?.CreatedOn.ToString("hh:mm") ч.</td>
-                        @if (Model?.IsPopularPlaceSelected != null)
-                        {
-                            <td>@Model?.Place</td>
-                        }
-                        <td>@(Model?.Settlement ?? "N/A")</td>
-                        <td>@(Model?.Region ?? "N/A")</td>
-                        <td>
-                            @(string.IsNullOrEmpty(Model?.PhotoDeliveryMethod.ToString()) ? 
-                                "В профила Ви" : 
-                                Model?.PhotoDeliveryMethod)
-                            @(Model?.PhotoDeliveryAddress != null ? ", " : "")
-                            @(Model?.PhotoDeliveryAddress ?? "")
-                        </td>
-                        <td>@(Model?.Price.ToString() ?? "N/A") лв</td>
-                    </tr>
-                </tbody>
-            </table>
+    <hr />
+    <div class="row mt-5">
+        <div class="col-6 col-lg-2 mx-auto text-center">
+            <i class="fa-solid fa-user-tie fa-2x"></i>
+            <h5 class="mt-2">@(Model?.PersonFullName ?? "N/A")</h5>
+        </div>
+        <div class="col-6 col-lg-2 mx-auto text-center">
+            <i class="fa-solid fa-calendar-days fa-2x"></i>
+            <h5 class="mt-2">@Model?.ReservationDate.ToString("dd.MM.yyyy") г. @Model?.ReservationDate.ToString("hh:mm") ч.</h5>
+        </div>
+        <div class="col-6 col-lg-2 mx-auto text-center">
+            <i class="fa-solid fa-calendar-plus fa-2x"></i>
+            <h5 class="mt-2">@Model?.CreatedOn.ToString("dd.MM.yyyy") г. @Model?.CreatedOn.ToString("hh:mm") ч.</h5>
+        </div>
+        <div class="col-6 col-lg-2 mx-auto text-center">
+            <i class="fa-solid fa-camera fa-2x"></i>
+            <h5 class="mt-2">@(Model?.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</h5>
+        </div>
+        <div class="col-6 col-lg-2 mx-auto text-center">
+            <i class="fa-solid fa-location-dot fa-2x"></i>
+            <h5 class="mt-2">
+                @if (Model?.IsPopularPlaceSelected != null)
+                {
+                    @Model?.Place
+                },
+                @(Model?.Settlement ?? "N/A"),
+                @(Model?.Region ?? "N/A")
+            </h5>
+        </div>
+    </div>
+    <!--<div class="row mt-3">
+        <div class="col-4 mx-auto text-center">
+            <hr />
+            <h4>Ще получите снимките си</h4>
+            <h5 class="mt-2">
+                @(string.IsNullOrEmpty(Model?.PhotoDeliveryMethod.ToString()) ?
+                    "В профила Ви" :
+                    Model?.PhotoDeliveryMethod)
+                @(Model?.PhotoDeliveryAddress != null ? ", " : "")
+                @(Model?.PhotoDeliveryAddress ?? "")
+            </h5>
+        </div>
+    </div>-->
+    <div class="row mt-5">
+        <div class="col-4 col-lg-2 mx-auto text-center price">
+            <h1>ЦЕНА</h1>
+            <h4><i>@(Model?.Price.ToString() ?? "N/A") лв</i></h4>
         </div>
     </div>
 </div>
+
+
 <div class="container mt-5">
+<hr />
     @if (Model?.PhotoShootPhotos.Count == 0)
     {
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-12">
-                <p class="text-center"><i>Снимките ще се покажат скоро тук</i></p>
+                <h5 class="text-center"><i>Снимките ще се покажат скоро тук</i></h5>
             </div>
         </div>
     }
@@ -73,13 +74,12 @@
     {
         <div class="row">
             <div class="col-12">
-                <h2 class="text-center mb-3">Снимки</h2>
+                <h1 class="text-center mb-3">Снимки</h1>
             </div>
         </div>
-        <hr />
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-2 mb-5">
-                <a asp-action="DownloadAll" asp-controller="Download" asp-route-photoshootId="@(Model?.Id)" class="btn btn-secondary btn-sm">Свали албум</a>
+            <div class="col-12 col-md-6 col-lg-2 mb-5 mx-auto text-center">
+                <a asp-action="DownloadAll" asp-controller="Download" asp-route-photoshootId="@(Model?.Id)" class="btn btn-secondary btn-sm">Изтегли албум</a>
             </div>
         </div>
         
@@ -97,7 +97,7 @@
                             <input type="hidden" asp-for="@photo.FileType">
                             <input type="hidden" asp-for="@photo.FilePath">
 
-                            <button type="submit" class="btn btn-primary">Download</button>
+                            <button type="submit" class="btn btn-primary">Изтегли</button>
                         </form>
                     </div>
                 </div>
@@ -111,5 +111,12 @@
 <style>
     .card{
         min-height: 300px;
+    }
+    .price{
+        background: #ffc800;
+        color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 22px #ffc800;
     }
 </style>

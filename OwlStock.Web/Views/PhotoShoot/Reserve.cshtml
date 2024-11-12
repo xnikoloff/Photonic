@@ -85,6 +85,7 @@
             <div class="col-12 text-end">
                 <input type="button" id="showPopularPlaces" style="display:none" class="btn btn-success btn" value="Популярни места" />
                 <input type="button" id="hidePopularPlaces" style="display:none" class="btn btn-info" value="Населени места" />
+                <a asp-action="All" asp-controller="Place" target="_blank" id="allPopularPlaces" style="display:none" class="btn btn-secondary">Виж всички</a>
             </div>
         </div>
         <div class="row row-decided-by-us-info" style="display:none">
@@ -641,6 +642,7 @@
         $("#showPopularPlaces").click(function(){
             $("#showPopularPlaces").css("display", "none");
             $("#hidePopularPlaces").css("display", "inline-block");
+            $("#allPopularPlaces").css("display", "inline-block");
             if ($(".place-addition-info").is(":visible")) {
                 $(".place-addition-info").css("display", "none");
                 $("#UserPlace").val('');
@@ -652,6 +654,7 @@
         $("#hidePopularPlaces").click(function () {
             $("#showPopularPlaces").css("display", "inline-block");
             $("#hidePopularPlaces").css("display", "none");
+            $("#allPopularPlaces").css("display", "none");
             getSettlementsByRegion($("#Region option:selected").text());
         });
         checkBookedDates();
