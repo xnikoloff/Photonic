@@ -5,6 +5,11 @@ namespace OwlStock.Domain.Entities
 {
     public class Place
     {
+        public Place()
+        {
+            PhotoShoots = new HashSet<PhotoShoot>();
+        }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -28,5 +33,7 @@ namespace OwlStock.Domain.Entities
         public int CityId { get; set; }
 
         public City? City { get; set; }
+
+        public ICollection<PhotoShoot>? PhotoShoots { get; set; }
     }
 }
