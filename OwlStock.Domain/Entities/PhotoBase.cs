@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OwlStock.Domain.Entities
@@ -18,5 +19,12 @@ namespace OwlStock.Domain.Entities
 
         [NotMapped]
         public byte[]? FileData { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        [ForeignKey(nameof(CreatedById))]
+        public string? CreatedById { get; set; }
+
+        public IdentityUser? CreatedBy { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OwlStock.Domain.Entities
@@ -23,6 +24,20 @@ namespace OwlStock.Domain.Entities
         public string? ImagePath { get; set; }
 
         public bool IsPopular { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        [ForeignKey(nameof(CreatedById))]
+        public string? CreatedById { get; set; }
+
+        public IdentityUser? CreatedBy { get; set; }
+
+        public DateTime? EditedOn { get; set; }
+
+        [ForeignKey(nameof(EditedBy))]
+        public string? EditedById { get; set; }
+
+        public IdentityUser? EditedBy { get; set; }
 
         [ForeignKey(nameof(PhotoBase))]
         public Guid? PhotoBaseId { get; set; }

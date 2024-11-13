@@ -1,4 +1,5 @@
-﻿using OwlStock.Domain.Enumerations;
+﻿using Microsoft.AspNetCore.Identity;
+using OwlStock.Domain.Enumerations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OwlStock.Domain.Entities
@@ -13,5 +14,12 @@ namespace OwlStock.Domain.Entities
         public GalleryPhoto? GalleryPhoto { get; set; }
 
         public Category Category { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        [ForeignKey(nameof(CreatedById))]
+        public string? CreatedById { get; set; }
+
+        public IdentityUser? CreatedBy { get; set; }
     }
 }
