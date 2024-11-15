@@ -121,7 +121,7 @@ namespace OwlStock.Web.Controllers
 
                 _fileService.CreatePhotoFile(dto.GalleryPhoto);
 
-                PhotoBase photo = await _photoService.Create(dto.GalleryPhoto);
+                PhotoBase photo = await _photoService.Create(dto.GalleryPhoto, GetUserId());
                 await _categoryService.Create(dto.Categories, photo.Id);
 
                 await _photoTagService.Add(dto.Tags, photo.Id);
@@ -178,6 +178,12 @@ namespace OwlStock.Web.Controllers
             }
 
             return await All();
+        }
+
+        private string GetUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) ??
+                throw new NullReferenceException("User not logged in");
         }
     }
 }

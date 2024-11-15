@@ -127,7 +127,7 @@ namespace OwlStock.Web.Controllers
                     return View(dto);
                 }
 
-                await _photoService.Create(photo);
+                await _photoService.Create(photo, GetUserId());
             }
             
             return RedirectToAction(nameof(Photoshoots));

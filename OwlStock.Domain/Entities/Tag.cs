@@ -13,12 +13,5 @@ namespace OwlStock.Domain.Entities
         public Guid PhotoId { get; set; }
 
         public GalleryPhoto? Photo { get; set; }
-
-        public DateTime CreatedOn { get; set; }
-
-        [ForeignKey(nameof(CreatedById))]
-        public string? CreatedById { get; set; }
-
-        public IdentityUser? CreatedBy { get; set; }
     }
 }

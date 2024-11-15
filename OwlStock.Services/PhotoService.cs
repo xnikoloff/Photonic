@@ -78,7 +78,7 @@ namespace OwlStock.Services
             return photo;
         }
 
-        public async Task<PhotoBase> Create(PhotoBase? photo)
+        public async Task<PhotoBase> Create(PhotoBase? photo, string userId)
         {
             if(photo is null)
             {
@@ -90,13 +90,16 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(photo.FileName)} is null or empty");
             }
 
+            photo.CreatedOn = DateTime.Now;
+            photo.CreatedById = userId;
+
             switch (photo)
             {
                 case GalleryPhoto:
                 {
                     photo.FilePath = Path.Combine("gallery-photos", PhotoSize.OriginalSize.ToString() + "_" + photo.FileName).Replace('\\', '/');
                     ((GalleryPhoto)photo).FilePathSmall = Path.Combine("gallery-photos", PhotoSize.Small.ToString() + "_" + photo.FileName).Replace('\\', '/');
-                        await _context.GalleryPhotos!.AddAsync((GalleryPhoto)photo);
+                    await _context.GalleryPhotos!.AddAsync((GalleryPhoto)photo);
                     break;
                 }
 

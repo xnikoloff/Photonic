@@ -16,12 +16,5 @@ namespace OwlStock.Domain.Entities
         public string? CameraLens { get; set; }
 
         public string?  AdditionalInformation { get; set; }
-
-        public DateTime? CreatedOn { get; set; }
-
-        [ForeignKey(nameof(CreatedById))]
-        public string? CreatedById { get; set; }
-
-        public IdentityUser? CreatedBy { get; set; }
     }
 }

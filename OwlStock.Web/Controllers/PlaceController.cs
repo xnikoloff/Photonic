@@ -5,6 +5,7 @@ using OwlStock.Services;
 using OwlStock.Services.DTOs;
 using OwlStock.Services.Interfaces;
 using OwlStock.Web.DTOs.PlaceDTOs;
+using System.Security.Claims;
 
 namespace OwlStock.Web.Controllers
 {
@@ -125,7 +126,7 @@ namespace OwlStock.Web.Controllers
             };
 
 
-            return await _photoService.Create(photoBase);
+            return await _photoService.Create(photoBase, GetUserId());
         }
 
         private async Task CreatePlacePhotoFile(Place place, byte[] fileData)
@@ -145,6 +146,12 @@ namespace OwlStock.Web.Controllers
             using var stream = new MemoryStream();
             formFile.CopyTo(stream);
             return stream.ToArray();
+        }
+
+        private string GetUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) ??
+                throw new NullReferenceException("User not logged in");
         }
     }
 }

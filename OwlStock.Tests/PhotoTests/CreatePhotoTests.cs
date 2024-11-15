@@ -49,7 +49,7 @@ namespace OwlStock.Tests.PhotoTests
                 recordsCountBefore = await context.GalleryPhotos.CountAsync();
             }
 
-            await service.Create(galleryPhoto);
+            await service.Create(galleryPhoto, "");
 
             int recordsCountAfter = await context.GalleryPhotos.CountAsync();
 
