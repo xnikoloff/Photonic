@@ -18,26 +18,54 @@
 </div>
 
 <style>
-    .grid-item, img {
-        width: 420px;
+    .grid {
+        width: 100%; /* Full width container */
+    }
+
+    .grid-item img{
+        width: 95%;
     }
 
     .grid-item{
-        margin-bottom: 10px;
+        width: calc((100% / 3) - 20px); /* 3 columns with 10px margin on each side */
     }
+
+    .grid-item {
+        margin: 10px 0;
+        box-sizing: border-box; /* Include margins in the width calculation */
+    }
+
+    
 
     .grid-item:hover{
         transform: scale(.9);
         transition: .2s;
     }
+
+    @@media (max-width: 768px) {
+      .grid-item {
+        width: calc((100% / 2) - 20px); /* 2 columns for tablets */
+      }
+    }
+
+    @@media (max-width: 480px) {
+    .grid-item  {
+        width: calc(100% - 20px); /* 1 column for phones */
+      }
+    }
     
 </style>
 
+<script src="https://unpkg.com/imagesloaded/imagesloaded.pkgd.min.js"></script>
 <script>
-    $('.grid').masonry({
-        // options
-        itemSelector: '.grid-item',
-        columnWidth: 420,
-        gutter: 10
+    
+    var grid = document.querySelector('.grid');
+
+    imagesLoaded(grid, function () {
+        new Masonry(grid, {
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-item',
+            percentPosition: true,
+        });
     });
 </script>
