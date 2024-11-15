@@ -100,7 +100,7 @@
                 @foreach (PhotoCategory photoCategory in Model.Photo.PhotoCategories)
                 {
                     <span class="details-text featured-in-text" id="featured-in">
-                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@photoCategory.Category">@(photoCategory.Category.GetAttribute<DisplayAttribute>())</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@photoCategory.Category">@(photoCategory.Category.GetAttribute<DisplayAttribute>().Name)</a>
                     </span>
                 }
             </div>
@@ -144,10 +144,6 @@
 
     .tags-text, .featured-in-text {
         line-height: 10px;
-    }
-
-    .icon-span{
-        text-
     }
 </style>
 
