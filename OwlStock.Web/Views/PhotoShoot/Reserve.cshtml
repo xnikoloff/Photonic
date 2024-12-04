@@ -1,296 +1,332 @@
 ﻿@model CreatePhotoShootDTO
 
 @{
+    ViewData["Title"] = "Резервация";
     Dictionary<DateOnly, IEnumerable<TimeSlot>> calendar = Model.Calendar ?? new();
 }
 
-<input type="hidden" id="priceForDistance"/>
-<div class="container">
-    
-    <form asp-action="Reserve" method="post" id="booking-form">
-        <div asp-validation-summary="All" class="text-danger"></div>
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">Резервация</h2>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
+                <li class="active">Резервация</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<form asp-action="Reserve" method="post" id="booking-form">
+    <div asp-validation-summary="All" class="text-danger"></div>
 
-        <input type="hidden" asp-for="IdentityUserId" />
-        <input type="hidden" asp-for="ReservationDate" />
-        <input type="hidden" asp-for="ReservationTime" />
-        <input type="hidden" asp-for="SelectedSettlementId" />
-        <input type="hidden" asp-for="IsPlaceSelected" />
-        <input type="hidden" asp-for="IsPlace" />
-        <input type="hidden" asp-for="PlaceId" />
-        <input type="hidden" asp-for="FuelPrice" />
-        @*not used for now*@
-        @*<input type="hidden" asp-for="SettlementName" />*@
-
-        @*<div class="row mt-5">
-            <div class="col-12 text-center">
-                <h1>Резервация</h1>
-            </div>
-        </div>*@
-        <div class="row mt-3">
-            <div class="col-12">
-                <h4>Фотосесия</h4>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4 form-group mt-3">
-                <label asp-for="PhotoShootType" class="required"></label>
-                <select asp-for=PhotoShootType asp-items="@(Html.GetEnumSelectList<PhotoShootType>())" class="form-control" required></select>
-                <span asp-validation-for="PhotoShootType" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-12">
-                <h4>Вашите данни</h4>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-12 col-md-6 col-lg-3 form-group">
-                <label asp-for="PersonFirstName" class="required"></label>
-                <input asp-for="PersonFirstName" class="form-control" required />
-                <span asp-validation-for="PersonFirstName" class="text-danger"></span>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3 form-group">
-                <label asp-for="PersonLastName" class="required"></label>
-                <input asp-for="PersonLastName" class="form-control" required />
-                <span asp-validation-for="PersonLastName" class="text-danger"></span>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3 form-group">
-                <label asp-for="PersonPhone" class="required"></label>
-                <input asp-for="PersonPhone" class="form-control" required />
-                <span asp-validation-for="PersonPhone" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row">
-            <!--<div class="col-12 col-md-6 col-lg-3 form-group">
-                <label asp-for="ReservationDate"></label>
-                <input asp-for="ReservationDate" class="form-control" />
-                <span asp-validation-for="ReservationDate" class="text-danger"></span>
-            </div>-->
-            <div class="col-12 form-group" id="photo-shoot-type-description">
-                <label asp-for="PhotoShootTypeDescription" class="required"></label>
-                <textarea asp-for="PhotoShootTypeDescription" cols="20" rows="6" class="form-control photoshoot-other-description"></textarea>
-                <span asp-validation-for="PhotoShootTypeDescription" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-12">
-                <h4>Място</h4>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-12 col-md-6 col-lg-6 form-group is-decided-by-us">
-                <input asp-for="IsDecidedByUs" class="form-check-input"/>
-                <label asp-for="IsDecidedByUs" class="form-check-label"></label>
-            </div>
-        </div>
-        <div class="row mt-3 row-toggle-places">
-            <div class="col-12 text-end">
-                <input type="button" id="showPopularPlaces" style="display:none" class="btn btn-success btn" value="Популярни места" />
-                <input type="button" id="hidePopularPlaces" style="display:none" class="btn btn-info" value="Населени места" />
-                <a asp-action="All" asp-controller="Place" target="_blank" id="allPopularPlaces" style="display:none" class="btn btn-secondary">Виж всички</a>
-            </div>
-        </div>
-        <div class="row row-decided-by-us-info" style="display:none">
-            <div class="col-12">
-                <h6>Ще изберем подходящо място в околността на населеното място, което сте избрали.</h6>
-            </div>
-        </div>
-        <div class="place-container mt-3">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-6 form-group">
-                    <input type="hidden" id="RegionId" />
-                    <label for="Region" class="required">Област</label>
-                    <select id="Region" class="form-control" asp-items="@(new SelectList(Model.ServicedRegions, "Id", "Name"))" required>
-                        <option value="0" selected></option>
-                    </select>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6 form-group settlement" style="display:none">
-                    <label for="Settlement" class="required">Населено място</label>
-                    <input type="hidden" id="SettlementId"/>
-                    <select id="Settlement" class="form-control"></select>
-                    <span id="settlement-validation-message" class="text-danger" style="display:none"><i>Населеното място е задължително</i></span>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6 form-group popular-places" style="display:none">
-                    <label for="PopularPlaces" class="required">Популярни места</label>
-                    <select id="PopularPlaces" class="form-control"></select>
-                    <span id="popular-place-validation-message" class="text-danger" style="display:none"><i>Мястото е задължително</i></span>
-                    <!--<span class="decided-by-us-settlement-info text-warning" style="display:none"><i>Това не е задължително</i></span>-->
-                </div>
-            </div>
-            <div class="place-addition-info" style="display:none">
-                <div class="row">
-                    <div class="col-12 form-group user-place">
-                        <label asp-for="UserPlace" class="required"></label>
-                        <input asp-for="UserPlace" class="form-control" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 form-group google-maps-link">
-                        <label asp-for="GoogleMapsLink"></label>
-                        <span class="text-warning"><i>Това не е задължително, но е силно препоръчително</i></</span>
-                        <input asp-for="GoogleMapsLink" class="form-control" />
-                        <br />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-price" style="display:none">
-                    <label><b>Разход за пътни</b></label>
-                    <br />
-                    <p id="priceDesciption">Тъй като избраното населено място се намира на разстояние по-голямо от 20 км от нас, това ще ви струва допълнителни <b><i><span id="price"></span></i></b>лв. (Такса пътни @(DefaultValue.TripTax).00 лв. + @(DefaultValue.FuelPriceByKilometer) лв. за всеки километър)</p>
-                </div>
-            </div>
-        </div>
-        <div class="dates-container" style="display:none">
-            <div class="row mt-3">
-                <div class="col-12">
-                    <h4>Дата и час</h4>
-                </div>
-            </div>
-            @*<div class="row mt-5" id="row-dates-no-weather" style="display:none;">
-                <div class="col-12 scrollmenu" id="dates-list">
-                    <div id="date-buttons-slider">
-                        @foreach(KeyValuePair<DateOnly, IEnumerable<TimeSlot>> calendarKVP in calendar)
-                        {
-                            <div class="card text-center btn-date btn-date-simple text-white @(calendarKVP.Value.FirstOrDefault().IsAvailable ? "bg-success" : "bg-danger")" id="date-button-simple">
-                                <div class="card-header card-header-date">
-                                    <h6 class="date-text">@calendarKVP.Key.ToString("dd.MM")</h6>
-                                </div>
-                                <div class="card-body">
-                                    <span>@(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("<i class=\"fa-solid fa-check fa-lg\"></i>") : Html.Raw("<i class=\"fa-solid fa-xmark fa-lg\"></i>"))</span>
+    <input type="hidden" asp-for="IdentityUserId" />
+    <input type="hidden" asp-for="ReservationDate" />
+    <input type="hidden" asp-for="ReservationTime" />
+    <input type="hidden" asp-for="SelectedSettlementId" />
+    <input type="hidden" asp-for="IsPlaceSelected" />
+    <input type="hidden" asp-for="IsPlace" />
+    <input type="hidden" asp-for="PlaceId" />
+    <input type="hidden" asp-for="FuelPrice" />
+    <div class="hotel_booking_area position">
+        <div class="container booking-container">
+            <div class="hotel_booking_table">
+                <div class="col-md-12">
+                    <div class="boking_table">
+                        <div>
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class="input-group border border-warning">
+                                            <select asp-for=PhotoShootType asp-items="@(Html.GetEnumSelectList<PhotoShootType>())" class="wide">
+                                                <option value="">Тип фотосесия</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        }
-                    </div>
-                </div>
-            </div>*@
-            <div class="row mt-5" id="row-dates-weather" style="display:none;">
-                <div class="col-12 scrollmenu" id="dates-list">
-                    <div id="date-buttons-slider">
-                        @foreach (KeyValuePair<DateOnly, IEnumerable<TimeSlot>> calendarKVP in calendar)
-                        {
-                            <div class="card card-weather text-center btn-date btn-date-simple text-white @(calendarKVP.Value.FirstOrDefault().IsAvailable ? "bg-success" : "bg-danger")" id="date-button-simple">
-                                <div class="card-header card-header-date">
-                                    <h4 class="date-text">@calendarKVP.Key.ToString("dd.MM")</h4>
-                                </div>
-                                <div class="card-body card-body-weather text-center" style="background: @(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("#8dba8d") : Html.Raw("#f57976"))">
-                                    @foreach (TimeSlot slot in calendarKVP.Value)
-                                    {
-                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-success" : "btn-danger") btn-sm my-1 btn-time-slot" id="time-slot">
-                                            @(slot.Time.Hour < 10 ? $"0{slot.Time.Hour}" : slot.Time.Hour):@(slot.Time.Minute == 0 ? "00" : "30")
-                                        </button>
-                                    }
-                                    <hr />
-                                    <p class="temperatureCurrent weather-info-text"></p>
-                                    <p class="icon weather-info-text"></p>
-                                    <p class="forecastText">Нямаме информация за времето</p>
-                                    <p class="precipitation weather-info-text"></p>
-                                </div>
-                                <div class="card-footer">
-                                    <span>@(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("<i class=\"fa-solid fa-check fa-lg\"></i>") : Html.Raw("<i class=\"fa-solid fa-xmark fa-lg\"></i>"))</span>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12" id="photo-shoot-type-description">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class="input-group border border-warning">
+                                            <textarea asp-for="PhotoShootTypeDescription" cols="20" rows="6" class="form-control photoshoot-other-description" placeholder="Описание на фотосесия"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        }
-                    </div>
-                </div>
-            </div>
-            @*<div class="row">
-                <div class="col-12 hours-container mx-auto text-center" id="hours-container">
-                    <hr />
-                    @foreach (TimeSlot slot in Model?.AllTimeSlots ?? throw new NullReferenceException("Time slots are null"))
-                    {
-                        <button type="button" class="btn @(slot.IsAvailable ? "btn-success" : "btn-secondary") btn-lg btn-time-slot" id="time-slot">
-                            @(slot.Time.Hour < 10 ? $"0{slot.Time.Hour}" : slot.Time.Hour):@(slot.Time.Minute == 0 ? "00" : "30");
-                        </button>
-                    }
-                </div>
-            </div>*@
-        </div>
-        <div class="price-container my-5" style="display:none">
-            <div class="row row-total-price">
-                <div class="col-12 mt-5 text-center ">
-                    
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Вашите данни</h4>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input asp-for="PersonFirstName" class="form-control" placeholder="Име" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input asp-for="PersonLastName" class="form-control" placeholder="Фамилия" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input asp-for="PersonPhone" class="form-control" placeholder="Телефон" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <h4>Избор на локация</h4>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <select id="Region" asp-items="@(new SelectList(Model.ServicedRegions, "Id", "Name"))" class="wide">
+                                                <option value="">Област</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group user-place place-addition-info" style="display:none">
+                                            <input asp-for="UserPlace" class="form-control" placeholder="Място" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group" style="margin-bottom: 12px;">
+                                        <div class="settlement" style="display:none">
+                                            <input type="hidden" id="SettlementId" />
+                                            <select id="Settlement" class="form-control"></select>
+                                        </div>
+                                        <div class="popular-places" style="display:none">
+                                            <select id="PopularPlaces" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class="input-group google-maps-link place-addition-info" style="display:none">
+                                            <input asp-for="GoogleMapsLink" class="form-control" placeholder="Линк към Google Maps" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="button" id="showPopularPlaces" style="display:none" class="btn btn-success btn" value="Популярни места" />
+                                            <input type="button" id="hidePopularPlaces" style="display:none" class="btn btn-info" value="Населени места" />
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="is-decided-by-us" style="display:none">
+                                                <input asp-for="IsDecidedByUs" />
+                                                <label id="IsDecidedByUsLabel" asp-for="IsDecidedByUs"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-fuel-price" style="display:none">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <h4 id="priceDesciption">Тъй като избраното населено място се намира на разстояние по-голямо от 20 км от нас, това ще ви струва допълнителни <b><i><span id="price"></span></i></b>лв. (Такса пътни @(DefaultValue.TripTax).00 лв. + @(DefaultValue.FuelPriceByKilometer) лв. за всеки километър)</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-decided-by-us-info" style="display:none">
+                            <div class="col-12">
+                                <h4>Ще изберем подходящо място в околността на населеното място, което сте избрали.</h4>
+                            </div>
+                        </div>
+                        <div class="dates-container" style="display:none">
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <h4>Дата и час</h4>
+                                </div>
+                            </div>
+                            <div class="row mt-2" id="row-dates-weather" style="display:none;">
+                                <div class="col-12 scrollmenu" id="dates-list">
+                                    <div id="date-buttons-slider">
+                                        @foreach (KeyValuePair<DateOnly, IEnumerable<TimeSlot>> calendarKVP in calendar)
+                                        {
+                                            <div class="card card-weather text-center btn-date btn-date-simple text-white @(calendarKVP.Value.FirstOrDefault().IsAvailable ? "bg-success" : "bg-danger")" id="date-button-simple">
+                                                <div class="card-header card-header-date">
+                                                    <h4 class="date-text">@calendarKVP.Key.ToString("dd.MM")</h4>
+                                                </div>
+                                                <div class="card-body card-body-weather text-center" style="background: @(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("#8dba8d") : Html.Raw("#f57976"))">
+                                                    @foreach (TimeSlot slot in calendarKVP.Value)
+                                                    {
+                                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-success" : "btn-danger") btn-sm my-1 btn-time-slot" id="time-slot">
+                                                            @(slot.Time.Hour < 10 ? $"0{slot.Time.Hour}" : slot.Time.Hour):@(slot.Time.Minute == 0 ? "00" : "30")
+                                                        </button>
+                                                    }
+                                                    <hr />
+                                                    <p class="temperatureCurrent weather-info-text"></p>
+                                                    <p class="icon weather-info-text"></p>
+                                                    <p class="forecastText">Нямаме информация за времето</p>
+                                                    <p class="precipitation weather-info-text"></p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <span>@(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("<i class=\"fa-solid fa-check fa-lg\"></i>") : Html.Raw("<i class=\"fa-solid fa-xmark fa-lg\"></i>"))</span>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                             
-                </div>
-            </div>
-        </div>
-        <div class="gdpr-container mt-3">
-            <div class="col-12">
-                <h4>GDPR</h4>
-            </div>
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="form-group">
-                        <input asp-for="DoNotUploadPhotos" class="form-check-input"/>
-                        <label asp-for="DoNotUploadPhotos" class="form-check-label"></label>
+                            <div class="gdpr-container mt-4">
+                                <div class="row">
+                                    <h4>GDPR</h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="alert-text text-muted">*С избирането на опцията „<b>Не желая снимките ми да се качват тук</b>“ отказвате снимките Ви да бъдат качени на уебсайта на DreamPix. Ще ги получите по метода, който сте избрали.</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-1 mb-5">
+                                    <div class="col-12">
+                                        <span class="alert-text text-muted">*С натискането на бутона „<b>Резервирай</b>“ се съгласявате да изполваме въведетите от Вас данни. Те ще бъдат използвани единствено за целите на работния процес.</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <div class="book_tabel_item">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input asp-for="DoNotUploadPhotos" class="form-check-input" />
+                                                    <label asp-for="DoNotUploadPhotos" id="DoNotUploadPhotosLabel" class="form-check-label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-5 row delivery-method" style="display:none">
+                                    <div class="col-md-4">
+                                        <div class="book_tabel_item">
+                                            <div class="form-group">
+                                                <div class="input-group border border-warning">
+                                                    <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="wide">
+                                                        <option data-display="">Начин на получаване на снимките</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-photo-delivery" style="display:none">
+                                        <div class="book_tabel_item">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input asp-for="PhotoDeliveryAddress" class="form-control" placeholder="Адрес или офис на Еконт"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row delivery-method" style="display:none">
-                <div class="col-12">
-                    <div class="form-group">
-                        <label asp-for="PhotoDeliveryMethod" class="required"></label>
-                        <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="form-control">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-photo-delivery" style="display:none">
-                    <div class="form-group">
-                        <label asp-for="PhotoDeliveryAddress" class="required"></label>
-                        <input asp-for="PhotoDeliveryAddress" class="form-control" />
-                    </div>
-                </div>
-            </div>
-            <!--<div class="row">
-                <div class="col-12">
-                    <span class="alert-text text-muted">*С избирането на опцията „<b>Не желая снимките ми да се качват тук</b>“ отказвате снимките Ви да бъдат качени на уебсайта на DreamPix. Ще ги получите по метода, който сте избрали.</span>
-                </div>
-            </div>-->
-            <div class="row mt-1">
-                <div class="col-12">
-                    <span class="alert-text text-muted">*С натискането на бутона „<b>Резервирай</b>“ се съгласявате да изполваме въведетите от Вас данни. Те ще бъдат използвани единствено за целите на работния процес.</span>
-                </div>
-            </div>
         </div>
-        <div class="row mt-5">
-            
-        </div>
-        
-        <div class="row row-price-bottom py-2 px-3 bg-primary fixed-bottom">
-            <table class="text-center">
+    </div>
+    <div class="row row-price-bottom bg-warning fixed-bottom py-3">
+        <div class="col-10">
+            <table class="table text-center">
                 <thead>
                     <tr>
-                        <th>ФОТОСЕСИЯ</th>
-                        <th>ОБЛАСТ</th>
-                        <th>ЦЕНА</th>
+                        <th><h5>ФОТОСЕСИЯ</h5></th>
+                        <th><h5>ОБЛАСТ</h5></th>
+                        <th><h5>ЦЕНА</h5></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><span class="text-dark" id="photoshootTypeBottom">N/A</span></td>
-                        <td><span class="text-dark" id="regionBottom">Изберете</span></td>
-                        <td><span class="text-dark" id="total-price">N/A</span> <span class="text-dark" id="currency">лв</span></td>
-                        <td><button type="submit" class="btn btn-light" id="btn-book" disabled>РЕЗЕРВИРАЙ</button></td>
+                        <td><h4 class="text-dark" id="photoshootTypeBottom">N/A</h4></td>
+                        <td><h4 class="text-dark" id="regionBottom">Изберете</h4></td>
+                        <td><h4 class="text-dark" id="total-price">N/A</h4></td>
                     </tr>
                 </tbody>
             </table>
-            <!--<div class="col-12 col-md-6 col-lg-4 col-price-bottom text-center">
-                <h4><span>ФОТОСЕСИЯ</span> <span class="text-dark" id="photoshootTypeBottom">N/A</span></h4>
-
-            </div>
-            <div class="col-12 col-md-6 col-lg-4 col-price-bottom text-center">
-                <h4><span>ЦЕНА</span> <span class="text-dark" id="total-price">N/A</span> <span class="text-dark" id="currency">лв</span></h4>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4 text-center col-btn-book">
-                <button type="submit" class="btn btn-light" id="btn-book" disabled>РЕЗЕРВИРАЙ</button>
-            </div>-->
         </div>
-    </form>
-</div>
+        <div class="col-2 mt-3">
+            <button type="submit" class="btn btn-light" id="btn-book" disabled>РЕЗЕРВИРАЙ</button>
+        </div>
+    </div>
+    
+</form>
+
 
  
 
 <style>
+    .form-check-input{
+        margin-left: unset;
+    }
+    .table{
+        margin-bottom: unset;
+    }
+    .table td, table th, table tr{
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    .table tbody tr td h4{
+        line-height: 1.2em !important;
+    }
+
+    .selectize-control{
+        border-radius: 0;
+        border: 1px solid #000;
+    }
+
+    .selectize-input, .selectize-input.full, .selectize-input.not-full {
+        background: none;
+        background-image: none;
+        padding: 0;
+        border: none;
+    }
+
+    .popular-places .nice-select{
+        display: none;
+    }
+
+    .settlement .nice-select{
+        display: none;
+    }
+    .hotel_booking_table{
+        background: none;
+    }
     .row-price-bottom{
         color: #fff;
         border-radius: 5px;
@@ -403,8 +439,22 @@
         font-style: italic;
     }
 
+    #IsDecidedByUsLabel {
+        font-size: 1.3rem;
+        margin-left: 10px;
+        margin-bottom: 0;
+    }
+
+    #DoNotUploadPhotosLabel{
+        font-size: 1.3rem;
+    }
+
+    .is-decided-by-us{
+        margin-top: 10px;
+    }
+
     #DoNotUploadPhotos, #IsDecidedByUs {
-        transform: scale(1.2);
+        transform: scale(1.3);
     }
 
     .weather-info-text{
@@ -489,7 +539,7 @@
                 //$("#row-dates-no-weather").css("display", "none");
                 //$("#row-dates-weather").css("display", "flex");
                 //$(".row-dates-weather-remaining").css("display", "flex");
-                $(".place-addition-info").css("display", "block");
+                $(".place-addition-info").css("display", "flex");
             }
 
             updatePrice();
@@ -559,13 +609,13 @@
             //reset the styles for the last clicked button
             //bg-success is set as default because style is change for available buttons only
             if(lastClickedDateBtn != null){
-                lastClickedDateBtn.removeClass('bg-primary');
+                lastClickedDateBtn.removeClass('bg-warning');
                 lastClickedDateBtn.addClass('bg-success');
             }
 
             if ($(this).hasClass('bg-success')){
                 $(this).removeClass("bg-success");
-                $(this).addClass("bg-primary");
+                $(this).addClass("bg-warning");
             }
             
             //set the currect clicked button as last clicked
@@ -585,7 +635,7 @@
             //reset the styles for the last clicked button
             //bg-success is set as default because style is change for available buttons only
             if (lastClickedTimeSlotBtn != null) {
-                lastClickedTimeSlotBtn.removeClass('btn-primary');
+                lastClickedTimeSlotBtn.removeClass('btn-warning');
                 lastClickedTimeSlotBtn.addClass('btn-success');
             }
 
@@ -593,7 +643,7 @@
                 $("#ReservationTime").val($(this).text());
                 $("#btn-book").prop("disabled", false);
                 $(this).removeClass('btn-success');
-                $(this).addClass('btn-primary');
+                $(this).addClass('btn-warning');
             }
             
             else {
@@ -626,7 +676,7 @@
             }
             //switch to settlements when photoshoot type 7 is selected
             if(option == 7){
-                $(".settlement").css("display", "block");
+                $(".settlement").css("display", "flex");
                 $(".popular-places").css("display", "none");
             }
 
@@ -801,7 +851,7 @@
 
     function getPopularPlacesByRegion() {
         $(".settlement").css("display", "none");
-        $(".popular-places").css("display", "block");
+        $(".popular-places").css("display", "flex");
         $('#PopularPlaces').selectize()[0].selectize.destroy();
         var request = $.ajax({
             url: "@Url.Action("popularPlacesByRegion", "Place")",
@@ -848,7 +898,7 @@
     }
 
     function getSettlementsByRegion(region) {
-        $(".settlement").css("display", "block");
+        $(".settlement").css("display", "flex");
         $(".popular-places").css("display", "none");
         //else destroy settlements list
         if (region != '') {
@@ -872,13 +922,14 @@
                         onChange: function (value) {
                             updatePrice();
                             getForecast(value, true);
+                            $(".is-decided-by-us").css("display", "flex");
                             $("#IsPlace").val(false);
                             $("#SelectedSettlementId").val(value);
                             //not used for now
                             //$("#SettlementName").val($(this).val());
 
                             if ($("#IsDecidedByUs").prop('checked') == false) {
-                                $(".place-addition-info").css("display", "block");
+                                $(".place-addition-info").css("display", "flex");
                                 //$(".row-dates-weather-remaining").css("transition", ".4s");
                                 //$(".row-dates-weather-remaining").css("display", "flex");
                             }
@@ -907,24 +958,23 @@
     
     function calculatePriceByDistance(settlement, isRegion = false) {
         let regionId = $("#Region").find(":selected").val();
+        
         var request = $.ajax({
             contentType: 'application/json',
             url: "@Url.Action("fuelPrice", "Calculations")",
             traditional: true,
             method: "GET",
-            data: { 'regionId': regionId },
+            data: { 'regionId': regionId ?? 0 },
             success: function (response) {
-                //calculateTotalPrice($("#PhotoShootType").find(":selected").val(), response);
-                $("#price").text(response);
-                $("#FuelPrice").val(response);
-                
-                
-                if (response > 0 && ($("#IsDecidedByUs").is(":checked"))) {
-                    $(".col-price").css("display", "block");
+                if(response > 0){
+                    $(".col-fuel-price").css("display", "flex");
                 }
                 else{
-                    $(".col-price").css("display", "none");
+                    $(".col-fuel-price").css("display", "none");
                 }
+                $("#price").text(response);
+                let photoshootType = $("#PhotoShootType").find(":selected").val();
+                calculateTotalPrice(photoshootType, response);
             },
             error: function (response) {
                 console.log("error");
@@ -941,15 +991,11 @@
             method: "GET",
             data: { 'photoshootType': photoshootType, 'fuelPrice': fuelPrice },
             success: function (response) {
-                price = response;
-
                 if ($("#PhotoShootType").find(":selected").val() == 7 || $("#PhotoShootType").find(":selected").val() == 10) {
                     $("#total-price").html("По договаряне");
-                    $("#currency").css("display", "none");
                 }
                 else{
-                    $("#total-price").html(response);
-                    $("#currency").css("display", "inline");
+                    $("#total-price").html(response + ' лв');
                 }
 
                 $(".row-total-price").css("display", "block");
@@ -962,40 +1008,14 @@
     }
 
     function updatePrice(){
-        $("#total-price").html('0');
-        //hide curreny by default
-        $("#currency").css("display", "none");
-
-        let photoshootType = $("#PhotoShootType").find(":selected").val();
-
-        /*if ($("#IsDecidedByUs").is(":checked")) {
-            if ($("#Settlement").val() == null || $("#Settlement").val() == '') {
-                let fuelPriceWhenDecidedByUs = calculatePriceByDistance($("#Region option:selected").text(), true);
-                calculateTotalPrice(photoshootType, fuelPriceWhenDecidedByUs);
-            }
-            else{
-                let fuelPriceWhenDecidedByUser = calculatePriceByDistance($("#Settlement").val(), false);
-                calculateTotalPrice(photoshootType, fuelPriceWhenDecidedByUser);
-            }
-        }*/
-
+        $("#total-price").html('0 лв');
+        
         if ($("#IsDecidedByUs").is(":checked")) {
-            let fuelPrice = calculatePriceByDistance($("#Region option:selected").text(), false);
-            
-            if ($("#Region").val() != 0) {
-                $("#currency").css("display", "inline");
-            }
-
-            calculateTotalPrice(photoshootType, fuelPrice);
+            calculatePriceByDistance($("#Region option:selected").text(), true);
         }
         else{
-            let fuelPrice = calculatePriceByDistance($("#Region option:selected").text(), false);
-            
-            if ($("#Settlement").val() != null && $("#Settlement").val() != '') {
-                $("#currency").css("display", "inline");
-            }
+            calculatePriceByDistance($("#Region option:selected").text(), false);
 
-            calculateTotalPrice(photoshootType, fuelPrice);
         }
     }
 

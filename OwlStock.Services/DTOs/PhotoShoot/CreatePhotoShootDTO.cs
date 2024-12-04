@@ -67,7 +67,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public string? GoogleMapsLink { get; set; }
 
         [Required]
-        [Display(Name = "Не желая да получа снимките си чрез сайта на DreamPix")]
+        [Display(Name = "Не желая да получа снимките си чрез сайта на Photon")]
         public bool DoNotUploadPhotos { get; set; }
 
         [Display(Name = "Начин на получаване на снимки")]

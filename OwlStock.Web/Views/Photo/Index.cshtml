@@ -4,11 +4,23 @@
     ViewData["Title"] = "Галерия";
 }
 
-<div class="container">
-    <div class="grid">
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">Галерия</h2>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
+                <li class="active">Галерия</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<div class="container mt-5 py-5">
+    <div class="masonry-grid">
         @foreach(GalleryPhoto photo in Model)
         {
-            <div class="grid-item">
+            <div class="masonry-grid-item">
                 <a asp-controller="Photo" asp-action="PhotoById" asp-route-id="@photo.Id">
                     <img src="~/resources/@photo.FilePathSmall" />
                 </a>
@@ -18,38 +30,38 @@
 </div>
 
 <style>
-    .grid {
+    .masonry-grid {
         width: 100%; /* Full width container */
     }
 
-    .grid-item img{
+    .masonry-grid-item img {
         width: 95%;
     }
 
-    .grid-item{
+    .masonry-grid-item{
         width: calc((100% / 3) - 20px); /* 3 columns with 10px margin on each side */
     }
 
-    .grid-item {
+    .masonry-grid-item {
         margin: 10px 0;
         box-sizing: border-box; /* Include margins in the width calculation */
     }
 
     
 
-    .grid-item:hover{
+    .masonry-grid-item:hover{
         transform: scale(.9);
         transition: .2s;
     }
 
     @@media (max-width: 768px) {
-      .grid-item {
+      .masonry-grid-item {
         width: calc((100% / 2) - 20px); /* 2 columns for tablets */
       }
     }
 
     @@media (max-width: 480px) {
-    .grid-item  {
+    .masonry-grid-item  {
         width: calc(100% - 20px); /* 1 column for phones */
       }
     }
@@ -58,14 +70,17 @@
 
 <script src="https://unpkg.com/imagesloaded/imagesloaded.pkgd.min.js"></script>
 <script>
-    
-    var grid = document.querySelector('.grid');
 
-    imagesLoaded(grid, function () {
-        new Masonry(grid, {
-            itemSelector: '.grid-item',
-            columnWidth: '.grid-item',
-            percentPosition: true,
+    window.onload = function () {
+        var grid = document.querySelector('.masonry-grid');
+
+        imagesLoaded(grid, function () {
+            new Masonry(grid, {
+                itemSelector: '.masonry-grid-item',
+                columnWidth: '.masonry-grid-item',
+                percentPosition: true,
+            });
         });
-    });
+    }
+    
 </script>

@@ -4,44 +4,125 @@
     ViewData["Title"] = "Home page";
 }
 
-<!-- Masthead-->
-<header class="masthead">
-    <div class="dimmer">
-        <div class="container wrapper">
-            <div class="masthead-heading-wrapper">
-                <div class="masthead-heading text-uppercase"><img src="~/DreamPixW.png" class="logo-homepage"/></div>
-                <div class="masthead-subheading">Нашето вдъхновение са <span id="your-colored">вашите</span> спомени</div>
+<!--================Banner Area =================-->
+<section class="banner_area">
+    <div class="booking_table d_flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h6>Фотографска агенция</h6>
+                <img src="~/DreamPixW.png" class="logo-homepage" />
+                <p>Нашето вдъхновение са вашите спомени</p>
+                <a asp-action="Reserve" asp-controller="Photoshoot" class="btn theme_btn button_hover">Резервирай</a>
             </div>
-            <a asp-controller="Photoshoot" asp-action="Reserve" class="btn btn-primary btn-xl text-uppercase mt-5 btn-book">Резервирай</a>
         </div>
     </div>
-</header>
-<div class="container icons-container">
-    <div class="row">
-        <div class="col-6 col-lg-3 icons-column">
-            <span class="icon"><i class="fa-solid fa-camera fa-2xl"></i></span>
-            <h4 class="icon-title">Услуги</h4>
-            <p class="icon-text">Потърсете ни за всичко, което искате да се превърне в спомен</p>
-            <a asp-controller="StaticContent" asp-action="Services" class="btn btn-outline-primary icon-cta-btn">Повече</a>
+    <div class="hotel_booking_area position">
+        <div class="container">
+            <div class="hotel_booking_table">
+                <div class="col-md-3">
+                    <h2>Резервирайте<br> фотосесия</h2>
+                </div>
+                <div class="col-md-9">
+                    <div class="boking_table">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type='text' class="form-control" placeholder="Име" />
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <select asp-items="@(Html.GetEnumSelectList<PhotoShootType>())" class="wide">
+                                            <option data-display="Тип фотосесия">Тип фотосесия</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type='text' class="form-control" placeholder="Фамилия" />
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <select asp-items="@(Html.GetEnumSelectList<PhotoShootType>())" class="wide">
+                                            <option data-display="Област">Област</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type='text' class="form-control" placeholder="Телефон" />
+                                        </div>
+                                    </div>
+                                    <a class="book_now_btn button_hover text-white" href="#">Резевирай</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-6 col-lg-3 icons-column">
-            <span class="icon"><i class="fa-solid fa-coins fa-2xl"></i></span>
-            <h4 class="icon-title">Цени</h4>
-            <p class="icon-text">Разгледайте ценовата гама на предлаганите от нас услуги</p>
-            <a asp-controller="StaticContent" asp-action="Pricing" class="btn btn-outline-primary icon-cta-btn">Повече</a>
+    </div>
+</section>
+<!--================Banner Area =================-->
+<!--================ Accomodation Area  =================-->
+<section class="accomodation_area section_gap">
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_color">Повече за нас</h2>
+            <p>Услуги, цени, творчесто, мисия</p>
         </div>
-        <div class="col-6 col-lg-3 icons-column">
-            <span class="icon"><i class="fa-solid fa-images fa-2xl"></i></span>
-            <h4 class="icon-title">Галерия</h4>
-            <p class="icon-text">Вдъхновете се от нашите фотографии</p>
-            <a asp-controller="Photo" asp-action="All" class="btn btn-outline-primary icon-cta-btn">Повече</a>
+        <div class="row mb_30">
+            <div class="col-lg-3 col-sm-6">
+                <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+                        <img src="~/resources/images/services-photoshoot.jpg" alt="services-photoshoot">
+                        <a href="#" class="btn theme_btn button_hover">Услуги</a>
+                    </div>
+                    <p class="services-subheading">Потърсете ни за всичко, което искате да се превърне в спомен</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+                        <img src="~/resources/images/prices-calculator.jpg" alt="">
+                        <a href="#" class="btn theme_btn button_hover">Цени</a>
+                    </div>
+                    <p class="services-subheading">Разгледайте ценовата гама на предлаганите от нас услуги</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+                        <img src="~/resources/images/gallery-album.jpg" alt="">
+                        <a href="#" class="btn theme_btn button_hover">Галерия</a>
+                    </div>
+                    <p class="services-subheading">Вдъхновете се от нашите вече направени фотографии</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+                        <img src="~/resources/images/about-us-clones.jpg" alt="">
+                        <a href="#" class="btn theme_btn button_hover">За нас</a>
+                    </div>
+                    <p class="services-subheading">Научете повече за нашата дейност и история</p>
+                </div>
+            </div>
         </div>
-        <div class="col-6 col-lg-3 icons-column">
-            <span class="icon"><i class="fa-solid fa-bolt-lightning fa-2xl"></i></span>
-            <h4 class="icon-title">За нас</h4>
-            <p class="icon-text">Научете повече за нашата дейност и история</p>
-            <a asp-controller="StaticContent" asp-action="About" class="btn btn-outline-primary icon-cta-btn">Повече</a>
-        </div>
+    </div>
+</section>
+<section class="container">
+    <div class="section_title text-center">
+        <h2 class="title_color">Ще се радваме да работим заедно</h2>
+        <p>Резервирайте лесно, удобно и напълно безплатно вашата следваща фотосесия</p>
     </div>
     <div class="row row-portfolio">
         <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-wedding">
@@ -49,104 +130,251 @@
                 <h1>Сватба</h1>
                 <p>Вашата сватба през нашия обектив</p>
             </div>
-            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-light">Разгледайте</a>
-            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-primary">Резервирайте</a>
+            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-light btn-view-services">Разгледайте</a>
+            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-warning btn-book-services">Резервирайте</a>
         </div>
         <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-portrait">
             <div class="portfolio-content-wrap">
                 <h1>Портрет</h1>
                 <p>Превърнете се в модел</p>
             </div>
-            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-light">Разгледайте</a>
-            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-primary">Резервирайте</a>
+            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-light btn-view-services">Разгледайте</a>
+            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-warning btn-book-services">Резервирайте</a>
         </div>
         <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-baptism">
             <div class="portfolio-content-wrap">
                 <h1>Свето кръщение</h1>
                 <p>Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение.</p>
             </div>
-            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-light">Разгледайте</a>
-            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-primary">Резервирайте</a>
+            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-light btn-view-services">Разгледайте</a>
+            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-warning btn-book-services">Резервирайте</a>
         </div>
         <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-prom">
             <div class="portfolio-content-wrap">
                 <h1>Абитуриентски бал</h1>
                 <p>Ще създадем красиви и стилни снимки, които ще Ви напомнят за този вълнуващ момент.</p>
             </div>
-            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-light">Разгледайте</a>
-            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-primary">Резервирайте</a>
+            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-light btn-view-services">Разгледайте</a>
+            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-warning btn-book-services">Резервирайте</a>
         </div>
         <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-automobile">
             <div class="portfolio-content-wrap">
                 <h1>Автомобил</h1>
                 <p>Нека автомобилът Ви бъде звездата!</p>
             </div>
-            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Automotive" class="btn btn-light">Разгледайте</a>
-            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Automotive" class="btn btn-primary">Резервирайте</a>
+            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Automotive" class="btn btn-light btn-view-services">Разгледайте</a>
+            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Automotive" class="btn btn-warning btn-book-services">Резервирайте</a>
         </div>
         <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-product">
             <div class="portfolio-content-wrap">
                 <h1>Продукт</h1>
                 <p>Ще представим продуктовия Ви каталог в най-добра светлина.</p>
             </div>
-            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-light">Разгледайте</a>
-            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-primary">Резервирайте</a>
+            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-light btn-view-services">Разгледайте</a>
+            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-warning btn-book-services">Резервирайте</a>
         </div>
         <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-pregnancy">
             <div class="portfolio-content-wrap">
                 <h1>Бременност</h1>
                 <p>Красотата на бремеността Ви завинаги с Вас</p>
             </div>
-            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Pregnant" class="btn btn-light">Разгледайте</a>
-            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Pregnant" class="btn btn-primary">Резервирайте</a>
+            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Pregnant" class="btn btn-light btn-view-services">Разгледайте</a>
+            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Pregnant" class="btn btn-warning btn-book-services">Резервирайте</a>
         </div>
         <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-kids">
             <div class="portfolio-content-wrap">
                 <h1>Детска фотосесия</h1>
                 <p>Нека заснемем усмивките на децата Ви!</p>
             </div>
-            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Kids" class="btn btn-light">Разгледайте</a>
-            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Kids" class="btn btn-primary">Резервирайте</a>
+            <a asp-controller="Photo" asp-action="AllByPhotoshootType" asp-route-photoshootType="@PhotoShootType.Kids" class="btn btn-light btn-view-services">Разгледайте</a>
+            <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Kids" class="btn btn-warning btn-book-services">Резервирайте</a>
         </div>
     </div>
-    <!-- Portfolio Grid-->
-    <section class="page-section bg-light" id="portfolio">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">Актуално</h2>
-                <h3 class="section-subheading text-muted">Разгледайте активните и предложения и промоции</h3>
+</section>
+<!-- Portfolio Grid-->
+<!--================ Accomodation Area  =================-->
+<!--================ Facilities Area  =================-->
+<!--<section class="facilities_area section_gap mt-5">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
+    </div>
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_w">Royal Facilities</h2>
+            <p>Who are in extremely love with eco friendly system.</p>
+        </div>
+        <div class="row mb_30">
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-dinner"></i>Restaurant</h4>
+                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                </div>
             </div>
-            <div class="row">
-                @foreach(DynamicContent dynamicContent in Model)
-                {
-                    <div class="col-sm-6 mb-4">
-                        <div class="portfolio-item">
-                            <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent.Id" class="portfolio-link">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="~/resources/images/@(dynamicContent.ImageName)" alt="current1" />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">@dynamicContent.Title</div>
-                                <div class="portfolio-caption-subheading text-muted">@dynamicContent.Description</div>
-                            </div>
-                        </div>
-                    </div>
-                }
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-bicycle"></i>Sports CLub</h4>
+                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-12 text-center mt-3">
-                    <a asp-action="All" asp-controller="DynamicContent" class="btn btn-primary btn-lg">Виж всички</a>
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-shirt"></i>Swimming Pool</h4>
+                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-car"></i>Rent a Car</h4>
+                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-construction"></i>Gymnesium</h4>
+                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-coffee-cup"></i>Bar</h4>
+                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
                 </div>
             </div>
         </div>
-    </section>
-</div>
+    </div>
+</section>-->
+<!--================ Facilities Area  =================-->
+<!--================ About History Area  =================-->
+<section class="about_history_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d_flex align-items-center">
+                <div class="about_content ">
+                    <h2 class="title title_color">За нас <br>Нашата история<br>Какво целим</h2>
+                    <p>Фотон се роди с идеята да улесни максимално клиентите ни. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията, а тя да се окаже повредена. Никой ме е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайтът на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
+                    <a asp-action="About" asp-controller="StaticContent" class="button_hover theme_btn_two">Научете повече</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img class="img-fluid" src="image/about_bg.jpg" alt="img">
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ About History Area  =================-->
+<!--================ Testimonial Area  =================-->
+<section class="testimonial_area section_gap">
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_color">Какво говорят клиентите ни</h2>
+            <p>Прочетете какво мислят клиентите ни за нашата дейност</p>
+        </div>
+        <div class="testimonial_slider owl-carousel">
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                <div class="media-body">
+                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                    <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star-half-o"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                <div class="media-body">
+                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                    <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star-half-o"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                <div class="media-body">
+                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                    <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star-half-o"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                <div class="media-body">
+                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                    <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star-half-o"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ Testimonial Area  =================-->
+<!--================ Latest Blog Area  =================-->
+<section class="latest_blog_area section_gap">
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_color">Актуално</h2>
+            <p>Последните публиакции от нашия блог</p>
+        </div>
+        <div class="row mb_30">
+            @foreach (DynamicContent dynamicContent in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-recent-blog-post">
+                        <div class="thumb">
+                            <img class="img-fluid" src="~/resources/images/@(dynamicContent.ImageName)" alt="post">
+                        </div>
+                        <div class="details">
+                            <div class="tags">
+                                <a href="#" class="button_hover tag_btn">Travel</a>
+                                <a href="#" class="button_hover tag_btn">Life Style</a>
+                            </div>
+                            <a href="#"><h4 class="sec_h4">@dynamicContent.Title</h4></a>
+                            <p>@dynamicContent.Description</p>
+                            <h6 class="date title_color">@dynamicContent.CreatedOn.ToString("dd.MM.yyyy") г.</h6>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!--================ Recent Area  =================-->
 
 <style>
+    .book_now_btn{
+        font-weight: bold;
+    }
+
+    .services-subheading{
+        margin-top: 30px;
+    }
 
     /*Override from styles.css*/
+    .banner_area .bg-parallax {
+        background: url(@(Url.Content($"~/resources/{ViewBag.HomePhoto}"))) no-repeat scroll center 0/cover;
+        opacity: 0.50;
+    }
     header.masthead {
         background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(@(Url.Content($"~/resources/{ViewBag.HomePhoto}")));
         background-size: cover;
@@ -227,6 +455,17 @@
 
     .row-portfolio .col-portfolio .portfolio-content-wrap{
         background: rgba(0, 0, 0, 0.1);
+            }
+
+    .row-portfolio .col-portfolio .btn-book-services {
+        color: #fff;
+        border-radius: unset;
+        font-weight: bold;
+    }
+    
+    .row-portfolio .col-portfolio .btn-view-services {
+        border-radius: unset;
+        font-weight: bold;
     }
 
     .row-portfolio .col-wedding{

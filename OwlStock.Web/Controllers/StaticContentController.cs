@@ -4,6 +4,11 @@ namespace OwlStock.Web.Controllers
 {
     public class StaticContentController : Controller
     {
+        public IActionResult Contacts()
+        {
+            return View();
+        }
+
         public IActionResult Services()
         {
             return View();

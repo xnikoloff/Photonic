@@ -4,27 +4,149 @@
     ViewData["Title"] = "Актуално";
 }
 
-<div class="container">
-    <partial name="_DynamicContentHeader.cshtml" model="@("Актуално")"/>
-    <div class="row mt-5">
-        @foreach(DynamicContent dynamicContent in Model)
-        {
-            <div class="col-12 col-md-6 col-lg-3 text-center mx-auto">
-                <div class="card">
-                    <div class="card-header">
-                        <h6>@dynamicContent?.Title</h6>
-                    </div>
-                    <div class="card-body">
-                        <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><img src="~/resources/images/@(dynamicContent?.ImageName)" /></a>
-                    </div>
-                    <div class="card-footer">
-                        <p>@dynamicContent?.Description</p>
-                    </div>
+<!--================Banner Area =================-->
+<section class="banner_area blog_banner d_flex align-items-center">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="banner_content text-center">
+            <h4>Нашият блог</h4>
+            <p>Новини, истории, любопитни факти</p>
+            <!--<a href="#" class="btn white_btn button_hover">View More</a>-->
+        </div>
+    </div>
+</section>
+<!--================Banner Area =================-->
+<!--================Blog Area =================-->
+<section class="blog_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog_left_sidebar">
+                    <article class="row blog_item">
+                        <div class="col-md-3">
+                            <div class="blog_info text-right">
+                                <div class="post_tag">
+                                    <a href="#">Food,</a>
+                                    <a href="#">Technology,</a>
+                                    <a href="#">Politics,</a>
+                                    <a href="#">Lifestyle</a>
+                                </div>
+                                <ul class="blog_meta list_style">
+                                    <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
+                                    <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
+                                    <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
+                                    <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @foreach (DynamicContent dynamicContent in Model)
+                            {
+                                <div class="blog_post mt-3">
+                                    <img src="~/resources/images/@(dynamicContent.ImageName)" alt="">
+                                    <div class="blog_details">
+                                        <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h2>@dynamicContent.Title</h2></a>
+                                        <p>@dynamicContent?.Description</p>
+                                        <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id" class="view_btn button_hover">View More</a>
+                                    </div>
+                                </div>
+                            }
+                            
+                        </div>
+                    </article>
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a href="#" class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">
+                                        <span class="lnr lnr-chevron-left"></span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a href="#" class="page-link">01</a></li>
+                            <li class="page-item active"><a href="#" class="page-link">02</a></li>
+                            <li class="page-item"><a href="#" class="page-link">03</a></li>
+                            <li class="page-item"><a href="#" class="page-link">04</a></li>
+                            <li class="page-item"><a href="#" class="page-link">09</a></li>
+                            <li class="page-item">
+                                <a href="#" class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">
+                                        <span class="lnr lnr-chevron-right"></span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
-        }
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Търсене в блога">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </aside>
+                    <aside class="single_sidebar_widget ads_widget">
+                        <a href="#"><img class="img-fluid" src="image/blog/add.jpg" alt=""></a>
+                        <div class="br"></div>
+                    </aside>
+                    <aside class="single_sidebar_widget post_category_widget">
+                        <h4 class="widget_title">Категории</h4>
+                        <ul class="list_style cat-list">
+                            <li>
+                                <a href="#" class="d-flex justify-content-between">
+                                    <p>Technology</p>
+                                    <p>37</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex justify-content-between">
+                                    <p>Lifestyle</p>
+                                    <p>24</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex justify-content-between">
+                                    <p>Fashion</p>
+                                    <p>59</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex justify-content-between">
+                                    <p>Art</p>
+                                    <p>29</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex justify-content-between">
+                                    <p>Food</p>
+                                    <p>15</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex justify-content-between">
+                                    <p>Architecture</p>
+                                    <p>09</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex justify-content-between">
+                                    <p>Adventure</p>
+                                    <p>44</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="br"></div>
+                    </aside>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+<!--================Blog Area =================-->
 
 <style>
     .card{

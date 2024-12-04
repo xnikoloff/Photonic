@@ -2,42 +2,67 @@
     ViewData["Title"] = "За нас";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1>DreamPix</h1>
+<!--================Breadcrumb Area =================-->
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">За нас</h2>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
+                <li class="active">За нас</li>
+            </ol>
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-12">
-            <p id="text">Ние сме фотографска агенция, предлагаща услуги в различни аспекти на фотографията - портретна, сватбена, събътия, имоти и др. За момента развиваме дейността си в областите Пловдив, Пазарджик, Хасково и Стара Загора, като планираме разширение в бъдеще.</p>
-            <p id="text">Нашата страст е посветена на улавянето на най-ценните Ви моменти. В DreamPix вярваме, че всяка снимка разказва история и всяка история заслужава да бъде разказана с изключително внимание към детайла и артистичност.</p>
+</section>
+<!--================Breadcrumb Area =================-->
+<!--================ About History Area  =================-->
+<section class="about_history_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d_flex align-items-center">
+                <div class="about_content ">
+                    <h2 class="title title_color">За нас <br>Нашата история<br>Какво целим</h2>
+                    <p>Нашата страст е посветена на улавянето на най-ценните Ви моменти. Вярваме, че всяка снимка разказва история и всяка история заслужава да бъде разказана с изключително внимание към детайла и артистичност.<br /><br />Целта на Фотон е да превърнем вашите спомени в изкуство. Независимо дали става дума за сватба, семеен портрет, корпоративно събитие или лична фотосесия, ние се стремим да уловим емоцията и красотата във всеки кадър.<br /><br />Фотон се роди с идеята да улесни максимално клиентите ни. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията, а тя да се окаже повредена. Никой ме е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайтът на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
+                    <a asp-action="Reserve" asp-controller="Photoshoot" class="button_hover theme_btn_two">Резервирай</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img class="img-fluid" src="~/image/about_bg.jpg" alt="img">
+            </div>
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-12">
-            <h4>Нашата мисия</h4>
-            <p id="text">Мисията на DreamPix е да превърнем вашите спомени в изкуство. Независимо дали става дума за сватба, семеен портрет, корпоративно събитие или лична фотосесия, ние се стремим да уловим емоцията и красотата във всеки кадър.</p>
+</section>
+<!--================ About History Area  =================-->
+<!--================ Facilities Area  =================-->
+<section class="facilities_area section_gap">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
+    </div>
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_w">Какво предлагаме?</h2>
+            <p></p>
+        </div>
+        <div class="row mb_30">
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="fa-solid fa-camera-retro fa-lg text-warning"></i> Креативен подход</h4>
+                    <p>Нашата цел е да превърнем вашите спомени в картини. Независимо дали става дума за сватба, семеен портрет, корпоративно събитие или лична фотосесия, ние се стремим да уловим емоцията и красотата във всеки кадър.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="fa-solid fa-face-smile-beam fa-lg text-warning"></i> Удобство</h4>
+                    <p>Предлагаме уеб сайт, през който можете лесно и бързо да резервирате фотосесии, като избете удобно време за Вас. Ще получите снимките си в профила си, като можете да ги разгледате или изтеглите, когато пожелаете.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="fa-solid fa-car-side fa-lg text-warning"></i> Служебен автомобил</h4>
+                    <p>Развиваме дейността си в няколко 
+                        и в Южна България - Пловдив, Стара Загора, Пазарджик и Хасково. Разполагаме със служебен автомобил, с който, ако желаете, можем да Ви вземем от адреса Ви.</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-12">
-            <h4>Защо да изберете DreamPix?</h4>
-            <p class="mt-3" id="text"><i class="fa-solid fa-check fa-lg text-success"></i> Ще получите професионализъм на добра цена.</p>
-            <p class="mt-3" id="text"><i class="fa-solid fa-check fa-lg text-success"></i> Имате свободата да изберете подходяща дата и час за вашата фотосесия безплатно и изцяло онлайн.</p>
-            <p class="mt-3" id="text"><i class="fa-solid fa-check fa-lg text-success"></i> Имате възможност сами да изберете мясото на фотосесията, както и да оставите това на нас.</p>
-            <p class="mt-3" id="text"><i class="fa-solid fa-check fa-lg text-success"></i> Ще имате кадрите си директно в профила Ви в DreamPix, като така ще спестите „размяна“ на флашки и линкове към облачни пространства. Разбира се, това не е задължително, ако предпочитате лично предаване.</p>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-12 text-center">
-           <a asp-controller="PhotoShoot" asp-action="Reserve" class="btn btn-primary btn-lg">Резервирай още сега!</a>
-        </div>
-    </div>
-</div>
-
-<style>
-    #text{
-        font-size: 1.3rem;
-    }
-</style>
+</section>
