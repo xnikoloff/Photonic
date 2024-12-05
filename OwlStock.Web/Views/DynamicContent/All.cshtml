@@ -23,36 +23,36 @@
             <div class="col-lg-8">
                 <div class="blog_left_sidebar">
                     <article class="row blog_item">
-                        <div class="col-md-3">
-                            <div class="blog_info text-right">
-                                <div class="post_tag">
-                                    <a href="#">Food,</a>
-                                    <a href="#">Technology,</a>
-                                    <a href="#">Politics,</a>
-                                    <a href="#">Lifestyle</a>
+                        @foreach (DynamicContent dynamicContent in Model)
+                        {
+                            <div class="col-md-3">
+                                <div class="blog_info text-right">
+                                    <!--<div class="post_tag">
+                                        <a href="#">Food,</a>
+                                        <a href="#">Technology,</a>
+                                        <a href="#">Politics,</a>
+                                        <a href="#">Lifestyle</a>
+                                    </div>-->
+                                    <ul class="blog_meta list_style">
+                                        <li><a href="#">@dynamicContent?.CreatedBy?.Email<i class="lnr lnr-user"></i></a></li>
+                                        <li><a href="#">@dynamicContent?.CreatedOn.ToString("dd.MM.yyy г hh:mm ч")<i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a href="#">@(dynamicContent?.ReadingTime == 0 ? "< 1 мин" : dynamicContent?.ReadingTime + "мин")<i class="lnr lnr-clock"></i></a></li>
+                                    </ul>
                                 </div>
-                                <ul class="blog_meta list_style">
-                                    <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                    <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                    <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
-                                </ul>
                             </div>
-                        </div>
-                        <div class="col-md-9">
-                            @foreach (DynamicContent dynamicContent in Model)
-                            {
-                                <div class="blog_post mt-3">
-                                    <img src="~/resources/images/@(dynamicContent.ImageName)" alt="">
-                                    <div class="blog_details">
-                                        <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h2>@dynamicContent.Title</h2></a>
-                                        <p>@dynamicContent?.Description</p>
-                                        <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id" class="view_btn button_hover">View More</a>
-                                    </div>
-                                </div>
-                            }
+                            <div class="col-md-9">
                             
-                        </div>
+                                    <div class="blog_post mt-3">
+                                        <img src="~/resources/images/@(dynamicContent.ImageName)" alt="">
+                                        <div class="blog_details">
+                                            <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h2>@dynamicContent.Title</h2></a>
+                                            <p>@dynamicContent?.Description</p>
+                                            <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id" class="view_btn button_hover">Прочетете повече</a>
+                                        </div>
+                                    </div>
+                            
+                            </div>
+                        }
                     </article>
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
@@ -93,7 +93,7 @@
                         <a href="#"><img class="img-fluid" src="image/blog/add.jpg" alt=""></a>
                         <div class="br"></div>
                     </aside>
-                    <aside class="single_sidebar_widget post_category_widget">
+                    <!--<aside class="single_sidebar_widget post_category_widget">
                         <h4 class="widget_title">Категории</h4>
                         <ul class="list_style cat-list">
                             <li>
@@ -140,7 +140,7 @@
                             </li>
                         </ul>
                         <div class="br"></div>
-                    </aside>
+                    </aside>-->
                 </div>
             </div>
         </div>

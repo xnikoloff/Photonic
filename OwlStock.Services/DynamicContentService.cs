@@ -98,7 +98,9 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
             }
 
-            return await _context.DynamicContents.ToListAsync();
+            return await _context.DynamicContents
+                .Include(dc => dc.CreatedBy)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<DynamicContent>> GetLastFour()
