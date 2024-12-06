@@ -40,7 +40,7 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
-                                        <div class="input-group border border-warning">
+                                        <div class="input-group border border-warning" id="photoshoot-type-wrap">
                                             <select asp-for=PhotoShootType asp-items="@(Html.GetEnumSelectList<PhotoShootType>())" class="wide">
                                                 <option value="">Тип фотосесия</option>
                                             </select>
@@ -53,7 +53,7 @@
                             <div class="col-12" id="photo-shoot-type-description">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
-                                        <div class="input-group border border-warning">
+                                        <div class="input-group border" id="photoshoot-description-wrap">
                                             <textarea asp-for="PhotoShootTypeDescription" cols="20" rows="6" class="form-control photoshoot-other-description" placeholder="Описание на фотосесия"></textarea>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
-                                        <div class="input-group">
+                                        <div class="input-group" id="region-wrap">
                                             <select id="Region" asp-items="@(new SelectList(Model.ServicedRegions, "Id", "Name"))" class="wide">
                                                 <option value="">Област</option>
                                             </select>
@@ -234,9 +234,9 @@
                                     <div class="col-md-4">
                                         <div class="book_tabel_item">
                                             <div class="form-group">
-                                                <div class="input-group border border-warning">
+                                                <div class="input-group border" id="photos-delivery-wrap">
                                                     <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="wide">
-                                                        <option data-display="">Начин на получаване на снимките</option>
+                                                        <option value="">Начин на получаване на снимките</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -260,7 +260,7 @@
         </div>
     </div>
     <div class="row row-price-bottom bg-warning fixed-bottom py-3">
-        <div class="col-10">
+        <div class="col-8 col-lg-10">
             <table class="table text-center">
                 <thead>
                     <tr>
@@ -279,7 +279,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-2 mt-3">
+        <div class="col-4 col-md-2 mt-3">
             <button type="submit" class="btn btn-light" id="btn-book" disabled>РЕЗЕРВИРАЙ</button>
         </div>
     </div>
@@ -466,43 +466,118 @@
 </style>
 
 <script>
+    function checkInputsEmpty(event) {
+        if ($("#PhotoShootType").val() == ""){
+            event.preventDefault();
+            $("#photoshoot-type-wrap").addClass("border-danger");
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($("#photoshoot-type-wrap").offset().top) - 250) 
+            }, 1000);
+            
+            return false;
+        }
+
+        if ($("#Region").val() == "") {
+            event.preventDefault();
+            $("#region-wrap").addClass("border-danger");
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($("#region-wrap").offset().top) - 250)
+            }, 1000);
+
+            return false;
+        }
+
+        if ($(".settlement:visible").length > 0 && $("#SelectedSettlementId").val() == "") {
+            event.preventDefault();
+            $("#settlement-validation-message").css("display", "block");
+            $(".selectize-control").addClass("border border-danger");
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($(".settlement").offset().top) - 250)
+            }, 500);
+
+            return false;
+        }
+        else if ($(".popular-places:visible").length > 0 && $("#SelectedSettlementId").val() == "") {
+            event.preventDefault();
+            $("#popular-place-validation-message").css("display", "block");
+            $(".selectize-control").addClass("border border-danger");
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($(".popular-places").offset().top) - 250)
+            }, 500);
+
+            return false;
+        }
+
+        if ($("#UserPlace:visible").length > 0 && $("#UserPlace").val() == "") {
+            event.preventDefault();
+            $("#UserPlace").addClass("border border-danger");
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($("#UserPlace").offset().top) - 250)
+            }, 500);
+
+            return false;
+        }
+
+        if ($("#PhotoDeliveryMethod").val() == "" && $("#DoNotUploadPhotos").is(":checked")) {
+            event.preventDefault();
+            $("#photos-delivery-wrap").addClass('border border-danger');
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($("#photos-delivery-wrap").offset().top) - 250)
+            }, 500);
+
+            return false;
+        }
+    }
+     
+    function checkDateNotSelected(event) {
+        console.log('form submited');
+        if ($("#ReservationDate").val() == ""){
+            event.preventDefault();
+            alert("Изберете дата");
+            return false;
+        }
+        if ($("#ReservationTime").val() == "") {
+            event.preventDefault();
+            alert("Изберете част");
+            return false;
+        }
+    }
+
     $(document).ready(function(){
         let lastClickedDateBtn = null;
         let lastClickedTimeSlotBtn = null;
+
+        //reset date and time
+        $("#ReservationDate").val("");
+        $("#ReservationTime").val("");
+
+        console.log("hello");
+        console.log($("#ReservationDate").val() == "");
+        console.log($("#ReservationDate").val() == "");
 
         //check photoshoot type and price on page load
         $("#photoshootTypeBottom").html($('#PhotoShootType').find(":selected").text());
         updatePrice();
 
         $("#booking-form").submit(function (event) {
-            if ($(".settlement:visible").length > 0 && $("#SelectedSettlementId").val() == undefined) {
-                event.preventDefault();
-                $("#settlement-validation-message").css("display", "block");
-                $(".selectize-control").addClass("border border-danger");
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $(".settlement").offset().top
-                }, 500);
-            }
-            else if ($(".popular-places:visible").length > 0 && $("#SelectedSettlementId").val() == undefined) {
-                event.preventDefault();
-                $("#popular-place-validation-message").css("display", "block");
-                $(".selectize-control").addClass("border border-danger");
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $(".popular-places").offset().top
-                }, 500);
-            }
+            checkInputsEmpty(event);
+            checkDateNotSelected(event);
         });
 
         $("#PhotoDeliveryMethod").change(function () {
+            if($("#PhotoDeliveryMethod").val() != ""){
+                $("#photos-delivery-wrap").addClass('border border-danger');
+            }
+            else{
+                $("#photos-delivery-wrap").removeClass('border border-danger');
+            }
             //2 is USB, 3 is CD 
             if ($('#PhotoDeliveryMethod').find(":selected").val() == 2 ||
                 $('#PhotoDeliveryMethod').find(":selected").val() == 3) {
                 $(".col-photo-delivery").css("display", "block");
-                $("#PhotoDeliveryAddress").prop('required', true);
             }
             else{
                 $(".col-photo-delivery").css("display", "none");
-                $("#PhotoDeliveryAddress").prop('required', false);
                 $("#PhotoDeliveryAddress").val('');
             }
         });
@@ -510,13 +585,11 @@
         $("#DoNotUploadPhotos").change(function () {
             if (this.checked) {
                 $(".delivery-method").css("display", "block");
-                $("#PhotoDeliveryMethod").prop('required', true);
             }
             else{
 
                 $(".delivery-method").css("display", "none");
                 $("#PhotoDeliveryMethod").val('');
-                $("#PhotoDeliveryMethod").prop('required', false);
             }
         });
 
@@ -546,7 +619,12 @@
         });
 
         $("#Region").change(function () {
-            let photoshootType = $('#PhotoShootType').find(":selected").val();
+            if($("#Region").val() == ""){
+                $("#region-wrap").addClass("border border-danger");
+            }
+            else{
+                $("#region-wrap").removeClass("border border-danger");
+            }
             updatePrice();
             getSettlementsByRegion($("#Region option:selected").text());
             $(".price-container").css("display", "block");
@@ -570,6 +648,51 @@
             togglePlacesButton();
 
             $("#regionBottom").text($('#Region').find(":selected").text());
+        });
+
+        $("#UserPlace").change(function () {
+            if ($("#UserPlace").val() == "") {
+                $("#UserPlace").addClass("border border-danger");
+            }
+            else {
+                $("#UserPlace").removeClass("border border-danger");
+            }
+        });
+
+        $("#PersonLastName").change(function () {
+            if ($("#PersonLastName").val() == "") {
+                $("#PersonLastame").addClass("border border-danger");
+            }
+            else {
+                $("#PersonLastName").removeClass("border border-danger");
+            }
+        });
+
+        $("#PersonLastName").change(function () {
+            if ($("#PersonLastName").val() == "") {
+                $("#PersonLastName").addClass("border border-danger");
+            }
+            else {
+                $("#PersonLastName").removeClass("border border-danger");
+            }
+        });
+        
+        $("#PersonLastName").change(function () {
+            if ($("#PersonLastName").val() == "") {
+                $("#PersonLastame").addClass("border border-danger");
+            }
+            else {
+                $("#PersonLastName").removeClass("border border-danger");
+            }
+        });
+
+        $("#PersonPhone").change(function () {
+            if ($("#PersonPhone").val() == "") {
+                $("#PersonPhone").addClass("border border-danger");
+            }
+            else {
+                $("#PersonPhone").removeClass("border border-danger");
+            }
         });
         
         /*$("#Settlement").change(function () {
@@ -663,6 +786,15 @@
         $("#photo-shoot-type-description").css("display", "none");
 
         $("#PhotoShootType").change(function () {
+            if ($("#PhotoShootType").val() == "") {
+                $("#photoshoot-type-wrap").removeClass("border-warning");
+                $("#photoshoot-type-wrap").addClass("border-danger");
+            }
+            else {
+                $("#photoshoot-type-wrap").removeClass("border-danger");
+                $("#photoshoot-type-wrap").addClass("border-warning");
+            }
+
             let option = $('#PhotoShootType').find(":selected").val();
             
             //10 is {Other}
@@ -812,7 +944,7 @@
 
                 $(".card-weather").each(function (i) {
                     let cardBody = $(this).find(".card-body-weather");
-                    cardBody.find(".icon").css("background-image", `url(${json.forecast.forecastDays[i].day.condition.icon})`);
+                    //cardBody.find(".icon").css("background-image", `url(${json.forecast.forecastDays[i].day.condition.icon})`);
                     cardBody.find(".temperatureCurrent").text(json.forecast.forecastDays[i].day.averageTemperature != 0 ? (Math.round(json.forecast.forecastDays[i].day.maxTemperature) + 'C°') : '');
                     cardBody.find(".forecastText").text(json.forecast.forecastDays[i].day.condition.text);
                     cardBody.find(".precipitation").text('Валежи: ' + json.forecast.forecastDays[i].day.totalPrecipitation + '%');
@@ -878,11 +1010,6 @@
                         $("#PlaceId").val(value);
                         $("#SelectedSettlementId").val((findElementById(json, value)).cityId);
                         $("#IsPlaceSelected").val(true);
-                        /*if ($("#IsDecidedByUs").prop('checked') == false) {
-                            $(".place-addition-info").css("display", "block");
-                            $("#row-dates-weather").css("transition", ".4s");
-                            $("#row-dates-weather").css("display", "flex");
-                        }*/
                     }
                 });
             }
@@ -930,9 +1057,7 @@
 
                             if ($("#IsDecidedByUs").prop('checked') == false) {
                                 $(".place-addition-info").css("display", "flex");
-                                //$(".row-dates-weather-remaining").css("transition", ".4s");
-                                //$(".row-dates-weather-remaining").css("display", "flex");
-                            }
+                             }
 
                             if($("#Settlement").val() != ''){
                                 $(".selectize-control").removeClass("border border-danger");
