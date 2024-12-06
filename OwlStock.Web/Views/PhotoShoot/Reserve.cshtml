@@ -205,7 +205,30 @@
                             </div>
                             
                             <div class="gdpr-container mt-4">
-                                <div class="row">
+                                <div class="row mt-5">
+                                    <div class="col-12">
+                                        <div class="book_tabel_item">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input asp-for="TransportCustomer" class="form-check-input" />
+                                                    <label asp-for="TransportCustomer" id="TransportCustomerLabel" class="form-check-label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-12 col-pickup-address" style="display:none">
+                                        <div class="book_tabel_item">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input asp-for="PickUpAddress" class="form-control" placeholder="Адрес, от който да ви вземем" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
                                     <h4>GDPR</h4>
                                 </div>
                                 <div class="row">
@@ -445,7 +468,7 @@
         margin-bottom: 0;
     }
 
-    #DoNotUploadPhotosLabel{
+    #DoNotUploadPhotosLabel, #TransportCustomerLabel {
         font-size: 1.3rem;
     }
 
@@ -538,6 +561,16 @@
 
             return false;
         }
+
+        if ($("#PickUpAddress").val() == "" && $('#TransportCustomer').is(":checked")) {
+            event.preventDefault();
+            $("#PickUpAddress").addClass('border border-danger');
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($("#PickUpAddress").offset().top) - 250)
+            }, 500);
+
+            return false;
+        }
     }
      
     function checkDateNotSelected(event) {
@@ -561,10 +594,6 @@
         //reset date and time
         $("#ReservationDate").val("");
         $("#ReservationTime").val("");
-
-        console.log("hello");
-        console.log($("#ReservationDate").val() == "");
-        console.log($("#ReservationDate").val() == "");
 
         //check photoshoot type and price on page load
         $("#photoshootTypeBottom").html($('#PhotoShootType').find(":selected").text());
@@ -612,6 +641,27 @@
 
                 $(".delivery-method").css("display", "none");
                 $("#PhotoDeliveryMethod").val('');
+            }
+        });
+
+        $("#TransportCustomer").change(function () {
+            if (this.checked) {
+                $(".col-pickup-address").css("display", "block");
+                $("#PickUpAddress").addClass('border border-danger');
+            }
+            else{
+
+                $(".col-pickup-address").css("display", "none");
+                $("#PickUpAddress").val('');
+            }
+        });
+
+        $("#PickUpAddress").change(function () {
+            if ($("#PickUpAddress").val() == "") {
+                $("#PickUpAddress").addClass('border border-danger');
+            }
+            else {
+                $("#PickUpAddress").removeClass('border border-danger');
             }
         });
 

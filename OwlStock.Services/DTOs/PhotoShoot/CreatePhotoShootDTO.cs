@@ -77,6 +77,10 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         [MaxLength(ModelConstraints.PhotoDeliveryAddressMxLength)]
         public string? PhotoDeliveryAddress { get; set; }
 
+        [Display(Name = "Желая превоз до локацията")]
+        public bool TransportCustomer { get; set; }
+        public string? PickUpAddress { get; set; }
+
         public decimal Price { get; set; }
 
         public decimal FuelPrice { get; set; }

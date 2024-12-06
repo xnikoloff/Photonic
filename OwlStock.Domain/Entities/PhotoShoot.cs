@@ -30,6 +30,10 @@ namespace OwlStock.Domain.Entities
         public bool DoNotUploadPhotos { get; set; }
         public PhotoDeliveryMethod? PhotoDeliveryMethod { get; set; }
         public string? PhotoDeliveryAddress { get; set; }
+
+        public bool TransportCustomer { get; set; }
+        public string? PickUpAddress { get; set; }
+
         public Place? Place { get; set; }
 
         [ForeignKey(nameof(Place))]
