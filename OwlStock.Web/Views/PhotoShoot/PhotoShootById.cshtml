@@ -21,6 +21,8 @@
             <i class="fa-solid fa-calendar-plus fa-2x"></i>
             <h5 class="mt-2">@Model?.CreatedOn.ToString("dd.MM.yyyy") г. @Model?.CreatedOn.ToString("hh:mm") ч.</h5>
         </div>
+    </div>
+    <div class="row mt-5">
         <div class="col-6 col-lg-2 mx-auto text-center">
             <i class="fa-solid fa-camera fa-2x"></i>
             <h5 class="mt-2">@(Model?.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</h5>
@@ -34,6 +36,18 @@
                 },
                 @(Model?.Settlement ?? "N/A"),
                 @(Model?.Region ?? "N/A")
+            </h5>
+        </div>
+        <div class="col-6 col-lg-2 mx-auto text-center">
+            <i class="fa-solid fa-car fa-2x"></i>
+            <h5 class="mt-2">
+                @if (Model!.TransportCustomer)
+                {
+                    @Model?.PickUpAddress
+                }
+                else{
+                    @("Не сте посочили транспорт")
+                }
             </h5>
         </div>
     </div>

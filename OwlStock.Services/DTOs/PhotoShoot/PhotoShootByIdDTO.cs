@@ -19,6 +19,8 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public PhotoDeliveryMethod? PhotoDeliveryMethod { get; set; }
         public string? PhotoDeliveryAddress { get; set; }
         public decimal Price { get; set; }
+        public bool TransportCustomer { get; set; }
+        public string? PickUpAddress { get; set; }
         public string? IdentityUserId { get; set; }
         public ICollection<PhotoShootPhoto>? PhotoShootPhotos { get; set; }
     }

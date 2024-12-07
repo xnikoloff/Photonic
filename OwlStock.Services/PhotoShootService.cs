@@ -100,6 +100,8 @@ namespace OwlStock.Services
                 PhotoDeliveryAddress = photoshoot?.PhotoDeliveryAddress,
                 PhotoDeliveryMethod = photoshoot?.PhotoDeliveryMethod,
                 Price = photoshoot.Price,
+                TransportCustomer = photoshoot.TransportCustomer,
+                PickUpAddress = photoshoot?.PickUpAddress,
                 PhotoShootPhotos = photoshoot?.PhotoShootPhotos,
                 IdentityUserId = userId,
             };
@@ -175,7 +177,9 @@ namespace OwlStock.Services
                 IdentityUserId = dto.IdentityUserId,
                 Status = PhotoshootStatus.New,
                 PlaceId = dto.PlaceId == Guid.Empty ? null : dto.PlaceId,
-                PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType)
+                PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
+                TransportCustomer = dto.TransportCustomer,
+                PickUpAddress = dto.PickUpAddress
             };
 
             //not used for now
