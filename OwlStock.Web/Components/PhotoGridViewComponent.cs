@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OwlStock.Domain.Entities;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Components

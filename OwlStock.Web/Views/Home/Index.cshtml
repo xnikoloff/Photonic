@@ -13,63 +13,11 @@
                 <h6>Фотографска агенция</h6>
                 <img src="~/DreamPixW.png" class="logo-homepage" />
                 <p>Нашето вдъхновение са вашите спомени</p>
-                <a asp-action="Reserve" asp-controller="Photoshoot" class="btn theme_btn button_hover">Резервирай</a>
+                <a asp-action="QuickReserve" asp-controller="Photoshoot" class="btn theme_btn button_hover">Резервирай</a>
             </div>
         </div>
     </div>
-    <div class="hotel_booking_area position">
-        <div class="container">
-            <div class="hotel_booking_table">
-                <div class="col-md-3">
-                    <h2>Резервирайте<br> фотосесия</h2>
-                </div>
-                <div class="col-md-9">
-                    <div class="boking_table">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="book_tabel_item">
-                                    <div class="form-group">
-                                        <div class='input-group'>
-                                            <input type='text' class="form-control" placeholder="Име" />
-                                        </div>
-                                    </div>
-                                    <div class="input-group">
-                                        <select asp-items="@(Html.GetEnumSelectList<PhotoShootType>())" class="wide">
-                                            <option data-display="Тип фотосесия">Тип фотосесия</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="book_tabel_item">
-                                    <div class="form-group">
-                                        <div class='input-group'>
-                                            <input type='text' class="form-control" placeholder="Фамилия" />
-                                        </div>
-                                    </div>
-                                    <div class="input-group">
-                                        <select asp-items="@(Html.GetEnumSelectList<PhotoShootType>())" class="wide">
-                                            <option data-display="Област">Област</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="book_tabel_item">
-                                    <div class="form-group">
-                                        <div class='input-group'>
-                                            <input type='text' class="form-control" placeholder="Телефон" />
-                                        </div>
-                                    </div>
-                                    <a class="book_now_btn button_hover text-white" href="#">Резевирай</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @await Component.InvokeAsync("QuickBooking")
 </section>
 <!--================Banner Area =================-->
 <!--================ Accomodation Area  =================-->

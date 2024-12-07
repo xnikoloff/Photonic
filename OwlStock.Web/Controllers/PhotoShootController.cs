@@ -42,6 +42,22 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> QuickReserve(PhotoShootType photoshootType, string firstName, string lastName, string phone)
+        {
+            CreatePhotoShootDTO dto = new()
+            {
+                PhotoShootType = photoshootType,
+                PersonFirstName = firstName,
+                PersonLastName = lastName,
+                PersonPhone = phone,
+                Calendar = await _photoShootService.GetPhotoShootsCalendar(),
+                ServicedRegions = (await _settlementService.GetServicedRegion()).ToList()
+            };
+
+            return View(nameof(Reserve), dto);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ReserveByType(PhotoShootType photoShootType)
         {
             CreatePhotoShootDTO dto = new()
