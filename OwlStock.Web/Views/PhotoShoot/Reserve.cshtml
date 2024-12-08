@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" id="small-product-wrap" style="display:none">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
                                         <input asp-for="IsSmallProduct" />
@@ -912,12 +912,14 @@
             
             if(option == 11){
                 $(".products-info-container").css("display", "block");
+                $("#small-product-wrap").css("display", "block");
                 $([document.documentElement, document.body]).animate({
                     scrollTop: (($(".products-info-container").offset().top) - 250)
                 }, 1000);
             }
             else{
                 $(".products-info-container").css("display" , "none");
+                $("#small-product-wrap").css("display", "none");
             }
 
             //10 is {Other}
