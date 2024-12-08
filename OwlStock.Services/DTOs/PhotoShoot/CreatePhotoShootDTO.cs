@@ -53,9 +53,11 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         [Required(ErrorMessage = "Изберете град или популярно място")]
         public string? SelectedSettlementId { get; set; }
 
-        [Required]
         [Display(Name = "Нека ние изберем място за Вас")]
         public bool IsDecidedByUs { get; set; }
+
+        [Display(Name = "Малък продукт")]
+        public bool IsSmallProduct { get; set; }
 
         [Required(ErrorMessage = "Място на фотосесията е задължително")]
         [Display(Name = "Място на фотосесията")]
