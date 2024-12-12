@@ -4,13 +4,25 @@
     ViewData["Title"] = Model.Title;
 }
 
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">@Model.Title</h2>
+            <ol class="breadcrumb">
+                <li><a asp-action="All" asp-controller="DynamicContent">Актуално</a></li>
+                <li class="active">@Model.Title</li>
+            </ol>
+        </div>
+    </div>
+</section>
 <div class="container">
-    <partial name="_DynamicContentHeader" model="Model.Title"/>
-    <div class="row mt-2">
+     <div class="row my-4">
         <div class="col-12 col-data">
             <span>Създадена на: <span class="data"><b>@(Model.CreatedOn.ToString("dd.MM.yyyy") + " г.")</b></span></span> <b>-</b> Време за четене: <span class="data"><b>@(Model.ReadingTime == 0 ? "< 1 мин" : Model.ReadingTime + "мин")</b></span>
         </div>
     </div>
+    <hr />
     <div class="row row-content mt-5">
         <div class="col-12 col-md-6 col-lg-4 col-banner">
             <img style="width:350px" id="image" src="~/resources/images/@(Model.ImageName)"/>
@@ -24,11 +36,7 @@
 <style>
     #title{
         font-size: 3rem;   
-    }
-
-    #image{
-        border-radius: 8px;
-        box-shadow: 0px 0px 10px -2px #8cb0db;
+    }  box-shadow: 0px 0px 10px -2px #8cb0db;
     }
 
     .data{

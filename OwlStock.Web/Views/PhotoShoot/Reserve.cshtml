@@ -179,7 +179,7 @@
                                     <div class="book_tabel_item">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <h4 id="priceDesciption">Тъй като избраното населено място се намира на разстояние по-голямо от 20 км от нас, това ще ви струва допълнителни <b><i><span id="price"></span></i></b>лв. (Такса пътни @(DefaultValue.TripTax).00 лв. + @(DefaultValue.FuelPriceByKilometer) лв. за всеки километър)</h4>
+                                                <h6 id="priceDesciption">Тъй като избраното населено място се намира на разстояние по-голямо от 20 км от нас, това ще ви струва допълнителни <b><i><span id="price"></span></i></b>лв. (Такса пътни @(DefaultValue.TripTax).00 лв. + @(DefaultValue.FuelPriceByKilometer) лв. за всеки километър)</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -202,14 +202,14 @@
                                     <div id="date-buttons-slider">
                                         @foreach (KeyValuePair<DateOnly, IEnumerable<TimeSlot>> calendarKVP in calendar)
                                         {
-                                            <div class="card card-weather text-center btn-date btn-date-simple text-white @(calendarKVP.Value.FirstOrDefault().IsAvailable ? "bg-success" : "bg-danger")" id="date-button-simple">
+                                            <div class="card card-weather text-center btn-date btn-date-simple text-white @(calendarKVP.Value.FirstOrDefault().IsAvailable ? "bg-warning" : "bg-secondary")" id="date-button-simple">
                                                 <div class="card-header card-header-date">
                                                     <h4 class="date-text">@calendarKVP.Key.ToString("dd.MM")</h4>
                                                 </div>
-                                                <div class="card-body card-body-weather text-center" style="background: @(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("#8dba8d") : Html.Raw("#f57976"))">
+                                                <div class="card-body card-body-weather text-center" style="background: @(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("#c79c1a") : Html.Raw("#929ea8"))">
                                                     @foreach (TimeSlot slot in calendarKVP.Value)
                                                     {
-                                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-success" : "btn-danger") btn-sm my-1 btn-time-slot" id="time-slot">
+                                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-warning" : "btn-secondary") text-white btn-sm my-1 btn-time-slot" id="time-slot">
                                                             @(slot.Time.Hour < 10 ? $"0{slot.Time.Hour}" : slot.Time.Hour):@(slot.Time.Minute == 0 ? "00" : "30")
                                                         </button>
                                                     }
@@ -416,7 +416,6 @@
         margin-right: 10px;
         border: none;
         border-radius: 10px;
-        box-shadow: 0px 0px 10px -2px #8cb0db;
         transform: unset;
         transition: .4s;
     }
@@ -431,7 +430,6 @@
     }
 
     #date-button-simple:hover, .btn-date-weather:hover {
-        box-shadow: 0px 0px 10px 2px #394859;
         transform: scale(1.02);
         transition: .4s;
     }
@@ -446,6 +444,7 @@
     
     .card{
         width: 148px;
+        border-radius: 0 !important;
     }
 
     .btn-date-weather .card-body .icon {
@@ -513,6 +512,19 @@
     .products-info{
         font-size: 1.1rem;
         line-height: 25px;
+    }
+
+    #btn-book{
+        border-radius: 0 !important;
+        background: #fff;
+        color: #000;
+        transition: 0.4s;
+    }
+
+    #btn-book:hover {
+        background: #000;
+        color: #fff;
+        transition: .4s;
     }
 </style>
 
@@ -714,6 +726,7 @@
                 $(".row-toggle-places").css("display", "none");
                 //$(".decided-by-us-settlement-info").css("display", "unset");
                 //$("#row-dates-no-weather").css("display", "flex");
+                $(".dates-container").css("display", "block");
                 $("#row-dates-weather").css("display", "flex");
                 //$(".row-dates-weather-remaining").css("display", "none");
                 $(".place-addition-info").css("display", "none");
@@ -745,8 +758,7 @@
             $("#Settlement").val('');
             
             $("#RegionId").val($(this).val());
-            $(".dates-container").css("display", "block");
-
+            
             if (!($("#showPopularPlaces").is(":visible")) && !($("#hidePopularPlaces").is(":visible"))) {
                 getSettlementsByRegion($("#Region option:selected").text());
             }
@@ -824,34 +836,17 @@
             }
         });*/
 
-        $(".card-weather").click(function () {
-            $(".card-weather").css("box-shadow", "unset");
-            $(".btn-date-simple").css("background", "unset");
-            $(".btn-date-simple").css("color", "unset");
-            $(this).css("box-shadow", "0px 0px 15px 2px #6cab65");
-        });
-
-        $(".btn-date-simple").click(function () {
-            $(".btn-date").each(function () {
-                $(this).css("background", "unset");
-                $(this).css("color", "unset");
-            });
-            $(this).css("background", "#a2cc93");
-            $(this).css("color", "#fff");
-            $(".card-weather").css("box-shadow", "unset");
-        });
-
         $(".btn-date").click(function () {
             //reset the styles for the last clicked button
             //bg-success is set as default because style is change for available buttons only
-            if(lastClickedDateBtn != null){
-                lastClickedDateBtn.removeClass('bg-warning');
-                lastClickedDateBtn.addClass('bg-success');
+            if (lastClickedDateBtn != null && lastClickedDateBtn.hasClass('bg-dark')) {
+                lastClickedDateBtn.removeClass('bg-dark');
+                lastClickedDateBtn.addClass('bg-warning');
             }
 
-            if ($(this).hasClass('bg-success')){
-                $(this).removeClass("bg-success");
-                $(this).addClass("bg-warning");
+            if ($(this).hasClass('bg-warning')){
+                $(this).removeClass("bg-warning");
+                $(this).addClass("bg-dark");
             }
             
             //set the currect clicked button as last clicked
@@ -870,25 +865,27 @@
 
             //reset the styles for the last clicked button
             //bg-success is set as default because style is change for available buttons only
-            if (lastClickedTimeSlotBtn != null) {
-                lastClickedTimeSlotBtn.removeClass('btn-warning');
-                lastClickedTimeSlotBtn.addClass('btn-success');
-            }
-
-            if ($(this).hasClass("btn-success")) {
-                $("#ReservationTime").val($(this).text());
-                $("#btn-book").prop("disabled", false);
-                $(this).removeClass('btn-success');
-                $(this).addClass('btn-warning');
-            }
-            
-            else {
-                alert("Избраният час е зает");
-                $("#btn-book").prop("disabled", true);
+            if (lastClickedTimeSlotBtn != null && !lastClickedTimeSlotBtn.hasClass("btn-secondary")) {
+                lastClickedTimeSlotBtn.removeClass('btn-dark');
+                lastClickedTimeSlotBtn.addClass('btn-warning');
             }
 
             //set the currect clicked button as last clicked
             lastClickedTimeSlotBtn = $(this);
+
+            if ($(this).hasClass("btn-warning")) {
+                $("#ReservationTime").val($(this).text());
+                $("#btn-book").prop("disabled", false);
+                $(this).removeClass('btn-warning');
+                $(this).addClass('btn-dark');
+            }
+            
+            if($(this).hasClass("btn-secondary")) {
+                alert("Избраният час е зает");
+                $("#btn-book").prop("disabled", true);
+            }
+
+            
 
             $(".book-container").css("display", "block");
         });
@@ -970,8 +967,8 @@
     function togglePlacesButton() {
         let regionId = $("#RegionId").val();
         let photoshootType = $('#PhotoShootType').find(":selected").val();
-        
-        if (regionId != "" && photoshootType != '7') {
+        console.log('regionId ' + regionId);
+        if ((regionId != "" && regionId != undefined) && photoshootType != '7') {
             if ($("#hidePopularPlaces").is(":visible")) {
                 $("#showPopularPlaces").css("display", "none");
                 $("#hidePopularPlaces").css("display", "inline-block");
@@ -1130,6 +1127,7 @@
                         json.find
                         updatePrice();
                         getForecast(value, false);
+                        $(".dates-container").css("display", "block");
                         $("#row-dates-weather").css("display", "flex");
                         $("#IsPlace").val(true);
                         $("#PlaceId").val(value);
@@ -1191,6 +1189,7 @@
                             }
                             $("#row-dates-weather").css("transition", ".4s");
                             $("#row-dates-weather").css("display", "flex");
+                            $(".dates-container").css("display", "block");
                         }
                     });
                 },
