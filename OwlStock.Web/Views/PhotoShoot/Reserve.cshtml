@@ -206,7 +206,7 @@
                                                 <div class="card-header card-header-date">
                                                     <h4 class="date-text">@calendarKVP.Key.ToString("dd.MM")</h4>
                                                 </div>
-                                                <div class="card-body card-body-weather text-center" style="background: @(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("#c79c1a") : Html.Raw("#929ea8"))">
+                                                <div class="card-body card-body-weather text-center" style="background: @(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("#f7e279") : Html.Raw("#929ea8"))">
                                                     @foreach (TimeSlot slot in calendarKVP.Value)
                                                     {
                                                         <button type="button" class="btn @(slot.IsAvailable ? "btn-warning" : "btn-secondary") text-white btn-sm my-1 btn-time-slot" id="time-slot">
@@ -864,7 +864,7 @@
             event.preventDefault();
 
             //reset the styles for the last clicked button
-            //bg-success is set as default because style is change for available buttons only
+            //bg-warning is set as default because style is changed for available buttons only
             if (lastClickedTimeSlotBtn != null && !lastClickedTimeSlotBtn.hasClass("btn-secondary")) {
                 lastClickedTimeSlotBtn.removeClass('btn-dark');
                 lastClickedTimeSlotBtn.addClass('btn-warning');
