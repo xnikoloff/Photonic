@@ -38,7 +38,8 @@
                         <div class="col-4 col-lg-3">
                             <div class="card-body">
                                 <h6>Дата</h6>
-                                <h3 class="text-data">@dto?.ReservationDate.ToString("dd.MM.yyyy") г.</h3>
+                                <h2 class="text-data">@dto?.ReservationDate.ToString("dd.MM")</h2>
+                                <h3 class="text-data text-year">@dto?.ReservationDate.ToString("yyyy") г.</h3>
                             </div>
                         </div>
                         <div class="col-4 col-lg-3">
@@ -78,7 +79,8 @@
                             <div class="col-4 col-lg-3">
                                 <div class="card-body">
                                     <h6>Дата</h6>
-                                    <h3 class="text-data">@dto?.ReservationDate.ToString("dd.MM.yyyy") г.</h3>
+                                    <h3 class="text-data">@dto?.ReservationDate.ToString("dd.MM")</h3>
+                                    <h2 class="text-data text-year">@dto?.ReservationDate.ToString("dyyyy") г.</h2>
                                 </div>
                             </div>
                             <div class="col-4 col-lg-3">
@@ -113,7 +115,7 @@
             font-size: 1.1rem;
         }
 
-        .photoshoot-card h6, span, p {
+        .photoshoot-card .text-year, h6, span, p {
             font-size: .9rem;
         }
 
