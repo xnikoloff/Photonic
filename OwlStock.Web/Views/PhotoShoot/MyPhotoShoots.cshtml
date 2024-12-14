@@ -16,54 +16,111 @@
         </div>
     </div>
 </section>
-<div class="container my-5">
-    <div class="row mt-5">
-        <div class="col-12">
-
-            @if(Model.Count == 0)
+<div class="container my-photoshoots-container my-5">
+    <div class="row mt-2">
+        <div class="col-12 text-dark text-center">
+            <h1>Активни фотосесии</h1>
+            @if(Model.Where(m => m.PhotoshootStatus == PhotoshootStatus.New).Count() == 0)
             {
-                <h6 class="mt-5 text-center"><i>Резервациите ви ще се покажат тук</i></h6>
+                <h4 class="text-dark"><i>Нямате активни фотосесии</i></h4>
             }
-
-            else
+            @foreach (MyPhotoShootsDTO dto in Model.Where(m => m?.PhotoshootStatus == PhotoshootStatus.New))
             {
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Дата</th>
-                            <th>Тип</th>
-                            <th>Създаден на</th>
-                            <th>Резервиран за</th>
-                        </tr>
-                    </thead>
-
-                    @foreach (MyPhotoShootsDTO dto in Model)
-                    {
-                        <tr class="clickable" id="@dto.Id">
-                            <td>@dto.ReservationDate.ToString("dd.MM.yyyy") г. @dto.ReservationDate.ToString("hh:mm") ч.</td>
-
-                            <td>
-                                @{
-                                    DisplayAttribute attributeValue = dto.PhotoShootType.GetAttribute<DisplayAttribute>();
-                                }
-                                @attributeValue.Name
-                            </td>
-
-                            <td>@dto.CreatedOn.ToString("dd.MM.yyyy") г. @dto.CreatedOn.ToString("hh:mm") ч.</td>
-                            <td>@dto.ReservationFor</td>
-                        </tr>
-                    }
-
-                </table>
+                <div class="card text-dark mt-5 photoshoot-card">
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <div class="card-body">
+                                <h3 class="text-warning mb-3">@(dto?.PhotoShootType.GetAttribute<DisplayAttribute>()?.Name)</h3>
+                                <span>Резервиран за</span>
+                                <h4 class="text-data">@dto?.ReservationFor</h4>
+                            </div>
+                        </div>
+                        <div class="col-4 col-lg-3">
+                            <div class="card-body">
+                                <h6>Дата</h6>
+                                <h3 class="text-data">@dto?.ReservationDate.ToString("dd.MM.yyyy") г.</h3>
+                            </div>
+                        </div>
+                        <div class="col-4 col-lg-3">
+                            <div class="card-body">
+                                <h6>Цена</h6>
+                                <h2 class="text-data">@dto?.Price лв</h2>
+                            </div>
+                        </div>
+                        <div class="col-4 col-lg-2">
+                            <div class="card-body text-center mx-auto">
+                                <span><i class="fa-solid fa-wand-magic-sparkles text-info fa-lg"></i></span>
+                                <h6>@(dto?.PhotoshootStatus?.GetAttribute<DisplayAttribute>().Name)</h6>
+                                <a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="btn btn-warning btn btn-lg text-white">Преглед</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
-            
         </div>
     </div>
+    @if (Model.Where(m => m.PhotoshootStatus == PhotoshootStatus.Completed).Count() > 0)
+    {
+        <div class="row mt-5">
+            <div class="col-12 text-dark text-center">
+                <h1>Приключили фотосесии</h1>
+                @foreach (MyPhotoShootsDTO dto in Model.Where(m => m?.PhotoshootStatus == PhotoshootStatus.Completed))
+                {
+                    <div class="card text-dark mt-5 photoshoot-card">
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <div class="card-body">
+                                    <h3 class="text-warning mb-3">@(dto?.PhotoShootType.GetAttribute<DisplayAttribute>()?.Name)</h3>
+                                    <span>Резервиран за</span>
+                                    <h4 class="text-data">@dto?.ReservationFor</h4>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-3">
+                                <div class="card-body">
+                                    <h6>Дата</h6>
+                                    <h3 class="text-data">@dto?.ReservationDate.ToString("dd.MM.yyyy") г.</h3>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-3">
+                                <div class="card-body">
+                                    <h6>Цена</h6>
+                                    <h2 class="text-data">@dto?.Price лв</h2>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-2">
+                                <div class="card-body text-center mx-auto">
+                                    <span><i class="fa-solid fa-check text-info fa-lg"></i></span>
+                                    <h6>@(dto?.PhotoshootStatus?.GetAttribute<DisplayAttribute>().Name)</h6>
+                                    <a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="btn btn-warning btn btn-lg text-white">Преглед</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    
 </div>
 
 <style>
     tr:hover{
         cursor: pointer;
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .photoshoot-card .text-data {
+            font-size: 1.1rem;
+        }
+
+        .photoshoot-card h6, span, p {
+            font-size: .9rem;
+        }
+
+        .photoshoot-card .btn{
+            padding: 5px;
+            border-radius: 0 !important;
+        }
     }
 </style>
 

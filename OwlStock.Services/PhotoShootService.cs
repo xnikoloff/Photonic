@@ -130,7 +130,9 @@ namespace OwlStock.Services
                     PhotoShootType = phs.PhotoShootType,
                     ReservationDate = phs.ReservationDate,
                     ReservationFor = phs.PersonFullName,
-                    PhotoDeliveryMethod = phs.PhotoDeliveryMethod
+                    PhotoDeliveryMethod = phs.PhotoDeliveryMethod,
+                    Price = phs.Price,
+                    PhotoshootStatus = phs.Status,
                 })
                 .ToListAsync();
 
