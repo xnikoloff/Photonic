@@ -1,75 +1,96 @@
 ﻿@model PhotoShootByIdDTO
 
-<div class="container my-5 py-5">
+@{
+    ViewData["Title"] = $"Фотосесия {Model.PhotoshootNumber}";
+}
+
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">@ViewData["Title"]</h2>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
+                <li class="active">@ViewData["Title"]</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<div class="container mt-5">
     <div class="row">
-        <div class="col-12 mx-auto text-center">
-            <h1>Фотосесия</h1>
-            <h4>@(Model?.PhotoshootNumber ?? "N/A")</h4>
+        <div class="col-12 col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Тиш фотосесия</td>
+                        <td><h4>@(Model.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</h4></td>
+                    </tr>
+                    <tr>
+                        <td>Модел</td>
+                        <td><h4>@Model.PersonFullName</h4></td>
+                    </tr>
+                    <tr>
+                        <td>Дата</td>
+                        <td><h4>@Model.ReservationDate.ToString("dd.MM.yyyy") г.</h4></td>
+                    </tr>
+                    <tr>
+                        <td>Място</td>
+                        <td><h4>@(Model.Place), @(Model.Settlement), @(Model.Region)</h4></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Превоз</td>
+                        <td><h4>@(Model.TransportCustomer ? Model.PickUpAddress : "Не")</h4></td>
+                    </tr>
+                    <tr>
+                        <td>Получаване</td>
+                        <td>
+                            @if (Model.PhotoDeliveryMethod == PhotoDeliveryMethod.CD || Model.PhotoDeliveryMethod == PhotoDeliveryMethod.USB)
+                            {
+                                <h4>@($"{Model.PhotoDeliveryAddress}")</h4>
+                            }
+                            else if (Model.PhotoDeliveryMethod == null)
+                            {
+                                <h4>Чрез сайта</h4>
+                            }
+                            else
+                            {
+                                <h4>@(Model.PhotoDeliveryMethod.GetAttribute<DisplayAttribute>().Name)</h4>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Създаден</td>
+                        <td><h4>@Model.CreatedOn.ToString("dd.MM.yyyy") г.</h4></td>
+                    </tr>
+                    <tr>
+                        <td>Цена</td>
+                        <td><h4>@Model.Price лв</h4></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <hr />
-    <div class="row mt-5">
-        <div class="col-6 col-lg-2 mx-auto text-center">
-            <i class="fa-solid fa-user-tie fa-2x"></i>
-            <h5 class="mt-2">@(Model?.PersonFullName ?? "N/A")</h5>
+    
+    @if (!string.IsNullOrEmpty(Model.PhotoShootTypeDescription))
+    {
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h2>Описание</h2>
+            </div>
         </div>
-        <div class="col-6 col-lg-2 mx-auto text-center">
-            <i class="fa-solid fa-calendar-days fa-2x"></i>
-            <h5 class="mt-2">@Model?.ReservationDate.ToString("dd.MM.yyyy") г. @Model?.ReservationDate.ToString("hh:mm") ч.</h5>
+        <div class="row">
+            <div class="col-12 text-center">
+                @Model.PhotoShootTypeDescription
+            </div>
         </div>
-        <div class="col-6 col-lg-2 mx-auto text-center">
-            <i class="fa-solid fa-calendar-plus fa-2x"></i>
-            <h5 class="mt-2">@Model?.CreatedOn.ToString("dd.MM.yyyy") г. @Model?.CreatedOn.ToString("hh:mm") ч.</h5>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-6 col-lg-2 mx-auto text-center">
-            <i class="fa-solid fa-camera fa-2x"></i>
-            <h5 class="mt-2">@(Model?.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</h5>
-        </div>
-        <div class="col-6 col-lg-2 mx-auto text-center">
-            <i class="fa-solid fa-location-dot fa-2x"></i>
-            <h5 class="mt-2">
-                @if (Model?.IsPopularPlaceSelected != null)
-                {
-                    @Model?.Place
-                },
-                @(Model?.Settlement ?? "N/A"),
-                @(Model?.Region ?? "N/A")
-            </h5>
-        </div>
-        <div class="col-6 col-lg-2 mx-auto text-center">
-            <i class="fa-solid fa-car fa-2x"></i>
-            <h5 class="mt-2">
-                @if (Model!.TransportCustomer)
-                {
-                    @Model?.PickUpAddress
-                }
-                else{
-                    @("Не сте посочили транспорт")
-                }
-            </h5>
-        </div>
-    </div>
-    <!--<div class="row mt-3">
-        <div class="col-4 mx-auto text-center">
-            <hr />
-            <h4>Ще получите снимките си</h4>
-            <h5 class="mt-2">
-                @(string.IsNullOrEmpty(Model?.PhotoDeliveryMethod.ToString()) ?
-                    "В профила Ви" :
-                    Model?.PhotoDeliveryMethod)
-                @(Model?.PhotoDeliveryAddress != null ? ", " : "")
-                @(Model?.PhotoDeliveryAddress ?? "")
-            </h5>
-        </div>
-    </div>-->
-    <div class="row mt-5">
-        <div class="col-4 col-lg-2 mx-auto text-center price">
-            <h4>ЦЕНА</h4>
-            <h5><i>@(Model?.Price.ToString() ?? "N/A") лв</i></h5>
-        </div>
-    </div>
+    }
+
 </div>
 
 
@@ -118,19 +139,5 @@
             </div>
             }
         </div>
-        
     }
 </div>
-
-<style>
-    .card{
-        min-height: 300px;
-    }
-    .price{
-        background: #ffc800;
-        color: #fff;
-        padding: 5px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 22px #ffc800;
-    }
-</style>
