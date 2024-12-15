@@ -22,6 +22,26 @@ namespace OwlStock.Services
                     return DefaultValue.PortrairPhotoShoot + fuelPrice;
                 }
 
+                case PhotoShootType.PersonalPlus:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.PortrairPlusPhotoShoot;
+                    }
+
+                    return DefaultValue.PortrairPlusPhotoShoot + fuelPrice;
+                }
+
+                case PhotoShootType.PersonalExtra:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.PortrairExtraPhotoShoot;
+                    }
+
+                    return DefaultValue.PortrairExtraPhotoShoot + fuelPrice;
+                }
+
                 case PhotoShootType.Wedding:
                 {
                     if (fuelPrice == 0)
@@ -33,13 +53,23 @@ namespace OwlStock.Services
                 }
 
                 case PhotoShootType.WeddingPlus:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.WeddingPlusPhotoshoot;
+                    }
+
+                    return DefaultValue.WeddingPlusPhotoshoot + fuelPrice;
+                }
+
+                case PhotoShootType.WeddingExtra:
                     {
                         if (fuelPrice == 0)
                         {
-                            return DefaultValue.WeddingPlusPhotoshoot;
+                            return DefaultValue.WeddingExtraPhotoshoot;
                         }
 
-                        return DefaultValue.WeddingPlusPhotoshoot + fuelPrice;
+                        return DefaultValue.WeddingExtraPhotoshoot + fuelPrice;
                     }
 
                 case PhotoShootType.Prom:
@@ -50,6 +80,56 @@ namespace OwlStock.Services
                     }
 
                     return DefaultValue.PromPhotoshoot + fuelPrice;
+                }
+
+                case PhotoShootType.PromPlus:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.PromPlusPhotoshoot;
+                    }
+
+                    return DefaultValue.PromPlusPhotoshoot + fuelPrice;
+                }
+
+                case PhotoShootType.PromExtra:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.PromExtraPhotoshoot;
+                    }
+
+                    return DefaultValue.PromExtraPhotoshoot + fuelPrice;
+                }
+
+                    case PhotoShootType.Baptism:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.Baptism;
+                    }
+
+                    return DefaultValue.Baptism + fuelPrice;
+                }
+
+                case PhotoShootType.BaptismPlus:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.BaptismPlus;
+                    }
+
+                    return DefaultValue.BaptismPlus + fuelPrice;
+                }
+
+                case PhotoShootType.BaptismExtra:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.BaptismExtra;
+                    }
+
+                    return DefaultValue.BaptismExtra + fuelPrice;
                 }
 
                 case PhotoShootType.Kids:

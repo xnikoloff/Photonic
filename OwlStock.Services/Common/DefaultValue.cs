@@ -4,13 +4,20 @@
     {
         //Photoshoots
         internal const decimal PortrairPhotoShoot = 150m;
+        internal const decimal PortrairPlusPhotoShoot = 200m;
+        internal const decimal PortrairExtraPhotoShoot = 250m;
         internal const decimal PregnantPhotoshoot = 100m;
         internal const decimal WeddingPhotoshoot = 400m;
-        internal const decimal WeddingPlusPhotoshoot = 800m;
+        internal const decimal WeddingPlusPhotoshoot = 700m;
+        internal const decimal WeddingExtraPhotoshoot = 900m;
         internal const decimal PromPhotoshoot = 300m;
+        internal const decimal PromPlusPhotoshoot = 500m;
+        internal const decimal PromExtraPhotoshoot = 700m;
         internal const decimal KidsPhotoshoot = 200m;
         internal const decimal Automotive = 100m;
         internal const decimal Baptism = 300m;
+        internal const decimal BaptismPlus = 500m;
+        internal const decimal BaptismExtra = 700;
 
         //Fuel
         public const decimal FuelPriceByKilometer = 0.18m;

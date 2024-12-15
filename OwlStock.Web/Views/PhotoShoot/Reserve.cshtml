@@ -57,7 +57,7 @@
                                 <div class="book_tabel_item">
                                     <div class="form-group">
                                         <div class="input-group border border-warning" id="photoshoot-type-wrap">
-                                            <select asp-for="PhotoShootType" asp-items="@(Html.GetEnumSelectList<PhotoShootType>())" class="wide">
+                                            <select asp-for="PhotoShootType" asp-items="@(Html.GetEnumSelectList<PhotoShootType>().OrderBy(ph => ph.Text))" class="wide">
                                                 <option value="">Тип фотосесия</option>
                                             </select>
                                         </div>

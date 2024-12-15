@@ -26,8 +26,8 @@ namespace OwlStock.Domain.Enumerations
         [Display(Name = "Имот/сграда")]
         Property = 7,
 
-        //[Display(Name = "Събитие")]
-        //Event = 8,
+        [Display(Name = "Събитие")]
+        Event = 8,
 
         [Display(Name = "Автомобил")]
         Automotive = 9,
@@ -39,6 +39,27 @@ namespace OwlStock.Domain.Enumerations
         Product = 11,
 
         [Display(Name = "Свето кръщение")]
-        Baptism = 12
+        Baptism = 12,
+
+        [Display(Name = "Лична фотосесия Plus")]
+        PersonalPlus = 13,
+
+        [Display(Name = "Лична фотосесия Extra")]
+        PersonalExtra = 14,
+
+        [Display(Name = "Сватба Extra")]
+        WeddingExtra = 15,
+
+        [Display(Name = "Абитуриентски бал Plus")]
+        PromPlus = 16,
+
+        [Display(Name = "Абитуриентски бал Extra")]
+        PromExtra = 17,
+
+        [Display(Name = "Свето кръщене Plus")]
+        BaptismPlus = 18,
+
+        [Display(Name = "Свето кръщене Extra")]
+        BaptismExtra = 19,
     }
 }

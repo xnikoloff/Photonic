@@ -134,6 +134,7 @@ namespace OwlStock.Services
                     Price = phs.Price,
                     PhotoshootStatus = phs.Status,
                 })
+                .OrderByDescending(phs => phs.ReservationDate)
                 .ToListAsync();
 
             return myPhotoShoots;
