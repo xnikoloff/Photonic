@@ -14,7 +14,7 @@ namespace OwlStock.Domain.Enumerations
         [Display(Name = "Сватба")]
         Wedding = 3,
 
-        [Display(Name = "Сватба+")]
+        [Display(Name = "Сватба Plus")]
         WeddingPlus = 4,
 
         [Display(Name = "Абитуриентски бал")]

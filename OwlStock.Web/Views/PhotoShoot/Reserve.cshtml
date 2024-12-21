@@ -28,6 +28,7 @@
     <input type="hidden" asp-for="IsPlace" />
     <input type="hidden" asp-for="PlaceId" />
     <input type="hidden" asp-for="FuelPrice" />
+    <input type="hidden" id="RegionId" />
     <div class="hotel_booking_area position">
         <div class="container products-info-container" style="display:none">
             <div class="row">
@@ -744,6 +745,10 @@
                 $("#row-dates-weather").css("display", "flex");
                 //$(".row-dates-weather-remaining").css("display", "none");
                 $(".place-addition-info").css("display", "none");
+
+                
+                $("#hidePopularPlaces").click();
+                $("#showPopularPlaces").css("display", "none");
             }
             else {
                 $(".row-decided-by-us-info").css("display", "none");
@@ -753,6 +758,8 @@
                 //$("#row-dates-weather").css("display", "flex");
                 //$(".row-dates-weather-remaining").css("display", "flex");
                 $(".place-addition-info").css("display", "flex");
+
+                $("#hidePopularPlaces").click();
             }
 
             updatePrice();
@@ -770,8 +777,7 @@
             $(".price-container").css("display", "block");
             $("#PopularPlace").val('');
             $("#Settlement").val('');
-            
-            $("#RegionId").val($(this).val());
+           $("#RegionId").val($(this).val());
             
             if (!($("#showPopularPlaces").is(":visible")) && !($("#hidePopularPlaces").is(":visible"))) {
                 getSettlementsByRegion($("#Region option:selected").text());
@@ -981,7 +987,7 @@
     function togglePlacesButton() {
         let regionId = $("#RegionId").val();
         let photoshootType = $('#PhotoShootType').find(":selected").val();
-        console.log('regionId ' + regionId);
+        
         if ((regionId != "" && regionId != undefined) && photoshootType != '7') {
             if ($("#hidePopularPlaces").is(":visible")) {
                 $("#showPopularPlaces").css("display", "none");
