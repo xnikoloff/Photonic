@@ -28,12 +28,15 @@
             <img src="~/resources/gallery-photos/@(PhotoSize.Small.ToString() + "_" + Model?.Photo?.FileName)" />
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col-12 col-md-6 col-lg-8">
+    <div class="row">
+        <div class="col-12 col-md-6">
             <h1>@Model?.Photo?.Name</h1>
             <p class="photo-description">@Model?.Photo?.Description</p>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 col-details">
+        <div class="col-12 col-md-2 col-select">
+            <select asp-for="PhotoSize" asp-items="Html.GetEnumSelectList<PhotoSize>()" class="wide"></select>
+        </div>
+        <div class="col-12 col-md-1 col-details">
             <form asp-controller="Order" asp-action="OrderInfo" method="GET" enctype="multipart/form-data">
                 <input type="hidden" asp-for="Photo.Id" />
                 <input type="hidden" asp-for="Photo.FileData" />
@@ -42,24 +45,24 @@
                 <input type="hidden" asp-for="Photo.Name" />
                 <input type="hidden" asp-for="Photo.IsFree" />
                 
-                @if (Model.Photo.IsDownloadable && !Model.Photo.IsFree)
+                @if (Model.Photo.IsFree)
                 {
-                    <h3 id="price-text-wrapper"></h3>
+                    <button class="btn btn-warning btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
                 }
-                 <select asp-for="PhotoSize" asp-items="Html.GetEnumSelectList<PhotoSize>()" class="form-control"></select>
-                   
-                    @if (Model.Photo.IsFree)
-                    {
-                        <button class="btn btn-primary btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
-                    }
 
-                    else
-                    {
-                        <input type="hidden" asp-for="Photo.Price" />
-                        <button class="btn btn-primary btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
-                    }
+                else
+                {
+                    <input type="hidden" asp-for="Photo.Price" />
+                    <button class="btn btn-warning btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
+                }
                
             </form>
+        </div>
+        <div class="col-12 col-md-2 col-price">
+            @if (Model.Photo.IsDownloadable && !Model.Photo.IsFree)
+            {
+                <h2 id="price-text-wrapper"></h2>
+            }
         </div>
     </div>
     <div class="row mt-5">
@@ -87,7 +90,7 @@
                 
                 @foreach (Tag tag in Model.Photo.Tags)
                 {
-                    <span class="details-text tags-text" id="tags"><a asp-controller="Photo" asp-action="AllByTag" asp-route-tag="@tag.Text">#@tag.Text</a></span>
+                    <span class="details-text tags-text" id="tags"><a asp-controller="Photo" asp-action="AllByTag" asp-route-tag="@tag.Text" class="text-warning"><b>#@tag.Text</b></a></span>
                 }
             </div>
         </div>
@@ -100,7 +103,7 @@
                 @foreach (PhotoCategory photoCategory in Model.Photo.PhotoCategories)
                 {
                     <span class="details-text featured-in-text" id="featured-in">
-                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@photoCategory.Category">@(photoCategory.Category.GetAttribute<DisplayAttribute>().Name)</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@photoCategory.Category" class="text-warning"><b>@(photoCategory.Category.GetAttribute<DisplayAttribute>().Name)</b></a>
                     </span>
                 }
             </div>
@@ -114,26 +117,30 @@
     .container .row .col-image img{
         width: 100%;
     }
+    
+    .container .row, .col-select{
+        margin-top: 52px;
+    }   
+
+    .container .row .col-price{
+        margin-top: 50px;
+    } 
+
+
+    .container .row .col-select select{
+        border-radius: 0 !important;
+    }
 
     .container .row .col-details{
         padding-top: 30px;
     }
 
+    .container .row .col-details button {
+        border-radius: 0;
+    }
+
     .container .row .col-details h1{
         text-align: center;
-    }
-
-    .container .row .col-details .photo-description{
-        margin-top: 40px;
-    }
-
-    .container .row .col-details #price{
-      margin-top: 20px;
-    }
-
-    .container .row .col-details select{
-      margin-top: 30px;
-      height: 50px;
     }
 
     .container .row .col-details .btn-download{
