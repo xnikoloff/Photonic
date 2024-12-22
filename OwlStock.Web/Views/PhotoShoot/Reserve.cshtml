@@ -162,9 +162,9 @@
                                     <div class="book_tabel_item">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input type="button" id="showPopularPlaces" style="display:none" class="btn btn-success btn" value="Популярни места" />
-                                                <input type="button" id="hidePopularPlaces" style="display:none" class="btn btn-info" value="Населени места" />
-                                                <a asp-action="All" asp-controller="Place" style="display:none" class="btn btn-light" id="allPopularPlaces">Всички популярни места</a>
+                                                <input style="display:none" type="button" id="hidePopularPlaces" class="btn btn-secondary btn-sm" value="Населени места" disabled/>
+                                                <input style="display:none" type="button" id="showPopularPlaces" class="btn btn-dark btn-sm" value="Популярни места" />
+                                                <!--<a asp-action="All" asp-controller="Place" style="display:none" class="btn btn-light" id="allPopularPlaces">Всички популярни места</a>-->
                                             </div>
                                             <div class="input-group">
                                                 <div class="is-decided-by-us" style="display:none">
@@ -350,6 +350,9 @@
  
 
 <style>
+    #hidePopularPlaces, #showPopularPlaces {
+        border-radius: 0;
+    }
     .form-check-input{
         margin-left: unset;
     }
@@ -767,6 +770,9 @@
         });
 
         $("#Region").change(function () {
+            $("#showPopularPlaces").css("display", "block");
+            $("#hidePopularPlaces").css("display", "block");
+
             if($("#Region").val() == ""){
                 $("#region-wrap").addClass("border border-danger");
             }
@@ -791,8 +797,6 @@
                 getSettlementsByRegion($("#Region option:selected").text());
             }
             
-            togglePlacesButton();
-
             $("#regionBottom").text($('#Region').find(":selected").text());
         });
 
@@ -959,15 +963,25 @@
 
             checkPhotoShootTypeDescriptionEmpty();
             updatePrice();
-            togglePlacesButton();
 
             $("#photoshootTypeBottom").html($('#PhotoShootType').find(":selected").text());
         });
 
         $("#showPopularPlaces").click(function(){
-            $("#showPopularPlaces").css("display", "none");
-            $("#hidePopularPlaces").css("display", "inline-block");
+            $("#showPopularPlaces").prop("disabled", true);
+            $("#hidePopularPlaces").prop("disabled", false);
+
+            $("#showPopularPlaces").css("display", "block");
+            $("#hidePopularPlaces").css("display", "block");
+
+            $("#showPopularPlaces").removeClass("btn-dark");
+            $("#showPopularPlaces").addClass("btn-secondary");
+
+            $("#hidePopularPlaces").removeClass("btn-secondary");
+            $("#hidePopularPlaces").addClass("btn-dark");
+
             $("#allPopularPlaces").css("display", "inline-block");
+
             if ($(".place-addition-info").is(":visible")) {
                 $(".place-addition-info").css("display", "none");
                 $("#UserPlace").val('');
@@ -977,47 +991,24 @@
         });
 
         $("#hidePopularPlaces").click(function () {
-            $("#showPopularPlaces").css("display", "inline-block");
-            $("#hidePopularPlaces").css("display", "none");
+            $("#showPopularPlaces").prop("disabled", false);
+            $("#hidePopularPlaces").prop("disabled", true);
+
+            $("#showPopularPlaces").css("display", "block");
+            $("#hidePopularPlaces").css("display", "block");
+
+            $("#hidePopularPlaces").removeClass("btn-dark");
+            $("#hidePopularPlaces").addClass("btn-secondary");
+
+            $("#showPopularPlaces").removeClass("btn-secondary");
+            $("#showPopularPlaces").addClass("btn-dark");
+
             $("#allPopularPlaces").css("display", "none");
+
             getSettlementsByRegion($("#Region option:selected").text());
         });
         checkBookedDates();
     });
-
-    function togglePlacesButton() {
-        let regionId = $("#RegionId").val();
-        let photoshootType = $('#PhotoShootType').find(":selected").val();
-        
-        if ((regionId != "" && regionId != undefined) && photoshootType != '7') {
-            if ($("#hidePopularPlaces").is(":visible")) {
-                $("#showPopularPlaces").css("display", "none");
-                $("#hidePopularPlaces").css("display", "inline-block");
-                $("#allPopularPlaces").css("display", "inline-block");
-            }
-            else {
-                //this is additional checked because when photoshoot type is 7
-                //both buttons are hidden and if this check was not present
-                //one the photoshoot become different than 7
-                //it would always show the popular places button
-                //instead of the appropriate one
-                if ($(".popular-places").is(":visible")) {
-                    $("#hidePopularPlaces").css("display", "inline-block");
-                    $("#showPopularPlaces").css("display", "none");
-                    $("#allPopularPlaces").css("display", "inline-block");
-                }
-                else {
-                    $("#hidePopularPlaces").css("display", "none");
-                    $("#showPopularPlaces").css("display", "inline-block");
-                    $("#allPopularPlaces").css("display", "none");
-                }
-            }
-        }
-        else{
-            $("#hidePopularPlaces").css("display", "none");
-            $("#showPopularPlaces").css("display", "none");
-        }
-    }
 
     function setDate(){
          $(".btn-date").click(function () {
