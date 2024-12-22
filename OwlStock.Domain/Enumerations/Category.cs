@@ -65,6 +65,21 @@ namespace OwlStock.Domain.Enumerations
         Astro = 20,
 
         [Display(Name = "Макро")]
-        Macro = 22
+        Macro = 22,
+
+        [Display(Name = "Сватба")]
+        Wedding = 23,
+
+        [Display(Name = "Продукт")]
+        Product = 23,
+
+        [Display(Name = "Фотосесия за бременни")]
+        Pregnancy = 24,
+
+        [Display(Name = "Абитуриентски бал")]
+        Prom = 25,
+
+        [Display(Name = "Свето кръщене")]
+        Baptism = 26
     }
 }
