@@ -1,20 +1,44 @@
 ﻿@model IEnumerable<Place>
 
 @{
-    ViewData["Title"] = "All Places";
+    ViewData["Title"] = "Популярни места";
 }
 
-<div class="container">
+<section class="breadcrumb_area mt-5">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">Популярни места</h2>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
+                <li class="active">Популярни места</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<div class="container mt-5">
     <div class="row">
         <div class="col-12">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>IsPopular</th>
-                        <th>City</th>
-                        <th>Actions</th>
+                        <th>Име</th>
+                        <th>Описание</th>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Administrator"))
+                            {
+                                <th>IsPopular</th>
+                            }
+                        }
+                        <th>Град</th>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Administrator"))
+                            {
+                                <th>Actions</th>
+                            }
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -23,11 +47,23 @@
                         <tr class="clickable" id="@place.Id">
                             <td>@place.Name</td>
                             <td>@(place.Description ?? "N/A")</td>
-                            <td>@(place.IsPopular ? "Popular" : "User")</td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole("Administrator"))
+                                {
+                                    <td>@(place.IsPopular ? "Popular" : "User")</td>
+                                }
+                            }
                             <td>@(place?.City?.Name ?? "N/A")</td>
-                            <td>
-                                <a asp-action="Update" asp-controller="Place" asp-route-id="@place.Id" class="btn btn-primary btn-sm">Update</a>
-                            </td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole("Administrator"))
+                                {
+                                    <td>
+                                        <a asp-action="Update" asp-controller="Place" asp-route-id="@place.Id" class="btn btn-primary btn-sm">Update</a>
+                                    </td>
+                                }
+                            }
                         </tr>
                     }
                 </tbody>
