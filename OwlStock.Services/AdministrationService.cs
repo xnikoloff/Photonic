@@ -15,7 +15,7 @@ namespace OwlStock.Services
             _signInManager = signInManager;
         }
 
-        public async Task<bool> CreateUserFromGuest(IdentityUser user)
+        public async Task<string> CreateUserFromGuest(IdentityUser user)
         {
             if(user == null)
             {
@@ -26,15 +26,16 @@ namespace OwlStock.Services
                 throw new ArgumentNullException(nameof(user.Email));
             }
 
-            IdentityResult result = await _userManager.CreateAsync(user, GeneratePassword());
+            string password = GeneratePassword();
+            IdentityResult result = await _userManager.CreateAsync(user, password);
             
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, true);
-                return true;
+                return password;
             }
 
-            return false;
+            return string.Empty;
         }
 
         public string GeneratePassword()

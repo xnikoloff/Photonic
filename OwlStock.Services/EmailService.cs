@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
 using OwlStock.Infrastructure.Common.EmailTemplates;
+using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 
 namespace OwlStock.Services
 {
@@ -44,7 +45,7 @@ namespace OwlStock.Services
             if (dto.EmailTemplate is EmailTemplate.CreatePhotoShoot)
             {
                 //if email template is for created photoshoot
-                //send template to user and dreampix
+                //send template to user and Photon
                 messages = new MailMessage[]
                 {
                     new
@@ -55,13 +56,13 @@ namespace OwlStock.Services
                         GetTemplate(dto)
                     ),
 
-                    //second email is always sent to DreamPix
+                    //second email is always sent to Photon
                     new
                     (
                         "hristiyan.at.nikoloff@gmail.com",
                         "hristiyan.at.nikoloff@gmail.com",
                         dto.Topic,
-                        GetTemplateDreampix(dto)
+                        GetTemplatePhoton(dto)
                     ),
 
                 };
@@ -124,6 +125,15 @@ namespace OwlStock.Services
                         );
                 }
 
+                case EmailTemplate.CreateAccount:
+                {
+                    return AccountEmailTemplates.CreateAccountTemplate
+                    (
+                        ((CreateAccountEmailTemplateDTO)dto)?.Email ?? "", 
+                        ((CreateAccountEmailTemplateDTO)dto)?.Password ?? ""
+                    );
+                }
+
                 default:
                 {
                     throw new ArgumentException($"{dto.EmailTemplate} is invalid {nameof(EmailTemplate)}");
@@ -131,7 +141,7 @@ namespace OwlStock.Services
             }
         }
 
-        public string GetTemplateDreampix(EmailTemplateBaseDTO dto)
+        public string GetTemplatePhoton(EmailTemplateBaseDTO dto)
         {
             switch (dto.EmailTemplate)
             {

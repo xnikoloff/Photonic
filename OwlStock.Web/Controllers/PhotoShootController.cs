@@ -110,9 +110,9 @@ namespace OwlStock.Web.Controllers
                 user.UserName = dto.PersonEmail;
                 
 
-                bool isCreated = await _administrationService.CreateUserFromGuest(user);
+                string password = await _administrationService.CreateUserFromGuest(user);
 
-                if (!isCreated) 
+                if (password.IsNullOrEmpty()) 
                 {
                      return View("Error", "Съжаляваме, нещо се обърка по време на резервирането...");
                 }
@@ -120,6 +120,8 @@ namespace OwlStock.Web.Controllers
                 //assign id of newly created user to the photoshoot DTO
                 dto.IdentityUserId = user.Id;
 
+                //assign password of newly created user to the photoshoot DTO
+                dto.Password = password;
                 
             }
             

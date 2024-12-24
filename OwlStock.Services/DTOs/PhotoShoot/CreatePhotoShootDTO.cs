@@ -91,5 +91,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public List<Region>? ServicedRegions { get; set; }
 
         public string? IdentityUserId { get; set; }
+
+        public string? Password { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure;
+using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
 using OwlStock.Services.Common.HelperClasses;
 using OwlStock.Services.DTOs.PhotoShoot;
@@ -209,6 +211,20 @@ namespace OwlStock.Services
             };
 
             await _emailService.Send(emailDto);
+
+            if (!dto.Password.IsNullOrEmpty())
+            {
+                CreateAccountEmailTemplateDTO accountEmailDTO = new()
+                {
+                    Email = dto.PersonEmail,
+                    Password = dto.Password,
+                    EmailTemplate = EmailTemplate.CreateAccount,
+                    Topic = "Създадохме вашия профил",
+                    Recipient = dto.PersonEmail
+                };
+
+                await _emailService.Send(accountEmailDTO);
+            }
 
             return photoShootResult;
         }
