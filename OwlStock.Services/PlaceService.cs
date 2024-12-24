@@ -84,6 +84,8 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
+            place.CreatedOn = DateTime.Now;
+            
             await _context.AddAsync(place);
             await _context.SaveChangesAsync();
 

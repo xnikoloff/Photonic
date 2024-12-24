@@ -25,12 +25,13 @@ namespace OwlStock.Web.Controllers
         private readonly IFileService _fileService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IEmailService _emailService;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AdministrationController(IPhotoShootService photoShootService, IPhotoService photoService, IGalleryService galleryService, 
             IFileService fileService, IWebHostEnvironment webHostEnvironment, IEmailService emailService, 
-            UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+            UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _photoShootService = photoShootService;
             _photoService = photoService;
@@ -39,6 +40,7 @@ namespace OwlStock.Web.Controllers
             _webHostEnvironment = webHostEnvironment;
             _emailService = emailService;
             _userManager = userManager;
+            _signInManager = signInManager;
             _roleManager = roleManager;
         }
 

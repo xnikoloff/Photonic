@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
@@ -9,24 +10,20 @@ using System.Security.Claims;
 
 namespace OwlStock.Web.Controllers
 {
-    [Authorize]
     public class PhotoShootController : Controller
     {
         private readonly IPhotoShootService _photoShootService;
         private readonly ISettlementService _settlementService;
         private readonly IPlaceService _placeService;
+        private readonly IAdministrationService _administrationService;
         
-        public PhotoShootController(IPhotoShootService photoShootService, ISettlementService settlementService, IPlaceService placeService)
+        public PhotoShootController(IPhotoShootService photoShootService, ISettlementService settlementService, 
+            IPlaceService placeService, IAdministrationService administrationService)
         {
             _photoShootService = photoShootService;
             _settlementService = settlementService;
             _placeService = placeService;
-        }
-
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
+            _administrationService = administrationService;
         }
 
         [HttpGet]
@@ -99,8 +96,33 @@ namespace OwlStock.Web.Controllers
 
             //get user id and email
             dto.IdentityUserId = GetUserId();
-            dto.PersonEmail = User.FindFirstValue(ClaimTypes.Email);
+            IdentityUser user = new();
 
+            if (!dto.IdentityUserId.IsNullOrEmpty())
+            {
+                dto.PersonEmail = User.FindFirstValue(ClaimTypes.Email);
+            }
+
+
+            else
+            {
+                user.Email = dto.PersonEmail;
+                user.UserName = dto.PersonEmail;
+                
+
+                bool isCreated = await _administrationService.CreateUserFromGuest(user);
+
+                if (!isCreated) 
+                {
+                     return View("Error", "Съжаляваме, нещо се обърка по време на резервирането...");
+                }
+
+                //assign id of newly created user to the photoshoot DTO
+                dto.IdentityUserId = user.Id;
+
+                
+            }
+            
             //Create new place if UserPlace is not null
             if (!string.IsNullOrEmpty(dto.UserPlace))
             {
@@ -110,7 +132,7 @@ namespace OwlStock.Web.Controllers
                     IsPopular = false,
                     Name = dto.UserPlace,
                     GoogleMapsURL = dto.GoogleMapsLink,
-
+                    CreatedById = user.Id
                 });
 
                 //Return error if place was not created
@@ -126,9 +148,10 @@ namespace OwlStock.Web.Controllers
             //If reached that line, everything is OK,
             //create the photoshoot
             await _photoShootService.Add(dto);
-            return View("_SucessfulReservation");
+            return RedirectToAction(nameof(SuccessfulReservation));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> MyPhotoShoots()
         {
@@ -136,6 +159,7 @@ namespace OwlStock.Web.Controllers
             return View(myPhotoShoots);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> PhotoShootById(Guid id)
         {
@@ -150,8 +174,13 @@ namespace OwlStock.Web.Controllers
 
         private string GetUserId()
         {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier) ??
-                throw new NullReferenceException("User not logged in");
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+        }
+
+        [HttpGet]
+        public IActionResult SuccessfulReservation()
+        {
+            return View("_SucessfulReservation");
         }
     }
 }

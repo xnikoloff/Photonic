@@ -26,6 +26,7 @@ namespace OwlStock.Services
             services.AddTransient<IDynamicContentService, DynamicContentService>();
             services.AddTransient<ICommonServices, CommonServices>();
             services.AddTransient<IPlaceService, PlaceService>();
+            services.AddTransient<IAdministrationService, AdministrationService>();
 
             return services;
         }

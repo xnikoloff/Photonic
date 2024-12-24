@@ -259,7 +259,7 @@ namespace OwlStock.Services
 
             return _calendarService.GetPhotoShootsCalendar(reservationDates);
         }
-
+        
         public async Task<PhotoShoot> ChangeStatus(Guid id, PhotoshootStatus status)
         {
             if (_context.PhotoShoots is null)

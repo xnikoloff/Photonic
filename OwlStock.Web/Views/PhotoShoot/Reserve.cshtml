@@ -90,6 +90,22 @@
                                 <h4>Вашите данни</h4>
                             </div>
                         </div>
+
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input asp-for="PersonEmail" class="form-control" placeholder="Имейл" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
                         <div class="row mt-2">
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
@@ -414,7 +430,8 @@
 
     .btn-legend{
         width: 100px;
-        border-radius: 0 !important;
+        border-radius: 50px !important;
+        margin-left: 3px;
     }
 
     #dates-list {
