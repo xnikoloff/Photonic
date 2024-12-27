@@ -91,6 +91,8 @@ namespace OwlStock.Services
                 Id = photoshoot.Id,
                 PhotoshootNumber = photoshoot.PhotoshootNumber,
                 PersonFullName = photoshoot.PersonFullName,
+                PersonPhone = photoshoot.PersonPhone,
+                Status = photoshoot.Status,
                 ReservationDate = photoshoot.ReservationDate,
                 PhotoShootType = photoshoot.PhotoShootType,
                 PhotoShootTypeDescription = photoshoot?.PhotoShootTypeDescription,

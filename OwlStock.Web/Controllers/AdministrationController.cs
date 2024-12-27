@@ -59,7 +59,7 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> ManagePhotoshoot(Guid id)
         {
-            PhotoShoot photoshoot = await _photoShootService.PhotoShootById(id);
+            PhotoShoot? photoshoot = await _photoShootService.PhotoShootById(id);
             ManagePhotoshootDTO dto = new()
             {
                 Id = photoshoot.Id,
@@ -74,7 +74,12 @@ namespace OwlStock.Web.Controllers
                 PhotoDeliveryAddress = photoshoot.PhotoDeliveryAddress,
                 //GoogleMapsLink = photoshoot.GoogleMapsLink,
                 PhotoDeliveryMethod = photoshoot.PhotoDeliveryMethod,
-               // UserPlace = photoshoot.UserPlace
+                Place = photoshoot?.Place?.Name,
+                City = photoshoot?.Place?.City?.Name,
+                Region = photoshoot?.Place?.City?.Region?.Name,
+                Transport = photoshoot!.TransportCustomer,
+                PickUpAddress = photoshoot?.PickUpAddress
+
             };
             return View(dto);
         }

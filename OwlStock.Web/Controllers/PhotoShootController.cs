@@ -134,7 +134,7 @@ namespace OwlStock.Web.Controllers
                     IsPopular = false,
                     Name = dto.UserPlace,
                     GoogleMapsURL = dto.GoogleMapsLink,
-                    CreatedById = user.Id
+                    CreatedById = dto.IdentityUserId
                 });
 
                 //Return error if place was not created

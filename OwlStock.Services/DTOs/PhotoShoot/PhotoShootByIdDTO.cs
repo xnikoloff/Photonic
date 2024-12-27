@@ -8,6 +8,8 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public Guid Id { get; set; }
         public string? PhotoshootNumber { get; set; }
         public string? PersonFullName { get; set; }
+        public string? PersonPhone { get; set; }
+        public PhotoshootStatus? Status { get; set; }
         public DateTime ReservationDate { get; set; }
         public PhotoShootType PhotoShootType { get; set; }
         public DateTime CreatedOn { get; set; }

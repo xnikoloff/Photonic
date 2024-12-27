@@ -1,6 +1,4 @@
-﻿using OwlStock.Domain.Entities;
-
-namespace OwlStock.Infrastructure.Common.EmailTemplates.Account
+﻿namespace OwlStock.Infrastructure.Common.EmailTemplates.Account
 {
     public static class AccountEmailTemplates
     {

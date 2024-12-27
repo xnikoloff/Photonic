@@ -12,10 +12,14 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public string? PersonPhone { get; set; }
         public PhotoShootType PhotoShootType { get; set; }
         public string? PhotoShootTypeDescription { get; set; }
-        public string? UserPlace { get; set; }
+        public string? Place { get; set; }
+        public string? City { get; set; }
+        public string? Region { get; set; }
         public string? GoogleMapsLink { get; set; }
         public decimal Price { get; set; }
         public PhotoDeliveryMethod? PhotoDeliveryMethod { get; set; }
         public string? PhotoDeliveryAddress { get; set; }
+        public bool Transport { get; set; }
+        public string? PickUpAddress { get; set; }
     }
 }

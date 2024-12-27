@@ -7,8 +7,8 @@
 <div class="container mt-5 py-5">
     <div class="row">
         <div class="col-12 text-center">
-            <h1>@ViewData["Title"]</h1>
-            <h2>@Model.Id</h2>
+            <h2>@ViewData["Title"]</h2>
+            <h4>@Model.Id</h4>
         </div>
     </div>
     <div class="row">
@@ -17,90 +17,93 @@
         </div>
     </div>
     <hr />
-    <div class="row mt-3">
-        <div class="col-12 mx-auto">
-            <form asp-action="ManagePhotoshoot" method="POST">
-                <input type="hidden" asp-for="Id"/>
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4 form-group">
-                        <label asp-for="CreatedOn"></label>
-                        <input asp-for="CreatedOn" class="form-control" readonly/>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 form-group">
-                        <label asp-for="ReservationDate"></label>
-                        <input asp-for="ReservationDate" class="form-control" />
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 form-group">
-                        <label asp-for="PersonPhone"></label>
-                        <input asp-for="PersonPhone" class="form-control" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4 form-group">
-                        <label asp-for="PersonEmail"></label>
-                        <input asp-for="PersonEmail" class="form-control" readonly/>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 form-group">
-                        <label asp-for="PersonFullName"></label>
-                        <input asp-for="PersonFullName" class="form-control" />
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 form-group">
-                        <label asp-for="PhotoShootType"></label>
-                        <select asp-for="PhotoShootType" asp-items="@Html.GetEnumSelectList<PhotoShootType>()" class="form-control"></select>
-                    </div>
-                </div>
+    <div class="row my-5">
+        <div class="col-4 mx-auto text-center">
+            <h3 class="text-warning"><i class="fa-solid fa-camera fa-lg"></i></h3>
+            <h5>@(Model.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</h5>
+        </div>
+        <div class="col-4 mx-auto text-center">
+            <h3 class="text-warning"><i class="fa-solid fa-calendar-days fa-lg"></i></h3>
+            <h5>@Model.ReservationDate.ToString("dd.MM.yyyy") г. @Model.ReservationDate.ToString("h:mm") ч.</h5>
+        </div>
+        <div class="col-4 mx-auto text-center">
+            <h3 class="text-warning"><i class="fa-solid fa-sack-dollar fa-lg"></i></h3>
+            <h5>@Model.Price лв</h5>
+        </div>
+    </div>
+    <div class="row my-5 py-3">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Създаден</th>
+                        <th>Име</th>
+                        <th>Имейл</th>
+                        <th>Телефон</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.CreatedOn.ToString("dd.MM.yyyy") г. @Model.CreatedOn.ToString("h:mm:ss") ч.</td>
+                        <td>@Model.PersonFullName</td>
+                        <td>@Model.PersonEmail</td>
+                        <td>@Model.PersonPhone</td>
+                   </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-12 col-md-4 text-center mx-auto">
+            <h4>Място</h4>
+            <p>@Model.City, обл. @Model.Region</p>
+            <h6><i class="fa-solid fa-location-dot fa-lg"></i> @Model?.Place</h6>
+        </div>
+        <div class="col-12 col-md-4 mt-5 mt-md-0 text-center mx-auto">
+            <h4>Транспорт</h4>
+            @if (Model!.Transport)
+            {
+                <p>Да</p>
+                <h6><i class="fa-solid fa-location-dot fa-lg"></i> @Model.PickUpAddress</h6>
+            }
+            else
+            {
+                <p>-</p>
+                <h6>Не</h6>
+            }
+        </div>
+        <div class="col-12 col-md-4 mt-5 mt-md-0 text-center mx-auto">
+            <h4>Снимки</h4>
+            <p>@(Model?.PhotoDeliveryMethod?.GetAttribute<DisplayAttribute>().Name ?? "-")</p>
+            @if (Model!.PhotoDeliveryMethod != PhotoDeliveryMethod.Email && Model!.PhotoDeliveryMethod != null)
+            {
+                <h6><i class="fa-solid fa-location-dot fa-lg"></i> @Model?.PhotoDeliveryAddress</h6>
+            }
+            else if(Model.PhotoDeliveryMethod == PhotoDeliveryMethod.Email)
+            {
+                <h6>По имейл</h6>
+            }
+            else
+            {
+                <h6>В профила</h6>
+            }
+        </div>
+    </div>
 
-                @if(Model.PhotoShootType == PhotoShootType.Other)
-                {
-                    <div class="row">
-                        <div class="col-12 form-group">
-                            <label asp-for="PhotoShootTypeDescription"></label>
-                            <textarea asp-for="PhotoShootTypeDescription" class="form-control"></textarea>
-                        </div>
-                    </div>
-                }
-                
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4 form-group">
-                        <label asp-for="Price"></label>
-                        <input asp-for="Price" class="form-control" />
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 form-group">
-                        <label asp-for="PhotoDeliveryMethod"></label>
-                        <select asp-for="PhotoDeliveryMethod" asp-items="@Html.GetEnumSelectList<PhotoDeliveryMethod>()" class="form-control"></select>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 form-group">
-                        <label asp-for="PhotoDeliveryAddress"></label>
-                        <input asp-for="PhotoDeliveryAddress" class="form-control" />
-                    </div>
+    <div class="row mt-5">
+        <div class="col-12 mb-2 mx-auto">
+            <hr />
+            <div class="row mt-5">
+                <div class="col-2 mx-auto text-center">
+                    <a asp-action="DeclinePhotoshoot" asp-route-id="@Model?.Id" class="btn btn-danger">Decline</a>
                 </div>
-                <div class="row">
-                    <div class="col-12 col-md-6 form-group">
-                        <label asp-for="UserPlace"></label>
-                        <input asp-for="UserPlace" class="form-control" />
-                    </div>
-                    <div class="col-12 col-md-6 form-group">
-                        <label asp-for="GoogleMapsLink"></label>
-                        <input asp-for="GoogleMapsLink" class="form-control" />
-                    </div>
+                <div class="col-2 mx-auto text-center">
+                    <a asp-action="CancelPhotoshoot" asp-route-id="@Model?.Id" class="btn btn-dark">Cancel</a>
                 </div>
-                <div class="row">
-                    <div class="col-12 text-center mt-5">
-                        <button type="submit" class="btn btn-primary btn-lg">Update</button>
-                    </div>
+                <div class="col-2 mx-auto text-center">
+                    <a asp-action="CompletePhotoshoot" asp-route-id="@Model?.Id" class="btn btn-success">Complete</a>
                 </div>
-                <div class="row mt-5">
-                    <div class="col-12 col-md-4 col-lg-2 mx-auto text-center">
-                        <a asp-action="DeclinePhotoshoot" asp-route-id="@Model.Id" class="btn btn-danger btn-lg">Decline</a>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-2 mx-auto text-center">
-                        <a asp-action="CancelPhotoshoot" asp-route-id="@Model.Id" class="btn btn-dark btn-lg">Cancel</a>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-2 mx-auto text-center">
-                        <a asp-action="CompletePhotoshoot" asp-route-id="@Model.Id" class="btn btn-info btn-lg">Complete</a>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
