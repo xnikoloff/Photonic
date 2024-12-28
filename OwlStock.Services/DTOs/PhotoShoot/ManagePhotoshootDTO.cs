@@ -21,5 +21,6 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public string? PhotoDeliveryAddress { get; set; }
         public bool Transport { get; set; }
         public string? PickUpAddress { get; set; }
+        public PhotoshootStatus? Status { get; set; }
     }
 }

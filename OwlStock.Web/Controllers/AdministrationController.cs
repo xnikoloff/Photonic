@@ -78,7 +78,8 @@ namespace OwlStock.Web.Controllers
                 City = photoshoot?.Place?.City?.Name,
                 Region = photoshoot?.Place?.City?.Region?.Name,
                 Transport = photoshoot!.TransportCustomer,
-                PickUpAddress = photoshoot?.PickUpAddress
+                PickUpAddress = photoshoot?.PickUpAddress,
+                Status = photoshoot?.Status
 
             };
             return View(dto);
