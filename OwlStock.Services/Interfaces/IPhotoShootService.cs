@@ -14,6 +14,14 @@ namespace OwlStock.Services.Interfaces
         Task<PhotoShootByIdDTO> PhotoShootById(Guid id, string userId);
         Task<List<MyPhotoShootsDTO>> MyPhotoShoots(string userId);
         Task<Dictionary<DateOnly, IEnumerable<TimeSlot>>> GetPhotoShootsCalendar();
+
+        /// <summary>
+        /// Changes the status of a photoshoot and sends email if email is provided
+        /// </summary>
+        /// <param name="id">Id of the photoshoot</param>
+        /// <param name="status">New status of the photoshoot</param>
+        /// <param name="email">Email of the user</param>
+        /// <returns></returns>
         Task<PhotoShoot> ChangeStatus(Guid id, PhotoshootStatus status);
         
         /// <summary>

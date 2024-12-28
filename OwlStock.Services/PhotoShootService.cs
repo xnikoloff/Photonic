@@ -293,7 +293,9 @@ namespace OwlStock.Services
             PhotoShoot? photoShoot = await _context.PhotoShoots.FindAsync(id) ??
                 throw new NullReferenceException($"{nameof(photoShoot)} with id ${id} does not exists");
 
-
+            photoShoot.Status = status;
+            await _context.SaveChangesAsync();
+            
             UpdatePhotoShootEmailTemplateDTO photoShootEmailTemplateDTO = new()
             {
                 Recipient = photoShoot.PersonEmail,
@@ -303,6 +305,13 @@ namespace OwlStock.Services
             //set status and topic for DTO
             switch (status)
             {
+                case PhotoshootStatus.Completed:
+                {
+                    photoShootEmailTemplateDTO.EmailTemplate = EmailTemplate.UpdatePhotosForPhotoShoot;
+                    photoShootEmailTemplateDTO.Topic = "Страхотни новини";
+                    break;
+                }
+
                 case PhotoshootStatus.Declined:
                 {
                     photoShootEmailTemplateDTO.EmailTemplate = EmailTemplate.DeclinePhotoShoot;
@@ -317,9 +326,6 @@ namespace OwlStock.Services
                     break;
                 }
             }
-
-            photoShoot.Status = status;
-            await _context.SaveChangesAsync();
 
             await _emailService.Send(photoShootEmailTemplateDTO);
 

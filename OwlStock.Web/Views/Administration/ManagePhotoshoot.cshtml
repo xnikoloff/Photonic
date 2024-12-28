@@ -94,15 +94,27 @@
         <div class="col-12 mb-2 mx-auto">
             <hr />
             <div class="row mt-5">
-                <div class="col-2 mx-auto text-center">
-                    <a asp-action="DeclinePhotoshoot" asp-route-id="@Model?.Id" class="btn btn-danger">Decline</a>
-                </div>
-                <div class="col-2 mx-auto text-center">
-                    <a asp-action="CancelPhotoshoot" asp-route-id="@Model?.Id" class="btn btn-dark">Cancel</a>
-                </div>
-                <div class="col-2 mx-auto text-center">
-                    <a asp-action="CompletePhotoshoot" asp-route-id="@Model?.Id" class="btn btn-success">Complete</a>
-                </div>
+                @if (Model?.Status != PhotoshootStatus.Declined)
+                {
+                    <div class="col-2 mx-auto text-center">
+                        <h2><a asp-action="DeclinePhotoshoot" asp-route-id="@Model?.Id" class="text-danger">Decline</a></h2>
+                    </div>
+                }
+
+                @if (Model?.Status != PhotoshootStatus.Cancelled)
+                {
+                    <div class="col-2 mx-auto text-center">
+                        <h2><a asp-action="CancelPhotoshoot" asp-route-id="@Model?.Id" class="text-dark">Cancel</a></h2>
+                    </div>
+                }
+
+                @if(Model?.Status != PhotoshootStatus.Completed)
+                {
+                    <div class="col-2 mx-auto text-center">
+                        <h2><a asp-action="CompletePhotoshoot" asp-route-id="@Model?.Id" class="text-success">Complete</a></h2>
+                    </div>
+                }
+
             </div>
         </div>
     </div>

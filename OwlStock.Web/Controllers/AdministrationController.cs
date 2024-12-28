@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
-using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
 using OwlStock.Services;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.Interfaces;
@@ -24,21 +23,18 @@ namespace OwlStock.Web.Controllers
         private readonly IGalleryService _galleryService;
         private readonly IFileService _fileService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IEmailService _emailService;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AdministrationController(IPhotoShootService photoShootService, IPhotoService photoService, IGalleryService galleryService, 
-            IFileService fileService, IWebHostEnvironment webHostEnvironment, IEmailService emailService, 
-            UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+            IFileService fileService, IWebHostEnvironment webHostEnvironment, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _photoShootService = photoShootService;
             _photoService = photoService;
             _galleryService = galleryService;
             _fileService = fileService;
             _webHostEnvironment = webHostEnvironment;
-            _emailService = emailService;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
@@ -158,16 +154,8 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> CompletePhotoshoot(Guid id)
         {
+            string email = await GetUserEmail();
             await _photoShootService.ChangeStatus(id, PhotoshootStatus.Completed);
-            
-            await _emailService.Send(new UpdatePhotoShootEmailTemplateDTO()
-            {
-                EmailTemplate = EmailTemplate.UpdatePhotosForPhotoShoot,
-                Topic = "Страхотни новини",
-                Recipient = await GetUserEmail(),
-                PhotoShootId = id
-            });
-            
             return RedirectToAction(nameof(Photoshoots));
         }
 
