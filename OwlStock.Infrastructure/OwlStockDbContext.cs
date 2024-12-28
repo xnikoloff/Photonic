@@ -25,6 +25,7 @@ namespace OwlStock.Infrastructure
         public DbSet<Municipality>? Municipalities { get; set; }
         public DbSet<City>? Cities { get; set; }
         public DbSet<DynamicContent>? DynamicContents { get; set; }
+        public DbSet<DynamicContentCategory>? DynamicContentCategories { get; set; }
         public DbSet<Place>? Places { get; set; }
 
 
@@ -32,6 +33,7 @@ namespace OwlStock.Infrastructure
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new PlaceConfiguration());
+            builder.ApplyConfiguration(new DynamicContentCateogyConfiguration());
             builder.Entity<PhotoBase>().UseTptMappingStrategy();
         }
     }

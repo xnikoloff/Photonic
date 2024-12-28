@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
 using OwlStock.Services.DTOs;
@@ -50,6 +51,26 @@ namespace OwlStock.Services
             if (dto.WebRootPath == null)
             {
                 throw new NullReferenceException($"{nameof(dto.WebRootPath)} is null");
+            }
+
+            if (!dto.NewCategoryName.IsNullOrEmpty())
+            {
+                DynamicContentCategory category = new()
+                {
+                    CreatedById = dto.DynamicContent.CreatedById,
+                    CreatedOn = DateTime.Now,
+                    Name = dto.NewCategoryName
+                };
+
+                await _context.AddAsync(category);
+                await _context.SaveChangesAsync();
+
+                dto.DynamicContent.DynamicContentCategoryId = category.Id;
+
+            }
+            else
+            {
+                dto.DynamicContent.DynamicContentCategoryId = dto.SelectedCategoryId;
             }
 
             dto.DynamicContent.ImageName = dto?.Image?.FileName;
@@ -115,6 +136,16 @@ namespace OwlStock.Services
                 .OrderBy(dc => dc.Id)
                 .Take(4)
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<DynamicContentCategory>> GetAllDynamicContentCategories()
+        {
+            if (_context.DynamicContentCategories is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.DynamicContentCategories)} is null");
+            }
+
+            return await _context.DynamicContentCategories.ToListAsync();
         }
     }
 }

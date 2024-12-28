@@ -19,6 +19,11 @@ namespace OwlStock.Domain.Entities
         public DateTime? DeletedOn { get; set; }
         public int ReadingTime { get; set; }
 
+        [ForeignKey(nameof(DynamicContentCategories))]
+        public Guid DynamicContentCategoryId { get; set; }
+
+        public DynamicContentCategory? DynamicContentCategories { get; set; }
+
         [ForeignKey(nameof(CreatedById))]
         public string? CreatedById { get; set; }
         public IdentityUser? CreatedBy { get; set; }

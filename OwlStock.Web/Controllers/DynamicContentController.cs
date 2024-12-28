@@ -30,9 +30,15 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
-        public  IActionResult Create()
+        public async Task<IActionResult> Create()   
         {
-            return View();
+            List<DynamicContentCategory> categories = 
+                (await _dynamicContentService.GetAllDynamicContentCategories()).ToList();
+
+            return View(new CreateDynamicContentDTO()
+            {
+                DynamicContentCategories = categories
+            });
         }
 
         [HttpPost]

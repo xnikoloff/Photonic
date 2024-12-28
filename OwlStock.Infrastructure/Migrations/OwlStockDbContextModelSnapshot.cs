@@ -298,6 +298,9 @@ namespace OwlStock.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("DynamicContentCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("EditedById")
                         .HasColumnType("nvarchar(450)");
 
@@ -325,9 +328,53 @@ namespace OwlStock.Infrastructure.Migrations
 
                     b.HasIndex("DeletedById");
 
+                    b.HasIndex("DynamicContentCategoryId");
+
                     b.HasIndex("EditedById");
 
                     b.ToTable("DynamicContents");
+                });
+
+            modelBuilder.Entity("OwlStock.Domain.Entities.DynamicContentCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.ToTable("DynamicContentCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8157dd5f-40cd-4e6d-bf29-6cc22e0291ea"),
+                            CreatedOn = new DateTime(2024, 12, 28, 15, 42, 14, 659, DateTimeKind.Utc).AddTicks(9794),
+                            Name = "Технологии"
+                        },
+                        new
+                        {
+                            Id = new Guid("355fe6fe-738d-48c1-9d71-b266931d851e"),
+                            CreatedOn = new DateTime(2024, 12, 28, 15, 42, 14, 659, DateTimeKind.Utc).AddTicks(9801),
+                            Name = "Фототехника"
+                        },
+                        new
+                        {
+                            Id = new Guid("661598f4-ab6c-47d1-ac61-cea6a88f50bf"),
+                            CreatedOn = new DateTime(2024, 12, 28, 15, 42, 14, 659, DateTimeKind.Utc).AddTicks(9812),
+                            Name = "Образователни"
+                        });
                 });
 
             modelBuilder.Entity("OwlStock.Domain.Entities.Gear", b =>
@@ -595,7 +642,7 @@ namespace OwlStock.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b039a7f4-0d74-4548-8b3d-f9bdd8531c8a"),
+                            Id = new Guid("fb470d32-41c1-4b1d-97e4-28a2da302bcf"),
                             CityId = 8443,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Местност Метоха в Асеновград",
@@ -605,7 +652,7 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8f8091af-598d-4569-aaa8-0fb7b7d9a95d"),
+                            Id = new Guid("4f988f68-5545-47a0-b917-d2dc84ef9a1d"),
                             CityId = 8443,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Асеновата крепост в Асеновград",
@@ -615,7 +662,7 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0045beb5-9555-467b-bd33-dd23ebb24e10"),
+                            Id = new Guid("f400e959-b9ae-40e2-8d0c-ff6beceffb94"),
                             CityId = 12590,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Старият град на Пловдив",
@@ -625,7 +672,7 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("16488732-bfd2-402c-a389-74df37c7c051"),
+                            Id = new Guid("3f0ca70c-5f25-46aa-a314-823a9e8af2e6"),
                             CityId = 11545,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Царският Дворец в село Куртово Конаре",
@@ -839,6 +886,12 @@ namespace OwlStock.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("DeletedById");
 
+                    b.HasOne("OwlStock.Domain.Entities.DynamicContentCategory", "DynamicContentCategories")
+                        .WithMany("DynamicContents")
+                        .HasForeignKey("DynamicContentCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "EditedBy")
                         .WithMany()
                         .HasForeignKey("EditedById");
@@ -847,7 +900,18 @@ namespace OwlStock.Infrastructure.Migrations
 
                     b.Navigation("DeletedBy");
 
+                    b.Navigation("DynamicContentCategories");
+
                     b.Navigation("EditedBy");
+                });
+
+            modelBuilder.Entity("OwlStock.Domain.Entities.DynamicContentCategory", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("OwlStock.Domain.Entities.Municipality", b =>
@@ -987,6 +1051,11 @@ namespace OwlStock.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("PhotoShoot");
+                });
+
+            modelBuilder.Entity("OwlStock.Domain.Entities.DynamicContentCategory", b =>
+                {
+                    b.Navigation("DynamicContents");
                 });
 
             modelBuilder.Entity("OwlStock.Domain.Entities.PhotoShoot", b =>
