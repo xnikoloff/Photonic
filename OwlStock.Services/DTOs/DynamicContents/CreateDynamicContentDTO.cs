@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwlStock.Domain.Entities;
 
-namespace OwlStock.Services.DTOs
+namespace OwlStock.Services.DTOs.DynamicContents
 {
     public class CreateDynamicContentDTO
     {

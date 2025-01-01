@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
-using OwlStock.Services.DTOs;
+using OwlStock.Services.DTOs.DynamicContents;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Services
@@ -112,36 +112,62 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"DynamicContent with id {id} does not exists");
         }
 
-        public async Task<IEnumerable<DynamicContent>> GetAll()
+        public async Task<AllDynamicContentsDTO> GetAll()
         {
             if (_context.DynamicContents is null)
             {
                 throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
             }
 
-            return await _context.DynamicContents
+            if (_context.DynamicContentCategories is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+            }
+
+            List<DynamicContent>? dynamicContents = await _context.DynamicContents
                 .Include(dc => dc.CreatedBy)
                 .Include(dc => dc.DynamicContentCategories)
                 .ToListAsync();
+
+            List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
+
+            return new AllDynamicContentsDTO()
+            {
+                DynamicContents = dynamicContents,
+                DynamicContentCategories = dynamicContentCategories
+            };
         }
 
-        public async Task<IEnumerable<DynamicContent>> GetAllByCategory(Guid id)
+        public async Task<AllDynamicContentsDTO> GetAllByCategory(Guid id)
         {
             if (_context.DynamicContents is null)
             {
                 throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
             }
 
-            if(id == Guid.Empty)
+            if (_context.DynamicContentCategories is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+            }
+
+            if (id == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            return await _context.DynamicContents
-                .Include(dc => dc.CreatedBy)
-                .Include(dc => dc.DynamicContentCategories)
-                .Where(dc => dc.DynamicContentCategories.Id == id)
-                .ToListAsync();
+            List<DynamicContent>? dynamicContents = await _context.DynamicContents
+               .Include(dc => dc.CreatedBy)
+               .Include(dc => dc.DynamicContentCategories)
+               .Where(dc => dc.DynamicContentCategories.Id == id)
+               .ToListAsync();
+
+            List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
+
+            return new AllDynamicContentsDTO()
+            {
+                DynamicContents = dynamicContents,
+                DynamicContentCategories = dynamicContentCategories
+            };
         }
 
         public async Task<IEnumerable<DynamicContent>> GetLastFour()

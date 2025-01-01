@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwlStock.Domain.Entities;
-using OwlStock.Services.DTOs;
+using OwlStock.Services.DTOs.DynamicContents;
 using OwlStock.Services.Interfaces;
 using System.Security.Claims;
 
