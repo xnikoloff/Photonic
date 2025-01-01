@@ -34,18 +34,19 @@
                                         <a href="#">Lifestyle</a>
                                     </div>-->
                                     <ul class="blog_meta list_style">
-                                        <li><a href="#">@dynamicContent?.CreatedBy?.Email<i class="lnr lnr-user"></i></a></li>
-                                        <li><a href="#">@dynamicContent?.CreatedOn.ToString("dd.MM.yyy г hh:mm ч")<i class="lnr lnr-calendar-full"></i></a></li>
-                                        <li><a href="#">@(dynamicContent?.ReadingTime == 0 ? "< 1 мин" : dynamicContent?.ReadingTime + "мин")<i class="lnr lnr-clock"></i></a></li>
+                                        <li><a>@dynamicContent?.CreatedBy?.Email<i class="lnr lnr-user"></i></a></li>
+                                        <li><a>@dynamicContent?.CreatedOn.ToString("dd.MM.yyy г hh:mm ч")<i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a>@(dynamicContent?.ReadingTime == 0 ? "< 1 мин" : dynamicContent?.ReadingTime + "мин")<i class="lnr lnr-clock"></i></a></li>
+                                        <li><a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.DynamicContentCategories?.Id">@dynamicContent?.DynamicContentCategories?.Name<i class="lnr lnr-layers"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-md-9">
                             
                                     <div class="blog_post mt-3">
-                                        <img src="~/resources/images/@(dynamicContent.ImageName)" alt="">
+                                        <img src="~/resources/images/@(dynamicContent?.ImageName)" alt="">
                                         <div class="blog_details">
-                                            <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h2>@dynamicContent.Title</h2></a>
+                                            <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h2>@dynamicContent?.Title</h2></a>
                                             <p>@dynamicContent?.Description</p>
                                             <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id" class="view_btn button_hover">Прочетете повече</a>
                                         </div>

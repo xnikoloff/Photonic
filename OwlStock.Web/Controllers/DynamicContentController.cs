@@ -30,6 +30,12 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> AllByCategory(Guid id)
+        {
+            return View(nameof(All), await _dynamicContentService.GetAllByCategory(id));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Create()   
         {
             List<DynamicContentCategory> categories = 

@@ -121,6 +121,26 @@ namespace OwlStock.Services
 
             return await _context.DynamicContents
                 .Include(dc => dc.CreatedBy)
+                .Include(dc => dc.DynamicContentCategories)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<DynamicContent>> GetAllByCategory(Guid id)
+        {
+            if (_context.DynamicContents is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+            }
+
+            if(id == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            return await _context.DynamicContents
+                .Include(dc => dc.CreatedBy)
+                .Include(dc => dc.DynamicContentCategories)
+                .Where(dc => dc.DynamicContentCategories.Id == id)
                 .ToListAsync();
         }
 
