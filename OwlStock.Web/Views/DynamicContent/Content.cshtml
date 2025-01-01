@@ -16,18 +16,20 @@
         </div>
     </div>
 </section>
-<div class="container">
-     <div class="row my-4">
+<div class="container mb-5">
+     <div class="row mt-4">
         <div class="col-12 col-data">
-            <span>Създадена на: <span class="data"><b>@(Model.CreatedOn.ToString("dd.MM.yyyy") + " г.")</b></span></span> <b>-</b> Време за четене: <span class="data"><b>@(Model.ReadingTime == 0 ? "< 1 мин" : Model.ReadingTime + "мин")</b></span>
+            <span><i class="lnr lnr-calendar-full"></i> <span class="data"><b>@(Model.CreatedOn.ToString("dd.MM.yyyy hh:mm"))</b></span></span> <i class="lnr lnr-clock"></i> <span class="data"><b>@(Model.ReadingTime == 0 ? "< 1 мин" : Model.ReadingTime + "мин")</b></span>
         </div>
     </div>
     <hr />
-    <div class="row row-content mt-5">
-        <div class="col-12 col-md-6 col-lg-4 col-banner">
-            <img style="width:350px" id="image" src="~/resources/images/@(Model.ImageName)"/>
+    <div class="row">
+        <div class="col-12 col-banner">
+            <img style="width:750px" id="image" src="~/resources/images/@(Model.ImageName)"/>
         </div>
-        <div class="col-12 col-md-6 col-lg-8 col-content">
+    </div>
+    <div class="row row-content mt-5">
+        <div class="col-12 col-content">
             <p id="content"></p>
         </div>
     </div>
@@ -45,6 +47,10 @@
 
     .row-content{
         margin-top: 50px;
+    }
+
+    .row-content .col-content p{
+        font-size: 1.2rem;
     }
 </style>
 
