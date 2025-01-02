@@ -20,11 +20,11 @@ namespace OwlStock.Domain.Enumerations
         [Display(Name = "Абитуриентски бал")]
         Prom = 5,
 
-        [Display(Name = "Детска фотосесия")]
-        Kids = 6,
+        /*[Display(Name = "Детска фотосесия")]
+        Kids = 6,*/
 
-        [Display(Name = "Имот/сграда")]
-        Property = 7,
+        /*[Display(Name = "Имот/сграда")]
+        Property = 7,*/
 
         [Display(Name = "Събитие")]
         Event = 8,

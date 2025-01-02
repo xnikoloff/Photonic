@@ -132,7 +132,7 @@ namespace OwlStock.Services
                     return DefaultValue.BaptismExtra + fuelPrice;
                 }
 
-                case PhotoShootType.Kids:
+                /*case PhotoShootType.Kids:
                 {
                     if (fuelPrice == 0)
                     {
@@ -140,7 +140,7 @@ namespace OwlStock.Services
                     }
 
                     return DefaultValue.KidsPhotoshoot + fuelPrice;
-                }
+                }*/
 
                 case PhotoShootType.Pregnant:
                 {
