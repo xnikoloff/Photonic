@@ -1,7 +1,5 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using OwlStock.Infrastructure.Common;
-using System.Text.Json;
 using System.Text.Json.Nodes;
 
 namespace OwlStock.Services.Common
