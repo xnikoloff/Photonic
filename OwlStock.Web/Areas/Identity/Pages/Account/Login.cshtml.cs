@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.IdentityModel.Tokens;
+using OwlStock.Services;
 
 namespace OwlStock.Web.Areas.Identity.Pages.Account
 {
@@ -15,12 +17,15 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly ICommonServices _commonServices;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, 
+            ILogger<LoginModel> logger, ICommonServices commonServices)
         {
             _signInManager = signInManager;
             _logger = logger;
             _userManager = userManager;
+            _commonServices = commonServices;
         }
 
         /// <summary>
@@ -29,6 +34,9 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
+
+        [BindProperty]
+        public string ReCaptchaToken { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -104,12 +112,27 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
+            if (ReCaptchaToken.IsNullOrEmpty())
+            {
+                ModelState.AddModelError(string.Empty, $"Липсва проверка за робот");
+                return Page();
+            }
+
+            //verify the token
+            bool recaptchaVerificationSuccess = await _commonServices.VerifyReCaptcha(ReCaptchaToken);
+
+            if (!recaptchaVerificationSuccess)
+            {
+                ModelState.AddModelError(string.Empty, $"Невалидна проверка за робот");
+                return Page();
+            }
+
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -119,24 +142,16 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
-                if (result.IsLockedOut)
+                if (user != null)
                 {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
+                    ModelState.AddModelError(string.Empty, "Неправилна парола");
                 }
                 else
                 {
-                    if (user != null)
-                    {
-                        var attemptsLeft = _userManager.Options.Lockout.MaxFailedAccessAttempts - await _userManager.GetAccessFailedCountAsync(user);
-                        ModelState.AddModelError(string.Empty, $"Неправилна парола. Оставащи опити {attemptsLeft}");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, $"Несъществуващ имейл или неправилна парола.");
-                    }
-                    return Page();
+                    ModelState.AddModelError(string.Empty, $"Несъществуващ имейл или неправилна парола.");
                 }
+                return Page();
+                
             }
 
             // If we got this far, something failed, redisplay form

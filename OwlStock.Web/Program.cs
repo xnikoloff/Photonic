@@ -33,9 +33,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireDigit = true;
     options.Password.RequireNonAlphanumeric = false;
-    options.Lockout.AllowedForNewUsers = true;
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-    options.Lockout.MaxFailedAccessAttempts = 6;
 });
 
 builder.Services.AddServices();
