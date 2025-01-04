@@ -2,33 +2,33 @@
 {
     public class CategoryDescriptions
     {
-        public const string LandscapeDescription = "Lorem Landscape";
-        public const string NatureDescription = $"Lorem Natrue";
-        public const string StreetDescription = $"Lorem Street";
-        public const string PatternsDescription = $"Lorem Pattenrs";
-        public const string AnimalsDescription = $"Lorem Animals";
-        public const string FashionDescription = $"Lorem Fashion";
-        public const string FoodDescription = $"Lorem Food";
-        public const string WallpapersDescription = $"Lorem Wallpapers";
-        public const string TravelDescription = $"Lorem Travel";
-        public const string PeopleDescription = $"Lorem People";
-        public const string PortraitDescription = $"Lorem Portrait";
-        public const string BusinessDescription = $"Lorem Business";
-        public const string SportDescription = $"Lorem Sport";
-        public const string AutomotiveDescription = $"Автомобилна фотография";
-        public const string HealthDescription = $"Lorem Health";
-        public const string ArtsDescription = $"Lorem Arts";
-        public const string ArchitecturalDescription = $"Lorem Architectural";
-        public const string EventsDescription = $"Lorem Events";
-        public const string NightDescription = $"Lorem Night";
-        public const string AstroDescription = $"Lorem Astro";
-        public const string MacroDescription = $"Lorem Macro";
-        public const string WeddingDescription = $"Сватбена фотография";
+        public const string LandscapeDescription = "Пейзажи";
+        public const string NatureDescription = $"Природа";
+        public const string StreetDescription = $"Стрийт";
+        public const string PatternsDescription = $"Шарки";
+        public const string AnimalsDescription = $"Животни";
+        public const string FashionDescription = $"Мода";
+        public const string FoodDescription = $"Храна";
+        public const string WallpapersDescription = $"Тапети";
+        public const string TravelDescription = $"Пътешествия";
+        public const string PeopleDescription = $"Хора";
+        public const string PortraitDescription = $"Портрети";
+        public const string BusinessDescription = $"Бизнес";
+        public const string SportDescription = $"Спорт";
+        public const string AutomotiveDescription = $"Автомобили";
+        public const string HealthDescription = $"Здраве";
+        public const string ArtsDescription = $"Изкуства";
+        public const string ArchitecturalDescription = $"Архитектура";
+        public const string EventsDescription = $"Събития";
+        public const string NightDescription = $"Нощ";
+        public const string AstroDescription = $"Астро";
+        public const string MacroDescription = $"Макро";
+        public const string Product = $"Продукти";
+        public const string WeddingDescription = $"Сватба";
         public const string PromDescription = $"Абитуриетски бал";
         public const string BaptismDescription = $"Свето кръщение";
         public const string PersonalDescription = $"Портретна фотография";
-        public const string KidsDescription = $"Детска фотосесия";
-        public const string ProductDescription = $"Продуктова фотография";
-        public const string PregnantDescription = $"Фотосесия за бременни";
+        public const string KidsDescription = $"Деца";
+        public const string PregnancyDescription = $"Фотосесия за бременни";
     }
 }

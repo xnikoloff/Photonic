@@ -15,6 +15,7 @@ namespace OwlStock.Services.Common
 
         public string GetEnumDescription(Enum enumeration)
         {
+            
             if (string.IsNullOrEmpty(enumeration.ToString()))
             {
                 throw new ArgumentNullException(nameof(enumeration));

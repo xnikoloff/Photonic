@@ -43,7 +43,7 @@ namespace OwlStock.Domain.Enumerations
         [Display(Name = "Спорт")]
         Sport = 13,
 
-        [Display(Name = "Автомобилна")]
+        [Display(Name = "Автомобил")]
         Automotive = 14,
 
         [Display(Name = "Здраве")]
@@ -71,15 +71,18 @@ namespace OwlStock.Domain.Enumerations
         Wedding = 23,
 
         [Display(Name = "Продукт")]
-        Product = 23,
+        Product = 24,
 
         [Display(Name = "Фотосесия за бременни")]
-        Pregnancy = 24,
+        Pregnancy = 25,
 
         [Display(Name = "Абитуриентски бал")]
-        Prom = 25,
+        Prom = 26,
 
         [Display(Name = "Свето кръщене")]
-        Baptism = 26
+        Baptism = 27,
+
+        [Display(Name = "Друго")]
+        Other = 28
     }
 }

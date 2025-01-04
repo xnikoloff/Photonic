@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using System.Reflection.Metadata.Ecma335;
+using OwlStock.Web.Extensions;
+using System.ComponentModel.DataAnnotations;
 
 namespace OwlStock.Web.Controllers
 {
@@ -55,7 +57,7 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AllByCategory(Category category)
         {
-            ViewData["categoryDescription"] = _commonServices.GetEnumDescription(category);
+            ViewData["categoryDescription"] = category.GetAttribute<DisplayAttribute>().Name;
             return View(await _galleryService.AllByCategory(category));
         }
 
