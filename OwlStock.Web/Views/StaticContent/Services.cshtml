@@ -17,101 +17,123 @@
  <div class="container mt-5">
     <div class="row justify-content-md-center">
         <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
-            <p class="text-secondary mb-5 text-center">Във Photon предлагаме разнообразие от фотографски услуги, създадени да уловят и съхранят най-ценните Ви моменти. Ние съчетаваме креативност и въображение, за да ви предоставим кадри, които вдъхновяват.</p>
+            <p class="text-secondary mb-5 text-center">Във <span class="text-warning"><b>Photonic</b></span> предлагаме разнообразие от фотографски услуги, създадени да уловят и съхранят най-ценните Ви моменти. Ние съчетаваме креативност и въображение, за да ви предоставим кадри, които вдъхновяват.</p>
             <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
         </div>
     </div>
 </div>
-
 <div class="container overflow-hidden">
-    <div class="row">
-        <div class="col-12 col-md-4 mt-4">
-            <div class="text-center px-xl-2">
-                <i class="fa-solid fa-user-tie fa-2xl text-warning"></i>
-                <h5 class="m-2">Лична фотосесия</h5>
-                <p class="m-0 text-secondary">
-                    Ще работим с Вас, за да създадем портрети, които отразяват вашата същност и характер. Независимо дали желаете класически портрети или нещо по-креативно, ние ще Ви помогнем да създадете снимки, които ще пазите с гордост.
-                </p>
+    <div class="row row-services row-services-personal">
+        <div class="col-12 col-md-6 mx-auto col-services-info col-services-personal">
+            <div class="text-center">
+                <h1 class="mb-3 mt-4">Лична фотосесия</h1>
+                <i class="fa-solid fa-user-tie text-warning fa-2xl"></i>
+                <p class="mt-3">Ще работим с Вас, за да създадем портрети, които отразяват вашата същност и характер. Независимо дали желаете класически портрети или нещо по-креативно, ние ще Ви помогнем да създадете снимки, които ще пазите с гордост.</p>
+                <!--<div class="mt-5">
+                    <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Portrait" class="btn btn-light btn-cta btn-view-services">Разгледайте</a>
+                    <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-warning btn-cta btn-book-services">Резервирайте</a>
+                </div>-->
             </div>
         </div>
-        <div class="col-12 col-md-4 mt-4">
-            <div class="text-center px-xl-2">
+        <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-right">
+            <img src="~/resources/images/portrait.jpg" alt="services-photo" />
+        </div>
+    </div>
+    <div class="row row-services row-services-wedding">
+        <div class="col-12 col-md-6 mx-auto col-services-info col-services-wedding">
+            <div class="text-center">
+                <h1 class="mb-3 mt-4">Сватбена Фотография</h1>
                 <i class="fa-solid fa-ring fa-2x text-warning"></i>
-                <h5 class="m-2">Сватбена Фотография</h5>
-                <p class="m-0 text-secondary">Вашият сватбен ден е един от най-важните дни в живота Ви, и ние от Photon сме тук, за да го запечатаме в цялата му красота и емоция. Ще се постараем да създадем изображения, които ще Ви напомнят за този незабравим ден през годините.</p>
+                <p class="mt-3">Вашият сватбен ден е един от най-важните дни в живота Ви, и ние от Photon сме тук, за да го запечатаме в цялата му красота и емоция. Ще се постараем да създадем изображения, които ще Ви напомнят за този незабравим ден през годините.</p>
             </div>
         </div>
-        <div class="col-12 col-md-4 mt-4">
-            <div class="text-center px-xl-2">
-                <i class="fa-solid fa-graduation-cap fa-2xl text-warning"></i>
-                <h5 class="m-2">Абитуриентски балове</h5>
-                <p class="m-0 text-secondary">Абитуриентската вечер е един от най-вълнуващите и запомнящи се моменти в живота на всеки ученик или студент. В DreamPix разбираме значението на този специален ден и сме тук, за да го заснемем. Ще създадем красиви и стилни снимки, които ще Ви напомнят за този вълнуващ момент.</p>
-            </div>
+        <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-left">
+            <img src="~/resources/images/wedding.jpg" alt="services-photo" />
         </div>
     </div>
-    <div class="row mt-0 mt-lg-5">
-        <div class="col-12 col-md-4 mt-4">
-            <div class="text-center px-xl-2">
-                <i class="fa-solid fa-cross fa-2xl text-warning"></i>
-                <h5 class="m-2">Свето кръщение</h5>
-                <p class="m-0 text-secondary"> Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение, както и радостта и любовта, които споделяте със семейството и приятелите си. Ние ще създадем изображения, които ще пазите и цените за поколения напред.</p>
+    <div class="row row-services row-services-prom">
+        <div class="col-12 col-md-6 mx-auto col-services-info col-services-prom">
+            <div class="text-center">
+                <h1 class="mb-3 mt-4">Абитуриентски балове</h1>
+                <i class="fa-solid fa-ring fa-2x text-warning"></i>
+                <p class="mt-3">Абитуриентската вечер е един от най-вълнуващите и запомнящи се моменти в живота на всеки ученик или студент. В DreamPix разбираме значението на този специален ден и сме тук, за да го заснемем. Ще създадем красиви и стилни снимки, които ще Ви напомнят за този вълнуващ момент.</p>
             </div>
         </div>
-        <div class="col-12 col-md-4 mt-4">
-            <div class="text-center px-xl-2">
+        <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-right">
+            <img src="~/resources/images/prom.jpg" alt="services-photo" />
+        </div>
+    </div>
+    <div class="row row-services row-services-bapsism">
+        <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
+            <div class="text-center">
+                <h1 class="mb-3 mt-4">Свето кръщение</h1>
+                <i class="fa-solid fa-ring fa-2x text-warning"></i>
+                <p class="mt-3">Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение, както и радостта и любовта, които споделяте със семейството и приятелите си. Ние ще създадем изображения, които ще пазите и цените за поколения напред.</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-left">
+            <img src="~/resources/images/baptism.jpg" alt="services-photo" />
+        </div>
+    </div>
+    <div class="row row-services row-services-bapsism">
+        <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
+            <div class="text-center">
+                <h1 class="mb-3 mt-4">Продукт</h1>
                 <i class="fa-solid fa-shirt fa-2x text-warning"></i>
-                <h5 class="m-2">Продукт</h5>
-                <p class="m-0 text-secondary">Ще заснемем вашите продукти, за да бъдат представени пълноценно за вашия бизнес. Независимо от вида и размера на продукта, ще се погрижим той да изглежда привлекателно и в търговски вид.</p>
+                <p class="mt-3">Ще заснемем вашите продукти, за да бъдат представени пълноценно за вашия бизнес. Независимо от вида и размера на продукта, ще се погрижим той да изглежда привлекателно и в търговски вид.</p>
             </div>
         </div>
-        <div class="col-12 col-md-4 mt-4">
-            <div class="text-center px-xl-2">
+        <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-right">
+            <img src="~/resources/images/product.jpg" alt="services-photo" />
+        </div>
+    </div>
+    <div class="row row-services row-services-bapsism">
+        <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
+            <div class="text-center">
+                <h1 class="mb-3 mt-4">Събитие</h1>
                 <i class="fa-solid fa-calendar-days fa-2xl text-warning"></i>
-                <h5 class="m-2">Събитиe</h5>
-                <p class="m-0 text-secondary">Ще отразим вашето лично или корпоративмо събитие в пълния му блясък. Зарадвайте гостите си, както и Вас самите с кадри, заредени с емоция.</p>
+                <p class="mt-3">Ще отразим вашето лично или корпоративмо събитие в пълния му блясък. Зарадвайте гостите си, както и Вас самите с кадри, заредени с емоция.</p>
             </div>
         </div>
+        <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-left">
+            <img src="~/resources/images/easter.jpg" alt="services-photo" />
+        </div>
     </div>
-    <div class="row mt-0 mt-lg-5">
-        <div class="col-12 col-md-4 mt-4">
-            <div class="text-center px-xl-2">
+    <div class="row row-services row-services-bapsism">
+        <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
+            <div class="text-center">
+                <h1 class="mb-3 mt-4">Фотосесии за бременни</h1>
                 <i class="fa-solid fa-baby fa-2xl text-warning"></i>
-                <h5 class="m-2">Фотосесии за бременни</h5>
-                <p class="m-0 text-secondary">
-                    Запазете чудото на живота завинаги с Вас. Ще се погрижим да се чувствате комфортно и уверено, докато създаваме снимки, които ще пазите завинаги.
-                </p>
+                <p class="mt-3">Запазете чудото на живота завинаги с Вас. Ще се погрижим да се чувствате комфортно и уверено, докато създаваме снимки, които ще пазите завинаги.</p>
             </div>
         </div>
-        <div class="col-12 col-md-4 mt-4">
-            <div class="text-center px-xl-2">
-                <i class="fa-solid fa-car fa-2x text-warning"></i>
-                <h5 class="m-2">Автомобил</h5>
-                <p class="m-0 text-secondary">Имате автомобил, който искате да заснемете професионално? Дали стоящ на някой паркинг или в движение по улиците, ще заснемем всеки един детайл от него.</p>
-            </div>
-        </div>
-        <div class="col-12 col-md-4 mt-4">
-            <div class="text-center px-xl-2">
-                <i class="fa-solid fa-lightbulb fa-2xl text-warning"></i>
-                <h5 class="m-2">Всичко останало...</h5>
-                <p class="m-0 text-secondary">Ако имате уникална идея, която искате да бъде заснета, не се колебайте да я резервирате още сега. Ще се погрижим да я отразим точно както изглежда в представите Ви.</p>
-            </div>
+        <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-right">
+            <img src="~/resources/images/pregnancy.jpg" alt="services-photo" />
         </div>
     </div>
-    <div class="row mt-0 mt-lg-5">
-        <!--<div class="col-12 col-sm-6 col-lg-4">
-            <div class="text-center px-xl-2">
-                <i class="fa-solid fa-children fa-2xl text-warning"></i>
-                <h5 class="m-2">Детска фотосесия</h5>
-                <p class="m-0 text-secondary">Децата са най-прекрасното нещо на този свят. Ние ще уловим усмивките, игрите и радостта на вашите деца в красиви снимки, които ще Ви върнат към тези щастливи моменти всеки път, когато ги погледнете.</p>
+    <div class="row row-services row-services-bapsism">
+        <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
+            <div class="text-center">
+                <h1 class="mb-3 mt-4">Автомобил</h1>
+                <i class="fa-solid fa-car fa-2x text-warning"></i>
+                <p class="mt-3">Имате автомобил, който искате да заснемете професионално? Дали стоящ на някой паркинг или в движение по улиците, ще заснемем всеки един детайл от него.</p>
             </div>
-        </div>-->
-        <!--<div class="col-12 col-sm-6 col-lg-4">
-            <div class="text-center px-xl-2">
-                <i class="fa-solid fa-hotel fa-2xl text-warning"></i>
-                <h5 class="m-2">Имот/Сграда</h5>
-                <p class="m-0 text-secondary">Независимо дали сте горд собственик на хотел, ресторант или магазин, вашият имот или сграда ще бъде показан подобаващо в кадри, отразяващи същността и целта му.</p>
+        </div>
+        <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-left">
+            <img src="~/resources/images/automobile.jpg" alt="services-photo" />
+        </div>
+    </div>
+    <div class="row row-services row-services-bapsism">
+        <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
+            <div class="text-center">
+                <h1 class="mb-3 mt-4">Всичко останало...</h1>
+                <i class="fa-solid fa-lightbulb fa-2xl text-warning"></i>
+                <p class="mt-3">Ако имате уникална идея, която искате да бъде заснета, не се колебайте да я резервирате още сега. Ще се погрижим да я отразим точно както изглежда в представите Ви.</p>
             </div>
-        </div>-->
+        </div>
+        <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-right">
+            <img src="~/resources/images/kids.jpg" alt="services-photo" />
+        </div>
     </div>
     <div class="row my-5 py-5">
         <div class="col-12 text-center">
@@ -119,3 +141,50 @@
         </div>
     </div>
 </div>
+
+<style>
+    .row-services{
+    }
+
+    .row-services .btn-cta{
+        font-weight: bold;
+    }
+
+    .col-services-info {
+        z-index: 1;
+        background: #fafafa;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 0px 24px;
+        /*border-radius: 10%;*/
+    }
+
+    .col-services-info p{
+        font-size: 1.1rem;
+    }  
+    
+    .row-services{
+        margin-top: 150px;
+    }
+
+    .row-services .col-services-image img {
+        width: 500px;
+        border: 15px solid #deaa66;
+    }
+
+    .row-services .col-services-image-left img{
+        transform: rotate(-15deg);
+        border-top-right-radius: 40%;
+        border-bottom-left-radius: 40%;
+    }
+
+    .row-services .col-services-image-right img {
+        transform: rotate(15deg);
+        border-top-left-radius: 40%;
+        border-bottom-right-radius: 40%;
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .row-services .col-services-image img {
+            width: 400px;
+        }
+    }
+</style>
