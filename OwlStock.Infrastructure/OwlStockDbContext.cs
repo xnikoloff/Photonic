@@ -27,6 +27,7 @@ namespace OwlStock.Infrastructure
         public DbSet<DynamicContent>? DynamicContents { get; set; }
         public DbSet<DynamicContentCategory>? DynamicContentCategories { get; set; }
         public DbSet<Place>? Places { get; set; }
+        public DbSet<Testimony>? Testimonies { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -34,6 +35,7 @@ namespace OwlStock.Infrastructure
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new PlaceConfiguration());
             builder.ApplyConfiguration(new DynamicContentCateogyConfiguration());
+            builder.ApplyConfiguration(new TestimonyConfiguration());
             builder.Entity<PhotoBase>().UseTptMappingStrategy();
         }
     }

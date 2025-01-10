@@ -1,20 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
+using OwlStock.Services.DTOs.HomePage;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Services
 {
     public class HomeService : IHomeService
     {
+        private readonly IDynamicContentService _dynamicContentService;
+        private readonly ITestimonyService _testimonyService;
         private readonly OwlStockDbContext _context;
 
-        public HomeService(OwlStockDbContext context)
+        public HomeService(OwlStockDbContext context, IDynamicContentService dynamicContentService, ITestimonyService testimonyService)
         {
             _context = context;
+            _dynamicContentService = dynamicContentService;
+            _testimonyService = testimonyService;
         }
 
-        public async Task<string> ChooseHomePagePhoto()
+        public async Task<HomePageDTO> GetHomeData()
+        {
+            IEnumerable<DynamicContent> dynamicContents = await _dynamicContentService.GetLastFour();
+            IEnumerable<Testimony> testimonies = await _testimonyService.GetLastFour();
+
+            return new HomePageDTO()
+            {
+                Photo = await ChooseHomePagePhoto(),
+                DynamicContents = dynamicContents,
+                Testimonies = testimonies
+            };
+        }
+
+        private async Task<string> ChooseHomePagePhoto()
         {
             if(_context.GalleryPhotos is null)
             {

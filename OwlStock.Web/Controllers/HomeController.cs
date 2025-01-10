@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwlStock.Domain.Entities;
+using OwlStock.Services.DTOs.HomePage;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Controllers
@@ -20,8 +21,9 @@ namespace OwlStock.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            string photo = await _homeService.ChooseHomePagePhoto();
-            string photoPath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", "resources", photo);
+            HomePageDTO homePageDTO = await _homeService.GetHomeData();
+            string? photo = homePageDTO?.Photo;
+            string photoPath = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", "resources", photo ?? "");
             string photoPathSlashes = photoPath.Replace("/", "\\");
 
             if(System.IO.File.Exists(photoPathSlashes))
@@ -29,10 +31,7 @@ namespace OwlStock.Web.Controllers
                 ViewBag.HomePhoto = photo;
             }
             
-            //ViewBag.HomePhoto = @Url.Content("~/resources/images/background.jpg");
-            IEnumerable<DynamicContent> dynamicContents = await _dynamicContentService.GetLastFour();
-            
-            return View(dynamicContents);
+            return View(homePageDTO);
         }
     }
 }
