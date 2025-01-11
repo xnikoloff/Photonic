@@ -1,0 +1,28 @@
+﻿@model Testimony
+
+<div class="container my-5 py-5">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row mt-5">
+        <div class="col-4">
+            <form asp-action="Create" asp-controller="Testimony" method="post">
+                <div class="form-group">
+                    <label asp-for="PersonFirstName"></label>
+                    <input asp-for="PersonFirstName" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PersonLastName"></label>
+                    <input asp-for="PersonLastName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Stars"></label>
+                    <input asp-for="Stars" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Content"></label>
+                    <textarea rows="8" asp-for="Content" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-warning text-white mt-4">Добави</button>
+            </form>
+        </div>
+    </div>
+</div>

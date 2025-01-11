@@ -7,6 +7,7 @@ using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Services;
 using OwlStock.Services.DTOs.PhotoShoot;
+using OwlStock.Services.DTOs.Testimonies;
 using OwlStock.Services.Interfaces;
 using OwlStock.Web.DTOs.Identity;
 using OwlStock.Web.DTOs.PhotoShootDTOs;
@@ -22,18 +23,22 @@ namespace OwlStock.Web.Controllers
         private readonly IPhotoService _photoService;
         private readonly IGalleryService _galleryService;
         private readonly IFileService _fileService;
+        private readonly ITestimonyService _testimonyService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AdministrationController(IPhotoShootService photoShootService, IPhotoService photoService, IGalleryService galleryService, 
-            IFileService fileService, IWebHostEnvironment webHostEnvironment, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+            IFileService fileService, IWebHostEnvironment webHostEnvironment, UserManager<IdentityUser> userManager, 
+            SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
+            ITestimonyService testimonyService)
         {
             _photoShootService = photoShootService;
             _photoService = photoService;
             _galleryService = galleryService;
             _fileService = fileService;
+            _testimonyService = testimonyService;
             _webHostEnvironment = webHostEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -356,6 +361,20 @@ namespace OwlStock.Web.Controllers
             }
 
             return RedirectToAction(nameof(AllUsers));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManageTestimonies()
+        {
+            ManageTestimonyDTO dto = new()
+            {
+                NewTestimonies = await _testimonyService.GetNew(),
+                ApprovedTestimonies = await _testimonyService.GetApproved(),
+                HiddenTestimonies = await _testimonyService.GetHidden(),
+                UnhiddenTestimonies = await _testimonyService.GetUnhidden()
+            };
+
+            return View(dto);
         }
 
         private async Task<string> GetUserEmail()

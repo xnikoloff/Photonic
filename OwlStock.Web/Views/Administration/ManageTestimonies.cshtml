@@ -1,0 +1,170 @@
+﻿@model ManageTestimonyDTO
+
+<div class="container my-5 py-5">
+    <div class="row">
+        <div class="col-2">
+            <a asp-action="Create" asp-controller="Testimony" class="btn btn-light"><i class="fa-solid fa-plus"></i> Testimony</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 mb-3">
+            <h1>New</h1>
+        </div>
+        <hr />
+        @foreach(Testimony testimony in Model.NewTestimonies ?? new List<Testimony>())
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+            <div class="card testimony-card">
+                <div class="card-header bg-warning text-white">
+                    <h4>@testimony.PersonFirstName @testimony.PersonLastName</h4>
+                </div>
+                <div class="card-body">
+                    <p><i class="fa-solid fa-plus"></i> @testimony.CreatedOn.ToShortDateString()</p>
+                    <hr />
+                    <div class="star">
+                        @for(int i = 0; i < testimony.Stars; i++)
+                        {
+                            <i class="fa fa-star"></i>
+                        }
+                    </div>
+                    <hr />
+                    <p>@testimony?.Content</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="ApproveTestimony" asp-controller="Administration" class="btn btn-light">Approve</a>
+                </div>
+            </div>
+        </div>
+        }
+
+        @if ((Model?.NewTestimonies ?? new List<Testimony>()).Count() == 0)
+        {
+            <div class="col-12">
+                <h4>Still empty</h4>
+            </div>
+        }
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 mb-3">
+            <h1>Approved</h1>
+        </div>
+        <hr />
+        @foreach (Testimony testimony in Model.ApprovedTestimonies ?? new List<Testimony>())
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card testimony-card">
+                    <div class="card-header bg-success text-white">
+                        <h4>@testimony.PersonFirstName @testimony.PersonLastName</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><i class="fa-solid fa-plus"></i> @testimony.CreatedOn.ToShortDateString()</p>
+                        <p><i class="fa-solid fa-check"></i> @testimony.ApprovedOn.Value.ToShortDateString()</p>
+                        <hr />
+                        <div class="star">
+                            @for (int i = 0; i < testimony.Stars; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </div>
+                        <hr />
+                        <p>@testimony?.Content</p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="HideTestimony" asp-controller="Administration" class="btn btn-light">Hide</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if ((Model?.ApprovedTestimonies ?? new List<Testimony>()).Count() == 0)
+        {
+            <div class="col-12">
+                <h4>Still empty</h4>
+            </div>
+        }
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 mb-3">
+            <h1>Hidden</h1>
+        </div>
+        <hr />
+        @foreach (Testimony testimony in Model.HiddenTestimonies ?? new List<Testimony>())
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card testimony-card">
+                    <div class="card-header bg-secondary text-white">
+                        <h4>@testimony.PersonFirstName @testimony.PersonLastName</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><i class="fa-solid fa-plus"></i> @testimony.CreatedOn.ToShortDateString()</p>
+                        <p><i class="fa-solid fa-eye-slash"></i> @testimony.HiddenOn.Value.ToShortDateString()</p>
+                        <hr />
+                        <div class="star">
+                            @for (int i = 0; i < testimony.Stars; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </div>
+                        <hr />
+                        <p>@testimony?.Content</p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="UnhideTestimony" asp-controller="Administration" class="btn btn-light">Unhide</a>
+                    </div>
+                </div>
+            </div>
+        }
+        @if ((Model?.HiddenTestimonies ?? new List<Testimony>()).Count() == 0)
+        {
+            <div class="col-12">
+                <h4>Still empty</h4>
+            </div>
+        }
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 mb-3">
+            <h1>Unhidden</h1>
+        </div>
+        <hr />
+        @foreach (Testimony testimony in Model.UnhiddenTestimonies ?? new List<Testimony>())
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card testimony-card">
+                    <div class="card-header bg-info text-white">
+                        <h4>@testimony.PersonFirstName @testimony.PersonLastName</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><i class="fa-solid fa-plus"></i> @testimony.CreatedOn.ToShortDateString()</p>
+                        <p><i class="fa-solid fa-eye-slash"></i> @testimony.HiddenOn.Value.ToShortDateString()</p>
+                        <p><i class="fa-solid fa-eye"></i> @testimony.UnhiddenOn.Value.ToShortDateString()</p>
+                        <hr />
+                        <div class="star">
+                            @for (int i = 0; i < testimony.Stars; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </div>
+                        <hr />
+                        <p>@testimony?.Content</p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="UnhideTestimony" asp-controller="Administration" class="btn btn-light">Unhide</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if((Model?.UnhiddenTestimonies ?? new List<Testimony>()).Count() == 0)
+        {
+            <div class="col-12">
+                <h4>Still empty</h4>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .testimony-card{
+        min-height: 500px;
+    }
+</style>
