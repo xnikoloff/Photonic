@@ -146,7 +146,19 @@
         </div>
     </div>
 }
-<div class="container my-5">
+<div class="container my-5 px-5 py-5 bg-dark text-white">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            @if (Model?.PhotoShootPhotos?.Count() == 0)
+            {
+                <h2>Ще се радваме да чуем Вашето мнение за преживяването Ви с нас</h2>
+            }
+            else
+            {
+                <h2>Ще се радваме да чуем Вашето мнение за снимките Ви</h2>
+            }
+        </div>
+    </div>
     <partial name="_CreateTestimony" model="new Testimony()"></partial>
 </div>
 
