@@ -1,0 +1,30 @@
+﻿@model Testimony
+
+<div class="row mt-5 py-5">
+    <div class="col-12 text-center">
+        <h2>Ще се равдаме да чуем вашето мнение</h2>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-12">
+        <form asp-action="Create" asp-controller="Container" method="post">
+            <div class="form-group">
+                <label asp-for="PersonFirstName"></label>
+                <input asp-for="PersonFirstName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonLastName"></label>
+                <input asp-for="PersonLastName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Stars"></label>
+                <input asp-for="Stars" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Content"></label>
+                <textarea rows="8" asp-for="Content" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-warning text-white mt-3">Добави отзив</button>
+        </form>
+    </div>
+</div>

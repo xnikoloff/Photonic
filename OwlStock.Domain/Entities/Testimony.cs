@@ -9,12 +9,16 @@ namespace OwlStock.Domain.Entities
         [Key]
         public Guid Id { get; set; }
 
+        [Display(Name = "Име")]
         public string? PersonFirstName { get; set; }
 
+        [Display(Name = "Фамилия")]
         public string? PersonLastName { get; set; }
 
+        [Display(Name = "Оценка")]
         public int Stars { get; set; }
 
+        [Display(Name = "Описание")]
         public string? Content { get; set; }
 
         public bool IsApproved { get; set; }
