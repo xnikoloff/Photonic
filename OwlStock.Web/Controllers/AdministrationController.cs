@@ -377,6 +377,27 @@ namespace OwlStock.Web.Controllers
             return View(dto);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ApproveTestimony(Guid id)
+        {
+            await _testimonyService.Approve(id);
+            return RedirectToAction(nameof(ManageTestimonies));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> HideTestimony(Guid id)
+        {
+            await _testimonyService.Hide(id);
+            return RedirectToAction(nameof(ManageTestimonies));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UnhideTestimony(Guid id)
+        {
+            await _testimonyService.Unhide(id);
+            return RedirectToAction(nameof(ManageTestimonies));
+        }
+
         private async Task<string> GetUserEmail()
         {
             var user = await _userManager.FindByIdAsync(GetUserId()) ?? throw new NullReferenceException($"User not logged in");

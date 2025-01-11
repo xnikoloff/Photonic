@@ -31,7 +31,7 @@
                     <p>@testimony?.Content</p>
                 </div>
                 <div class="card-footer">
-                    <a asp-action="ApproveTestimony" asp-controller="Administration" class="btn btn-light">Approve</a>
+                    <a asp-action="ApproveTestimony" asp-controller="Administration" asp-route-id="@testimony?.Id" class="btn btn-light">Approve</a>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                         <p>@testimony?.Content</p>
                     </div>
                     <div class="card-footer">
-                        <a asp-action="HideTestimony" asp-controller="Administration" class="btn btn-light">Hide</a>
+                        <a asp-action="HideTestimony" asp-controller="Administration" asp-route-id="@testimony?.Id" class="btn btn-light">Hide</a>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                         <p>@testimony?.Content</p>
                     </div>
                     <div class="card-footer">
-                        <a asp-action="UnhideTestimony" asp-controller="Administration" class="btn btn-light">Unhide</a>
+                        <a asp-action="UnhideTestimony" asp-controller="Administration" asp-route-id="@testimony?.Id" class="btn btn-light">Unhide</a>
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
                         <p>@testimony?.Content</p>
                     </div>
                     <div class="card-footer">
-                        <a asp-action="UnhideTestimony" asp-controller="Administration" class="btn btn-light">Unhide</a>
+                        <a asp-action="HideTestimony" asp-controller="Administration" asp-route-id="@testimony?.Id" class="btn btn-light">Hide</a>
                     </div>
                 </div>
             </div>
@@ -165,6 +165,6 @@
 
 <style>
     .testimony-card{
-        min-height: 500px;
+        min-height: 550px;
     }
 </style>
