@@ -13,7 +13,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Stars"></label>
-                <input asp-for="Stars" class="form-control" />
+                <input type="hidden" asp-for="Stars"/>
+                <div class="stars">
+                    <span class="star-rating" id="1" onclick="setStarsRating(1);"><i class="fa fa-star fa-lg"></i></span>
+                    <span class="star-rating" id="2" onclick="setStarsRating(2);"><i class="fa fa-star fa-lg"></i></span>
+                    <span class="star-rating" id="3" onclick="setStarsRating(3);"><i class="fa fa-star fa-lg"></i></span>
+                    <span class="star-rating" id="4" onclick="setStarsRating(4);"><i class="fa fa-star fa-lg"></i></span>
+                    <span class="star-rating" id="5" onclick="setStarsRating(5);"><i class="fa fa-star fa-lg"></i></span>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Content"></label>
@@ -23,3 +30,29 @@
         </form>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $(".star-rating").click(function () {
+            let id = $(this).attr('id');
+            let starsCount = 5;
+            //set color to all the that stand before the clicked one (inluding the clicked one)
+            for(let i = 1; i <= parseInt(id); i++){
+                $("#" + i).addClass("text-warning");
+            }
+
+            let staringStar = parseInt(id) + parseInt(1);
+
+            //remove the color of the rest stars
+            console.log(staringStar);
+            for (let i = staringStar; i <= starsCount; i++) {
+                $("#" + i).removeClass("text-warning");
+            }
+            
+        });
+    });
+
+    function setStarsRating(rating){
+        $("#Stars").val(parseInt(rating));
+    }
+</script>

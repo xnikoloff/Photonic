@@ -192,6 +192,10 @@
                         <div class="star">
                             @for(int i = 0; i < testimony.Stars; i++)
                             {
+                                <i class="fa fa-star text-warning"></i>
+                            }
+                            @for(int i = testimony.Stars + 1; i <= 5; i++)
+                            {
                                 <i class="fa fa-star"></i>
                             }
                         </div>
@@ -204,7 +208,7 @@
     <div class="container testimony-container">
         <div class="row">
             <div class="col-12 text-center">
-                <h1 class="tesimonail-container-title">Ще се радваме да чуем и Вашето мнение за нас</h1>
+                <h1 class="tesimonail-container-title">Ще се радваме да чуем и Вашето мнение</h1>
             </div>
         </div>
         <partial name="_CreateTestimony" model="new Testimony()"></partial>
