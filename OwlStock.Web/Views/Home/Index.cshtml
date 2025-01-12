@@ -144,34 +144,6 @@
     </div>
 </section>
 <!--================ About History Area  =================-->
-<!--================ Testimonial Area  =================-->
-<section class="testimonial_area section_gap">
-    <div class="container">
-        <div class="section_title text-center">
-            <h2 class="title_color">Какво говорят клиентите ни</h2>
-            <p>Прочетете какво мислят клиентите ни за нашата дейност</p>
-        </div>
-        <div class="testimonial_slider owl-carousel">
-            @foreach(Testimony testimony in Model?.Testimonies ?? new List<Testimony>())
-            {
-                <div class="media testimonial_item">
-                    <!--<img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">-->
-                    <div class="media-body">
-                        <h4 class="sec_h4">@testimony.PersonFirstName @testimony.PersonLastName</h4>
-                        <div class="star">
-                            @for(int i = 0; i < testimony.Stars; i++)
-                            {
-                                <i class="fa fa-star"></i>
-                            }
-                        </div>
-                        <p class="mt-3">@testimony.Content</p>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</section>
-<!--================ Testimonial Area  =================-->
 <!--================ Latest Blog Area  =================-->
 <section class="latest_blog_area section_gap">
     <div class="container">
@@ -203,11 +175,56 @@
     </div>
 </section>
 <!--================ Recent Area  =================-->
-
+<!--================ Testimonial Area  =================-->
+<section class="testimonial_area section_gap">
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_color">Какво говорят клиентите ни</h2>
+            <p>Прочетете какво мислят клиентите ни за нашата дейност</p>
+        </div>
+        <div class="testimonial_slider owl-carousel">
+            @foreach(Testimony testimony in Model?.Testimonies ?? new List<Testimony>())
+            {
+                <div class="media testimonial_item">
+                    <!--<img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">-->
+                    <div class="media-body">
+                        <h4 class="sec_h4">@testimony.PersonFirstName @testimony.PersonLastName</h4>
+                        <div class="star">
+                            @for(int i = 0; i < testimony.Stars; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </div>
+                        <p class="mt-3">@testimony.Content</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="container testimony-container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="tesimonail-container-title">Ще се радваме да чуем и Вашето мнение за нас</h1>
+            </div>
+        </div>
+        <partial name="_CreateTestimony" model="new Testimony()"></partial>
+    </div>
+</section>
+<!--================ Testimonial Area  =================-->
 <style>
     .testimonial_item{
         min-height: 300px;
     }
+
+    .testimony-container{
+        margin-top: 100px;
+    }
+
+    .testimony-container input, .testimony-container textarea{
+        border: none;
+        border-radius: 0;
+    }
+
     .book_now_btn{
         font-weight: bold;
     }

@@ -21,15 +21,15 @@
         <div class="row my-5">
             <div class="col-4 mx-auto text-center">
                 <h3 class="text-warning"><i class="fa-solid fa-camera fa-lg"></i></h3>
-                <h5>@(Model.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</h5>
+                <h3 class="photoshoot-details-top">@(Model.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</h3>
             </div>
             <div class="col-4 mx-auto text-center">
                 <h3 class="text-warning"><i class="fa-solid fa-calendar-days fa-lg"></i></h3>
-                <h5>@Model.ReservationDate.ToString("dd.MM.yyyy") г. @Model.ReservationDate.ToString("h:mm") ч.</h5>
+                <h3 class="photoshoot-details-top">@Model.ReservationDate.ToString("dd.MM.yyyy") г. @Model.ReservationDate.ToString("h:mm") ч.</h3>
             </div>
             <div class="col-4 mx-auto text-center">
                 <h3 class="text-warning"><i class="fa-solid fa-sack-dollar fa-lg"></i></h3>
-                <h5>@Model.Price лв</h5>
+                <h3 class="photoshoot-details-top">@Model.Price лв</h3>
             </div>
         </div>
         <div class="row my-5 py-3">
@@ -56,12 +56,12 @@
         </div>
         <div class="row my-5">
             <div class="col-12 col-md-4 text-center mx-auto">
-                <h4>Локация</h4>
-                <p>@Model.Settlement, обл. @Model.Region</p>
-                <h6><i class="fa-solid fa-location-dot fa-lg"></i> @Model?.Place</h6>
+                <h2>Локация</h2>
+                <p>@Model?.Settlement, обл. @Model?.Region</p>
+                <h4><i class="fa-solid fa-location-dot fa-lg"></i> @Model?.Place</h4>
             </div>
             <div class="col-12 col-md-4 mt-5 mt-md-0 text-center mx-auto">
-                <h4>Транспорт</h4>
+                <h2>Транспорт</h2>
                 @if (Model!.TransportCustomer)
                 {
                     <p>Да</p>
@@ -74,7 +74,7 @@
                 }
             </div>
             <div class="col-12 col-md-4 mt-5 mt-md-0 text-center mx-auto">
-                <h4>Снимки</h4>
+                <h2>Снимки</h2>
                 <p>@(Model?.PhotoDeliveryMethod?.GetAttribute<DisplayAttribute>().Name ?? "-")</p>
                 @if (Model!.PhotoDeliveryMethod != PhotoDeliveryMethod.Email && Model!.PhotoDeliveryMethod != null)
                 {
@@ -94,7 +94,7 @@
 </div>
 @if(Model?.PhotoDeliveryMethod == null)
 {
-    <div class="photos-section-wrap mt-5 py-5">
+    <div class="photos-section-wrap">
         <div class="container">
             <div class="section_title text-center">
                 <h2 class="title_color">Вашите снимки</h2>
@@ -102,16 +102,16 @@
             </div>
             <div class="row_mb30">
                 <div class="col-12 mb-5 text-center mx-auto">
-                    @if(Model.PhotoShootPhotos.Count > 0)
+                    @if(Model?.PhotoShootPhotos?.Count > 0)
                     {
                         <a asp-action="DownloadAll" asp-controller="Download" asp-route-photoshootId="@(Model?.Id)" class="button_hover theme_btn_two"><i class="fa-solid fa-download fa-lg text-white"></i> Изтегли албум</a>
                     }
                 </div>
             </div>
-            <div class="row mb_30">
+            <div class="row">
                 @if (Model?.PhotoShootPhotos?.Count == 0)
                 {
-                    <div class="col-12 mx-auto text-center mb-5">
+                    <div class="col-12 mx-auto text-center">
                         <div class="no-photos">
                             <h3><i>Снимките ще Ви очакват тук скоро</i></h3>
                         </div>
@@ -146,20 +146,23 @@
         </div>
     </div>
 }
-<div class="container my-5 px-5 py-5 bg-dark text-white">
-    <div class="row mb-5">
-        <div class="col-12 text-center">
-            @if (Model?.PhotoShootPhotos?.Count() == 0)
-            {
-                <h2>Ще се радваме да чуем Вашето мнение за преживяването Ви с нас</h2>
-            }
-            else
-            {
-                <h2>Ще се радваме да чуем Вашето мнение за снимките Ви</h2>
-            }
+
+<div class="testimony-container-wrap">
+    <div class="container testimony-container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                @if (Model?.PhotoShootPhotos?.Count() == 0)
+                {
+                    <h1 class="tesimonail-container-title">Ще се радваме да чуем Вашето мнение</h1>
+                }
+                else
+                {
+                    <h1 class="tesimonail-container-title">Какво мислите за снимките?</h1>
+                }
+            </div>
         </div>
+        <partial name="_CreateTestimony" model="new Testimony()"></partial>
     </div>
-    <partial name="_CreateTestimony" model="new Testimony()"></partial>
 </div>
 
 <style>
@@ -176,5 +179,42 @@
 
     .col-image img {
         width: 180px;
+    }
+
+    .photos-section-wrap{
+        margin-top: 200px;
+        padding: 50px 0;
+    }
+
+    .testimony-container-wrap{
+        width: 100%;
+        height: 100%;
+        background: #333232;
+        color: #fff;
+    }
+
+    .testimony-container{
+        margin-top: 200px;
+        margin-bottom: 200px;
+        padding: 50px 80px;
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .photoshoot-details-top{
+            font-size: 1.1rem;
+        }
+
+        .photos-section-wrap{
+            margin-top: 50px;
+        }
+
+        .testimony-container {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .tesimonail-container-title{
+            font-size: 2rem;
+        }
     }
 </style>

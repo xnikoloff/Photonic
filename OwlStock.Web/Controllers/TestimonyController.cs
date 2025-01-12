@@ -28,7 +28,7 @@ namespace OwlStock.Web.Controllers
             }
 
             await _testimonyService.Create(testimony);
-            return View();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }
