@@ -17,7 +17,7 @@ namespace OwlStock.Web.Controllers.API
 
         [HttpGet]
         [Route("settlementsByRegion")]
-        public async Task<IEnumerable<City>> GetSettlementsByRegion(string region)
+        public async Task<IEnumerable<City>> GetSettlementsByRegion(int region)
         {
             return await _settlementService.GetCitiesByRegion(region);
         }

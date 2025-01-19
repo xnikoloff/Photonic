@@ -1,0 +1,1053 @@
+﻿@model CreatePhotoShootDTO
+
+@{
+    ViewData["Title"] = "Резервация";
+    Dictionary<DateOnly, IEnumerable<TimeSlot>> calendar = Model.Calendar ?? new();
+}
+
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">Резервация</h2>
+            <ol class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
+                <li class="active">Резервация</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<form asp-action="Reserve" method="post" id="booking-form">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+    <!-- #hidden inputs -->
+    <input type="hidden" asp-for="IdentityUserId" />
+    <input type="hidden" asp-for="ReservationDate" />
+    <input type="hidden" asp-for="ReservationTime" />
+    <input type="hidden" asp-for="SelectedSettlementId" />
+    <input type="hidden" asp-for="IsPlaceSelected" />
+    <input type="hidden" asp-for="IsPlace" />
+    <input type="hidden" asp-for="PlaceId" />
+    <input type="hidden" asp-for="FuelPrice" />
+    <input type="hidden" id="RegionId" />
+    <!-- #endregion -->
+
+
+    <div class="hotel_booking_area position mb-5">
+        <div class="container-fluid booking-container">
+            <div class="hotel_booking_table">
+                <div class="col-12 col-md-8 px-5">
+                    <div class="boking_table">
+                        <div>
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        </div>
+                        <div class="form-section section-1">
+                            <div class="row row-section-title row-section-title-1">
+                                <div class="col-12 mx-auto">
+                                    <h2 class="section-title">Изберете тип фотосесия</h2>
+                                </div>
+                            </div>
+                            <div class="row row-section-1 mt-3">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group">
+                                            <div class="input-group border border-warning" id="photoshoot-type-wrap">
+                                                <select asp-for="PhotoShootType" asp-items="@(Html.GetEnumSelectList<PhotoShootType>().OrderBy(ph => ph.Text))" class="wide">
+                                                    <option value="">Фотосесия</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 mx-auto">
+                                    <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-1">ЗАПАЗИ</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-section section-2" style="display: none">
+                            <div class="row row-section-title row-section-title-2">
+                                <div class="col-12 mx-auto">
+                                    <h2 class="section-title">Локация</h2>
+                                </div>
+                            </div>
+                            <div class="row row-section-1 mt-3">
+                                <div class="col-4 mx-auto">
+                                    <button type="button" class="btn-location-type btn-location-type-popular btn-location-type-active">Популярни локации</button>
+                                </div>
+                                <div class="col-4 mx-auto">
+                                    <button type="button" class="btn-location-type btn-location-type-custom btn-location-type-inactive">Локация по избор</button>
+                                </div>
+                                <div class="col-4 mx-auto">
+                                    <button type="button" class="btn-location-type btn-location-type-decided-by-us btn-location-type-inactive">Нека ние изберем</button>
+                                </div>
+                            </div>
+                            <div class="row row-section-2 mt-4">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group">
+                                            <div class="input-group border border-warning" id="regions-wrap">
+                                                <select id="Region" asp-items="@(new SelectList(Model.ServicedRegions, "Id", "Name"))" class="wide">
+                                                    <option value="">Област</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-2 mt-1 row-location-type-popular">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group popular-places-wrap">
+                                            <select id="PopularPlaces" class="form-control">
+                                                <option value="">Локация</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-2 mt-1 row-location-settlement" style="display:none">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group settlements-wrap">
+                                            <select id="Settlement" class="form-control">
+                                                <option value="">Населено място</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-2 mt-3 row-location-user-place" style="display:none">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group user-place-wrap">
+                                            <input asp-for="UserPlace" class="rect-control" placeholder="Локация" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-2 mt-3 row-location-google-maps-link" style="display:none">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group google-maps-link-wrap">
+                                            <input asp-for="GoogleMapsLink" class="rect-control" placeholder="Линк към Google Maps" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 mx-auto">
+                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-2">НАЗАД</button>
+                                    <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-2">ЗАПАЗИ</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-section section-3" style="display: none">
+                            <div class="row row-section-title row-section-title-3">
+                                <div class="col-12 mx-auto">
+                                    <h2 class="section-title">Дата и час</h2>
+                                </div>
+                            </div>
+                            <div class="row mt-3 ml-2 row-legend">
+                                <div clas="col-12">
+                                    <button type="button" class="btn btn-secondary btn-sm btn-legend">Заети</button>
+                                </div>
+                                <div clas="col-12">
+                                    <button type="button" class="btn btn-warning text-white btn-sm btn-legend">Свободни</button>
+                                </div>
+                            </div>
+                            <div class="row mt-2" id="row-dates-weather">
+                                <div class="col-12 scrollmenu" id="dates-list">
+                                    <div id="date-buttons-slider">
+                                        @foreach (KeyValuePair<DateOnly, IEnumerable<TimeSlot>> calendarKVP in calendar)
+                                        {
+                                            <div class="card card-weather text-center btn-date btn-date-simple text-white @((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? "bg-warning card-available" : "bg-secondary card-unavailable")" id="date-button-simple">
+                                                <div class="card-header card-header-date">
+                                                    <h4 class="date-text">@calendarKVP.Key.ToString("dd.MM")</h4>
+                                                </div>
+                                                <div class="card-body card-body-weather text-center @((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? "card-body-available" : "card-body-unavailable")" style="background: @((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? Html.Raw("#b8ab6a") : Html.Raw("#51565c"))">
+                                                    @foreach (TimeSlot slot in calendarKVP.Value)
+                                                    {
+                                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-warning time-slot-available" : "btn-secondary time-slot-unavailable") text-white btn-sm my-1 btn-time-slot" id="time-slot">
+                                                            @(slot.Time.Hour < 10 ? $"0{slot.Time.Hour}" : slot.Time.Hour):@(slot.Time.Minute == 0 ? "00" : "30")
+                                                        </button>
+                                                    }
+                                                    <hr />
+                                                    <p class="temperatureCurrent weather-info-text"></p>
+                                                    <p class="icon weather-info-text"></p>
+                                                    <p class="forecastText">Нямаме информация за времето</p>
+                                                    <p class="precipitation weather-info-text"></p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <span>@((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? Html.Raw("<i class=\"fa-solid fa-check fa-lg\"></i>") : Html.Raw("<i class=\"fa-solid fa-xmark fa-lg\"></i>"))</span>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 mx-auto">
+                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-3">НАЗАД</button>
+                                    <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-3">ЗАПАЗИ</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-section section-4" style="display: none">
+                            <div class="row row-section-title row-section-title-4">
+                                <div class="col-12 mx-auto">
+                                    <h2 class="section-title">Лични данни</h2>
+                                </div>
+                            </div>
+                            <div class="row row-section-4 mt-1 row-email">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group email-wrap">
+                                            <input asp-for="PersonEmail" class="rect-control" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-4 mt-1 row-first-name">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group first-name-wrap">
+                                            <input asp-for="PersonFirstName" class="rect-control" placeholder="Име" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-4 mt-3  row-last-name">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group last-name-wrap">
+                                            <input asp-for="PersonLastName" class="rect-control" placeholder="Фамилия" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-4 mt-3 row-phone">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group phone-wrap">
+                                            <input asp-for="PersonPhone" class="rect-control" placeholder="Телефон" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 mx-auto">
+                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-4">НАЗАД</button>
+                                    <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-4">ЗАПАЗИ</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-summary-section p-5">
+                    <div class="summary-section-photoshoot-type">
+                        <p class="summary-section-icon text-warning"><i class="fa-solid fa-camera fa-lg"></i><span class="summary-data" id="summary-photoshoot-type">Абитуриентски бал Extra</span></p>
+                    </div>
+                    <hr />
+                    <div class="summary-section-location">
+                        <p id="location-settlement-summary"><i class="fa-solid fa-location-dot fa-lg"></i><span class="summary-data" id="summary-location-settlement">Асеновград, обл. Пловдив</span></p>
+                        <p><i class="fa-solid fa-location-crosshairs fa-lg"></i><span class="summary-data" id="summary-location-place">Метоха</span></p>
+                    </div>
+                    <hr />
+                    <div class="summary-section-location">
+                        <p id="datetime-summary"><i class="fa-solid fa-calendar-days fa-lg"></i><span class="summary-data" id="summary-datetime"></span>2025.02.12 г, 08:00 ч</p>
+                    </div>
+                    <hr />
+                    <div class="summary-section-location">
+                        <p><i class="fa-solid fa-envelope fa-lg"></i><span class="summary-data" id="summary-email">hristiyan.at.nikoloff@gmail.com</span></p>
+                        <p><i class="fa-solid fa-user fa-lg"></i><span class="summary-data" id="summary-name">Киро Киров</span></>
+                        <p><i class="fa-solid fa-phone fa-lg"></i><span class="summary-data" id="summary-telephone">+35988256478</span></p>
+                    </div>
+                    <hr />
+                    <div class="summary-section-price">
+                        <h3 class="text-dark">Цена</h3>
+                        <h4><i class="fa-solid fa-sack-dollar"></i><span class="summary-data" id="summary-email">750 лв</span></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+    .popular-places-wrap .form-control, .settlements-wrap .form-control {
+        border: none;
+        padding: 0;
+    }
+
+    .rect-control{
+        padding: 8px 20px !important;
+        width: 100%;
+        border: 1px solid #000;
+        border-radius: 0;
+    }
+
+    button:disabled{
+        opacity: .5;
+    }
+
+    .hotel_booking_table {
+        background: none;
+    }
+    
+    .hotel_booking_table .btn-section-submit, .btn-section-back {
+        border: none;
+        padding: 5px 10px;
+        font-weight: bold;
+    }
+
+    .hotel_booking_table .row-section-title .section-title {
+        color: #000;
+    }
+
+    .hotel_booking_table .section-2 .btn-location-type{
+        width: 100%;
+        background: #f5f5f5;
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 1.1em;
+        border: none;
+        transition: .4s;
+    }
+
+    .hotel_booking_table .section-2 .btn-location-type:hover{
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        transform: scale(1.05);
+        transition: .4s;
+    }
+
+    .hotel_booking_table .section-2 .btn-location-type-active:hover{
+        cursor: default;
+        box-shadow: none;
+        transform: unset;
+    }
+
+    .hotel_booking_table .section-2 .btn-location-type-active{
+        background: #ebb105;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+
+    .hotel_booking_table .section-2 .btn-location-type-inactive {
+        background: #d6d6d6;
+    }
+
+    .hotel_booking_table .section-2 .btn-location-type-inactive {
+        background: #d6d6d6;
+    }
+    
+    /*hide nice select so that only the Selectize.js input is shown*/
+    .hotel_booking_table .section-2 .popular-places-wrap .nice-select {
+        display: none;
+    }
+
+    .hotel_booking_table .section-2 .settlements-wrap .nice-select {
+        display: none;
+    }
+
+    .hotel_booking_table .section-2 .popular-places-wrap .selectize-input, .hotel_booking_table .section-2 .settlements-wrap .selectize-input {
+        background: none;
+        padding: 12px 20px !important;
+        border: 1px solid #000;
+        border-radius: 0;
+    }
+    
+    .btn-legend {
+        width: 100px;
+        border-radius: 0px !important;
+        margin-left: 3px;
+    }
+
+    #dates-list {
+        overflow: scroll;
+    }
+
+    #date-buttons-slider {
+        position: relative;
+        display: flex;
+        flex-flow: row nowrap;
+        padding: 10px;
+    }
+
+    #date-button-simple, .btn-date-weather {
+        flex: 0 0 auto;
+        background: #f2f2f2;
+        color: #1a1a1a;
+        margin-right: 10px;
+        border: none;
+        border-radius: 10px;
+        transform: unset;
+        transition: .4s;
+    }
+
+    #date-button-simple {
+        min-height: 100px;
+    }
+
+    .btn-date-weather {
+        max-width: 300px;
+        min-height: 300px;
+    }
+
+    #date-button-simple:hover, .btn-date-weather:hover {
+        transform: scale(1.02);
+        transition: .4s;
+    }
+
+    .hours-container {
+        margin: 80px 0;
+    }
+
+    .hours-container button {
+        margin: 5px;
+    }
+
+    .card {
+        width: 148px;
+        border-radius: 0 !important;
+    }
+
+    .btn-date-weather .card-body .icon {
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 50px;
+        width: 80px;
+        margin: 10px auto;
+    }
+
+    .hotel_booking_area .booking-container .col-summary-section{
+        border-radius: 2%;
+        box-shadow: rgba(255, 193, 7, 0.8) 0px 1px 0px, rgba(255, 193, 7, 0.5) 0px 0px 8px;
+    }
+
+    .hotel_booking_area .booking-container .col-summary-section .summary-data{
+        margin-left: 10px;
+    }
+</style>
+
+<script>
+    //global variable, keeps the location type on location type change
+    var locationType = '';
+    $(document).ready(function () {
+        //reset the value of reservation date on page load
+        $("#ReservationDate").val("");
+
+
+        //hide section one /services/ and show section two /location/
+        $(".btn-section-submit-seciton-1").click(function () {
+            $(".section-1").css("display", "none");
+            $(".section-2").css("display", "block");
+
+            isLocationValid();
+        });
+
+        //show section one /services/ and hide section two /location/
+        $(".btn-section-back-seciton-2").click(function () {
+            $(".section-1").css("display", "block");
+            $(".section-2").css("display", "none");
+
+            //No validation on back buttons, because if you have passed to
+            //the next section the first time, it means form was valid
+        });
+
+        //hide section two /location/ and show section three /date/
+        $(".btn-section-submit-seciton-2").click(function () {
+            $(".section-2").css("display", "none");
+            $(".section-3").css("display", "block");
+
+            validateDateAndTime();
+        });
+
+        //show section two /location/ and hide section three /date and time/
+        $(".btn-section-back-seciton-3").click(function () {
+            $(".section-2").css("display", "block");
+            $(".section-3").css("display", "none");
+
+            //No validation on back buttons, because if you have passed to
+            //the next section the first time, it means form was valid
+        });
+
+        //hide section three /date and time/ and show section four /personal data/
+        $(".btn-section-submit-seciton-3").click(function () {
+            $(".section-3").css("display", "none");
+            $(".section-4").css("display", "block");
+
+            validatePersonalData();
+        });
+
+        //show section three /date and time/ and hide section four /personal data/
+        $(".btn-section-back-seciton-4").click(function () {
+            $(".section-3").css("display", "block");
+            $(".section-4").css("display", "none");
+
+            //No validation on back buttons, because if you have passed to
+            //the next section the first time, it means form was valid
+        });
+
+        //hide section four /summary/ and show  section five /personal data/
+        $(".btn-section-submit-seciton-4").click(function () {
+            $(".section-4").css("display", "none");
+            $(".section-5").css("display", "block");
+        });
+
+        $(".btn-section-back-seciton-5").click(function () {
+            $(".section-4").css("display", "block");
+            $(".section-5").css("display", "none");
+
+            validatePersonalData();
+            //No validation on back buttons, because if you have passed to
+            //the next section the first time, it means form was valid
+        });
+
+        //check if photoshoot type is valid
+        $("#PhotoShootType").change(function () {
+            isPhotoshootTypeValid();
+        });
+
+        //set value to hidden region input on region option change
+        //reset settlement value on each region change
+        $("#Region").change(function () {
+            $("#RegionId").val($(this).val());
+            
+            switch (locationType) {
+                case "popular":{
+                    //check if region is valid
+                    if (isRegionValid()) {
+                        $("#PopularPlaces").prop("disabled", false);
+                        getPopularPlacesByRegion($(this).val());
+                    }
+
+                    else {
+                        $("#PopularPlaces").prop("disabled", true);
+                        $("#PopularPlaces").selectize()[0].selectize.destroy();
+                    }
+                    break;
+                }
+                case "custom": 
+                case "decidedByUs": { 
+                    //check if region is valid
+                    if (isRegionValid()) {
+                        $("#Settlement").prop("disabled", false);
+                        getSettlementsByRegion($(this).val());
+
+                        //validate custom location section
+                        isCustomLocationValid();
+                    }
+
+                    else {
+                        $("#Settlement").prop("disabled", true);
+                        $("#Settlement").selectize()[0].selectize.destroy();
+                        $("#SelectedSettlementId").val("");
+                        isCustomLocationValid();
+                    }
+                    break;
+                }
+
+                default:{
+                    console.log("Invalid location type");
+                }
+            }
+            
+        });
+
+        $(".btn-location-type").click(function () {
+            //reset all locaiton type buttons to inactive
+            $(".btn-location-type").removeClass("btn-location-type-active");
+            $(".btn-location-type").addClass("btn-location-type-inactive");
+
+            //mark clicked button as active
+            $(this).removeClass("btn-location-type-inactive");
+            $(this).addClass("btn-location-type-active");
+
+            //reset selected locations
+            $("#PlaceId").val('');
+            $("#SelectedSettlementId").val('');
+
+            //reset popular places and settlements list on location type change
+            $('#PopularPlaces').selectize()[0].selectize.destroy();
+            $('#Settlement').selectize()[0].selectize.destroy();
+
+            isLocationValid();
+        });
+
+        $(".btn-location-type-popular").click(function () {
+            //set location type to popular
+            locationType = 'popular';
+
+            //show the appropriate inputs only
+            $(".row-location-type-popular").css("display", "block");
+            $(".row-location-settlement").css("display", "none");
+            $(".row-location-user-place").css("display", "none");
+            $(".row-location-google-maps-link").css("display", "none");
+
+            //reset the values of UserPlace and GoogleMapsLink on
+            //each click of this tab because they are not needed
+            //when location type is set to popular and should be null in the DTO
+            $("#UserPlace").val('');
+            $("#GoogleMapsLink").val('');
+                
+            //check if locaiton is valid on 
+            //each click on this tab
+            isLocationValid();
+
+            //get settlements if region is set
+            //on each click of this tab
+            if($("#Region").val() != '' && $("#Region") != undefined){
+                getPopularPlacesByRegion($("#Region").val());
+            }
+        });
+
+        $(".btn-location-type-custom").click(function () {
+            //set location type to custom
+            locationType = 'custom';
+
+            //show the appropriate inputs only
+            $(".row-location-type-popular").css("display", "none");
+            $(".row-location-settlement").css("display", "block");
+
+            //check if locaiton is valid on 
+            //each click on this tab
+            isLocationValid();
+            
+            //get settlements if region is set
+            //on each click of this tab
+            if($("#Region").val() != '' && $("#Region") != undefined){
+                getSettlementsByRegion($("#Region").val());
+            }
+        });
+
+        $(".btn-location-type-decided-by-us").click(function () {
+            //set location type to decided by us
+            locationType = 'decidedByUs';
+
+            //show the appropriate inputs only
+            $(".row-location-type-popular").css("display", "none");
+            $(".row-location-settlement").css("display", "block");
+            $(".row-location-user-place").css("display", "none");
+            $(".row-location-google-maps-link").css("display", "none");
+
+            //reset the values of UserPlace and GoogleMapsLink on
+            //each click of this tab because if the user has 
+            //switched to another location type tab, the region and/or settlement
+            //might have changed and theese values might not be valid anymore
+            $("#UserPlace").val('');
+            $("#GoogleMapsLink").val('');
+
+            //check if locaiton is valid on 
+            //each click on this tab
+            isLocationValid();
+
+            //get settlements if region is set
+            //on each click of this tab
+            if($("#Region").val() != '' && $("#Region") != undefined){
+                getSettlementsByRegion($("#Region").val());
+            }
+        });
+
+        $("#UserPlace").change(function () {
+            isLocationValid();
+        });
+
+        $("#GoogleMapsLink").change(function () {
+            isLocationValid();
+        });
+
+        $(".card-weather").click(function () {
+            //format date to format yyyy-MM-dd
+            let date = formatSelectedDate($(this).find(".card-header h4").text());
+            
+            //set formated date to the input
+            $("#ReservationDate").val(date);
+
+            //set color to the clicked weather card
+            //only if card is available
+            if ($(this).hasClass("card-available")) {
+                //first, reset the background to the defauilt available
+                //so that background does not change for each clicked card
+                $(".card-body-available").css("background", "#b8ab6a");
+
+                //then change the background of the current clicked card
+                $(this).find(".card-body").css("background", "#000");
+            }
+
+            //validate date and time on each date and time card click
+            validateDateAndTime();
+        });
+
+        $(".btn-time-slot").click(function () {
+            if($(this).hasClass("time-slot-available")){
+                //first, remove the bg-dark class of all time slot buttons
+                //so that the background does not change for each clicked time slot
+                $(".time-slot-available").removeClass("bg-dark");
+
+                //then change the background of the current clicked time slot
+                $(this).addClass("bg-dark");
+
+                //set time to the inputoc
+                $("#ReservationTime").val($(this).text().trim());
+            }
+            else{
+                alert("Часа е зает");
+                return;
+            }
+        });
+
+
+        //validate personal date on each input change
+        $("#PersonEmail").change(function(){
+            validatePersonalData();
+        });
+
+        $("#PersonFirstName").change(function(){
+            validatePersonalData();
+        });
+
+        $("#PersonLastName").change(function(){
+            validatePersonalData();
+        });
+
+        $("#PersonPhone").change(function(){
+            validatePersonalData();
+        });
+    });
+
+
+
+
+
+    //VALIDATIONS
+
+    //validate section one -> photoshoot type
+    function isPhotoshootTypeValid() {
+        if ($("#PhotoShootType").val() == '' || $("#PhotoShootType").val() == undefined) {
+            $(".btn-section-submit-seciton-1").prop("disabled", true);
+            return false;
+        }
+
+        else {
+            $(".btn-section-submit-seciton-1").prop("disabled", false);
+            return true;
+        }
+    }
+
+
+
+
+
+    //validate section 2 -> location
+    function isLocationValid() {
+        if (locationType == '' || locationType == undefined) {
+            //if location type is not defined, 
+            // it must mean that this is the first to time to open section two
+            //so, set location type to popular (popular location tab is selected by default)
+            locationType = 'popular';
+        }
+
+        switch (locationType) {
+            case "popular": {
+                isPopularLocationValid();
+                break;
+            }
+
+            case "custom": {
+                isCustomLocationValid();
+                break;
+            }
+
+            case "decidedByUs": {
+                isLocationDecidedByUsValid();
+                break;
+            }
+
+            default: {
+                console.log('location type: ' + locationType + ' is invalid');
+            }
+        }
+    }
+
+
+
+    //validate popular places
+    function isPopularLocationValid() {
+        if (isRegionValid() && isPopularPlacesValid()) {
+            $(".btn-section-submit-seciton-2").prop("disabled", false);
+            return true;
+        }
+        else {
+            $(".btn-section-submit-seciton-2").prop("disabled", true);
+            return false;
+        }
+    }
+
+    function isPopularPlacesValid() {
+        if ($("#PlaceId").val() == "00000000-0000-0000-0000-000000000000" || $("#PlaceId").val() == "" || $("#PlaceId").val() == undefined) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+
+
+    //validate custom location
+    function isCustomLocationValid(){
+        if (isRegionValid() && isSettlementsValid() && isUserPlaceValid() && isGoogleMapsLinkValid()) {
+            $(".btn-section-submit-seciton-2").prop("disabled", false);
+            return true;
+        }
+
+        else {
+            $(".btn-section-submit-seciton-2").prop("disabled", true);
+            return false;
+        }
+    }
+
+    function isUserPlaceValid() {
+        if ($("#UserPlace").val() != "" && $("#UserPlace").val() != undefined) {
+            return true;
+        }
+        return false;
+    }
+
+    function isGoogleMapsLinkValid() {
+        if ($("#GoogleMapsLink").val() != "" && $("#GoogleMapsLink").val() != undefined) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+    //validate location decided by us
+    function isLocationDecidedByUsValid() {
+        if (isRegionValid() && isSettlementsValid()) {
+            $(".btn-section-submit-seciton-2").prop("disabled", false);
+            return true;
+        }
+
+        else {
+            $(".btn-section-submit-seciton-2").prop("disabled", true);
+            return false;
+        }
+    }
+
+
+
+    //validate region
+    function isRegionValid() {
+        if ($("#Region").val() == "" || $("#Region").val() == undefined) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    //validate settlements
+    function isSettlementsValid() {
+        if ($("#SelectedSettlementId").val() == "00000000-0000-0000-0000-000000000000" || $("#SelectedSettlementId").val() == "" || $("#SelectedSettlementId").val() == undefined) {
+            $(".btn-section-submit-seciton-2").prop("disabled", true);
+            return false;
+        }
+
+        else {
+            $(".btn-section-submit-seciton-2").prop("disabled", false);
+            return true;
+        }
+    }
+
+
+
+
+    //validate section three -> date and time
+    function validateDateAndTime(){
+        if(($("#ReservationTime").val() != "" && $("#ReservationTime").val() != "0:00" && $("#ReservationTime").val() != undefined) &&
+                ($("#ReservationDate").val() != "" && $("#ReservationDate").val() != undefined)){
+            $(".btn-section-submit-seciton-3").prop("disabled", false);
+        }
+
+        else{
+            $(".btn-section-submit-seciton-3").prop("disabled", true);
+        }
+    }
+
+
+    
+    
+    //validate seciton four -> peronal date
+    function validatePersonalData(){
+        if(validateEmail() && validateFirstName() && validateLastName() && validatePhone()){
+            $(".btn-section-submit-seciton-4").prop("disabled", false);
+        }
+        else{
+            $(".btn-section-submit-seciton-4").prop("disabled", true);
+        }
+    }
+
+
+
+    //validate email
+    function validateEmail(){
+        if ($("#PersonEmail").val() == '' || $("#PersonEmail").val() == undefined) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    //validate first name
+    function validateFirstName(){
+        if ($("#PersonFirstName").val() == '' || $("#PersonFirstName").val() == undefined) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    //validate last name
+    function validateLastName(){
+        if ($("#PersonLastName").val() == '' || $("#PersonLastName").val() == undefined) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    //validate phone
+    function validatePhone(){
+        if ($("#PersonPhone").val() == '' || $("#PersonPhone").val() == undefined) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+
+
+
+
+    //AJAX CALLS
+
+    //get popular places for selected region
+    function getPopularPlacesByRegion(regionId) {
+        $('#PopularPlaces').selectize()[0].selectize.destroy();
+        $.ajax({
+            url: "@Url.Action("popularPlacesByRegion", "Place")",
+            data: { "regionId": regionId },
+            method: "GET",
+            success: function (response) {
+                let json = JSON.parse(JSON.stringify(response));
+                $("#PopularPlaces").selectize({
+                    respect_word_boundaries: false,
+                    plugins: ["restore_on_backspace", "clear_button"],
+                    delimiter: " - ",
+                    persist: false,
+                    maxItems: 1,
+                    valueField: "id",
+                    labelField: "name",
+                    searchField: ["name"],
+                    options: response,
+                    onChange: function (value) {
+                        $("#IsPlace").val(true);
+                        $("#PlaceId").val(value);
+                        $("#IsPlaceSelected").val(true);
+
+                        if (value) {
+                            $("#SelectedSettlementId").val((findElementById(json, value)).cityId);
+                        }
+                        
+                        isLocationValid();
+                    }
+                });
+            }
+        });
+    }
+
+    //get settlements for selected region
+    function getSettlementsByRegion(region) {
+        if (region != '') {
+            //destroy Selectize before repopulating the select list with new data
+            $('#Settlement').selectize()[0].selectize.destroy();
+            $.ajax({
+                url: "@Url.Action("settlementsByRegion", "Settlement")",
+                method: "GET",
+                data: { region: region },
+                success: function (response) {
+                    $("#Settlement").selectize({
+                        respect_word_boundaries: false,
+                        plugins: ["restore_on_backspace", "clear_button"],
+                        delimiter: " - ",
+                        persist: false,
+                        maxItems: 1,
+                        valueField: "id",
+                        labelField: "name",
+                        searchField: ["name"],
+                        options: response,
+                        onChange: function (value) {
+                            $("#IsPlace").val(false);
+                            $("#SelectedSettlementId").val(value);
+
+                            if(isSettlementsValid()) {
+                                //show user place and google maps link inputs
+                                //when locationType is custom
+                                if(locationType == 'custom'){
+                                    $(".row-location-user-place").css("display", "block");
+                                    $(".row-location-google-maps-link").css("display", "block");
+                                }
+
+                                isLocationValid();
+                            }
+                        }
+                    });
+                },
+                error: function (response) {
+                    console.log("error");
+                    console.log(response);
+                },
+            });
+        }
+        else {
+            //destroy selectize if no region is selected
+            $('#Settlement').selectize()[0].selectize.destroy();
+        }
+
+    }
+
+
+
+
+
+    //HELPER FUNCTIONS
+
+    function findElementById(array, id) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].id == id) {
+                return array[i];
+            }
+        }
+    }
+
+    //format selected date (the date comes in format [dd.mm])
+    //the function formats it to format [yyyy-MM-dd]
+    function formatSelectedDate(selectedDate) {
+        let selectedDateSplit = selectedDate.split('.');
+        return `${new Date().getUTCFullYear()}-${selectedDateSplit[1]}-${selectedDateSplit[0]}`;
+    }
+</script>

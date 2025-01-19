@@ -128,7 +128,7 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
-                                        <div class='input-group'>
+                                        <div class='input-group' id="first-name-wrap">
                                             <input asp-for="PersonFirstName" class="form-control" placeholder="Име" />
                                         </div>
                                     </div>
@@ -137,7 +137,7 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
-                                        <div class='input-group'>
+                                        <div class='input-group' id="last-name-wrap">
                                             <input asp-for="PersonLastName" class="form-control" placeholder="Фамилия" />
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
-                                        <div class='input-group'>
+                                        <div class='input-group' id="phone-wrap">
                                             <input asp-for="PersonPhone" class="form-control" placeholder="Телефон" />
                                         </div>
                                     </div>
@@ -250,7 +250,7 @@
                                                 <div class="card-header card-header-date">
                                                     <h4 class="date-text">@calendarKVP.Key.ToString("dd.MM")</h4>
                                                 </div>
-                                                <div class="card-body card-body-weather text-center" style="background: @(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("#f7e279") : Html.Raw("#929ea8"))">
+                                                <div class="card-body card-body-weather text-center" style="background: @(calendarKVP.Value.FirstOrDefault().IsAvailable ? Html.Raw("#b8ab6a") : Html.Raw("#51565c"))">
                                                     @foreach (TimeSlot slot in calendarKVP.Value)
                                                     {
                                                         <button type="button" class="btn @(slot.IsAvailable ? "btn-warning" : "btn-secondary") text-white btn-sm my-1 btn-time-slot" id="time-slot">
@@ -584,13 +584,43 @@
 
 <script>
     function checkInputsEmpty(event) {
-        if ($("#PhotoShootType").val() == ""){
+        if ($("#PhotoShootType").val() == "") {
             event.preventDefault();
             $("#photoshoot-type-wrap").addClass("border-danger");
             $([document.documentElement, document.body]).animate({
-                scrollTop: (($("#photoshoot-type-wrap").offset().top) - 250) 
+                scrollTop: (($("#photoshoot-type-wrap").offset().top) - 250)
+            }, 1000);
+
+            return false;
+        }
+
+        if ($("#PersonFirstName").val() == ""){
+            event.preventDefault();
+            $("#first-name-wrap").addClass("border border-danger");
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($("#first-name-wrap").offset().top) - 250) 
             }, 1000);
             
+            return false;
+        }
+
+        if ($("#PersonLastName").val() == "") {
+            event.preventDefault();
+            $("#last-name-wrap").addClass("border border-danger");
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($("#last-name-wrap").offset().top) - 250)
+            }, 1000);
+
+            return false;
+        }
+
+        if ($("#PersonPhone").val() == "") {
+            event.preventDefault();
+            $("#phone-wrap").addClass("border border-danger");
+            $([document.documentElement, document.body]).animate({
+                scrollTop: (($("#phone-wrap").offset().top) - 250)
+            }, 1000);
+
             return false;
         }
 
@@ -786,8 +816,7 @@
                 $(".place-addition-info").css("display", "none");
 
                 
-                $("#hidePopularPlaces").click();
-                $("#showPopularPlaces").css("display", "none");
+                $("#showPopularPlaces").click();
             }
             else {
                 $(".row-decided-by-us-info").css("display", "none");
@@ -798,7 +827,7 @@
                 //$(".row-dates-weather-remaining").css("display", "flex");
                 $(".place-addition-info").css("display", "flex");
 
-                $("#hidePopularPlaces").click();
+                $("#showPopularPlaces").click();
             }
 
             updatePrice();
@@ -815,22 +844,12 @@
                 $("#region-wrap").removeClass("border border-danger");
             }
             updatePrice();
-            getSettlementsByRegion($("#Region option:selected").text());
+            $("#showPopularPlaces").click();
+
             $(".price-container").css("display", "block");
             $("#PopularPlace").val('');
             $("#Settlement").val('');
-           $("#RegionId").val($(this).val());
-            
-            if (!($("#showPopularPlaces").is(":visible")) && !($("#hidePopularPlaces").is(":visible"))) {
-                getSettlementsByRegion($("#Region option:selected").text());
-            }
-
-            else if (!($("#showPopularPlaces").is(":visible")) && ($("#hidePopularPlaces").is(":visible"))) {
-                getPopularPlacesByRegion($("#Region option:selected").text());
-            }
-            else {
-                getSettlementsByRegion($("#Region option:selected").text());
-            }
+            $("#RegionId").val($(this).val());
             
             $("#regionBottom").text($('#Region').find(":selected").text());
         });
@@ -1310,12 +1329,20 @@
     function updatePrice(){
         $("#total-price").html('0 лв');
         
-        if ($("#IsDecidedByUs").is(":checked")) {
-            calculatePriceByDistance($("#Region option:selected").text(), true);
-        }
-        else{
-            calculatePriceByDistance($("#Region option:selected").text(), false);
+        console.log("updatePrice " + $("#PhotoShootType").val());
 
+        if ($("#PhotoShootType").val() == '8' || $("#PhotoShootType").val() == '11' || $("#PhotoShootType").val() == '10') {
+            return;
+        }
+
+        else{
+            if ($("#IsDecidedByUs").is(":checked")) {
+                calculatePriceByDistance($("#Region option:selected").text(), true);
+            }
+            else {
+                calculatePriceByDistance($("#Region option:selected").text(), false);
+
+            }
         }
     }
 

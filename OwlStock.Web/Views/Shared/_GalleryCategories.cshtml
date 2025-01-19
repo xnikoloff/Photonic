@@ -1,4 +1,6 @@
-﻿<div class="row row-portfolio">
+﻿@model bool
+
+<div class="row row-portfolio">
     <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-wedding">
         <div class="portfolio-content-wrap">
             <h1>Сватба</h1>
@@ -138,3 +140,21 @@
         background-image: url(@Url.Content("~/resources/images/pregnancy.jpg"));
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+        showGalleryButton();
+    });
+
+    function showGalleryButton(){
+        //make it lower case
+        let showButton = "@Html.Raw(Model.ToString().ToLower())";
+        
+        if (showButton == 'true') {
+            $(".btn-view-services").css("display", "inline-block");
+        }
+        else{
+            $(".btn-view-services").css("display", "none");
+        }
+    }
+</script>

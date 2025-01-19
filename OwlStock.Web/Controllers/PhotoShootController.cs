@@ -27,6 +27,12 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Reserve()
         {
             CreatePhotoShootDTO dto = new()
@@ -64,7 +70,21 @@ namespace OwlStock.Web.Controllers
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
             };
 
-            return View(nameof(Reserve), dto);
+            switch (photoShootType)
+            {
+                case PhotoShootType.Wedding:
+                case PhotoShootType.Prom:
+                case PhotoShootType.Baptism:
+                case PhotoShootType.Event:
+                {
+                    return View("ReserveEvent", dto);
+                }
+                default:
+                {
+                    return RedirectToAction("_Error", "Страницата не е намерена");
+                }
+            }
+
         }
 
         [HttpPost]

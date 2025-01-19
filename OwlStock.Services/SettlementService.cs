@@ -30,7 +30,7 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(_context.Cities)} is null");
             }
 
-            return await _context.Cities.Where(c => c.Name.Contains(query)).ToListAsync();
+            return await _context.Cities.Where(c => (c.Name ?? string.Empty).Contains(query)).ToListAsync();
         }
 
         public async Task<City> GetCityById(int id)
@@ -60,10 +60,10 @@ namespace OwlStock.Services
             }
 
             return await _context.Regions
-                .Where(r => r.Name.Equals("Пловдив") ||
-                r.Name.Equals("Пазарджик") ||
-                r.Name.Equals("Хасково") ||
-                r.Name.Equals("Стара Загора"))
+                .Where(r => (r.Name ?? string.Empty).Equals("Пловдив") ||
+                (r.Name ?? string.Empty).Equals("Пазарджик") ||
+                (r.Name ?? string.Empty).Equals("Хасково") ||
+                (r.Name ?? string.Empty).Equals("Стара Загора"))
                 .ToListAsync();
         }
 
@@ -88,18 +88,18 @@ namespace OwlStock.Services
             return cities;
         }
 
-        public async Task<IEnumerable<City>> GetCitiesByRegion(string region)
+        public async Task<IEnumerable<City>> GetCitiesByRegion(int region)
         {
             if (_context.Cities is null)
             {
                 throw new NullReferenceException($"{nameof(_context.Cities)} is null");
             }
-            var cities = await _context.Cities.Include(c => c.Region).ToListAsync();
-
+            
             var result = await _context.Cities
                 .Include(c => c.Region)
-                .Where(c => c.Region.Name.Equals(region))
+                .Where(c => c.Region.Id == region)
                 .ToArrayAsync();
+
             return result;
         }
 
@@ -158,7 +158,7 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(place.City.NameLatin)} is null");
             }
 
-            return place.City.NameLatin;
+            return place.City.NameLatin ?? "";
         }
     }
 
