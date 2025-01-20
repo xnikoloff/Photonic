@@ -252,18 +252,22 @@
                     </div>
                     <hr />
                     <div class="summary-section-location">
-                        <p id="location-settlement-summary"><i class="fa-solid fa-location-dot fa-lg"></i><span class="summary-data" id="summary-location-settlement">Асеновград, обл. Пловдив</span></p>
-                        <p><i class="fa-solid fa-location-crosshairs fa-lg"></i><span class="summary-data" id="summary-location-place">Метоха</span></p>
+                        <p id="location-settlement-summary">
+                            <i class="fa-solid fa-location-dot fa-lg"></i>
+                            <span class="summary-data" id="summary-location-settlement"></span>
+                            <span class="summary-data" id="summary-location-region"></span>
+                        </p>
+                        <p><i class="fa-solid fa-location-crosshairs fa-lg"></i><span class="summary-data" id="summary-location-place"></span></p>
                     </div>
                     <hr />
-                    <div class="summary-section-location">
-                        <p id="datetime-summary"><i class="fa-solid fa-calendar-days fa-lg"></i><span class="summary-data" id="summary-datetime"></span>2025.02.12 г, 08:00 ч</p>
+                    <div class="summary-section-datetime">
+                        <p id="datetime-summary"><i class="fa-solid fa-calendar-days fa-lg"></i><span class="summary-data" id="summary-date"></span><span class="summary-time" id="summary-time"></span></p>
                     </div>
                     <hr />
-                    <div class="summary-section-location">
-                        <p><i class="fa-solid fa-envelope fa-lg"></i><span class="summary-data" id="summary-email">hristiyan.at.nikoloff@gmail.com</span></p>
-                        <p><i class="fa-solid fa-user fa-lg"></i><span class="summary-data" id="summary-name">Киро Киров</span></>
-                        <p><i class="fa-solid fa-phone fa-lg"></i><span class="summary-data" id="summary-telephone">+35988256478</span></p>
+                    <div class="summary-section-personal-data">
+                        <p><i class="fa-solid fa-envelope fa-lg"></i><span class="summary-data" id="summary-email"></span></p>
+                        <p><i class="fa-solid fa-user fa-lg"></i><span class="summary-data" id="summary-first-name"></span><span class="summary-data" id="summary-last-name"></span></p>
+                        <p><i class="fa-solid fa-phone fa-lg"></i><span class="summary-data" id="summary-telephone"></span></p>
                     </div>
                     <hr />
                     <div class="summary-section-price">
@@ -553,6 +557,8 @@
                     console.log("Invalid location type");
                 }
             }
+
+            setRegionSummary($(this).find("option:selected").text());
             
         });
 
@@ -652,6 +658,7 @@
 
         $("#UserPlace").change(function () {
             isLocationValid();
+            setLocationPlaceSummary($(this).val());
         });
 
         $("#GoogleMapsLink").change(function () {
@@ -660,10 +667,16 @@
 
         $(".card-weather").click(function () {
             //format date to format yyyy-MM-dd
+            //this is used as an input value
             let date = formatSelectedDate($(this).find(".card-header h4").text());
+
+            //format date to Bulgarian format dd.MM.yyyy
+            //this is used in the summary section as text only
+            let dateBGFormat = formatSelectedDateInBulgarianFormat($(this).find(".card-header h4").text());
             
             //set formated date to the input
             $("#ReservationDate").val(date);
+            setDateSummary(dateBGFormat);
 
             //set color to the clicked weather card
             //only if card is available
@@ -689,8 +702,10 @@
                 //then change the background of the current clicked time slot
                 $(this).addClass("bg-dark");
 
-                //set time to the inputoc
-                $("#ReservationTime").val($(this).text().trim());
+                //set time to the input
+                let time = $(this).text().trim();
+                $("#ReservationTime").val(time);
+                setTimeSummary(time)
             }
             else{
                 alert("Часа е зает");
@@ -702,18 +717,22 @@
         //validate personal date on each input change
         $("#PersonEmail").change(function(){
             validatePersonalData();
+            setEmailSummary($(this).val());
         });
 
         $("#PersonFirstName").change(function(){
             validatePersonalData();
+            setFirstNameSummary($(this).val());
         });
 
         $("#PersonLastName").change(function(){
             validatePersonalData();
+            setLastNameSummary($(this).val());
         });
 
         $("#PersonPhone").change(function(){
             validatePersonalData();
+            setPhoneSummary($(this).val());
         });
     });
 
@@ -940,6 +959,130 @@
 
 
 
+    
+    
+    //SUMMARY
+
+    //set photoshoot type summary
+    function setPhotoshootTypeSummary(photoshootType){
+        if (photoshootType != "" && photoshootType != undefined) {
+            $("#summary-photoshoot-type").text(summary);
+        }
+        else{
+            $("#summary-photoshoot-type").text("-");
+        }
+    }
+
+
+    //set location summary
+
+    function setRegionSummary(region) {
+        if (region != "" && region != undefined) {
+            $("#summary-location-region").text(region);
+
+        }
+
+        else {
+            $("#summary-location-region").text("-");
+        }
+    }
+
+    function setSettlementSummary(settlement) {
+        if (settlement != "" && settlement != undefined) {
+            $("#summary-location-settlement").text(settlement + ", ");
+
+        }
+
+        else {
+            $("#summary-location-settlement").text("-");
+        }
+    }
+
+    function setLocationPlaceSummary(place) {
+        if (place != "" && place != undefined) {
+            $("#summary-location-place").text(place);
+
+        }
+
+        else {
+            $("#summary-location-place").text("-");
+        }
+    }
+
+
+
+    //set date and time summary
+    function setDateSummary(date) {
+        if (date != "" && date != undefined) {
+            $("#summary-date").text(date + " г, ");
+
+        }
+
+        else {
+            $("#summary-date").text("-");
+        }
+    }
+
+    function setTimeSummary(time) {
+        if (time != "" && time != undefined) {
+            //leave empty space before the value,
+            //because date and time are on one line
+            $("#summary-time").text(time + " ч");
+
+        }
+
+        else {
+            $("#summary-time").text("-");
+        }
+    }
+
+
+
+    //set personal data summary
+    function setEmailSummary(email) {
+        if (email != "" && email != undefined) {
+            $("#summary-email").text(email);
+        }
+
+        else {
+            $("#summary-email").text("-");
+        }
+    }
+
+    function setFirstNameSummary(firstName){
+        if (firstName != "" && firstName != undefined) {
+            $("#summary-first-name").text(firstName);
+
+        }
+
+        else {
+            $("#summary-first-name").text("-");
+        }
+    }
+
+    function setLastNameSummary(lastName) {
+        if (lastName != "" && lastName != undefined) {
+            $("#summary-last-name").text(" " + lastName);
+
+        }
+
+        else {
+            $("#summary-last-name").text("-");
+        }
+    }
+
+    function setPhoneSummary(phone) {
+        if (phone != "" && phone != undefined) {
+            $("#summary-telephone").text(phone);
+        }
+
+        else {
+            $("#summary-telephone").text("-");
+        }
+    }
+
+
+
 
 
     //AJAX CALLS
@@ -973,6 +1116,10 @@
                         }
                         
                         isLocationValid();
+
+                        let item = this.$input[0];
+                        let selectedText = $(item.selectize.getItem(value)[0]).text();
+                        setLocationPlaceSummary(selectedText);
                     }
                 });
             }
@@ -1012,6 +1159,10 @@
                                 }
 
                                 isLocationValid();
+
+                                let item = this.$input[0];
+                                let selectedText = $(item.selectize.getItem(value)[0]).text();
+                                setSettlementSummary(selectedText);
                             }
                         }
                     });
@@ -1048,5 +1199,13 @@
     function formatSelectedDate(selectedDate) {
         let selectedDateSplit = selectedDate.split('.');
         return `${new Date().getUTCFullYear()}-${selectedDateSplit[1]}-${selectedDateSplit[0]}`;
+    }
+
+
+    //format selected date (the date comes in format [dd.mm])
+    //the function formats it to format [dd.MM.yyyy]
+    function formatSelectedDateInBulgarianFormat(selectedDate) {
+        let selectedDateSplit = selectedDate.split('.');
+        return `${selectedDateSplit[0]}.${selectedDateSplit[1]}.${new Date().getUTCFullYear()}`;
     }
 </script>
