@@ -293,7 +293,7 @@
                     </div>
                     <hr />
                     <div class="summary-section-price">
-                        <h3 class="text-warning"><b>ЦЕНА</b> <span class="text-dark" id="price-summary">750 лв</span></h3>
+                        <h3 class="text-warning"><b>ЦЕНА</b> <span class="text-dark" id="price-summary">-</span></h3>
                     </div>
                 </div>
             </div>
@@ -595,6 +595,7 @@
         $("#PhotoShootType").change(function () {
             isPhotoshootTypeValid();
             setPhotoshootTypeSummary($(this).find("option:selected").text());
+            calculatePrice($(this).val());
         });
 
         //set value to hidden region input on region option change
@@ -1263,6 +1264,33 @@
 
     }
 
+
+
+
+
+    //CALCULATE PRICE
+
+    function calculatePrice(photoshootType, fuelPrice = 0) {
+        $.ajax({
+            contentType: 'application/json',
+            url: "@Url.Action("photoshootPrice", "Calculations")",
+            traditional: true,
+            method: "GET",
+            data: { 'photoshootType': photoshootType, 'fuelPrice': fuelPrice },
+            success: function (response) {
+                if ($("#PhotoShootType").find(":selected").val() == 8 || $("#PhotoShootType").find(":selected").val() == 10 || $("#PhotoShootType").find(":selected").val() == 11) {
+                    $("#price-summary").html("По договаряне");
+                }
+                else {
+                    $("#price-summary").html(response + ' лв');
+                }
+            },
+            error: function (response) {
+                console.log("error");
+                console.log(response);
+            }
+        });
+    }
 
 
 
