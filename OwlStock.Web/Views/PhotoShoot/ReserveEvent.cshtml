@@ -37,8 +37,28 @@
     <div class="hotel_booking_area position mb-5">
         <div class="container-fluid booking-container">
             <div class="hotel_booking_table">
-                <div class="col-12 col-md-8 px-0 px-md-5">
-                    <div class="boking_table">
+                <div class="col-12 col-md-8 px-0 px-md-5 col-booking">
+                    <div class="row row-progress-bar">
+                        <div class="col-2 text-center py-1 col-progress-bar col-progress-bar-section-1 progress-bar-current">
+                            <span class="progress-bar-section-1"><i class="fa-solid fa-camera fa-lg"></i></span>
+                        </div>
+                        <div class="col-2 text-center py-1 col-progress-bar col-progress-bar-section-2 progress-bar-pristine">
+                            <span class="progress-bar-section-2"><i class="fa-solid fa-location-dot fa-lg"></i></span>
+                        </div>
+                        <div class="col-2 text-center py-1 col-progress-bar col-progress-bar-section-3 progress-bar-pristine">
+                            <span class="progress-bar-section-3"><i class="fa-solid fa-calendar-days fa-lg"></i></span>
+                        </div>
+                        <div class="col-2 text-center py-1 col-progress-bar col-progress-bar-section-4 progress-bar-pristine">
+                            <span class="progress-bar-section-4"><i class="fa-solid fa-user fa-lg"></i></span>
+                        </div>
+                        <div class="col-2 text-center py-1 col-progress-bar col-progress-bar-section-5 progress-bar-pristine">
+                            <span class="progress-bar-section-5"><i class="fa-solid fa-square-plus fa-lg"></i></span>
+                        </div>
+                        <div class="col-2 text-center py-1 col-progress-bar col-progress-bar-section-6 progress-bar-pristine">
+                            <span class="progress-bar-section-5"><i class="fa-solid fa-flag-checkered fa-lg"></i></span>
+                        </div>
+                    </div>
+                    <div class="boking_table mx-auto mt-5">
                         <div>
                             <div asp-validation-summary="All" class="text-danger"></div>
                         </div>
@@ -255,19 +275,21 @@
                         <p id="location-settlement-summary">
                             <i class="fa-solid fa-location-dot fa-lg"></i>
                             <span class="summary-data" id="summary-location-settlement"></span>
-                            <span class="summary-data" id="summary-location-region"></span>
+                            <span id="summary-location-region">Населено място</span>
                         </p>
-                        <p><i class="fa-solid fa-location-crosshairs fa-lg"></i><span class="summary-data" id="summary-location-place"></span></p>
+                        <p><i class="fa-solid fa-location-crosshairs fa-lg"></i><span class="summary-data" id="summary-location-place">Локация</span></p>
                     </div>
                     <hr />
                     <div class="summary-section-datetime">
-                        <p id="datetime-summary"><i class="fa-solid fa-calendar-days fa-lg"></i><span class="summary-data" id="summary-date"></span><span class="summary-time" id="summary-time"></span></p>
+                        <p id="datetime-summary"><i class="fa-solid fa-calendar-days fa-lg"></i><span class="summary-data" id="summary-date">Дата и час</span><span class="summary-time" id="summary-time"></span></p>
                     </div>
                     <hr />
                     <div class="summary-section-personal-data">
-                        <p><i class="fa-solid fa-envelope fa-lg"></i><span class="summary-data" id="summary-email"></span></p>
-                        <p><i class="fa-solid fa-user fa-lg"></i><span class="summary-data" id="summary-first-name"></span><span class="summary-data" id="summary-last-name"></span></p>
-                        <p><i class="fa-solid fa-phone fa-lg"></i><span class="summary-data" id="summary-telephone"></span></p>
+                        <p><i class="fa-solid fa-envelope fa-lg"></i><span class="summary-data" id="summary-email">Email</span></p>
+                        <p><i class="fa-solid fa-user fa-lg"></i>
+                            <span class="summary-data" id="summary-first-name">Име</span>
+                            <span id="summary-last-name"></span></p>
+                        <p><i class="fa-solid fa-phone fa-lg"></i><span class="summary-data" id="summary-telephone">Телефон</span></p>
                     </div>
                     <hr />
                     <div class="summary-section-price">
@@ -280,6 +302,25 @@
 </form>
 
 <style>
+    .col-progress-bar{
+        border-top-left-radius: 15%;
+        border-bottom-left-radius: 15%;
+        border-top-right-radius: 35%;
+        border-bottom-right-radius: 35%;
+        color: #fff;
+    }
+    .progress-bar-current{
+        background: #ebb105;
+    }
+
+    .progress-bar-pristine{
+        background: #A9A9A9;
+    }
+
+    .progress-bar-completed {
+        background: #3b3b3b;
+    }
+
     .popular-places-wrap .form-control, .settlements-wrap .form-control {
         border: none;
         padding: 0;
@@ -298,12 +339,20 @@
 
     .hotel_booking_table {
         background: none;
+        align-items: unset !important;
     }
-    
     .hotel_booking_table .btn-section-submit, .btn-section-back {
         border: none;
         padding: 5px 10px;
         font-weight: bold;
+    }
+
+    .hotel_booking_table .col-booking{
+        margin-top: 50px;
+    }
+    
+    .hotel_booking_table .col-booking .form-section{
+        margin-top: 100px;
     }
 
     .hotel_booking_table .row-section-title .section-title {
@@ -433,12 +482,19 @@
     .hotel_booking_area .booking-container .col-summary-section .summary-data{
         margin-left: 10px;
     }
+    
+    .hotel_booking_area .booking-container .col-summary-section .summary-section-photoshoot-type  #summary-photoshoot-type{
+        font-weight: bold;
+    }
 </style>
 
 <script>
     //global variable, keeps the location type on location type change
     var locationType = '';
     $(document).ready(function () {
+        //set photoshoot type on page load
+        setPhotoshootTypeSummary($("#PhotoShootType").find("option:selected").text());
+
         //reset the value of reservation date on page load
         $("#ReservationDate").val("");
 
@@ -447,6 +503,12 @@
         $(".btn-section-submit-seciton-1").click(function () {
             $(".section-1").css("display", "none");
             $(".section-2").css("display", "block");
+
+            $(".col-progress-bar-section-1").addClass("progress-bar-completed");
+            $(".col-progress-bar-section-1").removeClass("progress-bar-current");
+
+            $(".col-progress-bar-section-2").removeClass("progress-bar-pristine");
+            $(".col-progress-bar-section-2").addClass("progress-bar-current");
 
             isLocationValid();
         });
@@ -465,6 +527,12 @@
             $(".section-2").css("display", "none");
             $(".section-3").css("display", "block");
 
+            $(".col-progress-bar-section-2").addClass("progress-bar-completed");
+            $(".col-progress-bar-section-2").removeClass("progress-bar-current");
+
+            $(".col-progress-bar-section-3").removeClass("progress-bar-pristine");
+            $(".col-progress-bar-section-3").addClass("progress-bar-current");
+
             validateDateAndTime();
         });
 
@@ -482,6 +550,12 @@
             $(".section-3").css("display", "none");
             $(".section-4").css("display", "block");
 
+            $(".col-progress-bar-section-3").addClass("progress-bar-completed");
+            $(".col-progress-bar-section-3").removeClass("progress-bar-current");
+
+            $(".col-progress-bar-section-4").removeClass("progress-bar-pristine");
+            $(".col-progress-bar-section-4").addClass("progress-bar-current");
+
             validatePersonalData();
         });
 
@@ -489,6 +563,7 @@
         $(".btn-section-back-seciton-4").click(function () {
             $(".section-3").css("display", "block");
             $(".section-4").css("display", "none");
+
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -498,13 +573,20 @@
         $(".btn-section-submit-seciton-4").click(function () {
             $(".section-4").css("display", "none");
             $(".section-5").css("display", "block");
+
+            $(".col-progress-bar-section-4").addClass("progress-bar-completed");
+            $(".col-progress-bar-section-4").removeClass("progress-bar-current");
+
+            $(".col-progress-bar-section-5").removeClass("progress-bar-pristine");
+            $(".col-progress-bar-section-5").addClass("progress-bar-current");
+
+            validatePersonalData();
         });
 
         $(".btn-section-back-seciton-5").click(function () {
             $(".section-4").css("display", "block");
             $(".section-5").css("display", "none");
 
-            validatePersonalData();
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
         });
@@ -512,6 +594,7 @@
         //check if photoshoot type is valid
         $("#PhotoShootType").change(function () {
             isPhotoshootTypeValid();
+            setPhotoshootTypeSummary($(this).find("option:selected").text());
         });
 
         //set value to hidden region input on region option change
@@ -966,7 +1049,7 @@
     //set photoshoot type summary
     function setPhotoshootTypeSummary(photoshootType){
         if (photoshootType != "" && photoshootType != undefined) {
-            $("#summary-photoshoot-type").text(summary);
+            $("#summary-photoshoot-type").text(photoshootType);
         }
         else{
             $("#summary-photoshoot-type").text("-");
