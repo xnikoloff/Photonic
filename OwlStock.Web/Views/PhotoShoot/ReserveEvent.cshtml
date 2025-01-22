@@ -498,17 +498,43 @@
         //reset the value of reservation date on page load
         $("#ReservationDate").val("");
 
+        function forwardProgress(currentSectionNumber, isLastSection = false){
+            $(".col-progress-bar-section-" + currentSectionNumber).addClass("progress-bar-completed");
+            $(".col-progress-bar-section-" + currentSectionNumber).removeClass("progress-bar-current");
+
+            if(!isLastSection){
+                //increment the number to access the next section
+                let nextSectionNumber = currentSectionNumber + 1;
+                console.log("currentSectionNumber after incr: " + nextSectionNumber);
+                $(".col-progress-bar-section-" + nextSectionNumber).removeClass("progress-bar-pristine");
+                $(".col-progress-bar-section-" + nextSectionNumber).addClass("progress-bar-current");
+            }
+
+            nextSectionNumber = 0;
+        }
+
+        function backwardProgress(currentSectionNumber, isFirstSection){
+            console.log("currentSectionNumber backward " + currentSectionNumber);
+            $(".col-progress-bar-section-" + currentSectionNumber).addClass("progress-bar-current");
+            $(".col-progress-bar-section-" + currentSectionNumber).removeClass("progress-bar-completed");
+
+            if (!isFirstSection) {
+                //increment the number to access the next section
+                let prevSectionNumber = currentSectionNumber - 1;
+                console.log("currentSectionNumber after decr: " + prevSectionNumber); q
+                $(".col-progress-bar-section-" + prevSectionNumber).removeClass("progress-bar-completed");
+                $(".col-progress-bar-section-" + prevSectionNumber).addClass("progress-bar-current");
+            }
+
+            prevSectionNumber = 0;
+        }
 
         //hide section one /services/ and show section two /location/
         $(".btn-section-submit-seciton-1").click(function () {
             $(".section-1").css("display", "none");
             $(".section-2").css("display", "block");
 
-            $(".col-progress-bar-section-1").addClass("progress-bar-completed");
-            $(".col-progress-bar-section-1").removeClass("progress-bar-current");
-
-            $(".col-progress-bar-section-2").removeClass("progress-bar-pristine");
-            $(".col-progress-bar-section-2").addClass("progress-bar-current");
+            forwardProgress(1, false);
 
             isLocationValid();
         });
@@ -517,6 +543,8 @@
         $(".btn-section-back-seciton-2").click(function () {
             $(".section-1").css("display", "block");
             $(".section-2").css("display", "none");
+
+            backwardProgress(2, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -527,11 +555,7 @@
             $(".section-2").css("display", "none");
             $(".section-3").css("display", "block");
 
-            $(".col-progress-bar-section-2").addClass("progress-bar-completed");
-            $(".col-progress-bar-section-2").removeClass("progress-bar-current");
-
-            $(".col-progress-bar-section-3").removeClass("progress-bar-pristine");
-            $(".col-progress-bar-section-3").addClass("progress-bar-current");
+            forwardProgress(2, false);
 
             validateDateAndTime();
         });
@@ -540,6 +564,8 @@
         $(".btn-section-back-seciton-3").click(function () {
             $(".section-2").css("display", "block");
             $(".section-3").css("display", "none");
+
+            backwardProgress(3, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -550,11 +576,7 @@
             $(".section-3").css("display", "none");
             $(".section-4").css("display", "block");
 
-            $(".col-progress-bar-section-3").addClass("progress-bar-completed");
-            $(".col-progress-bar-section-3").removeClass("progress-bar-current");
-
-            $(".col-progress-bar-section-4").removeClass("progress-bar-pristine");
-            $(".col-progress-bar-section-4").addClass("progress-bar-current");
+            forwardProgress(3, false);
 
             validatePersonalData();
         });
@@ -564,6 +586,7 @@
             $(".section-3").css("display", "block");
             $(".section-4").css("display", "none");
 
+            backwardProgress(4, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -574,11 +597,7 @@
             $(".section-4").css("display", "none");
             $(".section-5").css("display", "block");
 
-            $(".col-progress-bar-section-4").addClass("progress-bar-completed");
-            $(".col-progress-bar-section-4").removeClass("progress-bar-current");
-
-            $(".col-progress-bar-section-5").removeClass("progress-bar-pristine");
-            $(".col-progress-bar-section-5").addClass("progress-bar-current");
+            forwardProgress(4, false);
 
             validatePersonalData();
         });
