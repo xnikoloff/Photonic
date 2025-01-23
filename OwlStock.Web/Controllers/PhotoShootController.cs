@@ -81,7 +81,7 @@ namespace OwlStock.Web.Controllers
                 }
                 default:
                 {
-                    return RedirectToAction("_Error", "Страницата не е намерена");
+                    return View("_Error", "Страницата не е намерена");
                 }
             }
 

@@ -37,8 +37,8 @@
     <div class="hotel_booking_area position mb-5">
         <div class="container-fluid booking-container">
             <div class="hotel_booking_table">
-                <div class="col-12 col-md-8 col-booking">
-                    <div class="row row-progress-bar px-3">
+                <div class="col-12 col-md-8 col-booking mx-auto">
+                    <div class="row row-progress-bar">
                         <div class="col-2 mx-auto text-center py-1 col-progress-bar col-progress-bar-section-1 progress-bar-current">
                             <span class="progress-bar-section-1"><i class="fa-solid fa-camera fa-lg"></i></span>
                         </div>
@@ -230,7 +230,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row row-section-4 mt-1 row-first-name">
+                            <div class="row row-section-4 mt-3 row-first-name">
                                 <div class="col-md-12 mx-auto">
                                     <div class="book_tabel_item">
                                         <div class="form-group first-name-wrap">
@@ -266,7 +266,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4 col-summary-section mt-5 mt-md-0 p-5">
+                <div class="col-12 col-md-3 col-summary-section mx-auto mt-5 mt-md-0 p-5">
                     <div class="summary-section-photoshoot-type">
                         <p class="summary-section-icon text-warning"><i class="fa-solid fa-camera fa-lg"></i><span class="summary-data" id="summary-photoshoot-type">Абитуриентски бал Extra</span></p>
                     </div>
@@ -302,22 +302,24 @@
 </form>
 
 <style>
-    .col-progress-bar{
-        border-bottom-right-radius: 100%;
-        border-top-left-radius: 100%;
-        color: #fff;
+    .row-progress-bar{
+        border-radius: 20%;
+        background: #f7f7f7;
     }
+
     .progress-bar-current{
-        background: #ebb105;
+        background: #fff;
+        color: #ebb105;
+        border-radius: 20%;
         box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
     }
 
     .progress-bar-pristine{
-        background: #A9A9A9;
+        color: #A9A9A9;
     }
 
     .progress-bar-completed {
-        background: #3b3b3b;
+        color: #3b3b3b;
     }
 
     .popular-places-wrap .form-control, .settlements-wrap .form-control {
@@ -494,6 +496,9 @@
         //set photoshoot type on page load
         setPhotoshootTypeSummary($("#PhotoShootType").find("option:selected").text());
 
+        //calculate price on page load
+        calculatePrice($("#PhotoShootType").val());
+
         //reset the value of reservation date on page load
         $("#ReservationDate").val("");
 
@@ -543,7 +548,7 @@
             $(".section-1").css("display", "block");
             $(".section-2").css("display", "none");
 
-            backwardProgress(2, false);
+            backwardProgress(1, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -564,7 +569,7 @@
             $(".section-2").css("display", "block");
             $(".section-3").css("display", "none");
 
-            backwardProgress(3, false);
+            backwardProgress(2, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -585,7 +590,7 @@
             $(".section-3").css("display", "block");
             $(".section-4").css("display", "none");
 
-            backwardProgress(4, false);
+            backwardProgress(3, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
