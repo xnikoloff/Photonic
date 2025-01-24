@@ -264,6 +264,68 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-section section-5" style="display: block">
+                            <div class="row row-section-title row-section-title-5">
+                                <div class="col-12 mx-auto">
+                                    <h2 class="section-title">Допълнителни</h2>
+                                </div>
+                            </div>
+                            <div class="row row-section-5 mt-1 pt-5 row-transport-customer">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group email-wrap">
+                                            <input class="text-warning" asp-for="TransportCustomer"/>
+                                            <span class="checkbox-label checkbox-photos-label">Желая превоз до локацията</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-5 mt-3 mb-5 row-transport-customer-address" style="display:none">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group email-wrap">
+                                            <input asp-for="PickUpAddress" class="rect-control" placeholder="Адрес, откойто да Ви вземем" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-5 mt-3 row-do-not-upload">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group first-name-wrap">
+                                            <input class="text-warning" asp-for="DoNotUploadPhotos" />
+                                            <span class="checkbox-label checkbox-photos-label">Не желая снимките ми да се качват на сайта на Photonic</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-5 mt-3 row-do-not-upload" style="display:none">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group first-name-wrap">
+                                            <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="wide">
+                                                <option value="">Начин на получаване на снимките</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-5 mt-3 row-do-not-upload" style="display:none">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group first-name-wrap">
+                                            <input asp-for="PhotoDeliveryAddress" class="rect-control" placeholder="Адрес или офис на Еконт" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 mx-auto">
+                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-5">НАЗАД</button>
+                                    <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-5">ЗАПАЗИ</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-3 col-summary-section mx-auto mt-5 mt-md-0 p-5">
@@ -302,6 +364,10 @@
 </form>
 
 <style>
+    input[type="checkbox"]{
+        accent-color: #ffc107;
+    }
+
     .row-progress-bar{
         border-radius: 20%;
         background: #f7f7f7;
@@ -410,6 +476,21 @@
         padding: 12px 20px !important;
         border: 1px solid #000;
         border-radius: 0;
+    }
+
+    hotel_booking_table .section-2 .popular-places-wrap .selectize-input, .hotel_booking_table .section-5 #DoNotUploadPhotos {
+        margin-left: 10px;
+        transform: scale(2);
+    }
+
+    hotel_booking_table .section-2 .popular-places-wrap .selectize-input, .hotel_booking_table .section-5 #TransportCustomer {
+        margin-left: 10px;
+        transform: scale(1.8);
+    }
+
+        hotel_booking_table .section-2 .popular-places-wrap .selectize-input, .hotel_booking_table .section-5 .checkbox-label {
+        font-size: 1.2rem;
+        margin-left: 10px;
     }
     
     .btn-legend {
@@ -772,34 +853,6 @@
             isLocationValid();
         });
 
-        $(".card-weather").click(function () {
-            //format date to format yyyy-MM-dd
-            //this is used as an input value
-            let date = formatSelectedDate($(this).find(".card-header h4").text());
-
-            //format date to Bulgarian format dd.MM.yyyy
-            //this is used in the summary section as text only
-            let dateBGFormat = formatSelectedDateInBulgarianFormat($(this).find(".card-header h4").text());
-            
-            //set formated date to the input
-            $("#ReservationDate").val(date);
-            setDateSummary(dateBGFormat);
-
-            //set color to the clicked weather card
-            //only if card is available
-            if ($(this).hasClass("card-available")) {
-                //first, reset the background to the defauilt available
-                //so that background does not change for each clicked card
-                $(".card-body-available").css("background", "#b8ab6a");
-
-                //then change the background of the current clicked card
-                $(this).find(".card-body").css("background", "#000");
-            }
-
-            //validate date and time on each date and time card click
-            validateDateAndTime();
-        });
-
         $(".btn-time-slot").click(function () {
             if($(this).hasClass("time-slot-available")){
                 //first, remove the bg-dark class of all time slot buttons
@@ -812,7 +865,11 @@
                 //set time to the input
                 let time = $(this).text().trim();
                 $("#ReservationTime").val(time);
-                setTimeSummary(time)
+                setTimeSummary(time);
+
+                //set date
+                console.log($(this).closest(".card").find(".date-text").text());
+                setDate($(this).closest(".card").find(".date-text").text());
             }
             else{
                 alert("Часа е зает");
@@ -841,10 +898,56 @@
             validatePersonalData();
             setPhoneSummary($(this).val());
         });
+
+        $("#TransportCustomer").change(function () {
+            if($(this).is(":checked")){
+                $(".row-transport-customer-address").css("display", "block");
+            }
+            else{
+                $(".row-transport-customer-address").css("display", "none");
+            }
+        });
     });
 
 
+    function validateTransportAddress(){
+        if ($("#TransportCustomer").is(":checked")){
+            if ($("#PickupAddress").val() == '' || $("#PickupAddress").val() == undefined){
+                $(".btn-section-submit-seciton-5").prop("disabled", true);
+                return false;
+            }
 
+            else{
+                $(".btn-section-submit-seciton-5").prop("disabled", false);
+                return true;
+            }
+        }
+
+        else{
+            $(".btn-section-submit-seciton-5").prop("disabled", false);
+            return true;
+        }
+    }
+
+    //TODO
+    function validatePhotoDeliveryMethod(){
+        if ($("#DoNotUploadPhotos").is(":checked")) {
+            if ($("#PhotoDeliveryMethod").val() == '' || $("#PhotoDeliveryMethod").val() == undefined) {
+                $(".btn-section-submit-seciton-5").prop("disabled", true);
+                return false;
+            }
+
+            else {
+                $(".btn-section-submit-seciton-5").prop("disabled", false);
+                return true;
+            }
+        }
+
+        else {
+            $(".btn-section-submit-seciton-5").prop("disabled", false);
+            return true;
+        }
+    }
 
 
     //VALIDATIONS
@@ -1319,6 +1422,34 @@
 
 
     //HELPER FUNCTIONS
+
+    function setDate(dateText) {
+        //format date to format yyyy-MM-dd
+        //this is used as an input value
+        let date = formatSelectedDate(dateText);
+
+        //format date to Bulgarian format dd.MM.yyyy
+        //this is used in the summary section as text only
+        let dateBGFormat = formatSelectedDateInBulgarianFormat(dateText);
+
+        //set formated date to the input
+        $("#ReservationDate").val(date);
+        setDateSummary(dateBGFormat);
+
+        //set color to the clicked weather card
+        //only if card is available
+        if ($(this).hasClass("card-available")) {
+            //first, reset the background to the defauilt available
+            //so that background does not change for each clicked card
+            $(".card-body-available").css("background", "#b8ab6a");
+
+            //then change the background of the current clicked card
+            $(this).find(".card-body").css("background", "#000");
+        }
+
+        //validate date and time on each date and time card click
+        validateDateAndTime();
+    }
 
     function findElementById(array, id) {
         for (let i = 0; i < array.length; i++) {
