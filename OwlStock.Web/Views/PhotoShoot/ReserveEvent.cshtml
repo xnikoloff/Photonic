@@ -575,7 +575,7 @@
 </style>
 
 <script>
-    //global variable, keeps the location type on location type change
+   //global variable, keeps the location type on location type change
     var locationType = '';
     $(document).ready(function () {
         //set photoshoot type on page load
@@ -594,7 +594,6 @@
             if(!isLastSection){
                 //increment the number to access the next section
                 let nextSectionNumber = currentSectionNumber + 1;
-                console.log("currentSectionNumber after incr: " + nextSectionNumber);
                 $(".col-progress-bar-section-" + nextSectionNumber).removeClass("progress-bar-pristine");
                 $(".col-progress-bar-section-" + nextSectionNumber).addClass("progress-bar-current");
             }
@@ -603,14 +602,12 @@
         }
 
         function backwardProgress(currentSectionNumber, isFirstSection){
-            console.log("currentSectionNumber backward " + currentSectionNumber);
             $(".col-progress-bar-section-" + currentSectionNumber).addClass("progress-bar-current");
             $(".col-progress-bar-section-" + currentSectionNumber).removeClass("progress-bar-completed");
 
             if (!isFirstSection) {
                 //increment the number to access the next section
                 let prevSectionNumber = currentSectionNumber - 1;
-                console.log("currentSectionNumber after decr: " + prevSectionNumber); q
                 $(".col-progress-bar-section-" + prevSectionNumber).removeClass("progress-bar-completed");
                 $(".col-progress-bar-section-" + prevSectionNumber).addClass("progress-bar-current");
             }
@@ -892,7 +889,6 @@
                 setTimeSummary(time);
 
                 //set date
-                console.log($(this).closest(".card").find(".date-text").text());
                 setDate($(this).closest(".card").find(".date-text").text());
             }
             else{
@@ -1212,23 +1208,19 @@
     //validate trasport address
     function validateTransportAddress(){
         if ($("#TransportCustomer").is(":checked")){
-            console.log('checked');
             if ($("#PickUpAddress").val() == '' || $("#PickUpAddress").val() == undefined){
                 $(".btn-section-submit-seciton-5").prop("disabled", true);
-                console.log('true ' + $("#PickUpAddress").val());
                 return false;
             }
 
             else{
                 $(".btn-section-submit-seciton-5").prop("disabled", false);
-                console.log('false ' + $("#PickUpAddress").val());
                 return true;
             }
         }
 
         else{
             $(".btn-section-submit-seciton-5").prop("disabled", false);
-            console.log('false ' + $("#PickUpAddress").val());
             return true;
         }
     }
@@ -1236,31 +1228,26 @@
     //validate delivery method
     function validateDoNotUpload(){
         let selectedOption =  $("#PhotoDeliveryMethod").find("option:selected").val();
-        console.log('de; method: ' + selectedOption);
-
+        
         if ($("#DoNotUploadPhotos").is(":checked")) {
             if (selectedOption == '' || selectedOption == undefined) {
                 $(".btn-section-submit-seciton-5").prop("disabled", true);
-                console.log("photo-delivery method: true");
                 return false;
             }
 
             else if (selectedOption == 1){
                 $(".btn-section-submit-seciton-5").prop("disabled", false);
-                console.log('del address false');
                 return true;
             }
 
             else if(selectedOption == 2 || selectedOption == 3) {
                 if ($("#PhotoDeliveryAddress").val() == '' || $("#PhotoDeliveryAddress").val() == undefined) {
                     $(".btn-section-submit-seciton-5").prop("disabled", true);
-                    console.log('del address true if');
                     return false;
                 }
 
                 else {
                     $(".btn-section-submit-seciton-5").prop("disabled", false);
-                    console.log('del address false');
                     return true;
                 }
             }
@@ -1269,7 +1256,6 @@
 
         else{
             $(".btn-section-submit-seciton-5").prop("disabled", false);
-            console.log('del address true else');
             return true;
         }
     }
