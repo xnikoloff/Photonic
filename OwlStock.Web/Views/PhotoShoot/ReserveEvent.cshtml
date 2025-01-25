@@ -264,7 +264,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-section section-5" style="display: block">
+                        <div class="form-section section-5" style="display: none">
                             <div class="row row-section-title row-section-title-5">
                                 <div class="col-12 mx-auto">
                                     <h2 class="section-title">Допълнителни</h2>
@@ -273,7 +273,7 @@
                             <div class="row row-section-5 mt-1 pt-5 row-transport-customer">
                                 <div class="col-md-12 mx-auto">
                                     <div class="book_tabel_item">
-                                        <div class="form-group email-wrap">
+                                        <div class="form-group transport-customer-wrap">
                                             <input class="text-warning" asp-for="TransportCustomer"/>
                                             <span class="checkbox-label checkbox-photos-label">Желая превоз до локацията</span>
                                         </div>
@@ -283,7 +283,7 @@
                             <div class="row row-section-5 mt-3 mb-5 row-transport-customer-address" style="display:none">
                                 <div class="col-md-12 mx-auto">
                                     <div class="book_tabel_item">
-                                        <div class="form-group email-wrap">
+                                        <div class="form-group pickup-address-wrap">
                                             <input asp-for="PickUpAddress" class="rect-control" placeholder="Адрес, откойто да Ви вземем" />
                                         </div>
                                     </div>
@@ -292,34 +292,36 @@
                             <div class="row row-section-5 mt-3 row-do-not-upload">
                                 <div class="col-md-12 mx-auto">
                                     <div class="book_tabel_item">
-                                        <div class="form-group first-name-wrap">
+                                        <div class="form-group do-not-upload-photos-wrap">
                                             <input class="text-warning" asp-for="DoNotUploadPhotos" />
                                             <span class="checkbox-label checkbox-photos-label">Не желая снимките ми да се качват на сайта на Photonic</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row row-section-5 mt-3 row-do-not-upload" style="display:none">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="book_tabel_item">
-                                        <div class="form-group first-name-wrap">
-                                            <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="wide">
-                                                <option value="">Начин на получаване на снимките</option>
-                                            </select>
+                            <div class="photo-delivery-wrap" style="display:none">
+                                <div class="row row-section-5 mt-3 row-photo-delivery">
+                                    <div class="col-md-12 mx-auto">
+                                        <div class="book_tabel_item">
+                                            <div class="form-group photo-delivery-method-wrap">
+                                                <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="wide">
+                                                    <option value="">Начин на получаване на снимките</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-section-5 mt-3 row-photo-delivery-address" style="display:none">
+                                    <div class="col-md-12 mx-auto">
+                                        <div class="book_tabel_item">
+                                            <div class="form-group photo-delivery-address-wrap">
+                                                <input asp-for="PhotoDeliveryAddress" class="rect-control" placeholder="Адрес или офис на Еконт" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row row-section-5 mt-3 row-do-not-upload" style="display:none">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="book_tabel_item">
-                                        <div class="form-group first-name-wrap">
-                                            <input asp-for="PhotoDeliveryAddress" class="rect-control" placeholder="Адрес или офис на Еконт" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
+                            <div class="row mt-5">
                                 <div class="col-12 mx-auto">
                                     <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-5">НАЗАД</button>
                                     <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-5">ЗАПАЗИ</button>
@@ -905,46 +907,119 @@
             }
             else{
                 $(".row-transport-customer-address").css("display", "none");
+                $("#PickUpAddress").val('');
             }
+
+            validateTransportAddress();
+        });
+
+        $("#PickUpAddress").change(function () {
+            validateTransportAddress();
+        });
+
+        $("#DoNotUploadPhotos").change(function () {
+            if($(this).is(":checked")){
+                $(".photo-delivery-wrap").css("display", "block");
+            }
+            else{
+                $(".photo-delivery-wrap").css("display", "none");
+
+                //set address explcitly to display none
+                $(".photo-delivery-address-wrap").css("display", "none");
+
+                //if not checked set the default value to the select
+                $(".photo-delivery-method-wrap .nice-select span").text("Начин на получаване на снимките");
+
+                //and clear the current selection
+                $(".photo-delivery-method-wrap .nice-select .list li").removeClass("selected");
+
+                $("#PhotoDeliveryMethod").find("option:selected").removeAttr("selected");
+                $("#PhotoDeliveryMethod").val("");
+                $("#PhotoDeliveryAddress").val("");
+            }
+
+            validateDoNotUpload();
+        });
+
+        $("#PhotoDeliveryMethod").change(function () {
+            let selectedOption =  $(this).find("option:selected").val();
+            
+            if(selectedOption == 2 || selectedOption == 3) {
+                $(".row-photo-delivery-address").css("display", "block");
+            }
+            else{
+                $(".row-photo-delivery-address").css("display", "none");
+                $("#PhotoDeliveryAddress").val("");
+            }
+
+            validateDoNotUpload();
+        });
+
+        $("#PhotoDeliveryAddress").change(function () {
+            validateDoNotUpload();
         });
     });
 
 
     function validateTransportAddress(){
         if ($("#TransportCustomer").is(":checked")){
-            if ($("#PickupAddress").val() == '' || $("#PickupAddress").val() == undefined){
+            console.log('checked');
+            if ($("#PickUpAddress").val() == '' || $("#PickUpAddress").val() == undefined){
                 $(".btn-section-submit-seciton-5").prop("disabled", true);
+                console.log('true ' + $("#PickUpAddress").val());
                 return false;
             }
 
             else{
                 $(".btn-section-submit-seciton-5").prop("disabled", false);
+                console.log('false ' + $("#PickUpAddress").val());
                 return true;
             }
         }
 
         else{
             $(".btn-section-submit-seciton-5").prop("disabled", false);
+            console.log('false ' + $("#PickUpAddress").val());
             return true;
         }
     }
 
-    //TODO
-    function validatePhotoDeliveryMethod(){
+    function validateDoNotUpload(){
+        let selectedOption =  $("#PhotoDeliveryMethod").find("option:selected").val();
+        console.log('de; method: ' + selectedOption);
+
         if ($("#DoNotUploadPhotos").is(":checked")) {
-            if ($("#PhotoDeliveryMethod").val() == '' || $("#PhotoDeliveryMethod").val() == undefined) {
+            if (selectedOption == '' || selectedOption == undefined) {
                 $(".btn-section-submit-seciton-5").prop("disabled", true);
+                console.log("photo-delivery method: true");
                 return false;
             }
 
-            else {
+            else if (selectedOption == 1){
                 $(".btn-section-submit-seciton-5").prop("disabled", false);
+                console.log('del address false');
                 return true;
             }
+
+            else if(selectedOption == 2 || selectedOption == 3) {
+                if ($("#PhotoDeliveryAddress").val() == '' || $("#PhotoDeliveryAddress").val() == undefined) {
+                    $(".btn-section-submit-seciton-5").prop("disabled", true);
+                    console.log('del address true if');
+                    return false;
+                }
+
+                else {
+                    $(".btn-section-submit-seciton-5").prop("disabled", false);
+                    console.log('del address false');
+                    return true;
+                }
+            }
+
         }
 
-        else {
+        else{
             $(".btn-section-submit-seciton-5").prop("disabled", false);
+            console.log('del address true else');
             return true;
         }
     }
