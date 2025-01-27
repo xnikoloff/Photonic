@@ -81,11 +81,357 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-3">
+                            <div class="row row-photoshoot-packets row-photoshoot-packets-personal mt-5">
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Стандартен</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>150 лв</h3>
+                                            <hr />
+                                            <h6>Включва обработените сполучливи кадри</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <button type="button" class="btn-warning text-white btn-section-submit" id="personal" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Плюс</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>200 лв</h3>
+                                            <hr />
+                                            <h6>Пакет Стандартен + албум с хартиени разпечатки</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="personalPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Екстра</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>250 лв</h3>
+                                            <hr />
+                                            <h6>Пакет Плюс + 3 кадръра в рамка</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="personalExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Друго</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3 class="negotiation">По договаряне</h3>
+                                            <hr />
+                                            <h6>Ще изчислим цената спрямо вашите нужди</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-wedding" style="display:none">
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Стандартен</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>400 лв</h3>
+                                            <hr />
+                                            <h6>Включва отразяване на цялото събитие + снимки с гостите</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <button type="button" class="btn-warning text-white btn-section-submit" id="wedding" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Плюс</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>700 лв</h3>
+                                            <hr />
+                                            <h6>Пакет Стандартен + лична фотосесия на младоженците</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="weddingPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Екстра</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>900 лв</h3>
+                                            <hr />
+                                            <h6>Пакет Плюс + луксоцен сватбен албум с личната фотосесия</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="weddingExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Друго</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3 class="negotiation">По договаряне</h3>
+                                            <hr />
+                                            <h6>Ще изчислим цената спрямо вашите нужди</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-prom" style="display:none">
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Стандартен</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>300 лв</h3>
+                                            <hr />
+                                            <h6>Включва лична фотосесия на абитуриента/абитуриентката</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <button type="button" class="btn-warning text-white btn-section-submit" id="prom" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Плюс</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>500 лв</h3>
+                                            <hr />
+                                            <h6>Пакет Стандартен + отразяване на цялото събитие + снимки с гостите</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="promPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Екстра</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>700 лв</h3>
+                                            <hr />
+                                            <h6>Пакет Плюс + луксоцен албум с личната фотосесия</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="promExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Друго</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3 class="negotiation">По договаряне</h3>
+                                            <hr />
+                                            <h6>Ще изчислим цената спрямо вашите нужди</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-baptism" style="display:none">
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Стандартен</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>300 лв</h3>
+                                            <hr />
+                                            <h6>Включва отразяване на цялото събитие + снимки с гостите</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <button type="button" class="btn-warning text-white btn-section-submit" id="baptism" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Плюс</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>500 лв</h3>
+                                            <hr />
+                                            <h6>Пакет Стандартен + лична фотосесия на родителите и бебето</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="baptismPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Екстра</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>700 лв</h3>
+                                            <hr />
+                                            <h6>Пакет Плюс + албум на личната фотосесия</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="baptismExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Друго</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3 class="negotiation">По договаряне</h3>
+                                            <hr />
+                                            <h6>Ще изчислим цената спрямо вашите нужди</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-product" style="display:none">
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Стандартен</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>200 лв</h3>
+                                            <hr />
+                                            <h6>Кадри на бял фон (например за електронни магазини)</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <button type="button" class="btn-warning text-white btn-section-submit" id="product" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Артистичен</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>500 лв</h3>
+                                            <hr />
+                                            <h6>Кадри на продукта с артистични елементи (например за реклами, блогове и др.)</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="productArt" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Друго</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3 class="negotiation">По договаряне</h3>
+                                            <hr />
+                                            <h6>Ще изчислим цената спрямо вашите нужди</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <a class="bg-warning text-white btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-pregnant" style="display:none">
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Стандартен</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>150 лв</h3>
+                                            <hr />
+                                            <h6>Включва обработените сполучливите кадри</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <button type="button" class="btn-warning text-white btn-section-submit" id="pregnant" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-automotive" style="display:none">
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Стандартен</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>100 лв</h3>
+                                            <hr />
+                                            <h6>Включва обработените сполучливите кадри</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <button type="button" class="btn-warning text-white btn-section-submit" id="automotive" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-other" style="display:none">
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                    <div class="card mx-auto card-packet">
+                                        <div class="card-header text-center">
+                                            <h5>Друго</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h3>По договаряне</h3>
+                                            <hr />
+                                            <h6>Ще изчислим цената спрямо вашите нужди</h6>
+                                        </div>
+                                        <div class="card-footer text-center">
+                                            <button type="button" class="btn-warning text-white btn-section-submit" id="other" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="row mt-3">
                                 <div class="col-12 mx-auto">
                                     <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-1">ЗАПАЗИ</button>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="form-section section-2" style="display: none">
                             <div class="row row-section-title row-section-title-2">
@@ -422,6 +768,7 @@
         background: none;
         align-items: unset !important;
     }
+
     .hotel_booking_table .btn-section-submit, .btn-section-back {
         border: none;
         padding: 5px 10px;
@@ -496,6 +843,23 @@
         border-radius: 0 !important;
         font-weight: bold;
     }
+
+    .hotel_booking_table .other-types {
+        min-height: 300px;
+    }
+
+    .hotel_booking_table hr {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .hotel_booking_table .card-packet {
+        min-height: 300px;
+    }
+
+    .hotel_booking_table .card .negotiation {
+        font-size: 1.1rem;
+    }
     
     .btn-legend {
         width: 100px;
@@ -547,7 +911,7 @@
         margin: 5px;
     }
 
-    .card {
+    .card-weather {
         width: 148px;
         border-radius: 0 !important;
     }
@@ -572,6 +936,51 @@
     .hotel_booking_area .booking-container .col-summary-section .summary-section-photoshoot-type  #summary-photoshoot-type{
         font-weight: bold;
     }
+
+
+
+
+
+
+    @@media only screen and (max-width: 768px) {
+       .hotel_booking_table .card {
+            min-height: 250px;
+        }
+
+        .hotel_booking_table .card-header h5 {
+            font-size: 1.2rem;
+        }
+
+        .hotel_booking_table .card-body h3 {
+            font-size: 1.5rem;
+        }
+
+        .hotel_booking_table .card-body h6 {
+            font-size: .7rem;
+        }
+
+        .hotel_booking_table .card-body .negotiation {
+            font-size: 1.2rem;
+        }
+
+        .hotel_booking_table .section-title {
+            font-size: 1.8rem;
+        }
+
+        .hotel_booking_table .card .btn {
+            padding: 5px;
+            font-size: 1rem;
+        }
+
+        .hotel_booking_table .services .card {
+            min-height: 150px;
+        }
+    }
+
+
+
+
+
 </style>
 
 <script>
@@ -581,49 +990,14 @@
         //set photoshoot type on page load
         setPhotoshootTypeSummary($("#PhotoShootType").find("option:selected").text());
 
+        //filter sub-options 'Plus' and 'Extra'
+        filterPhotoshootTypeOptions();
+
         //calculate price on page load
         calculatePrice($("#PhotoShootType").val());
 
         //reset the value of reservation date on page load
         $("#ReservationDate").val("");
-
-        function forwardProgress(currentSectionNumber, isLastSection = false){
-            $(".col-progress-bar-section-" + currentSectionNumber).addClass("progress-bar-completed");
-            $(".col-progress-bar-section-" + currentSectionNumber).removeClass("progress-bar-current");
-
-            if(!isLastSection){
-                //increment the number to access the next section
-                let nextSectionNumber = currentSectionNumber + 1;
-                $(".col-progress-bar-section-" + nextSectionNumber).removeClass("progress-bar-pristine");
-                $(".col-progress-bar-section-" + nextSectionNumber).addClass("progress-bar-current");
-            }
-
-            nextSectionNumber = 0;
-        }
-
-        function backwardProgress(currentSectionNumber, isFirstSection){
-            $(".col-progress-bar-section-" + currentSectionNumber).addClass("progress-bar-current");
-            $(".col-progress-bar-section-" + currentSectionNumber).removeClass("progress-bar-completed");
-
-            if (!isFirstSection) {
-                //increment the number to access the next section
-                let prevSectionNumber = currentSectionNumber - 1;
-                $(".col-progress-bar-section-" + prevSectionNumber).removeClass("progress-bar-completed");
-                $(".col-progress-bar-section-" + prevSectionNumber).addClass("progress-bar-current");
-            }
-
-            prevSectionNumber = 0;
-        }
-
-        //hide section one /services/ and show section two /location/
-        $(".btn-section-submit-seciton-1").click(function () {
-            $(".section-1").css("display", "none");
-            $(".section-2").css("display", "block");
-
-            forwardProgress(1, false);
-
-            isLocationValid();
-        });
 
         //show section one /services/ and hide section two /location/
         $(".btn-section-back-seciton-2").click(function () {
@@ -721,12 +1095,22 @@
             isPhotoshootTypeValid();
             setPhotoshootTypeSummary($(this).find("option:selected").text());
             calculatePrice($(this).val());
+
+            let photoshootPacket = mapPhotoshootToPacket($(this).val());
+            
+            //hide all packets
+            $(".row-photoshoot-packets").css("display", "none"); 
+
+            //show the current one
+            $(".row-photoshoot-packets-" + photoshootPacket).css("display", "flex");
         });
+
+        
 
         //set value to hidden region input on region option change
         //reset settlement value on each region change
         $("#Region").change(function () {
-            $("#RegionId").val($(this).val());
+            $("#RegionId").val($(this).val());   
             
             switch (locationType) {
                 case "popular":{
@@ -977,7 +1361,173 @@
             validateDoNotUpload();
         });
     });
-    
+
+
+
+
+
+    //SET PHOTOSHOOT PACKET
+
+    function setPhotoshootPacket(packet){
+        //get id of packed that is used in swtich statement
+        let packetName = packet.attr('id');
+        let photoshootEnum = 0;
+
+        //set photoshoot type based on selected packet
+        switch(packetName){
+            case "personal":{
+                photoshootEnum = 1;
+
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Лична фотосесия");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "personalPlus":{
+                photoshootEnum = 13;
+
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Лична фотосесия Plus");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+           
+            case "personalExtra": {
+                photoshootEnum = 14;
+
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Лична фотосесия Extra");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "pregnant": {
+                photoshootEnum = 2;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Фотосеися за бременни");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "wedding": {
+                photoshootEnum = 3;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Сватба");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+            
+            case "weddingPlus": {
+                photoshootEnum = 4;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Сватба Plus");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "weddingExtra": {
+                photoshootEnum = 15;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Сватба Extra");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "prom": {
+                photoshootEnum = 5;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Абитуриентски бал");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "promPlus": {
+                photoshootEnum = 16;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Абитуриентски бал Plus");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "promExtra": {
+                photoshootEnum = 17;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Абитуриентски бал Extra");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "event": {
+                photoshootEnum = 8;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Събитие");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "automotive": {
+                photoshootEnum = 9;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Автомобил");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "other": {
+                photoshootEnum = 10;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Друг");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "product": {
+                photoshootEnum = 11;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Продукт");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "baptism": {
+                photoshootEnum = 12;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Свето кръщене");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "baptismPlus": {
+                photoshootEnum = 18;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Свето кръщене Plus");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+
+            case "baptismExtra": {
+                photoshootEnum = 19;
+                $("#PhotoShootType").val(photoshootEnum);
+                setPhotoshootTypeSummary("Свето кръщене Extra");
+                calculatePrice(photoshootEnum);
+                break;
+            }
+        }
+
+        console.log($("#PhotoShootType").val());
+
+        //hide section one /services/ and show section two /location/
+        $(".section-1").css("display", "none");
+        $(".section-2").css("display", "block");
+
+        //forward progreess in the progress bar
+        forwardProgress(1, false);
+
+        //validate location section on load
+        isLocationValid();
+    }
+
     
     
     
@@ -1488,6 +2038,40 @@
 
 
 
+    //CONTROL PROGRESS BAR
+
+    function forwardProgress(currentSectionNumber, isLastSection = false) {
+        $(".col-progress-bar-section-" + currentSectionNumber).addClass("progress-bar-completed");
+        $(".col-progress-bar-section-" + currentSectionNumber).removeClass("progress-bar-current");
+
+        if (!isLastSection) {
+            //increment the number to access the next section
+            let nextSectionNumber = currentSectionNumber + 1;
+            $(".col-progress-bar-section-" + nextSectionNumber).removeClass("progress-bar-pristine");
+            $(".col-progress-bar-section-" + nextSectionNumber).addClass("progress-bar-current");
+        }
+
+        nextSectionNumber = 0;
+    }
+
+    function backwardProgress(currentSectionNumber, isFirstSection) {
+        $(".col-progress-bar-section-" + currentSectionNumber).addClass("progress-bar-current");
+        $(".col-progress-bar-section-" + currentSectionNumber).removeClass("progress-bar-completed");
+
+        if (!isFirstSection) {
+            //decrement the number to access the previous section
+            let prevSectionNumber = currentSectionNumber - 1;
+            $(".col-progress-bar-section-" + prevSectionNumber).removeClass("progress-bar-completed");
+            $(".col-progress-bar-section-" + prevSectionNumber).addClass("progress-bar-current");
+        }
+
+        prevSectionNumber = 0;
+    }
+
+
+
+
+
     //CALCULATE PRICE
 
     function calculatePrice(photoshootType, fuelPrice = 0) {
@@ -1566,5 +2150,32 @@
     function formatSelectedDateInBulgarianFormat(selectedDate) {
         let selectedDateSplit = selectedDate.split('.');
         return `${selectedDateSplit[0]}.${selectedDateSplit[1]}.${new Date().getUTCFullYear()}`;
+    }
+
+    function mapPhotoshootToPacket(photoshootId) {
+        switch (photoshootId) {
+            case "1": return "personal";
+            case "2": return "pregnant";
+            case "3": return "wedding";
+            case "5": return "prom";
+            case "8": return "event";
+            case "9": return "automotive";
+            case "10": return "other";
+            case "11": return "product";
+            case "12": return "baptism";
+        }
+    }
+
+
+    function filterPhotoshootTypeOptions(){
+        $(".list .option").each(function () {
+            // Get the text of the current option
+            let optionText = $(this).text();
+            
+            // Check if it contains "Plus" or "Extra"
+            if (optionText.includes("Plus") || optionText.includes("Extra")) {
+                $(this).css("display", "none"); // Hide the option
+            }
+        });
     }
 </script>
