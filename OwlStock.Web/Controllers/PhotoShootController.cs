@@ -70,21 +70,7 @@ namespace OwlStock.Web.Controllers
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
             };
 
-            switch (photoShootType)
-            {
-                case PhotoShootType.Wedding:
-                case PhotoShootType.Prom:
-                case PhotoShootType.Baptism:
-                case PhotoShootType.Event:
-                {
-                    return View("ReserveEvent", dto);
-                }
-                default:
-                {
-                    return View("_Error", "Страницата не е намерена");
-                }
-            }
-
+            return View("ReserveEvent", dto);
         }
 
         [HttpPost]
