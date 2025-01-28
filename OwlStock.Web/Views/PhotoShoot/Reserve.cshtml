@@ -685,6 +685,11 @@
                                     <button type="submit" class="btn btn-warning btn-lg text-white btn-submit">РЕЗЕРВАЦИЯ</button>
                                 </div>
                             </div>
+                            <div class="row mt-5">
+                                <div class="col-12 mx-auto">
+                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-6">НАЗАД</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1085,8 +1090,8 @@
         });
 
         $(".btn-section-back-seciton-6").click(function () {
-            $(".section-5").css("display", "none");
-            $(".section-6").css("display", "block");
+            $(".section-5").css("display", "block");
+            $(".section-6").css("display", "none");
 
             backwardProgress(5, false);
 
