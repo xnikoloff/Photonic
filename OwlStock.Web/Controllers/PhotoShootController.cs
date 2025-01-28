@@ -70,7 +70,7 @@ namespace OwlStock.Web.Controllers
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
             };
 
-            return View("ReserveEvent", dto);
+            return View("Reserve", dto);
         }
 
         [HttpPost]
