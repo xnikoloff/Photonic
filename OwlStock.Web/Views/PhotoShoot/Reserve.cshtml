@@ -1267,10 +1267,6 @@
             setLocationPlaceSummary($(this).val());
         });
 
-        $("#GoogleMapsLink").change(function () {
-            isLocationValid();
-        });
-
         $(".btn-time-slot").click(function () {
             if($(this).hasClass("time-slot-available")){
                 //first, remove the bg-dark class of all time slot buttons
@@ -1604,7 +1600,7 @@
 
     //validate custom location
     function isCustomLocationValid(){
-        if (isRegionValid() && isSettlementsValid() && isUserPlaceValid() && isGoogleMapsLinkValid()) {
+        if (isRegionValid() && isSettlementsValid() && isUserPlaceValid()) {
             $(".btn-section-submit-seciton-2").prop("disabled", false);
             return true;
         }
@@ -1617,13 +1613,6 @@
 
     function isUserPlaceValid() {
         if ($("#UserPlace").val() != "" && $("#UserPlace").val() != undefined) {
-            return true;
-        }
-        return false;
-    }
-
-    function isGoogleMapsLinkValid() {
-        if ($("#GoogleMapsLink").val() != "" && $("#GoogleMapsLink").val() != undefined) {
             return true;
         }
         return false;
