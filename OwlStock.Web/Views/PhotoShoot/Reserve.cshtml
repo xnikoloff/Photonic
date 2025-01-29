@@ -167,7 +167,7 @@
                                         <div class="card-body text-center">
                                             <h3>700 лв</h3>
                                             <hr />
-                                            <h6>Пакет Стандартен + лична фотосесия на младоженците</h6>
+                                            <h6>Пакет Стандартен + индивидуална фотосесия на младоженците</h6>
                                         </div>
                                         <div class="card-footer text-center">
                                             <a class="bg-warning text-white btn-section-submit" id="weddingPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
@@ -182,7 +182,7 @@
                                         <div class="card-body text-center">
                                             <h3>900 лв</h3>
                                             <hr />
-                                            <h6>Пакет Плюс + луксоцен сватбен албум с личната фотосесия</h6>
+                                            <h6>Пакет Плюс + луксоцен сватбен албум с индивидуалната фотосесия</h6>
                                         </div>
                                         <div class="card-footer text-center">
                                             <a class="bg-warning text-white btn-section-submit" id="weddingExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
@@ -214,7 +214,7 @@
                                         <div class="card-body text-center">
                                             <h3>300 лв</h3>
                                             <hr />
-                                            <h6>Включва лична фотосесия на абитуриента/абитуриентката</h6>
+                                            <h6>Включва индивидуална фотосесия на абитуриента/абитуриентката</h6>
                                         </div>
                                         <div class="card-footer text-center">
                                             <button type="button" class="btn-warning text-white btn-section-submit" id="prom" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
@@ -244,7 +244,7 @@
                                         <div class="card-body text-center">
                                             <h3>700 лв</h3>
                                             <hr />
-                                            <h6>Пакет Плюс + луксоцен албум с личната фотосесия</h6>
+                                            <h6>Пакет Плюс + луксоцен албум с индивидуалната фотосесия</h6>
                                         </div>
                                         <div class="card-footer text-center">
                                             <a class="bg-warning text-white btn-section-submit" id="promExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
@@ -291,7 +291,7 @@
                                         <div class="card-body text-center">
                                             <h3>500 лв</h3>
                                             <hr />
-                                            <h6>Пакет Стандартен + лична фотосесия на родителите и бебето</h6>
+                                            <h6>Пакет Стандартен + индивидуална фотосесия на родителите и бебето</h6>
                                         </div>
                                         <div class="card-footer text-center">
                                             <a class="bg-warning text-white btn-section-submit" id="baptismPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
@@ -306,7 +306,7 @@
                                         <div class="card-body text-center">
                                             <h3>700 лв</h3>
                                             <hr />
-                                            <h6>Пакет Плюс + албум на личната фотосесия</h6>
+                                            <h6>Пакет Плюс + албум на индивидуалната фотосесия</h6>
                                         </div>
                                         <div class="card-footer text-center">
                                             <a class="bg-warning text-white btn-section-submit" id="baptismExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
@@ -338,7 +338,7 @@
                                         <div class="card-body text-center">
                                             <h3>200 лв</h3>
                                             <hr />
-                                            <h6>Кадри на бял фон (например за електронни магазини)</h6>
+                                            <h6>Кадри на продукта на бял фон (например за електронни магазини)</h6>
                                         </div>
                                         <div class="card-footer text-center">
                                             <button type="button" class="btn-warning text-white btn-section-submit" id="product" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
@@ -1379,21 +1379,21 @@
         switch(packetName){
             case "personal":{
                 photoshootEnum = 1;
-                setPhotoshootTypeSummary("Лична фотосесия");
+                setPhotoshootTypeSummary("Индивидуална фотосесия");
                 calculatePrice(photoshootEnum);
                 break;
             }
 
             case "personalPlus":{
                 photoshootEnum = 13;
-                setPhotoshootTypeSummary("Лична фотосесия Plus");
+                setPhotoshootTypeSummary("Индивидуална фотосесия Plus");
                 calculatePrice(photoshootEnum);
                 break;
             }
            
             case "personalExtra": {
                 photoshootEnum = 14;
-                setPhotoshootTypeSummary("Лична фотосесия Extra");
+                setPhotoshootTypeSummary("Индивидуална фотосесия Extra");
                 calculatePrice(photoshootEnum);
                 break;
             }

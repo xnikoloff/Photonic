@@ -5,7 +5,7 @@ namespace OwlStock.Domain.Enumerations
 {
     public enum PhotoShootType
     {
-        [Display(Name = "Лична фотосесия")]
+        [Display(Name = "Индивидуална фотосесия")]
         Personal = 1,
 
         [Display(Name = "Фотосесия за бременни")]
@@ -41,10 +41,10 @@ namespace OwlStock.Domain.Enumerations
         [Display(Name = "Свето кръщение")]
         Baptism = 12,
 
-        [Display(Name = "Лична фотосесия Plus")]
+        [Display(Name = "Индивидуална фотосесия Plus")]
         PersonalPlus = 13,
 
-        [Display(Name = "Лична фотосесия Extra")]
+        [Display(Name = "Индивидуална фотосесия Extra")]
         PersonalExtra = 14,
 
         [Display(Name = "Сватба Extra")]

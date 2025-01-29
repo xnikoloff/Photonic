@@ -18,7 +18,7 @@
     <div class="packet">
         <div class="row">
             <div class="col-12">
-                <h1 class="section-title">Пакети <span class="text-warning">Лична фотосесия</span></h1>
+                <h1 class="section-title">Пакети <span class="text-warning">Индивидуална фотосесия</span></h1>
                 <hr />
             </div>
         </div>
@@ -116,7 +116,7 @@
                     <div class="card-body text-center">
                         <h1>700 лв</h1>
                         <hr />
-                        <h5>Пакет Стандартен + лична фотосесия на младоженците</h5>
+                        <h5>Пакет Стандартен + индивидуална фотосесия на младоженците</h5>
                     </div>
                     <div class="card-footer text-center">
                         <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-warning btn-lg text-white">РЕЗЕРВИРАЙ</a>
@@ -131,7 +131,7 @@
                     <div class="card-body text-center">
                         <h1>900 лв</h1>
                         <hr />
-                        <h5>Пакет Плюс + луксоцен сватбен албум с личната фотосесия</h5>
+                        <h5>Пакет Плюс + луксоцен сватбен албум с индивидуалната фотосесия</h5>
                     </div>
                     <div class="card-footer text-center">
                         <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-warning btn-lg text-white">РЕЗЕРВИРАЙ</a>
@@ -158,7 +158,7 @@
     <div class="packet mt-5">
         <div class="row">
             <div class="col-12">
-                <h1 class="section-title">Пакети <span class="text-warning">Абитурентси бал</span></h1>
+                <h1 class="section-title">Пакети <span class="text-warning">Абитуриентски бал</span></h1>
                 <hr />
             </div>
         </div>
@@ -186,7 +186,7 @@
                     <div class="card-body text-center">
                         <h1>500 лв</h1>
                         <hr />
-                        <h5>Пакет Стандартен + лична фотосесия на абитуриента/абитуриентката</h5>
+                        <h5>Пакет Стандартен + индивидуална фотосесия на абитуриента/абитуриентката</h5>
                     </div>
                     <div class="card-footer text-center">
                         <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-warning btn-lg text-white">РЕЗЕРВИРАЙ</a>
@@ -201,7 +201,7 @@
                     <div class="card-body text-center">
                         <h1>700 лв</h1>
                         <hr />
-                        <h5>Пакет Плюс + луксоцен албум с личната фотосесия</h5>
+                        <h5>Пакет Плюс + луксоцен албум с индивидуалната фотосесия</h5>
                     </div>
                     <div class="card-footer text-center">
                         <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-warning btn-lg text-white">РЕЗЕРВИРАЙ</a>
@@ -256,7 +256,7 @@
                     <div class="card-body text-center">
                         <h1>500 лв</h1>
                         <hr />
-                        <h5>Пакет Стандартен + лична фотосесия на родителите и бебето</h5>
+                        <h5>Пакет Стандартен + индивидуална фотосесия на родителите и бебето</h5>
                     </div>
                     <div class="card-footer text-center">
                         <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-warning btn-lg text-white">РЕЗЕРВИРАЙ</a>
@@ -271,10 +271,65 @@
                     <div class="card-body text-center">
                         <h1>700 лв</h1>
                         <hr />
-                        <h5>Пакет Плюс + албум на личната фотосесия</h5>
+                        <h5>Пакет Плюс + албум на индивидуалната фотосесия</h5>
                     </div>
                     <div class="card-footer text-center">
                         <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-warning btn-lg text-white">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Друго</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1 class="negotiation">По договаряне</h1>
+                        <hr />
+                        <h5>Ще изчислим цената спрямо вашите нужди</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-warning btn-lg text-white">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="packet mt-5 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="section-title">Пакети <span class="text-warning">Продукт</span></h1>
+                <hr />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Стандартен</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1>100 лв</h1>
+                        <hr />
+                        <h5>Кадри на продукта на бял фон (например за електронни магазини)</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-warning btn-lg text-white">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Плюс</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1>500 лв</h1>
+                        <hr />
+                        <h5>Кадри на продукта с артистични елементи (например за реклами, блогове и др.)</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-warning btn-lg text-white">РЕЗЕРВИРАЙ</a>
                     </div>
                 </div>
             </div>
