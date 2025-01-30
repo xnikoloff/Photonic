@@ -1,7 +1,7 @@
 ﻿@model bool
 
 <div class="row row-portfolio">
-    <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-wedding">
+    <div class="col-12 col-md-6 text-center col-portfolio col-wedding">
         <div class="portfolio-content-wrap">
             <h1>Сватба</h1>
             <p>Вашата сватба през нашия обектив</p>
@@ -9,7 +9,7 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Wedding" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-portrait">
+    <div class="col-12 col-md-6 text-center col-portfolio col-portrait">
         <div class="portfolio-content-wrap">
             <h1>Портрет</h1>
             <p>Превърнете се в модел</p>
@@ -17,7 +17,7 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Portrait" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-baptism">
+    <div class="col-12 col-md-6 text-center col-portfolio col-baptism">
         <div class="portfolio-content-wrap">
             <h1>Свето кръщение</h1>
             <p>Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение.</p>
@@ -25,7 +25,7 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Baptism" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-prom">
+    <div class="col-12 col-md-6 text-center col-portfolio col-prom">
         <div class="portfolio-content-wrap">
             <h1>Абитуриентски бал</h1>
             <p>Ще създадем красиви и стилни снимки, които ще Ви напомнят за този вълнуващ момент.</p>
@@ -33,7 +33,7 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Prom" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-automobile">
+    <div class="col-12 col-md-6 text-center col-portfolio col-automobile">
         <div class="portfolio-content-wrap">
             <h1>Автомобил</h1>
             <p>Нека автомобилът Ви бъде звездата!</p>
@@ -41,7 +41,7 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Automotive" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Automotive" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-product">
+    <div class="col-12 col-md-6 text-center col-portfolio col-product">
         <div class="portfolio-content-wrap">
             <h1>Продукт</h1>
             <p>Ще представим продуктовия Ви каталог в най-добра светлина.</p>
@@ -49,7 +49,7 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Product" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-pregnancy">
+    <div class="col-12 col-md-6 text-center col-portfolio col-pregnancy">
         <div class="portfolio-content-wrap">
             <h1>Фотосесия за бременни</h1>
             <p>Красотата на бремеността Ви завинаги с Вас</p>
@@ -57,7 +57,7 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Pregnancy" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Pregnant" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 border border-white border-5 text-center col-portfolio col-kids">
+    <div class="col-12 col-md-6 text-center col-portfolio col-kids">
         <div class="portfolio-content-wrap">
             <h1>Друго</h1>
             <p>Имате идея? Нека я реализираме заедно!</p>
@@ -74,6 +74,7 @@
 
     .row-portfolio .col-portfolio {
         background-size: cover;
+        border: 20px solid #fff;
     }
 
     .row-portfolio .col-portfolio h1 {
