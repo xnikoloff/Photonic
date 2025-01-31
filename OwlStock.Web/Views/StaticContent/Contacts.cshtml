@@ -1,4 +1,6 @@
-﻿@{
+﻿@model SendInquiryEmailTemplateDTO
+
+@{
     ViewData["Title"] = "Контакти";
 }
 
@@ -47,21 +49,21 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <form class="row contact_form" asp-action="SendEmailQuery" asp-controller="Query" method="post" id="contactForm" novalidate="novalidate">
+                <form class="row contact_form" asp-action="SendInquiry" asp-controller="Inquiry" method="POST" id="contactForm" novalidate="novalidate">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Име">
+                            <input type="text" class="form-control" asp-for="Name" placeholder="Име">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Имейл">
+                            <input type="email" class="form-control" asp-for="From" placeholder="Имейл">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Тема">
+                            <input type="text" class="form-control" id="subject" asp-for="Topic" placeholder="Тема">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Съобщение"></textarea>
+                            <textarea class="form-control" asp-for="Content" rows="1" placeholder="Съобщение"></textarea>
                         </div>
                     </div>
                     <div class="col-md-12 text-right">

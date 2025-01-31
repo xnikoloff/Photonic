@@ -6,6 +6,7 @@ using System.Net.Mail;
 using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
 using OwlStock.Infrastructure.Common.EmailTemplates;
 using OwlStock.Infrastructure.Common.EmailTemplates.Account;
+using OwlStock.Infrastructure.Common.EmailTemplates.Inquiry;
 
 namespace OwlStock.Services
 {
@@ -27,10 +28,13 @@ namespace OwlStock.Services
             _smtpKey = _configuration.GetValue<string>("Smpt:Key") ?? throw new NullReferenceException("Smtp:Key is null");
         }
 
+        public async Task SendInquiry(SendInquiryEmailTemplateDTO dto)
+        {
+            await Send(dto);
+        }
+
         public async Task Send(EmailTemplateBaseDTO dto)
         {
-            
-
             SmtpClient client = new(_smtpHost)
             {
                 Port = _smtpPort,
@@ -51,7 +55,7 @@ namespace OwlStock.Services
                     new
                     (
                         "hristiyan.at.nikoloff@gmail.com",
-                        dto.Recipient ?? throw new NullReferenceException($"{nameof(dto.Recipient)} is null"),
+                        dto?.Recipient ?? throw new NullReferenceException($"{nameof(dto.Recipient)} is null"),
                         dto.Topic,
                         GetTemplate(dto)
                     ),
@@ -76,7 +80,7 @@ namespace OwlStock.Services
                 {
                     new
                     (
-                        "hristiyan.at.nikoloff@gmail.com",
+                        dto.From,
                         dto.Recipient ?? throw new NullReferenceException($"{nameof(dto.Recipient)} is null"),
                         dto.Topic,
                         GetTemplate(dto)
@@ -120,9 +124,9 @@ namespace OwlStock.Services
                 case EmailTemplate.CancelPhotoShoot:
                 {
                     return PhotoShootEmailTemplates.CancelPhotoShootTemplate
-                        (
-                            ((UpdatePhotoShootEmailTemplateDTO)dto).PhotoShootId
-                        );
+                    (
+                        ((UpdatePhotoShootEmailTemplateDTO)dto).PhotoShootId
+                    );
                 }
 
                 case EmailTemplate.CreateAccount:
@@ -133,6 +137,15 @@ namespace OwlStock.Services
                         ((CreateAccountEmailTemplateDTO)dto)?.Password ?? ""
                     );
                 }
+
+                case EmailTemplate.SendInquiry:
+                    {
+                        return InquiryEmailTemplates.SendInquiryTemplate
+                        (
+                            ((SendInquiryEmailTemplateDTO)dto)?.Name ?? "",
+                            ((SendInquiryEmailTemplateDTO)dto)?.Content ?? ""
+                        );
+                    }
 
                 default:
                 {
