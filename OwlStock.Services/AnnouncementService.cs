@@ -11,7 +11,7 @@ namespace OwlStock.Services
         private readonly OwlStockDbContext _context;
 
         public AnnouncementService(OwlStockDbContext context)
-        {
+        {   
             _context = context;
         }
 

@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<Announcement>
 
 <div class="container-fluid container-news">
-
     @foreach(Announcement announcement in Model)
     {
         <div class="row row-news py-1 bg-dark text-white text-center">
@@ -10,5 +9,12 @@
             </div>
         </div>
     }
-    
 </div>
+
+<style>
+    @@media only screen and (max-width: 768px) {
+        .container-news .row-news .col-news h4{
+            font-size: 1rem;
+        }
+    }
+</style>

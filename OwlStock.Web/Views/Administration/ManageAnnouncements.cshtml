@@ -13,8 +13,6 @@
                     <tr>
                         <th>Content</th>
                         <th>Created</th>
-                        <th>Edited</th>
-                        <th>Visible</th>
                         <th colspan="2">Control</th>
                     </tr>
                 </thead>
@@ -24,18 +22,18 @@
                         <tr>
                             <td>@announcement.Content</td>
                             <td>@announcement.CreatedOn.ToString("dd.MM.yyyy")</td>
-                            <td>@announcement.EditedOn.ToString("dd.MM.yyyy")</td>
-                            <td>@announcement.IsActive</td>
-                            @if (announcement.IsActive)
-                            {
-                                <td><a asp-action="ManageAnnouncementsVisibility" asp-controller="Administration" asp-route-id="@announcement.Id" class="btn btn-danger">Deactivate</a></td>
-                            }
-                            else
-                            {
-                                <td><a asp-action="ManageAnnouncementsVisibility" asp-controller="Administration" asp-route-id="@announcement.Id" class="btn btn-success text-white">Activate</a></td>
-                            }
-
-                            <td><a asp-action="UpdateAnnouncement" asp-controller="Administration" asp-route-id="@announcement.Id" class="btn btn-info text-white">Update</a></td>
+                            
+                                <td>
+                                @if (announcement.IsActive)
+                                {
+                                    <a asp-action="ManageAnnouncementsVisibility" asp-controller="Administration" asp-route-id="@announcement.Id" class="btn btn-danger">Deactivate</a>
+                                }
+                                else
+                                {
+                                    <a asp-action="ManageAnnouncementsVisibility" asp-controller="Administration" asp-route-id="@announcement.Id" class="btn btn-success text-white">Activate</a>
+                                }
+                                <a asp-action="UpdateAnnouncement" asp-controller="Administration" asp-route-id="@announcement.Id" class="btn btn-info text-white">Update</a>
+                            </td>
                         </tr>
                     }
                 </tbody>
