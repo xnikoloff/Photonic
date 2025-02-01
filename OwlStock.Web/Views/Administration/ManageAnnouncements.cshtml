@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Announcement>
+
+<div class="container py-5 my-5">
+    <div class="row">
+        <div class="col-4">
+            <a asp-action="CreateAnnouncement" asp-controller="Administration" class="btn btn-warning text-white">Create</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Content</th>
+                        <th>Created</th>
+                        <th>Edited</th>
+                        <th>Visible</th>
+                        <th colspan="2">Control</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(Announcement announcement in Model)
+                    {
+                        <tr>
+                            <td>@announcement.Content</td>
+                            <td>@announcement.CreatedOn.ToString("dd.MM.yyyy")</td>
+                            <td>@announcement.EditedOn.ToString("dd.MM.yyyy")</td>
+                            <td>@announcement.IsActive</td>
+                            @if (announcement.IsActive)
+                            {
+                                <td><a asp-action="ManageAnnouncementsVisibility" asp-controller="Administration" asp-route-id="@announcement.Id" class="btn btn-danger">Deactivate</a></td>
+                            }
+                            else
+                            {
+                                <td><a asp-action="ManageAnnouncementsVisibility" asp-controller="Administration" asp-route-id="@announcement.Id" class="btn btn-success text-white">Activate</a></td>
+                            }
+
+                            <td><a asp-action="UpdateAnnouncement" asp-controller="Administration" asp-route-id="@announcement.Id" class="btn btn-info text-white">Update</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

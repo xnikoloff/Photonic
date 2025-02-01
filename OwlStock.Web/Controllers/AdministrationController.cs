@@ -24,6 +24,7 @@ namespace OwlStock.Web.Controllers
         private readonly IGalleryService _galleryService;
         private readonly IFileService _fileService;
         private readonly ITestimonyService _testimonyService;
+        private readonly IAnnouncementService _announcementService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
@@ -32,13 +33,14 @@ namespace OwlStock.Web.Controllers
         public AdministrationController(IPhotoShootService photoShootService, IPhotoService photoService, IGalleryService galleryService, 
             IFileService fileService, IWebHostEnvironment webHostEnvironment, UserManager<IdentityUser> userManager, 
             SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
-            ITestimonyService testimonyService)
+            ITestimonyService testimonyService, IAnnouncementService announcementService)
         {
             _photoShootService = photoShootService;
             _photoService = photoService;
             _galleryService = galleryService;
             _fileService = fileService;
             _testimonyService = testimonyService;
+            _announcementService = announcementService;
             _webHostEnvironment = webHostEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -396,6 +398,59 @@ namespace OwlStock.Web.Controllers
         {
             await _testimonyService.Unhide(id);
             return RedirectToAction(nameof(ManageTestimonies));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManageAnnouncements()
+        {
+            IEnumerable<Announcement> announcements = await _announcementService.GetAll();
+            return View(announcements);
+        }
+
+        [HttpGet]
+        public IActionResult CreateAnnouncement()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAnnouncement(Announcement announcement)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(announcement);
+            }
+
+            await _announcementService.Create(announcement, GetUserId());
+
+            return RedirectToAction(nameof(ManageAnnouncements));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateAnnouncement(Guid id)
+        {
+            
+            return View(await _announcementService.GetById(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAnnouncement(Announcement announcement)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(announcement);
+            }
+
+            await _announcementService.Update(announcement, GetUserId());
+
+            return RedirectToAction(nameof(ManageAnnouncements));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManageAnnouncementsVisibility(Guid id)
+        {
+            await _announcementService.ManageAnnouncementsVisibility(id, GetUserId());
+            return RedirectToAction(nameof(ManageAnnouncements));
         }
 
         private async Task<string> GetUserEmail()

@@ -28,6 +28,7 @@ namespace OwlStock.Infrastructure
         public DbSet<DynamicContentCategory>? DynamicContentCategories { get; set; }
         public DbSet<Place>? Places { get; set; }
         public DbSet<Testimony>? Testimonies { get; set; }
+        public DbSet<Announcement>? Announcements { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

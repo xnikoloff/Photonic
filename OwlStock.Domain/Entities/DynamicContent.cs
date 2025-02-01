@@ -24,7 +24,7 @@ namespace OwlStock.Domain.Entities
 
         public DynamicContentCategory? DynamicContentCategories { get; set; }
 
-        [ForeignKey(nameof(CreatedById))]
+        [ForeignKey(nameof(CreatedBy))]
         public string? CreatedById { get; set; }
         public IdentityUser? CreatedBy { get; set; }
 

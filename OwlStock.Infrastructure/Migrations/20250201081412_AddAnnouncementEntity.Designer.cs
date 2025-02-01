@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OwlStock.Infrastructure;
 
@@ -11,9 +12,11 @@ using OwlStock.Infrastructure;
 namespace OwlStock.Infrastructure.Migrations
 {
     [DbContext(typeof(OwlStockDbContext))]
-    partial class OwlStockDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250201081412_AddAnnouncementEntity")]
+    partial class AddAnnouncementEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,55 +227,6 @@ namespace OwlStock.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OwlStock.Domain.Entities.Announcement", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EditedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("EditedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("HiddenById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("HiddenOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UnhiddenById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("UnhiddenOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("EditedById");
-
-                    b.HasIndex("HiddenById");
-
-                    b.HasIndex("UnhiddenById");
-
-                    b.ToTable("Announcements");
-                });
-
             modelBuilder.Entity("OwlStock.Domain.Entities.City", b =>
                 {
                     b.Property<int>("Id")
@@ -408,20 +362,20 @@ namespace OwlStock.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ddf7c206-33e7-46cb-92fa-8870de247689"),
-                            CreatedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5558),
+                            Id = new Guid("b05cf253-06c9-4620-8ae9-7aeaf8657b21"),
+                            CreatedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(1632),
                             Name = "Технологии"
                         },
                         new
                         {
-                            Id = new Guid("49ef13c5-ad48-41e8-843b-4549623d9702"),
-                            CreatedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5563),
+                            Id = new Guid("ec522857-5fe7-4f39-9f7d-2eeb8fd49eaa"),
+                            CreatedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(1637),
                             Name = "Фототехника"
                         },
                         new
                         {
-                            Id = new Guid("dd72d869-ff3b-4ef3-ba70-f317b4233cbc"),
-                            CreatedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5564),
+                            Id = new Guid("17373c65-20f7-4f86-8aa6-16b62531c064"),
+                            CreatedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(1649),
                             Name = "Образователни"
                         });
                 });
@@ -691,7 +645,7 @@ namespace OwlStock.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("eef09539-2a8d-435c-a9d6-d326db074548"),
+                            Id = new Guid("b5cc1ce7-02cf-45c4-8b09-9b0a1ab76421"),
                             CityId = 8443,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Местност Метоха в Асеновград",
@@ -701,7 +655,7 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f8a6152e-d543-4d1e-8fc7-c694068eea99"),
+                            Id = new Guid("61f87f9c-eb57-44b8-b9b4-047cb2f8acfe"),
                             CityId = 8443,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Асеновата крепост в Асеновград",
@@ -711,7 +665,7 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("965d6886-7aa6-4e7a-8d8c-9b5d87a50669"),
+                            Id = new Guid("8fb84be5-421b-43ce-9b85-024f0d976a78"),
                             CityId = 12590,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Старият град на Пловдив",
@@ -721,7 +675,7 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b7c732e3-c483-4537-8c9b-e0c6e1ce7132"),
+                            Id = new Guid("d7c88ce1-fa08-434f-8211-575d6912614d"),
                             CityId = 11545,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Царският Дворец в село Куртово Конаре",
@@ -840,10 +794,10 @@ namespace OwlStock.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("743c8592-4b44-48c8-91ad-c211231269f7"),
-                            ApprovedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5918),
+                            Id = new Guid("c8bb265e-90ec-4a20-8830-a6c1eb0a6242"),
+                            ApprovedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2039),
                             Content = "Изключителен професионализъм и невероятни резултати! Снимките, които получихме, надминаха всичките ни очаквания. Фотографът беше много търпелив и внимателен към всеки детайл, което направи целия процес изключително приятен. Благодарим за прекрасните спомени, които ще останат завинаги с нас! Горещо препоръчвам на всеки, който търси качествена фотография!",
-                            CreatedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5918),
+                            CreatedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2038),
                             IdentityUserId = "2374faef-58dc-44fd-a6bd-e6773c61eb7d",
                             IsApproved = true,
                             IsHidden = false,
@@ -853,10 +807,10 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f0e3727d-a1b7-46eb-b900-71ab6aa1db92"),
-                            ApprovedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5931),
+                            Id = new Guid("4f3d1d58-6c95-4c8f-aa53-d1dd3857b99e"),
+                            ApprovedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2047),
                             Content = "За съжаление, услугата не отговори на очакванията ни. Комуникацията беше трудна, а снимките не изглеждаха професионално обработени. Не бих препоръчал на приятели.",
-                            CreatedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5930),
+                            CreatedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2047),
                             IdentityUserId = "2374faef-58dc-44fd-a6bd-e6773c61eb7d",
                             IsApproved = true,
                             IsHidden = false,
@@ -866,10 +820,10 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("152c5d36-022a-48de-bf95-76626d0855c5"),
+                            Id = new Guid("051bdfd5-26ae-442a-af4f-02cf8f65b1c3"),
                             Content = "Цената беше приемлива, но очаквахме малко повече внимание към детайлите. Ако търсите нещо средно като качество, това може да е подходяща опция.",
-                            CreatedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5933),
-                            HiddenOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5934),
+                            CreatedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2050),
+                            HiddenOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2050),
                             IdentityUserId = "2374faef-58dc-44fd-a6bd-e6773c61eb7d",
                             IsApproved = false,
                             IsHidden = true,
@@ -879,10 +833,10 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a3564b78-95f4-44c6-87ba-0e1e376d3a63"),
-                            ApprovedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5937),
+                            Id = new Guid("e7fcf46a-eb6c-4d37-93c0-a6185fe8389d"),
+                            ApprovedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2053),
                             Content = "Фотографът надмина всичките ни очаквания! Снимките са зашеметяващи – отлично качество и усет към детайла. Процесът беше лесен и приятен, а крайният резултат – повече от невероятен. Препоръчвам услугата на всеки, който иска да запази специалните си моменти по най-добрия начин!",
-                            CreatedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5936),
+                            CreatedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2053),
                             IdentityUserId = "2374faef-58dc-44fd-a6bd-e6773c61eb7d",
                             IsApproved = true,
                             IsHidden = false,
@@ -892,10 +846,10 @@ namespace OwlStock.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0df38219-4936-4343-9f66-2995de26791a"),
-                            ApprovedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5940),
+                            Id = new Guid("f628816c-a794-42fc-9c70-8cc4f0d6ee84"),
+                            ApprovedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2056),
                             Content = "Много сме доволни от услугата! Снимките са с високо качество и фотографът успя да улови красиви моменти. Единствено бихме искали малко по-бърза обработка на снимките. Като цяло, чудесно изживяване и бихме използвали услугата отново!",
-                            CreatedOn = new DateTime(2025, 2, 1, 8, 16, 5, 36, DateTimeKind.Utc).AddTicks(5940),
+                            CreatedOn = new DateTime(2025, 2, 1, 8, 14, 12, 147, DateTimeKind.Utc).AddTicks(2056),
                             IdentityUserId = "2374faef-58dc-44fd-a6bd-e6773c61eb7d",
                             IsApproved = true,
                             IsHidden = false,
@@ -1017,33 +971,6 @@ namespace OwlStock.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("OwlStock.Domain.Entities.Announcement", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "EditedBy")
-                        .WithMany()
-                        .HasForeignKey("EditedById");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "HiddenBy")
-                        .WithMany()
-                        .HasForeignKey("HiddenById");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UnhiddenBy")
-                        .WithMany()
-                        .HasForeignKey("UnhiddenById");
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("EditedBy");
-
-                    b.Navigation("HiddenBy");
-
-                    b.Navigation("UnhiddenBy");
                 });
 
             modelBuilder.Entity("OwlStock.Domain.Entities.City", b =>
