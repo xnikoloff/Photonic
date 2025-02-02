@@ -6,5 +6,6 @@ namespace OwlStock.Services.DTOs.DynamicContents
     {
         public List<DynamicContent>? DynamicContents { get; set; }
         public List<DynamicContentCategory>? DynamicContentCategories { get; set; }
+        public int PagesCount { get; set; }
     }
 }

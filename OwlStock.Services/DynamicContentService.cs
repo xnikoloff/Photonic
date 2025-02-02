@@ -202,6 +202,7 @@ namespace OwlStock.Services
             {
                 DynamicContents = dynamicContents,
                 DynamicContentCategories = dynamicContentCategories,
+                PagesCount = await CalculatePagesNumber()
             };
         }
 
@@ -227,6 +228,25 @@ namespace OwlStock.Services
             }
 
             return await _context.DynamicContentCategories.ToListAsync();
+        }
+
+        private async Task<int> CalculatePagesNumber()
+        {
+            if (_context.DynamicContents is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.DynamicContentCategories)} is null");
+            }
+
+            double total = await _context.DynamicContents.CountAsync();
+
+            if (total == 0)
+            {
+                return 0;
+            }
+
+            int result = (int)Math.Ceiling(total / _visibleContent);
+
+            return result;
         }
     }
 }

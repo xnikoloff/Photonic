@@ -36,38 +36,39 @@
                                 </div>
                             </div>
                             <div class="col-md-9">
-                            
-                                    <div class="blog_post mt-3">
-                                        <img src="~/resources/images/@(dynamicContent?.ImageName)" alt="">
-                                        <div class="blog_details">
-                                            <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h2>@dynamicContent?.Title</h2></a>
-                                            <p>@dynamicContent?.Description</p>
-                                            <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id" class="view_btn button_hover">Прочетете повече</a>
-                                        </div>
+                                <div class="blog_post mt-3">
+                                    <img src="~/resources/images/@(dynamicContent?.ImageName)" alt="">
+                                    <div class="blog_details">
+                                        <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h2>@dynamicContent?.Title</h2></a>
+                                        <p>@dynamicContent?.Description</p>
+                                        <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id" class="view_btn button_hover">Прочетете повече</a>
                                     </div>
-                            
+                                </div>
                             </div>
                         }
                     </article>
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
-                            <li class="page-item">
+                            <!--<li class="page-item">
                                 <a href="#" class="page-link" aria-label="Previous">
                                     <span aria-hidden="true">
                                         <span class="lnr lnr-chevron-left"></span>
                                     </span>
                                 </a>
-                            </li>
-                            <li class="page-item active" id="page-item-1"><a asp-action="AllByPage" asp-controller="DynamicContent" asp-route-pageNumber="1" class="page-link">1</a></li>
-                            <li class="page-item" id="page-item-2"><a asp-action="AllByPage" asp-controller="DynamicContent" asp-route-pageNumber="2" class="page-link">2</a></li>
-                            <li class="page-item" id="page-item-3"><a asp-action="AllByPage" asp-controller="DynamicContent" asp-route-pageNumber="3" class="page-link">3</a></li>
-                            <li class="page-item">
+                            </li>-->
+
+                            @for(int i = 1; i <= Model?.PagesCount; i++)
+                            {
+                                <li class="page-item active" id="page-item-@i"><a asp-action="AllByPage" asp-controller="DynamicContent" asp-route-pageNumber="@i" class="page-link">@i</a></li>
+                            }
+                            
+                            <!--<li class="page-item">
                                 <a href="#" class="page-link" aria-label="Next">
                                     <span aria-hidden="true">
                                         <span class="lnr lnr-chevron-right"></span>
                                     </span>
                                 </a>
-                            </li>
+                            </li>-->
                         </ul>
                     </nav>
                 </div>

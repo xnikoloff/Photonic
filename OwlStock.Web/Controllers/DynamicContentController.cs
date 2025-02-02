@@ -33,7 +33,8 @@ namespace OwlStock.Web.Controllers
         public async Task<IActionResult> AllByPage(int pageNumber = 1)
         {
             ViewData["PageNumber"] = pageNumber;
-            return View(nameof(All), await _dynamicContentService.GetAllByPage(pageNumber));
+            var all = await _dynamicContentService.GetAllByPage(pageNumber);
+            return View(nameof(All), all);
         }
 
         [HttpGet]
