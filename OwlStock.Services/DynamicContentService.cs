@@ -191,6 +191,7 @@ namespace OwlStock.Services
 
             List<DynamicContent> dynamicContents = await _context.DynamicContents
                 .Where(dc => dc.IsVisible)
+                .Include (dc => dc.CreatedBy)
                 .Skip((pageNumber * _visibleContent) - _visibleContent)
                 .Take(_visibleContent)
                 .ToListAsync();
