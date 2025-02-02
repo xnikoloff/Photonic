@@ -83,12 +83,13 @@ namespace OwlStock.Web.Controllers
                 ModelState.Remove("UserPlace");
             }
 
-            //return to the view if the ModelState is not vaild
+            //return error if ModelState is invalid
+            //There is a solid validation in the front end, so
+            //invalid model state  should not be possible
             if (!ModelState.IsValid)
             {
-                dto.Calendar = await _photoShootService.GetPhotoShootsCalendar();
-                dto.ServicedRegions = (await _settlementService.GetServicedRegion()).ToList();
-                return View(dto);
+                return View("Error", "Съжаляваме, нещо се обърка повреме на резервирането...");
+                
             }
 
             //Photoshoot description is required when photshoot type is Other

@@ -2058,6 +2058,10 @@
     //CALCULATE PRICE
 
     function calculatePrice(photoshootType, fuelPrice = 0) {
+        if(photoshootType == "" || photoshootType == undefined){
+            return;
+        }
+
         $.ajax({
             contentType: 'application/json',
             url: "@Url.Action("photoshootPrice", "Calculations")",

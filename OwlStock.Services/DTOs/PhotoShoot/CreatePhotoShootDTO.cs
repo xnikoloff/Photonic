@@ -30,7 +30,8 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         [MaxLength(ModelConstraints.PersonPhoneMaxLenth)]
         public string? PersonPhone { get; set; }
 
-        [Required(ErrorMessage = "Дата е задължително поле")]
+        //it is required but is valided in the controller,
+        //not with attribute
         [Display(Name = "Дата")]
         public DateTime ReservationDate { get; set; } = DateTime.Now;
 
@@ -42,7 +43,6 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         [MaxLength(ModelConstraints.PhotoShootTypeDescriptionMaxLength)]
         public string? PhotoShootTypeDescription { get; set; }
 
-        [Required]
         public bool IsPlaceSelected { get; set; }
 
         [Required]
@@ -68,7 +68,6 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         [MaxLength(ModelConstraints.GoogleMapsLinkDescriptionMxLength)]
         public string? GoogleMapsLink { get; set; }
 
-        [Required]
         [Display(Name = "Не желая да получа снимките си чрез сайта на Photon")]
         public bool DoNotUploadPhotos { get; set; }
 
