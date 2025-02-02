@@ -9,6 +9,8 @@ namespace OwlStock.Services
 {
     public class DynamicContentService : IDynamicContentService
     {
+        private const int _visibleContent = 4;
+
         private readonly OwlStockDbContext _context;
         private readonly IFileService _fileService;
         private readonly ICalculationsService _calculationsService;
@@ -167,6 +169,39 @@ namespace OwlStock.Services
             {
                 DynamicContents = dynamicContents,
                 DynamicContentCategories = dynamicContentCategories
+            };
+        }
+
+        public async Task<AllDynamicContentsDTO> GetAllByPage(int pageNumber)
+        {
+            if (_context.DynamicContents is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+            }
+
+            if (_context.DynamicContentCategories is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+            }
+
+            if (pageNumber <= 0) 
+            { 
+                throw new ArgumentOutOfRangeException(nameof(pageNumber));
+            }
+
+            List<DynamicContent> dynamicContents = await _context.DynamicContents
+                .Where(dc => dc.IsVisible)
+                .Skip((pageNumber * _visibleContent) - _visibleContent)
+                .Take(_visibleContent)
+                .ToListAsync();
+
+            List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
+
+            
+            return new AllDynamicContentsDTO()
+            {
+                DynamicContents = dynamicContents,
+                DynamicContentCategories = dynamicContentCategories,
             };
         }
 

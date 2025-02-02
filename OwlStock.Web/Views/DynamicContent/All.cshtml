@@ -27,12 +27,6 @@
                         {
                             <div class="col-md-3">
                                 <div class="blog_info text-right">
-                                    <!--<div class="post_tag">
-                                        <a href="#">Food,</a>
-                                        <a href="#">Technology,</a>
-                                        <a href="#">Politics,</a>
-                                        <a href="#">Lifestyle</a>
-                                    </div>-->
                                     <ul class="blog_meta list_style">
                                         <li><a>@dynamicContent?.CreatedBy?.Email<i class="lnr lnr-user"></i></a></li>
                                         <li><a>@dynamicContent?.CreatedOn.ToString("dd.MM.yyy г hh:mm ч")<i class="lnr lnr-calendar-full"></i></a></li>
@@ -64,11 +58,9 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="page-item"><a href="#" class="page-link">01</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">02</a></li>
-                            <li class="page-item"><a href="#" class="page-link">03</a></li>
-                            <li class="page-item"><a href="#" class="page-link">04</a></li>
-                            <li class="page-item"><a href="#" class="page-link">09</a></li>
+                            <li class="page-item active" id="page-item-1"><a asp-action="AllByPage" asp-controller="DynamicContent" asp-route-pageNumber="1" class="page-link">1</a></li>
+                            <li class="page-item" id="page-item-2"><a asp-action="AllByPage" asp-controller="DynamicContent" asp-route-pageNumber="2" class="page-link">2</a></li>
+                            <li class="page-item" id="page-item-3"><a asp-action="AllByPage" asp-controller="DynamicContent" asp-route-pageNumber="3" class="page-link">3</a></li>
                             <li class="page-item">
                                 <a href="#" class="page-link" aria-label="Next">
                                     <span aria-hidden="true">
@@ -155,3 +147,20 @@
         }
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+        highlitActivePage();
+    });
+
+    function highlitActivePage() {
+        let activePage = @(Html.Raw(ViewData["pageNumber"]))
+        console.log(activePage);
+        
+        //remove all pages active class
+        $(".page-item").removeClass("active");
+
+        //add active class to the current page only
+        $("#page-item-" + activePage).addClass("active");
+    }
+</script>

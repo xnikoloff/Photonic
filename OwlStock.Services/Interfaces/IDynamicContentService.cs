@@ -8,6 +8,7 @@ namespace OwlStock.Services.Interfaces
         Task<DynamicContent> GetById(Guid id);
         Task<AllDynamicContentsDTO> GetAll();
         Task<AllDynamicContentsDTO> GetAllByCategory(Guid id);
+        Task<AllDynamicContentsDTO> GetAllByPage(int pageNumber);
         Task<IEnumerable<DynamicContent>> GetLastFour();
         Task<IEnumerable<DynamicContentCategory>> GetAllDynamicContentCategories();
         Task<DynamicContent> Create(CreateDynamicContentDTO dto);
