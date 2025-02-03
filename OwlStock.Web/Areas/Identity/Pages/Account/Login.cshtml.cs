@@ -140,25 +140,32 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                     }
 
                     var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                    
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);
                     }
-                    /*if (result.RequiresTwoFactor)
-                    {
-                        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                    }*/
 
                     else
                     {
                         ModelState.AddModelError(string.Empty, $"Несъществуващ имейл или неправилна парола.");
                     }
+
+                    /*if (result.RequiresTwoFactor)
+                    {
+                        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    }*/
+                }
+
+                else
+                {
+                    ModelState.AddModelError(string.Empty, $"Несъществуващ имейл или неправилна парола.");
                 }
 
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                
+
                 return Page();
                 
             }
