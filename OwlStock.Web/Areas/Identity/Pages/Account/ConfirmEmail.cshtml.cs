@@ -2,11 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -29,9 +25,9 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
-        public async Task<IActionResult> OnGetAsync(string userId, string code)
+        public async Task<IActionResult> OnGetAsync(string userId, string encodedToken)
         {
-            if (userId == null || code == null)
+            if (userId == null || encodedToken == null)
             {
                 return RedirectToPage("/Index");
             }
@@ -42,9 +38,9 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                 return NotFound($"Unable to load user with ID '{userId}'.");
             }
 
-            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+            encodedToken = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(encodedToken));
+            var result = await _userManager.ConfirmEmailAsync(user, encodedToken);
+            StatusMessage = result.Succeeded ? "Профилът Ви е потвърден" : "Получи се грешка при потвърждението на профилът Ви";
             return Page();
         }
     }

@@ -1,23 +1,39 @@
 ﻿@page
 @model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Register confirmation";
+    ViewData["Title"] = "Профилът е създаден успешно";
 }
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
+<div class="account-confirmation-wrap">
+    <div class="row row-account-confirmation row-account-confirmation-icon">
+        <div class="col-12 col-account-confirmation-icon text-center text-warning">
+            <h1><i class="fa-regular fa-thumbs-up"></i></h1>
+        </div>
+    </div>
+    <div class="row row-account-confirmation row-account-confirmation-text">
+        <div class="col-12 col-account-confirmation-text text-center">
+            <h1>@ViewData["Title"]</h1>
+        
+            <p>Отворете линка от имейла, който Ви изпратихме, за да потвърдите профила си</p>
+        
+        </div>
+    </div>
+</div>
+
+<style>
+    .account-confirmation-wrap {
+        padding: 150px 0;
     }
-    else
-    {
-<p>
-        Please check your email to confirm your account.
-</p>
+
+    .account-confirmation-wrap .row-account-confirmation-icon  .col-account-confirmation-icon h1{
+        font-size: 6rem;
+        transform: rotate(-20deg);
     }
-}
+
+    .account-confirmation-wrap .row-account-confirmation-text  .col-account-confirmation-text p{
+        margin-top: 20px;
+        font-size: 1.2rem;
+    }
+</style>
+
 

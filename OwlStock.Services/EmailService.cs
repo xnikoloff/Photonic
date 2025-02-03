@@ -138,6 +138,14 @@ namespace OwlStock.Services
                     );
                 }
 
+            case EmailTemplate.ConfirmAccount:
+                {
+                    return AccountEmailTemplates.ConfirmAccountTemplate
+                    (
+                        ((ConfirmAccountEmailTemplate)dto)?.ConfirmationLink ?? ""
+                    );
+                }
+
                 case EmailTemplate.SendInquiry:
                     {
                         return InquiryEmailTemplates.SendInquiryTemplate

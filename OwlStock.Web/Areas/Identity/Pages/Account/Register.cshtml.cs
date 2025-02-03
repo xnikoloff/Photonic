@@ -3,11 +3,16 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
+using OwlStock.Domain.Enumerations;
+using OwlStock.Infrastructure.Common.EmailTemplates.Account;
+using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Areas.Identity.Pages.Account
 {
@@ -18,14 +23,14 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
         private readonly IUserStore<IdentityUser> _userStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailSender;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailService emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -112,8 +117,27 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    string encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+
+                    string confirmationLink = Url.Page(
+                    "/Account/ConfirmEmail",
+                    pageHandler: null,
+                    values: new { userId = user.Id, encodedToken },
+                    protocol: Request.Scheme);
+
+                    await _emailSender.Send(new ConfirmAccountEmailTemplate()
+                    {
+                        Recipient = Input.Email,
+                        Topic = "Потвърждение на акаунт",
+                        EmailTemplate = EmailTemplate.ConfirmAccount,
+                        ConfirmationLink = confirmationLink
+                    });
+
+                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
+
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    //return LocalRedirect(returnUrl);
                     
                 }
                 foreach (var error in result.Errors)

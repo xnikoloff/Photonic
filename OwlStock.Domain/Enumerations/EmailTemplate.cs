@@ -6,7 +6,8 @@
         UpdatePhotosForPhotoShoot = 2,
         DeclinePhotoShoot = 3,
         CancelPhotoShoot = 4,
-        CreateAccount,
-        SendInquiry
+        CreateAccount = 5,
+        ConfirmAccount = 6,
+        SendInquiry = 7
     }
 }

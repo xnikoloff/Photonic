@@ -1,8 +1,22 @@
 ﻿@page
 @model ConfirmEmailModel
 @{
-    ViewData["Title"] = "Confirm email";
+    ViewData["Title"] = "Потвърждение";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="container container-confirmation-message-wrap">
+    <div class="row">
+        <div class="col-12">
+            <h1>@ViewData["Title"]</h1>
+            <partial name="_StatusMessage" model="Model.StatusMessage" />
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .container-confirmation-message-wrap{
+        padding: 200px 0;
+    }
+</style>
+
