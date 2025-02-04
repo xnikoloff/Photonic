@@ -23,6 +23,11 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        /// 
+
+        //custom property to show if a confirmation was successful
+        public bool IsSuccessful { get; set; }
+
         [TempData]
         public string StatusMessage { get; set; }
         public async Task<IActionResult> OnGetAsync(string userId, string encodedToken)
@@ -40,7 +45,20 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
 
             encodedToken = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(encodedToken));
             var result = await _userManager.ConfirmEmailAsync(user, encodedToken);
-            StatusMessage = result.Succeeded ? "Профилът Ви е потвърден" : "Получи се грешка при потвърждението на профилът Ви";
+
+            if (result.Succeeded)
+            {
+                StatusMessage =  "Профилът Ви е потвърден";
+                IsSuccessful = true;
+            }
+
+            else
+            {
+                StatusMessage = "Получи се грешка при потвърждението на профилът Ви";
+                IsSuccessful = false;
+            }
+
+            
             return Page();
         }
     }

@@ -1,14 +1,32 @@
 ﻿@page
 @model ConfirmEmailModel
 @{
-    ViewData["Title"] = "Потвърждение";
+    ViewData["Title"] = "Потвърждение на имейл";
 }
 
 <div class="container container-confirmation-message-wrap">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 text-center">
             <h1>@ViewData["Title"]</h1>
-            <partial name="_StatusMessage" model="Model.StatusMessage" />
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <h1>
+                @if (Model.IsSuccessful)
+                {
+                    <i class="fa-solid fa-envelope-circle-check fa-2x text-warning"></i>
+                }
+                else
+                {
+                    <i class="fa-solid fa-bomb fa-2x text-dark"></i>
+                }
+            </h1>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <h3 class="@(Model.IsSuccessful ? "text-warning" : "text-danger")">@Model.StatusMessage</h3>
         </div>
     </div>
 </div>
@@ -16,7 +34,7 @@
 
 <style>
     .container-confirmation-message-wrap{
-        padding: 200px 0;
+        padding: 150px 0;
     }
 </style>
 
