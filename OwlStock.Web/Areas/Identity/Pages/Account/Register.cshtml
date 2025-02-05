@@ -1,6 +1,8 @@
 ﻿@page
 @model RegisterModel
+@inject IConfiguration configuration
 @{
+    string siteKey = configuration["ReCaptcha:SiteKey"] ?? "";
     ViewData["Title"] = "Регистрация";
 }
 
@@ -14,6 +16,7 @@
     <div class="row mt-4">
         <div class="col-md-4 col-account-form">
             <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email"/>
@@ -27,7 +30,10 @@
                     <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Потвърди парола" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
-                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-warning text-white btn-account-submit">Регистрация</button>
+                <button id="btn-account-submit" type="submit" class="w-100 btn btn-lg btn-warning text-white btn-account-submit" disabled>Регистрация</button>
+                <div class="form-floating">
+                    <div id="recaptcha-container" data-callback="recaptchaCallback"></div>
+                </div>
                 <div class="account-prompt-container">
                     <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-sm btn-secondary account-prompt">Вече имате акаунт?</a>
                 </div>
@@ -40,6 +46,9 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="~/js/custom//recaptcha.js" data-siteKey="@siteKey"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
 }
 
 <style>

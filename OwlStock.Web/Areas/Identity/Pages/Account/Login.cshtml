@@ -70,7 +70,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-4">
-                                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-warning text-white btn-account-submit" disabled>Вход</button>
+                                <button id="btn-account-submit" type="submit" class="w-100 btn btn-lg btn-warning text-white btn-account-submit" disabled>Вход</button>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -92,23 +92,7 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="https://www.google.com/recaptcha/api.js"></script>
-
-    <script type="text/javascript">
-        var onloadCallback = function () {
-            grecaptcha.render('recaptcha-container', {
-                'sitekey': '@siteKey'
-            });
-        };
-
-        function onSubmit() {
-            document.getElementById('recaptchaTokenInputId').value = grecaptcha.getResponse();
-        }
-
-        function recaptchaCallback() {
-            document.getElementById('login-submit').disabled = false;
-        }
-    </script>
-
+    <script src="~/js/custom//recaptcha.js" data-siteKey="@siteKey"></script>
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
 }
 
