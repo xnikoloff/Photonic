@@ -138,7 +138,7 @@ namespace OwlStock.Services
                     );
                 }
 
-            case EmailTemplate.ConfirmAccount:
+                case EmailTemplate.ConfirmAccount:
                 {
                     return AccountEmailTemplates.ConfirmAccountTemplate
                     (
@@ -146,14 +146,22 @@ namespace OwlStock.Services
                     );
                 }
 
+                case EmailTemplate.ResetPassword:
+                {
+                    return AccountEmailTemplates.ResetPasswordTemplate
+                    (
+                        ((ResetPasswordEmailTemplateDTO)dto)?.CallBackURL ?? ""
+                    );
+                }
+
                 case EmailTemplate.SendInquiry:
-                    {
-                        return InquiryEmailTemplates.SendInquiryTemplate
-                        (
-                            ((SendInquiryEmailTemplateDTO)dto)?.Name ?? "",
-                            ((SendInquiryEmailTemplateDTO)dto)?.Content ?? ""
-                        );
-                    }
+                {
+                    return InquiryEmailTemplates.SendInquiryTemplate
+                    (
+                        ((SendInquiryEmailTemplateDTO)dto)?.Name ?? "",
+                        ((SendInquiryEmailTemplateDTO)dto)?.Content ?? ""
+                    );
+                }
 
                 default:
                 {

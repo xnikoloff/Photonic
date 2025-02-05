@@ -8,6 +8,7 @@
         CancelPhotoShoot = 4,
         CreateAccount = 5,
         ConfirmAccount = 6,
-        SendInquiry = 7
+        SendInquiry = 7,
+        ResetPassword = 8
     }
 }

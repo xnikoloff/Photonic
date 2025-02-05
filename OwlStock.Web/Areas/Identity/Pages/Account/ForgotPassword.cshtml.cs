@@ -10,18 +10,21 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using OwlStock.Domain.Enumerations;
+using OwlStock.Infrastructure.Common.EmailTemplates.Account;
+using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Areas.Identity.Pages.Account
 {
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailService;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailService emailService)
         {
             _userManager = userManager;
-            _emailSender = emailSender;
+            _emailService = emailService;
         }
 
         /// <summary>
@@ -67,10 +70,14 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                await _emailService.Send(new ResetPasswordEmailTemplateDTO()
+                {
+                    From = "hristiyan.at.nikoloff@gmail.com",
+                    Recipient = Input.Email,
+                    Topic = "Забравена парола",
+                    EmailTemplate = EmailTemplate.ResetPassword,
+                    CallBackURL = callbackUrl,
+                });
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

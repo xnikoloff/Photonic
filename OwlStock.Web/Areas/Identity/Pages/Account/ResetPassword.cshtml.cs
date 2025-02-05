@@ -41,6 +41,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessage = "Имейл е задължително поле")]
+            [Display(Name = "Email")]
             [EmailAddress(ErrorMessage = "Въведете валиден имейл адрес")]
             public string Email { get; set; }
 
@@ -49,7 +50,8 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "Парола")]
+            [StringLength(100, ErrorMessage = "Паролата трябва да бъде минимум 8 цифри.")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -58,8 +60,8 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Потвърди парола")]
+            [Compare("Password", ErrorMessage = "Паролите не съвпадат")]
             public string ConfirmPassword { get; set; }
 
             /// <summary>
@@ -75,7 +77,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
         {
             if (code == null)
             {
-                return BadRequest("A code must be supplied for password reset.");
+                return BadRequest("Невалиден код за възстановяване.");
             }
             else
             {
