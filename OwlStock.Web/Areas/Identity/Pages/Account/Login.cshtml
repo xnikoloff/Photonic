@@ -10,15 +10,13 @@
     <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId"/>
     <div class="hotel_booking_area position">
         <div class="container booking-container">
-            <div class="row mt-5 pt-5 ml-2">
-                <div class="col-12">
-                    <div class="row">
-                        <h1 id="title">@ViewData["Title"]</h1>
-                    </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="mr-lg-5">@ViewData["Title"]</h1>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 text-center mx-auto">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 </div>
             </div>
@@ -26,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="boking_table">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 text-center mx-auto">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
                                         <div class="input-group border border-warning">
@@ -38,7 +36,7 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-md-4">
+                            <div class="col-md-4 text-center mx-auto">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
                                         <div class="input-group border border-warning">
@@ -50,10 +48,10 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-md-4 ml-4">
+                            <div class="col-12 col-md-4 text-center mx-auto">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
-                                        <div class="input-group">
+                                        <div class="input-group ml-4">
                                             <label asp-for="Input.RememberMe" class="form-label">
                                                 <input class="form-check-input" asp-for="Input.RememberMe" />
                                                 @Html.DisplayNameFor(m => m.Input.RememberMe)
@@ -64,22 +62,20 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-4">
+                            <div class="col-12 col-md-4 text-center mx-auto">
                                 <div id="recaptcha-container" data-callback="recaptchaCallback"></div>
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-4">
+                            <div class="col-12 col-md-4 text-center mx-auto">
                                 <button id="btn-account-submit" type="submit" class="w-100 btn btn-lg btn-warning text-white btn-account-submit" disabled>Вход</button>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-12">
-                                <div class="account-prompt-container">
-                                    <a id="forgot-password" asp-page="./ForgotPassword" class="btn btn-sm btn-dark account-prompt">Забравена парола?</a>
-                                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-sm btn-secondary account-prompt">Нямате акаунт?</a>
-                                    @*<a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>*@
-                                </div>
+                        <div class="row mt-4">
+                            <div class="col-12 col-md-4 text-center mx-auto">
+                                <a id="forgot-password" asp-page="./ForgotPassword" class="btn btn-sm btn-dark account-prompt">Забравена парола?</a>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-sm btn-secondary account-prompt">Нямате акаунт?</a>
+                                @*<a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>*@
                             </div>
                         </div>
                     </div>
@@ -99,5 +95,10 @@
 <style>
     .hotel_booking_table {
         background: none;
+    }
+
+    .booking-container{
+        padding-top: 150px;
+        padding-bottom: 50px;
     }
 </style>
