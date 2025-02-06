@@ -531,7 +531,30 @@
                                         {
                                             <div class="card card-weather text-center btn-date btn-date-simple text-white @((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? "bg-warning card-available" : "bg-secondary card-unavailable")" id="date-button-simple">
                                                 <div class="card-header card-header-date">
-                                                    <h4 class="date-text">@calendarKVP.Key.ToString("dd.MM")</h4>
+                                                    <h6>
+                                                        @{
+                                                            //get name of the day in Bulgarian
+                                                            DayOfWeek dayOfWeek = calendarKVP.Key.DayOfWeek;
+                                                            CultureInfo cultureInfo = new("bg-BG");
+                                                            //get the first three letters of the day name
+                                                            string dayName = DateTimeFormatInfo.GetInstance(cultureInfo).GetDayName(dayOfWeek);
+                                                        }
+                                                        <!--use the day name-->
+                                                        @dayName
+                                                    </h6>
+                                                    <h4 class="date-text">
+                                                        <!--show the year if it is the next year-->
+                                                        @if (calendarKVP.Key.Year > DateTime.Now.Year)
+                                                        {
+                                                            @calendarKVP.Key.ToString("dd.MM.yyyy");
+                                                        }
+
+                                                        else
+                                                        {
+                                                            @calendarKVP.Key.ToString("dd.MM");
+                                                        }
+
+                                                    </h4>
                                                 </div>
                                                 <div class="card-body card-body-weather text-center @((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? "card-body-available" : "card-body-unavailable")" style="background: @((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? Html.Raw("#b8ab6a") : Html.Raw("#51565c"))">
                                                     @foreach (TimeSlot slot in calendarKVP.Value)
