@@ -4,19 +4,25 @@
 
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using OwlStock.Domain.Enumerations;
+using OwlStock.Infrastructure.Common.EmailTemplates.Account;
+using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Areas.Identity.Pages.Account
 {
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IEmailService _emailSender;
 
-        public ConfirmEmailModel(UserManager<IdentityUser> userManager)
+        public ConfirmEmailModel(UserManager<IdentityUser> userManager, IEmailService emailSender)
         {
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         /// <summary>
@@ -30,7 +36,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
 
         [TempData]
         public string StatusMessage { get; set; }
-        public async Task<IActionResult> OnGetAsync(string userId, string encodedToken)
+        public async Task<IActionResult> OnGetAsync(string userId, string encodedToken, string email)
         {
             if (userId == null || encodedToken == null)
             {
@@ -50,6 +56,13 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             {
                 StatusMessage =  "Профилът Ви е потвърден";
                 IsSuccessful = true;
+
+                await _emailSender.Send(new CreateAccountEmailTemplateDTO()
+                {
+                    Recipient = email,
+                    Topic = "Успешна регистрация във Photonic",
+                    EmailTemplate = EmailTemplate.CreateAccount,
+                });
             }
 
             else

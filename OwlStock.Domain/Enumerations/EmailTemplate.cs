@@ -9,6 +9,7 @@
         CreateAccount = 5,
         ConfirmAccount = 6,
         SendInquiry = 7,
-        ResetPassword = 8
+        ResetPassword = 8,
+        CreateConfirmedAccount = 9
     }
 }

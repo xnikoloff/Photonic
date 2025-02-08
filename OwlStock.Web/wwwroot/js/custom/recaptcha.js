@@ -9,6 +9,7 @@ var onloadCallback = function () {
 
 function onSubmit() {
     document.getElementById('recaptchaTokenInputId').value = grecaptcha.getResponse();
+    console.log(document.getElementById('recaptchaTokenInputId').value);
 }
 
 function recaptchaCallback() {

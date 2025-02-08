@@ -218,7 +218,6 @@ namespace OwlStock.Services
             {
                 CreateAccountEmailTemplateDTO accountEmailDTO = new()
                 {
-                    Email = dto.PersonEmail,
                     Password = dto.Password,
                     EmailTemplate = EmailTemplate.CreateAccount,
                     Topic = "Създадохме вашия профил",

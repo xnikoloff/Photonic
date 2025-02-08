@@ -136,15 +136,9 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                     values: new { userId = user.Id, encodedToken },
                     protocol: Request.Scheme);
 
-                    await _emailSender.Send(new ConfirmAccountEmailTemplate()
-                    {
-                        Recipient = Input.Email,
-                        Topic = "Потвърждение на акаунт",
-                        EmailTemplate = EmailTemplate.ConfirmAccount,
-                        ConfirmationLink = confirmationLink
-                    });
+                    
 
-                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
+                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, confirmationLink = confirmationLink });
 
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     //return LocalRedirect(returnUrl);

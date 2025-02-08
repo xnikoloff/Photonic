@@ -133,9 +133,13 @@ namespace OwlStock.Services
                 {
                     return AccountEmailTemplates.CreateAccountTemplate
                     (
-                        ((CreateAccountEmailTemplateDTO)dto)?.Email ?? "", 
                         ((CreateAccountEmailTemplateDTO)dto)?.Password ?? ""
                     );
+                }
+
+                case EmailTemplate.CreateConfirmedAccount:
+                {
+                    return AccountEmailTemplates.CreateConfirmedAccountTemplate();
                 }
 
                 case EmailTemplate.ConfirmAccount:

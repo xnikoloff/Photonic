@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using OwlStock.Domain.Enumerations;
+using OwlStock.Infrastructure.Common.EmailTemplates.Account;
+using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Areas.Identity.Pages.Account
 {
@@ -18,12 +21,12 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IEmailSender _sender;
+        private readonly IEmailService _emailSender;
 
-        public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender)
+        public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailService emailSender)
         {
             _userManager = userManager;
-            _sender = sender;
+            _emailSender = emailSender;
         }
 
         /// <summary>
@@ -59,16 +62,26 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             }
 
             Email = email;
-            // Once you add a real email sender, you should remove this code that lets you confirm the account
-            var userId = await _userManager.GetUserIdAsync(user);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            EmailConfirmationUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                protocol: Request.Scheme);
             
+            var userId = await _userManager.GetUserIdAsync(user);
+            
+            string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            string encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+
+            string confirmationLink = Url.Page(
+            "/Account/ConfirmEmail",
+            pageHandler: null,
+            values: new { userId = user.Id, encodedToken, email = email },
+            protocol: Request.Scheme);
+
+            await _emailSender.Send(new ConfirmAccountEmailTemplate()
+            {
+                Recipient = email,
+                Topic = "Потвърждение на акаунт",
+                EmailTemplate = EmailTemplate.ConfirmAccount,
+                ConfirmationLink = confirmationLink
+            });
+
 
             return Page();
         }
