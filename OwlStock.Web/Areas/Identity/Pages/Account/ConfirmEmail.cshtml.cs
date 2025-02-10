@@ -61,7 +61,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                 {
                     Recipient = email,
                     Topic = "Успешна регистрация във Photonic",
-                    EmailTemplate = EmailTemplate.CreateAccount,
+                    EmailTemplate = EmailTemplate.CreateConfirmedAccount,
                 });
             }
 
