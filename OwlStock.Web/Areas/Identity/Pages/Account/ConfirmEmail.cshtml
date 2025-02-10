@@ -6,9 +6,6 @@
 
 <div class="container container-confirmation-message-wrap">
     <div class="row">
-        <div class="col-12 text-center">
-            <h1>@ViewData["Title"]</h1>
-        </div>
     </div>
     <div class="row mt-4">
         <div class="col-12 text-center">
@@ -26,7 +23,12 @@
     </div>
     <div class="row mt-4">
         <div class="col-12 text-center">
-            <h3 class="@(Model.IsSuccessful ? "text-warning" : "text-danger")">@Model.StatusMessage</h3>
+            <h1 class="status-message @(Model.IsSuccessful ? "text-dark" : "text-danger")">@Model.StatusMessage</h1>
+        </div>
+    </div>
+    <div class="row row-account-prompt-container mt-5">
+        <div class="col-12 text-center">
+            <a asp-page="./Login" class="btn btn-dark btn-lg text-white account-prompt">Влезте от тук</a>
         </div>
     </div>
 </div>
@@ -35,6 +37,12 @@
 <style>
     .container-confirmation-message-wrap{
         padding: 150px 0;
+    }
+    
+    @@media only screen and (max-width: 768px){
+        .container-confirmation-message-wrap .status-message{
+            font-size: 1.8rem;
+        }
     }
 </style>
 
