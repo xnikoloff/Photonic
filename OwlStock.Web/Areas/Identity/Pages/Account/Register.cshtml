@@ -8,7 +8,7 @@
 
 
 <div class="container mt-5 py-5">
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-12 text-center">
             <h1 id="title">@ViewData["Title"]</h1>
         </div>
@@ -30,10 +30,10 @@
                     <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Потвърди парола" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
-                <button id="btn-account-submit" type="submit" class="w-100 btn btn-lg btn-warning text-white btn-account-submit" disabled>Регистрация</button>
                 <div class="form-floating">
                     <div id="recaptcha-container" data-callback="recaptchaCallback"></div>
                 </div>
+                <button id="btn-account-submit" type="submit" class="w-100 btn btn-lg btn-warning text-white btn-account-submit" disabled>Регистрация</button>
                 <div class="account-prompt-container">
                     <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-sm btn-secondary account-prompt">Вече имате акаунт?</a>
                 </div>

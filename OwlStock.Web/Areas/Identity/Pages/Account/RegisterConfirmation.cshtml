@@ -12,19 +12,16 @@
     </div>
     <div class="row row-account-confirmation row-account-confirmation-text">
         <div class="col-12 col-account-confirmation-text text-center">
-            <h1>@ViewData["Title"]</h1>
+            <h1 class="title">@ViewData["Title"]</h1>
         
             <p>Отворете линка от имейла, който Ви изпратихме, за да потвърдите профила си</p>
         
         </div>
     </div>
-    <div class="row row-account-confirmation row-account-confirmation-text">
+    <div class="row row-account-confirmation row-account-confirmation-text mt-3">
         <div class="col-12 col-account-confirmation-text text-center">
-            
-        
-           <p>Не получихте имейл?</p>
+           <p class="account-confirmation-text">Не получихте имейл?</p>
            <a asp-page="./RegisterConfirmation" asp-route-email="@Model.Email" class="btn btn-dark">Изпрати нов имейл</a>
-        
         </div>
     </div>
 </div>
@@ -42,6 +39,12 @@
     .account-confirmation-wrap .row-account-confirmation-text  .col-account-confirmation-text p{
         margin-top: 20px;
         font-size: 1.2rem;
+    }
+
+    @@media only screen and (max-width: 768px){
+        .account-confirmation-wrap .row-account-confirmation .col-account-confirmation-text .title{
+            font-size: 1.8rem;
+        }
     }
 </style>
 
