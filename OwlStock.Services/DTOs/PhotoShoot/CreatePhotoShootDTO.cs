@@ -68,7 +68,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         [MaxLength(ModelConstraints.GoogleMapsLinkDescriptionMxLength)]
         public string? GoogleMapsLink { get; set; }
 
-        [Display(Name = "Не желая да получа снимките си чрез сайта на Photon")]
+        [Display(Name = "Не желая да получа снимките си чрез сайта на Photonic")]
         public bool DoNotUploadPhotos { get; set; }
 
         [Display(Name = "Начин на получаване на снимки")]

@@ -216,6 +216,7 @@ namespace OwlStock.Services
 
             return await _context.DynamicContents
                 .Where(dc => dc.ShowInTopPosition && dc.IsVisible)
+                .Include(dc => dc.DynamicContentCategories)
                 .OrderBy(dc => dc.Id)
                 .Take(4)
                 .ToListAsync();

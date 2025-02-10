@@ -83,7 +83,7 @@
             <div class="col-md-6 d_flex align-items-center">
                 <div class="about_content ">
                     <h2 class="title title_color">За нас <br>Нашата история<br>Какво целим</h2>
-                    <p>Фотон се роди с идеята да улесни максимално клиентите ни. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията, а тя да се окаже повредена. Никой ме е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайтът на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
+                    <p>Фотоник се роди с идеята да улесни максимално клиентите си. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията Ви, а тя да се окаже повредена. Никой ме е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайта на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
                     <a asp-action="About" asp-controller="StaticContent" class="button_hover theme_btn_two">Научете повече</a>
                 </div>
             </div>
@@ -111,10 +111,9 @@
                         </div>
                         <div class="details">
                             <div class="tags">
-                                <a href="#" class="button_hover tag_btn">Travel</a>
-                                <a href="#" class="button_hover tag_btn">Life Style</a>
+                                <a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.DynamicContentCategories?.Id" class="button_hover tag_btn">@dynamicContent?.DynamicContentCategories?.Name</a>
                             </div>
-                            <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h4 class="sec_h4">@dynamicContent.Title</h4></a>
+                            <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h4 class="sec_h4">@dynamicContent?.Title</h4></a>
                             <p>@dynamicContent?.Description</p>
                             <h6 class="date title_color">@dynamicContent?.CreatedOn.ToString("dd.MM.yyyy") г.</h6>
                         </div>
