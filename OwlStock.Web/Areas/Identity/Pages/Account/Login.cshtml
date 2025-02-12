@@ -41,6 +41,8 @@
                                     <div class="form-group">
                                         <div class="input-group border border-warning">
                                             <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Парола"/>
+                                            <button type="button" class="btn btn-light btn-password btn-password-show"><i class="fa-solid fa-eye"></i></button>
+                                            <button type="button" class="btn btn-light btn-password btn-password-hide" style="display:none"><i class="fa-solid fa-eye-slash"></i></button>
                                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -89,6 +91,7 @@
     <partial name="_ValidationScriptsPartial" />
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script src="~/js/custom//recaptcha.js" data-siteKey="@siteKey"></script>
+    <script src="~/js/custom//passwordVisibility.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
 }
 
@@ -100,5 +103,9 @@
     .booking-container{
         padding-top: 150px;
         padding-bottom: 50px;
+    }
+
+    .btn-password{
+        border-radius: 0 !important;
     }
 </style>
