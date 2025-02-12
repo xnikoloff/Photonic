@@ -6,15 +6,16 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
+        <li class="nav-item"><a class="nav-link text-warning font-weight-bold" asp-controller="PhotoShoot" asp-action="MyPhotoShoots">Фотосесии</a></li>
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
-            <button  type="submit" class="nav-link btn btn-link"><i class="fa-solid fa-right-from-bracket fa-lg"></i></button>
+            <button  type="submit" class="nav-link btn btn-link"><i class="fa-solid fa-right-from-bracket fa-lg"></i> Изход</button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-            <a class="nav-link text-dark identity-link" asp-area="Identity" asp-page="/Account/Login"><i class="fa-solid fa-door-open fa-lg"></i></a>
+            <a class="nav-link text-dark identity-link" asp-area="Identity" asp-page="/Account/Login"><i class="fa-solid fa-door-open fa-lg"></i> Вход</a>
     </li>
 }
 </ul>

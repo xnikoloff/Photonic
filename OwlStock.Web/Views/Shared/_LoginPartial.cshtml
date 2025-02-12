@@ -3,22 +3,23 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
+<ul class="navbar-nav ml-3">
 @if (SignInManager.IsSignedIn(User))
 {
+        <li class="nav-item"><a class="nav-link text-warning font-weight-bold" asp-controller="PhotoShoot" asp-action="MyPhotoShoots"><i class="fa-solid fa-camera fa-xl"></i> Фотосесии</a></li>
     <li class="nav-item">
-            <a id="manage" class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Email" title="Manage"><i class="fa-solid fa-user fa-lg"></i></a>
+        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Email" title="Manage"><i class="fa-solid fa-user fa-lg"></i> Профил</a>
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link"><i class="fa-solid fa-right-from-bracket fa-lg"></i></button>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa-solid fa-right-from-bracket fa-lg"></i> Изход</button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-            <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login"><i class="fa-solid fa-door-open fa-lg"></i></a>
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login"><i class="fa-solid fa-door-open fa-lg"></i> Вход</a>
     </li>
 }
 </ul>
