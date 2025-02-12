@@ -49,7 +49,8 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <form class="row contact_form" asp-action="SendInquiry" asp-controller="Inquiry" method="POST" id="contactForm" novalidate="novalidate">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form class="row contact_form" asp-action="SendInquiry" asp-controller="Inquiry" method="POST" id="contactForm">
                     <div class="col-md-6">
                         <div class="form-group">
                             <input type="text" class="form-control" asp-for="Name" placeholder="Име">
@@ -58,7 +59,7 @@
                             <input type="email" class="form-control" asp-for="From" placeholder="Имейл">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="subject" asp-for="Topic" placeholder="Тема">
+                            <input type="text" class="form-control" asp-for="Topic" placeholder="Тема">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -67,7 +68,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 text-right">
-                        <button type="submit" value="submit" class="btn theme_btn button_hover">Изпращане</button>
+                        <button type="submit" value="submit" class="btn theme_btn button_hover btn-submit">Изпращане</button>
                     </div>
                 </form>
             </div>
@@ -75,3 +76,92 @@
     </div>
 </section>
 <!--================Contact Area =================-->
+
+<script>
+    $(document).ready(function () {
+        $(".btn-submit").click(function (event) {
+            event.preventDefault();
+
+            //validate on each submit
+            validateName();
+            validateEmail();
+            validateTopic();
+            validateContent();
+
+            //submit the form if all of the form inputs are valid
+            if (validateName() && validateEmail() && validateTopic() && validateContent()) {
+                $("#contactForm").submit();
+            }
+        });
+
+
+        //check for changes in inputs
+        $("#Name").change(function () {
+            validateName();
+        });
+
+        $("#From").change(function () {
+            validateEmail();
+        });
+
+        $("#Topic").change(function () {
+            validateTopic();
+        });
+
+        $("#Content").change(function () {
+            validateContent();
+        });
+    });
+
+
+    //validate inputs
+    function validateName() {
+        if ($("#Name").val() == "" || $("#Name").val() == null) {
+            $("#Name").addClass("border border-danger");
+            return false;
+        }
+
+        else {
+            $("#Name").removeClass("border border-danger");
+            $(".btn-submit").prop('disabled', false);
+            return true;
+        }
+    }
+
+
+    function validateEmail() {
+        if ($("#From").val() == "" || $("#From").val() == null) {
+            $("#From").addClass("border border-danger");
+            return false;
+        }
+
+        else {
+            $("#From").removeClass("border border-danger");
+            return true;
+        }
+    }
+
+    function validateTopic() {
+        if ($("#Topic").val() == "" || $("#Topic").val() == null) {
+            $("#Topic").addClass("border border-danger");
+            return false;
+        }
+
+        else {
+            $("#Topic").removeClass("border border-danger");
+            return true;
+        }
+    }
+
+    function validateContent() {
+        if ($("#Content").val() == "" || $("#Content").val() == null) {
+            $("#Content").addClass("border border-danger");
+            return false;
+        }
+
+        else {
+            $("#Content").removeClass("border border-danger");
+            return true;
+        }
+    }
+</script>
