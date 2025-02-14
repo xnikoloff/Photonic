@@ -6,7 +6,7 @@
 <ul class="navbar-nav ml-3">
 @if (SignInManager.IsSignedIn(User))
 {
-        <li class="nav-item"><a class="nav-link text-warning font-weight-bold" asp-controller="PhotoShoot" asp-action="MyPhotoShoots"><i class="fa-solid fa-camera fa-xl"></i> Фотосесии</a></li>
+        <li class="nav-item"><a class="nav-link font-weight-bold nav-link-my-photoshoots" asp-controller="PhotoShoot" asp-action="MyPhotoShoots"><i class="fa-solid fa-camera fa-xl"></i> Фотосесии</a></li>
     <li class="nav-item">
         <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Email" title="Manage"><i class="fa-solid fa-user fa-lg"></i> Профил</a>
     </li>
@@ -27,5 +27,9 @@ else
 <style>
     .identity-link {
         margin-left: 8px;
+    }
+
+    .nav-item .nav-link-my-photoshoots {
+        color: #ebb105 !important;
     }
 </style>
