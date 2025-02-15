@@ -529,34 +529,33 @@
                                     <div id="date-buttons-slider">
                                         @foreach (KeyValuePair<DateOnly, IEnumerable<TimeSlot>> calendarKVP in calendar)
                                         {
-                                            <div class="card card-weather text-center btn-date btn-date-simple text-white @((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? "bg-warning card-available" : "bg-secondary card-unavailable")" id="date-button-simple">
+                                            var firstSlot = calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false);
+                                            var isAvailable = firstSlot.IsAvailable;
+                                            var backgroundColor = isAvailable ? "#b8ab6a" : "#51565c";
+                                            var iconHtml = isAvailable ? "<i class=\"fa-solid fa-check fa-lg\"></i>" : "<i class=\"fa-solid fa-xmark fa-lg\"></i>";
+
+                                            <div class="card card-weather text-center btn-date btn-date-simple text-white @(isAvailable ? "bg-warning card-available" : "bg-secondary card-unavailable")" id="date-button-simple">
                                                 <div class="card-header card-header-date">
                                                     <h6>
                                                         @{
-                                                            //get name of the day in Bulgarian
                                                             DayOfWeek dayOfWeek = calendarKVP.Key.DayOfWeek;
                                                             CultureInfo cultureInfo = new("bg-BG");
-                                                            //get the first three letters of the day name
                                                             string dayName = DateTimeFormatInfo.GetInstance(cultureInfo).GetDayName(dayOfWeek);
                                                         }
-                                                        <!--use the day name-->
                                                         @dayName
                                                     </h6>
                                                     <h4 class="date-text">
-                                                        <!--show the year if it is the next year-->
                                                         @if (calendarKVP.Key.Year > DateTime.Now.Year)
                                                         {
-                                                            @calendarKVP.Key.ToString("dd.MM.yyyy");
+                                                            @calendarKVP.Key.ToString("dd.MM.yyyy")
                                                         }
-
                                                         else
                                                         {
-                                                            @calendarKVP.Key.ToString("dd.MM");
+                                                            @calendarKVP.Key.ToString("dd.MM")
                                                         }
-
                                                     </h4>
                                                 </div>
-                                                <div class="card-body card-body-weather text-center @((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? "card-body-available" : "card-body-unavailable")" style="background: @((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? Html.Raw("#b8ab6a") : Html.Raw("#51565c"))">
+                                                <div class="card-body card-body-weather text-center @(isAvailable ? "card-body-available" : "card-body-unavailable")" style="background: @Html.Raw(backgroundColor)">
                                                     @foreach (TimeSlot slot in calendarKVP.Value)
                                                     {
                                                         <button type="button" class="btn @(slot.IsAvailable ? "btn-warning time-slot-available" : "btn-secondary time-slot-unavailable") text-white btn-sm my-1 btn-time-slot" id="time-slot">
@@ -570,7 +569,7 @@
                                                     <p class="precipitation weather-info-text"></p>
                                                 </div>
                                                 <div class="card-footer">
-                                                    <span>@((calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false)).IsAvailable ? Html.Raw("<i class=\"fa-solid fa-check fa-lg\"></i>") : Html.Raw("<i class=\"fa-solid fa-xmark fa-lg\"></i>"))</span>
+                                                    @Html.Raw(iconHtml)
                                                 </div>
                                             </div>
                                         }
@@ -1980,6 +1979,9 @@
                         let item = this.$input[0];
                         let selectedText = $(item.selectize.getItem(value)[0]).text();
                         setLocationPlaceSummary(selectedText);
+
+                        //get weather forecast
+                        getForecast(value, false);
                     }
                 });
             }
@@ -2023,6 +2025,9 @@
                                 let item = this.$input[0];
                                 let selectedText = $(item.selectize.getItem(value)[0]).text();
                                 setSettlementSummary(selectedText);
+
+                                //get weather forecast
+                                getForecast(value, true);
                             }
                         }
                     });
@@ -2121,6 +2126,39 @@
 
         //show the current one
         $(".row-photoshoot-packets-" + photoshootPacket).css("display", "flex");
+    }
+
+
+
+
+    //WEATHER FORECAST
+    function getForecast(settlementId, isSettlement) {
+        let forecastURL = isSettlement ? "@Url.Action("forecast", "Weather")" : "@Url.Action("forecastForPlace", "Weather")";
+        var request = $.ajax({
+            url: forecastURL,
+            method: "GET",
+            data: { settlementId: settlementId },
+            success: function (response) {
+                let json = JSON.parse(JSON.stringify(response));
+                console.log(json);
+                $(".card-weather").each(function (i) {
+                    let cardBody = $(this).find(".card-body-weather");
+                    //cardBody.find(".icon").css("background-image", `url(${json.forecast.forecastDays[i].day.condition.icon})`);
+                    cardBody.find(".temperatureCurrent").text(json.forecast.forecastDays[i].day.averageTemperature != 0 ? (Math.round(json.forecast.forecastDays[i].day.maxTemperature) + 'C°') : '');
+                    cardBody.find(".forecastText").text(json.forecast.forecastDays[i].day.condition.text);
+                    cardBody.find(".precipitation").text('Валежи: ' + json.forecast.forecastDays[i].day.totalPrecipitation + '%');
+                    i++;
+
+                    if(i == 3){
+                        return false;
+                    }
+                });
+            },
+            error: function (response) {
+                console.log("error");
+                console.log(response);
+            }
+        });
     }
 
 
