@@ -79,7 +79,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                     CallBackURL = callbackUrl,
                 });
 
-                return RedirectToPage("./ForgotPasswordConfirmation");
+                return RedirectToPage("./ForgotPasswordConfirmation", new { email = Input.Email, callbackUrl = callbackUrl });
             }
 
             return Page();
