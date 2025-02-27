@@ -1,28 +1,24 @@
 ﻿@model Testimony
 
-<div class="container my-5 py-5">
-    <div asp-validation-summary="All" class="text-danger"></div>
+<div class="container container-create-testimony">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>Ще се радваме да чуем и Вашето мнение</h1>
+        </div>
+    </div>
     <div class="row mt-5">
-        <div class="col-12 col-md-4">
-            <form asp-action="Create" asp-controller="Testimony" method="post">
-                <div class="form-group">
-                    <label asp-for="PersonFirstName"></label>
-                    <input asp-for="PersonFirstName" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PersonLastName"></label>
-                    <input asp-for="PersonLastName" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Stars"></label>
-                    <input asp-for="Stars" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Content"></label>
-                    <textarea rows="8" asp-for="Content" class="form-control"></textarea>
-                </div>
-                <button type="submit" class="btn btn-warning text-white mt-4">Добави</button>
-            </form>
+        <div class="col-12">
+            <partial name="_CreateTestimony" model="@Model"></partial>
         </div>
     </div>
 </div>
+
+<style>
+    body{
+        background: #f9f9ff;
+    }
+    .container-create-testimony{
+        margin-top: 200px;
+        padding-bottom: 50px;
+    }
+</style>

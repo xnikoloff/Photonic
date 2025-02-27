@@ -49,10 +49,6 @@
                             <li class="nav-item text-warning"><a class="nav-link" asp-controller="Administration" asp-action="Index"><b>Admin</b></a></li>
                         }
                         <li class="nav-item"><a class="nav-link" asp-action="Reserve" asp-controller="Photoshoot">Резервация</a></li>
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            
-                        }
                         <li class="nav-item"><a class="nav-link" asp-controller="Photo" asp-action="Index">Галерия</a></li>
                         <li class="nav-item"><a class="nav-link" asp-controller="DynamicContent" asp-action="AllByPage">Блог</a></li>
                         <!--<li class="nav-item submenu dropdown">
@@ -65,7 +61,7 @@
                         <li class="nav-item"><a class="nav-link" asp-action="Contacts" asp-controller="StaticContent">Контакти</a></li>
                     </ul>
                     <form asp-controller="Photo" asp-action="AllByTag" method="GET" class="form-inline mx-2">
-                        <input name="tag" class="form-control ml-3 w-70" type="search" placeholder="Търсене" aria-label="Search">
+                        <input name="tag" class="form-control ml-3" type="search" placeholder="Търсене" aria-label="Search" style="width: 200px;">
                     </form>
                     <partial name="_LoginPartial" />
                 </div>

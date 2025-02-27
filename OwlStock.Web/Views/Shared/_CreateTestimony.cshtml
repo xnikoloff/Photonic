@@ -2,18 +2,21 @@
 
 <div class="row">
     <div class="col-12">
-        <form asp-action="Create" asp-controller="Testimony" method="post">
+        <form asp-action="Create" asp-controller="Testimony" method="post" id="testimony-form">
             <div class="form-group">
                 <label asp-for="PersonFirstName"></label>
                 <input asp-for="PersonFirstName" class="form-control" />
+                <span asp-validation-for="PersonFirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PersonLastName"></label>
                 <input asp-for="PersonLastName" class="form-control" />
+                <span asp-validation-for="PersonLastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Stars"></label>
-                <input type="hidden" asp-for="Stars"/>
+                <input type="hidden" asp-for="Stars" class="text-danger"/>
+                <span asp-validation-for="Stars" class="text-danger"></span>
                 <div class="stars">
                     <span class="star-rating" id="1" onclick="setStarsRating(1);"><i class="fa fa-star fa-lg"></i></span>
                     <span class="star-rating" id="2" onclick="setStarsRating(2);"><i class="fa fa-star fa-lg"></i></span>
@@ -25,8 +28,9 @@
             <div class="form-group">
                 <label asp-for="Content"></label>
                 <textarea rows="8" asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn theme_btn button_hover mt-3">Добави отзив</button>
+            <button type="submit" class="btn btn-submit theme_btn button_hover mt-3">Добави отзив</button>
         </form>
     </div>
 </div>
@@ -50,9 +54,91 @@
             }
             
         });
+
+        $(".btn-submit").click(function (event) {
+            event.preventDefault();
+
+            //validate on each submit
+            validateFirstName();
+            validateLastName();
+            validateStars();
+            validateContent();
+
+            //submit the form if all of the form inputs are valid
+            if (validateFirstName() && validateLastName() && validateStars() && validateContent()) {
+                $("#testimony-form").submit();
+            }
+        });
+
+
+        //check for changes in inputs
+        $("#PersonFirstName").change(function () {
+            validateFirstName();
+        });
+
+        $("#PersonLastName").change(function () {
+            validateLastName();
+        });
+
+        $("#Stars").change(function () {
+            validateStars();
+        });
+
+        $("#Content").change(function () {
+            validateContent();
+        });
     });
 
     function setStarsRating(rating){
         $("#Stars").val(parseInt(rating));
+    }
+
+    //validate inputs
+    function validateFirstName() {
+        if ($("#PersonFirstName").val() == "" || $("#PersonFirstName").val() == null) {
+            $("#PersonFirstName").addClass("border border-danger");
+            return false;
+        }
+
+        else {
+            $("#FirstName").removeClass("border border-danger");
+            $(".btn-submit").prop('disabled', false);
+            return true;
+        }
+    }
+
+    function validateLastName() {
+        if ($("#PersonLastName").val() == "" || $("#PersonLastName").val() == null) {
+            $("#PersonLastName").addClass("border border-danger");
+            return false;
+        }
+
+        else {
+            $("#LastName").removeClass("border border-danger");
+            $(".btn-submit").prop('disabled', false);
+            return true;
+        }
+    }
+
+    function validateStars() {
+        if ($("#Stars").val() == 0 || $("#Stars").val() == "" || $("#Stars").val() == null) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    function validateContent() {
+        if ($("#Content").val() == "" || $("#Content").val() == null) {
+            $("#Content").addClass("border border-danger");
+            return false;
+        }
+
+        else {
+            $("#Content").removeClass("border border-danger");
+            return true;
+        }
     }
 </script>

@@ -9,15 +9,19 @@ namespace OwlStock.Domain.Entities
         [Key]
         public Guid Id { get; set; }
 
+        [Required(ErrorMessage = "Име е задължително поле")]
         [Display(Name = "Име")]
         public string? PersonFirstName { get; set; }
 
+        [Required(ErrorMessage = "Фамилия е задължително поле")]
         [Display(Name = "Фамилия")]
         public string? PersonLastName { get; set; }
 
+        [Required(ErrorMessage = "Оценката със звезди е задължителна")]
         [Display(Name = "Оценка")]
         public int Stars { get; set; }
 
+        [Required(ErrorMessage = "Описание е задължително поле")]
         [Display(Name = "Описание")]
         public string? Content { get; set; }
 
