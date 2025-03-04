@@ -29,8 +29,8 @@
                                 <div class="blog_info text-right">
                                     <ul class="blog_meta list_style">
                                         <li><a>@dynamicContent?.CreatedBy?.Email<i class="lnr lnr-user"></i></a></li>
-                                        <li><a>@dynamicContent?.CreatedOn.ToString("dd.MM.yyy г hh:mm ч")<i class="lnr lnr-calendar-full"></i></a></li>
                                         <li><a>@(dynamicContent?.ReadingTime == 0 ? "< 1 мин" : dynamicContent?.ReadingTime + "мин")<i class="lnr lnr-clock"></i></a></li>
+                                        <li><a>@dynamicContent?.CreatedOn.ToString("dd.MM.yyy г hh:mm ч")<i class="lnr lnr-calendar-full"></i></a></li>
                                         <li><a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.DynamicContentCategories?.Id">@dynamicContent?.DynamicContentCategories?.Name<i class="lnr lnr-layers"></i></a></li>
                                     </ul>
                                 </div>
@@ -111,6 +111,10 @@
 <!--================Blog Area =================-->
 
 <style>
+    .blog_item li{
+        text-align: right !important;
+    }
+    
     .card{
         max-width: 250px;
         /*min-height: 380px;*/

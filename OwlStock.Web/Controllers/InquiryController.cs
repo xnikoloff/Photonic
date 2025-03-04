@@ -26,6 +26,9 @@ namespace OwlStock.Web.Controllers
         {
             if (dto.Name.IsNullOrEmpty() || dto.From.IsNullOrEmpty() || dto.Topic.IsNullOrEmpty() || dto.Content.IsNullOrEmpty())
             {
+                //remove validation from the parrent class of the DTO
+                ModelState.Remove("From");
+
                 ModelState.AddModelError("", "Попълнете всички полета");
                 return View("../StaticContent/Contacts", dto);
             }

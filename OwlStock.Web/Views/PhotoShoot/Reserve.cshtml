@@ -1,4 +1,5 @@
-﻿@model CreatePhotoShootDTO
+﻿@using System.Security.Claims
+@model CreatePhotoShootDTO
 
 @{
     ViewData["Title"] = "Резервация";
@@ -593,7 +594,17 @@
                                 <div class="col-md-12 mx-auto">
                                     <div class="book_tabel_item">
                                         <div class="form-group email-wrap">
-                                            <input asp-for="PersonEmail" class="rect-control" placeholder="Email" />
+
+                                            @if (User?.Identity?.IsAuthenticated == true)
+                                            {
+                                                <input asp-for="PersonEmail" value="@User.FindFirstValue(ClaimTypes.Email)" class="rect-control text-muted" readonly/>
+                                            }
+
+                                            else
+                                            {
+                                                <input asp-for="PersonEmail" class="rect-control" placeholder="Email" />
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
@@ -745,7 +756,20 @@
                     </div>
                     <hr />
                     <div class="summary-section-personal-data">
-                        <p><i class="fa-solid fa-envelope fa-lg"></i><span class="summary-data" id="summary-email">Email</span></p>
+                        <p>
+                            <i class="fa-solid fa-envelope fa-lg"></i>
+
+                                @if(User?.Identity?.IsAuthenticated == true)
+                                {
+                                    <span class="summary-data" id="summary-email">@User?.FindFirstValue(ClaimTypes.Email)</span>
+                                }
+
+                                else
+                                {
+                                    <span class="summary-data" id="summary-email"></span>
+                                }
+
+                        </p>
                         <p><i class="fa-solid fa-user fa-lg"></i>
                             <span class="summary-data" id="summary-first-name">Име</span>
                             <span id="summary-last-name"></span></p>
