@@ -527,6 +527,16 @@
                                     <button type="button" class="btn-location-type btn-location-type-decided-by-us btn-location-type-inactive">Нека ние изберем</button>
                                 </div>
                             </div>
+                            <div class="row row-custom-location-description mt-5 px-3" style="display:none">
+                                <div class="col-decided-by-us-description">
+                                    <h5>Въвете локация по избор, ако не намирате подходящо място сред популярните места</h5>
+                                </div>
+                            </div>
+                            <div class="row row-decided-by-us-description mt-5 px-3" style="display:none">
+                                <div class="col-decided-by-us-description">
+                                    <h5>Ще изберем подходящо място за фотосесията в околността на населеното място, което сте избрали</h5>
+                                </div>
+                            </div>
                             <div class="row row-section-2 mt-4">
                                 <div class="col-md-12 mx-auto">
                                     <div class="book_tabel_item">
@@ -1277,6 +1287,8 @@
             $(".row-location-settlement").css("display", "none");
             $(".row-location-user-place").css("display", "none");
             $(".row-location-google-maps-link").css("display", "none");
+            $(".row-custom-location-description").css("display", "none");
+            $(".row-decided-by-us-description").css("display", "none");
 
             //reset the values of UserPlace and GoogleMapsLink on
             //each click of this tab because they are not needed
@@ -1302,6 +1314,8 @@
             //show the appropriate inputs only
             $(".row-location-type-popular").css("display", "none");
             $(".row-location-settlement").css("display", "block");
+            $(".row-custom-location-description").css("display", "block");
+            $(".row-decided-by-us-description").css("display", "none");
 
             //check if locaiton is valid on 
             //each click on this tab
@@ -1323,6 +1337,8 @@
             $(".row-location-settlement").css("display", "block");
             $(".row-location-user-place").css("display", "none");
             $(".row-location-google-maps-link").css("display", "none");
+            $(".row-custom-location-description").css("display", "none");
+            $(".row-decided-by-us-description").css("display", "block");
 
             //reset the values of UserPlace and GoogleMapsLink on
             //each click of this tab because if the user has 
