@@ -110,7 +110,11 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
             }
 
-            return await _context.DynamicContents.FindAsync(id) ?? 
+            return await _context.DynamicContents
+                .Include(dc => dc.DynamicContentCategories)
+                .ThenInclude(dcc => dcc.DynamicContents)
+                .Where(dc => dc.Id == id)
+                .FirstOrDefaultAsync() ?? 
                 throw new NullReferenceException($"DynamicContent with id {id} does not exists");
         }
 

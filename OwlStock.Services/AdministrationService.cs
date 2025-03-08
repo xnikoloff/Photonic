@@ -47,7 +47,7 @@ namespace OwlStock.Services
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ",   // Uppercase
                 "abcdefghijklmnopqrstuvwxyz",   // Lowercase
                 "0123456789",                   // Digits
-                "!@#${}"        // Non-alphanumeric
+                "!@#$"        // Non-alphanumeric
             };
 
             Random random = new();
