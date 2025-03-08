@@ -53,10 +53,7 @@
                             <span class="progress-bar-section-4"><i class="fa-solid fa-user fa-lg"></i></span>
                         </div>
                         <div class="col-2 text-center mx-auto py-1 col-progress-bar col-progress-bar-section-5 progress-bar-pristine">
-                            <span class="progress-bar-section-5"><i class="fa-solid fa-square-plus fa-lg"></i></span>
-                        </div>
-                        <div class="col-2 text-center mx-auto py-1 col-progress-bar col-progress-bar-section-6 progress-bar-pristine">
-                            <span class="progress-bar-section-6"><i class="fa-solid fa-flag-checkered fa-lg"></i></span>
+                            <span class="progress-bar-section-5"><i class="fa-solid fa-flag-checkered fa-lg"></i></span>
                         </div>
                     </div>
                     <div class="boking_table mx-auto mt-5">
@@ -780,25 +777,9 @@
                                 </div>
                             </div>
                             <div class="row mt-5">
-                                <div class="col-12 mx-auto">
-                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-5">НАЗАД</button>
-                                    <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-5">ЗАПАЗИ</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-section section-6" style="display: none">
-                            <div class="row row-section-title row-section-title-5">
-                                <div class="col-12 mx-auto text-center">
-                                    <h2 class="section-title">Всичко изглежда наред</h2>
-                                </div>
-                            </div>
-                            <div class="row mt-5">
                                 <div class="col-12 text-dark text-center">
                                     <h6>
-                                        Ако желаете, тук може да опишете всякакви съображения, които имате за фотосесията. Например как си представяте снимките след фотосесията, ще носите ли със себе си някакъв личен предмет, с който искате да се снимате и др. 
-                                        <br />
-                                        <br />
-                                        Това ще ни помогне много с подготовката.
+                                        Ако желаете, тук може да опишете всякакви съображения, които имате за фотосесията.
                                     </h6>
                                     <textarea asp-for="PhotoShootTypeDescription" cols="100" rows="6" class="form-control mt-3"></textarea>
                                 </div>
@@ -810,7 +791,7 @@
                             </div>
                             <div class="row mt-5">
                                 <div class="col-12 mx-auto">
-                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-6">НАЗАД</button>
+                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-5">НАЗАД</button>
                                 </div>
                             </div>
                         </div>
@@ -870,16 +851,10 @@
     }
 
     .row-progress-bar{
-        border-radius: 20%;
         background: #f7f7f7;
     }
 
-    .progress-bar-current{
-        background: #fff;
-        color: #ebb105;
-        border-radius: 20%;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
-    }
+    
 
     .progress-bar-pristine{
         color: #A9A9A9;
@@ -1210,26 +1185,6 @@
         $(".btn-section-back-seciton-5").click(function () {
             $(".section-4").css("display", "block");
             $(".section-5").css("display", "none");
-
-            //No validation on back buttons, because if you have passed to
-            //the next section the first time, it means form was valid
-        });
-        
-        //final section
-        $(".btn-section-submit-seciton-5").click(function () {
-            $(".section-5").css("display", "none");
-            $(".section-6").css("display", "block");
-
-            forwardProgress(5, true);
-
-            //ADD VALIDATION HERE
-        });
-
-        $(".btn-section-back-seciton-6").click(function () {
-            $(".section-5").css("display", "block");
-            $(".section-6").css("display", "none");
-
-            backwardProgress(5, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
