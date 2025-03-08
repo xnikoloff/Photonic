@@ -8,8 +8,8 @@ namespace OwlStock.Domain.Enumerations
         [Display(Name = "Индивидуална фотосесия")]
         Personal = 1,
 
-        [Display(Name = "Фотосесия за бременни")]
-        Pregnant = 2,
+        [Display(Name = "Бизнес портрет")]
+        BusinessPortrait = 2,
 
         [Display(Name = "Сватба")]
         Wedding = 3,
@@ -20,14 +20,14 @@ namespace OwlStock.Domain.Enumerations
         [Display(Name = "Абитуриентски бал")]
         Prom = 5,
 
-        /*[Display(Name = "Детска фотосесия")]
-        Kids = 6,*/
+        [Display(Name = "Семейна фотосесия")]
+        Family = 6,
 
-        /*[Display(Name = "Имот/сграда")]
-        Property = 7,*/
+        [Display(Name = "Семейна фотосесия Plus")]
+        FamilyPlus = 7,
 
-        [Display(Name = "Събитие")]
-        Event = 8,
+        [Display(Name = "Семейна фотосесия Extra")]
+        FamilyExtra = 8,
 
         [Display(Name = "Автомобил")]
         Automotive = 9,
@@ -61,5 +61,11 @@ namespace OwlStock.Domain.Enumerations
 
         [Display(Name = "Свето кръщене Extra")]
         BaptismExtra = 19,
+
+        [Display(Name = "Събитие")]
+        Event = 20,
+
+        [Display(Name = "ProductPlus")]
+        ProductPlus = 21,
     }
 }

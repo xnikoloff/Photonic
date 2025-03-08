@@ -42,6 +42,36 @@ namespace OwlStock.Services
                     return DefaultValue.PortrairExtraPhotoShoot + fuelPrice;
                 }
 
+                case PhotoShootType.Family:
+                    {
+                        if (fuelPrice == 0)
+                        {
+                            return DefaultValue.FamilyPhotoShoot;
+                        }
+
+                        return DefaultValue.FamilyPhotoShoot + fuelPrice;
+                    }
+
+                case PhotoShootType.FamilyPlus:
+                    {
+                        if (fuelPrice == 0)
+                        {
+                            return DefaultValue.FamilyPlusPhotoShoot;
+                        }
+
+                        return DefaultValue.FamilyPlusPhotoShoot + fuelPrice;
+                    }
+
+                case PhotoShootType.FamilyExtra:
+                    {
+                        if (fuelPrice == 0)
+                        {
+                            return DefaultValue.FamilyExtraPhotoShoot;
+                        }
+
+                        return DefaultValue.FamilyExtraPhotoShoot + fuelPrice;
+                    }
+
                 case PhotoShootType.Wedding:
                 {
                     if (fuelPrice == 0)
@@ -132,24 +162,14 @@ namespace OwlStock.Services
                     return DefaultValue.BaptismExtra + fuelPrice;
                 }
 
-                /*case PhotoShootType.Kids:
+                case PhotoShootType.BusinessPortrait:
                 {
                     if (fuelPrice == 0)
                     {
-                        return DefaultValue.KidsPhotoshoot;
+                        return DefaultValue.BusinessPortrait;
                     }
 
-                    return DefaultValue.KidsPhotoshoot + fuelPrice;
-                }*/
-
-                case PhotoShootType.Pregnant:
-                {
-                    if (fuelPrice == 0)
-                    {
-                        return DefaultValue.PregnantPhotoshoot;
-                    }
-
-                    return DefaultValue.PregnantPhotoshoot + fuelPrice;
+                    return DefaultValue.BusinessPortrait + fuelPrice;
                 }
 
                 case PhotoShootType.Automotive:
@@ -161,6 +181,26 @@ namespace OwlStock.Services
 
                     return DefaultValue.Automotive + fuelPrice;
                 }
+
+                case PhotoShootType.Product:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.Product;
+                    }
+
+                    return DefaultValue.Product + fuelPrice;
+                }
+
+                case PhotoShootType.ProductPlus:
+                    {
+                        if (fuelPrice == 0)
+                        {
+                            return DefaultValue.ProductPlus;
+                        }
+
+                        return DefaultValue.ProductPlus + fuelPrice;
+                    }
 
                 default: return fuelPrice;
             }

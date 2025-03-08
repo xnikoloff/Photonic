@@ -1,14 +1,6 @@
 ﻿@model bool
 
 <div class="row row-portfolio">
-    <div class="col-12 col-md-6 text-center col-portfolio col-wedding">
-        <div class="portfolio-content-wrap">
-            <h1>Сватба</h1>
-            <p>Вашата сватба през нашия обектив</p>
-        </div>
-        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Wedding" class="btn btn-light btn-view-services">Разгледайте</a>
-        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-warning btn-book-services">Резервирайте</a>
-    </div>
     <div class="col-12 col-md-6 text-center col-portfolio col-portrait">
         <div class="portfolio-content-wrap">
             <h1>Идивидуална фотосесия</h1>
@@ -16,6 +8,14 @@
         </div>
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Portrait" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-warning btn-book-services">Резервирайте</a>
+    </div>
+    <div class="col-12 col-md-6 text-center col-portfolio col-wedding">
+        <div class="portfolio-content-wrap">
+            <h1>Семейна фотосесия</h1>
+            <p>Скъпоценни моменти, завинаги заедно</p>
+        </div>
+        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Wedding" class="btn btn-light btn-view-services">Разгледайте</a>
+        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
     <div class="col-12 col-md-6 text-center col-portfolio col-baptism">
         <div class="portfolio-content-wrap">
@@ -49,21 +49,21 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Product" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 text-center col-portfolio col-pregnancy">
+    <div class="col-12 col-md-6 text-center col-portfolio col-business-portrait">
         <div class="portfolio-content-wrap">
-            <h1>Фотосесия за бременни</h1>
-            <p>Красотата на бремеността Ви завинаги с Вас</p>
+            <h1>Бизнес портрет</h1>
+            <p>Професионални портрети, отразяващи вашата увереност и индивидуалност</p>
         </div>
-        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Pregnancy" class="btn btn-light btn-view-services">Разгледайте</a>
-        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Pregnant" class="btn btn-warning btn-book-services">Резервирайте</a>
+        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Business" class="btn btn-light btn-view-services">Разгледайте</a>
+        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.BusinessPortrait" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 text-center col-portfolio col-kids">
+    <div class="col-12 col-md-6 text-center col-portfolio col-event">
         <div class="portfolio-content-wrap">
-            <h1>Друго</h1>
-            <p>Имате идея? Нека я реализираме заедно!</p>
+            <h1>Събитие</h1>
+            <p>Дали рожден ден, корпоратиено събитие или концерт - ще запечатаме всички интересни моменти от събитието.</p>
         </div>
-        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Other" class="btn btn-light btn-view-services">Разгледайте</a>
-        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-warning btn-book-services">Резервирайте</a>
+        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Events" class="btn btn-light btn-view-services">Разгледайте</a>
+        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Event" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
 </div>
 
@@ -110,7 +110,7 @@
     }
 
     .row-portfolio .col-wedding {
-        background-image: url(@Url.Content("~/resources/images/wedding.jpg"));
+        background-image: url(@Url.Content("~/resources/images/family.jpg"));
     }
 
     .row-portfolio .col-portrait {
@@ -133,12 +133,12 @@
         background-image: url(@Url.Content("~/resources/images/product.jpg"));
     }
 
-    .row-portfolio .col-kids {
-        background-image: url(@Url.Content("~/resources/images/kids.jpg"));
+    .row-portfolio .col-event {
+        background-image: url(@Url.Content("~/resources/images/event.jpg"));
     }
 
-    .row-portfolio .col-pregnancy {
-        background-image: url(@Url.Content("~/resources/images/pregnancy.jpg"));
+    .row-portfolio .col-business-portrait {
+        background-image: url(@Url.Content("~/resources/images/bussinessPortrait.jpg"));
     }
 </style>
 
