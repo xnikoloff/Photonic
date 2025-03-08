@@ -113,7 +113,7 @@ namespace OwlStock.Services
                 {
                     break;
                 }
-                remainingDates.Add(_currentDateTime.AddDays(i + 1));
+                remainingDates.Add(_currentDateTime.AddDays(i));
             }
 
             return remainingDates;
