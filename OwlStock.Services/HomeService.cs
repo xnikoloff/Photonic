@@ -21,7 +21,7 @@ namespace OwlStock.Services
 
         public async Task<HomePageDTO> GetHomeData()
         {
-            IEnumerable<DynamicContent> dynamicContents = await _dynamicContentService.GetLastFour();
+            IEnumerable<DynamicContent> dynamicContents = await _dynamicContentService.GetTopContent();
             IEnumerable<Testimony> testimonies = await _testimonyService.GetLastFour();
 
             return new HomePageDTO()

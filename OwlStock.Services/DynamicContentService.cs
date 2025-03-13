@@ -9,7 +9,7 @@ namespace OwlStock.Services
 {
     public class DynamicContentService : IDynamicContentService
     {
-        private const int _visibleContent = 4;
+        private const int _visibleContent = 3;
 
         private readonly OwlStockDbContext _context;
         private readonly IFileService _fileService;
@@ -211,7 +211,7 @@ namespace OwlStock.Services
             };
         }
 
-        public async Task<IEnumerable<DynamicContent>> GetLastFour()
+        public async Task<IEnumerable<DynamicContent>> GetTopContent()
         {
             if (_context.DynamicContents is null)
             {
@@ -222,7 +222,7 @@ namespace OwlStock.Services
                 .Where(dc => dc.ShowInTopPosition && dc.IsVisible)
                 .Include(dc => dc.DynamicContentCategories)
                 .OrderBy(dc => dc.Id)
-                .Take(4)
+                .Take(_visibleContent)
                 .ToListAsync();
         }
 
