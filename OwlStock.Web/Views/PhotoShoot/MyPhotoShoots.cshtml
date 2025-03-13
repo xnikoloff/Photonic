@@ -16,13 +16,13 @@
         </div>
     </div>
 </section>
-<div class="container my-photoshoots-container">
-    <div class="row mt-2">
+<div class="container my-photoshoots-container mt-5">
+    <div class="row mb-5">
         <div class="col-12 text-dark text-center">
             <h1>Активни фотосесии</h1>
             @if(Model.Where(m => m.PhotoshootStatus == PhotoshootStatus.New).Count() == 0)
             {
-                <h4 class="text-dark"><i>Нямате активни фотосесии</i></h4>
+                <h4 class="text-dark mt-5"><i>Нямате активни фотосесии</i></h4>
             }
             @foreach (MyPhotoShootsDTO dto in Model.Where(m => m?.PhotoshootStatus == PhotoshootStatus.New))
             {
@@ -60,6 +60,7 @@
             }
         </div>
     </div>
+    <hr />
     @if (Model.Where(m => m.PhotoshootStatus == PhotoshootStatus.Completed).Count() > 0)
     {
         <div class="row mt-5">
