@@ -9,7 +9,8 @@ namespace OwlStock.Services
 {
     public class DynamicContentService : IDynamicContentService
     {
-        private const int _visibleContent = 3;
+        private const int _visibleContentByPage = 4;
+        private const int _visibleTopContent = 3;
 
         private readonly OwlStockDbContext _context;
         private readonly IFileService _fileService;
@@ -196,8 +197,8 @@ namespace OwlStock.Services
             List<DynamicContent> dynamicContents = await _context.DynamicContents
                 .Where(dc => dc.IsVisible)
                 .Include (dc => dc.CreatedBy)
-                .Skip((pageNumber * _visibleContent) - _visibleContent)
-                .Take(_visibleContent)
+                .Skip((pageNumber * _visibleContentByPage) - _visibleContentByPage)
+                .Take(_visibleContentByPage)
                 .ToListAsync();
 
             List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
@@ -222,7 +223,7 @@ namespace OwlStock.Services
                 .Where(dc => dc.ShowInTopPosition && dc.IsVisible)
                 .Include(dc => dc.DynamicContentCategories)
                 .OrderBy(dc => dc.Id)
-                .Take(_visibleContent)
+                .Take(_visibleTopContent)
                 .ToListAsync();
         }
 
@@ -250,7 +251,7 @@ namespace OwlStock.Services
                 return 0;
             }
 
-            int result = (int)Math.Ceiling(total / _visibleContent);
+            int result = (int)Math.Ceiling(total / _visibleContentByPage);
 
             return result;
         }
