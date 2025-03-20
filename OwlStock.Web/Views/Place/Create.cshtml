@@ -1,6 +1,6 @@
 ﻿@model PlaceDTO
 
-<div class="container">
+<div class="container container-create-place">
     <div class="row">
         <div class="col-12 col-md-6 col-lg-4">
             <form asp-action="Create" method="post" enctype="multipart/form-data">
@@ -30,8 +30,14 @@
                     <label asp-for="File"></label>
                     <input asp-for="File" class="form-control"/>
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-warning text-white">Update</button>
             </form>
         </div>
     </div>
 </div>
+<style>
+    .container-create-place{
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+</style>

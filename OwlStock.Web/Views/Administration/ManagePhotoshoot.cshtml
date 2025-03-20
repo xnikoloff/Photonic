@@ -4,7 +4,7 @@
     ViewData["Title"] = "Управление на фотосесия";
 }
 
-<div class="container mt-5 py-5">
+<div class="container container-manage-photoshoot">
     <div class="row text-white @(Model.Status == PhotoshootStatus.Completed ? "bg-success" : "bg-warning")">
         <div class="col-12 text-center">
             <h2>@ViewData["Title"]</h2>
@@ -119,3 +119,10 @@
         </div>
     </div>
 </div>
+
+<style>
+    .container-manage-photoshoot{
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+</style>

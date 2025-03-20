@@ -4,49 +4,35 @@
     ViewData["Title"] = "Популярни места";
 }
 
+
+
 <section class="breadcrumb_area mt-5">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">Популярни места</h2>
+            <h2 class="page-cover-tittle">Популярни локации</h2>
             <ol class="breadcrumb">
                 <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
-                <li class="active">Популярни места</li>
+                <li class="active">Популярни локации</li>
             </ol>
         </div>
     </div>
 </section>
-<div class="container mt-5">
+<div class="container my-5">
+    <div class="section_title text-center">
+        <h2 class="title_color">Популярни локации</h2>  
+        <p>Списък на най-често посещаваните локации за фотосесии</p>
+    </div>
     <div class="row">
         <div class="col-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Име</th>
-                        <th>Описание</th>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            if (User.IsInRole("Administrator"))
-                            {
-                                <th>IsPopular</th>
-                            }
-                        }
-                        <th>Град</th>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            if (User.IsInRole("Administrator"))
-                            {
-                                <th>Actions</th>
-                            }
-                        }
-                    </tr>
-                </thead>
+            <table class="table table-image">
                 <tbody>
-                    @foreach(Place place in Model)
+                    @foreach (Place place in Model)
                     {
-                        <tr class="clickable" id="@place.Id">
-                            <td>@place.Name</td>
-                            <td>@(place.Description ?? "N/A")</td>
+                        <tr> 
+                            <td class="w-25">
+                                <a asp-controller="Place" asp-action="PlaceById" asp-route-id="@place.Id"><img src="~/resources/places/@place.PhotoBase.FileName" class="img-fluid img-thumbnail" alt="place-thumb"></a>
+                            </td>
                             @if (User.Identity.IsAuthenticated)
                             {
                                 if (User.IsInRole("Administrator"))
@@ -54,7 +40,9 @@
                                     <td>@(place.IsPopular ? "Popular" : "User")</td>
                                 }
                             }
-                            <td>@(place?.City?.Name ?? "N/A")</td>
+                            <td scope="row">@place?.Name</td>
+                            <td scope="row">@place?.Description<td>
+                            <td>@place?.City?.Name</td>
                             @if (User.Identity.IsAuthenticated)
                             {
                                 if (User.IsInRole("Administrator"))
@@ -73,8 +61,12 @@
 </div>
 
 <style>
-    tr:hover {
+    .table-image tr:hover {
         cursor: pointer;
+    }
+
+    .table-image td, th {
+       vertical-align: middle;
     }
 </style>
 

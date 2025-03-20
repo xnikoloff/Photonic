@@ -3,6 +3,7 @@ using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Services;
 using OwlStock.Services.DTOs;
+using OwlStock.Services.DTOs.Place;
 using OwlStock.Services.Interfaces;
 using OwlStock.Web.DTOs.PlaceDTOs;
 using System.Security.Claims;
@@ -40,14 +41,14 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> PlaceById(Guid id)
         {
-            Place? place = await _placeService.PlaceById(id);
+            PlaceByIdDTO? dto = await _placeService.PlaceById(id);
 
-            if (place == null)
+            if (dto == null)
             {
                 return View("Error", "Мястото не може да бъде намерено");
             }
 
-            return View(place);
+            return View(dto);
         }
 
         [HttpGet]
@@ -78,16 +79,16 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(Guid id)
         {
-            Place? place = await _placeService.PlaceById(id);
+            PlaceByIdDTO? dto = await _placeService.PlaceById(id);
 
-            if (place == null)
+            if (dto == null)
             {
                 return View("Error", "Мястото не може да бъде намерено");
             }
 
             return View(new PlaceDTO()
             {
-                Place = place,
+                //Place = dto,
                 Cities = (await _settlementService.GetCitiesByServicedRegions()).ToList(),
             });
         }

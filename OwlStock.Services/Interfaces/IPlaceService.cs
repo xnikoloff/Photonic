@@ -1,4 +1,5 @@
 ﻿using OwlStock.Domain.Entities;
+using OwlStock.Services.DTOs.Place;
 
 namespace OwlStock.Services.Interfaces
 {
@@ -7,7 +8,7 @@ namespace OwlStock.Services.Interfaces
         Task<IEnumerable<Place>> All();
         Task<IEnumerable<Place>> AllPopular();
         Task<IEnumerable<Place>> GetPopularPlacesByRegion(int regionId);
-        Task<Place?> PlaceById(Guid id);
+        Task<PlaceByIdDTO?> PlaceById(Guid id);
         Task<Place?> Create(Place place);
         Task<Place?> Update(Place place);
         Task<Place?> UpdatePhotoId(Guid placeId, Guid photoId);

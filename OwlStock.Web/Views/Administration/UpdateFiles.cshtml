@@ -1,6 +1,6 @@
 ﻿@model UpdatePhotoShootPhotosDTO
 
-<div class="container mt-5 py-5">
+<div class="container container-upload-photos">
     <div class="row">
         <div class="col-12 text-center">
             <h2>Photoshoot for @Model.PersonFullName</h2>
@@ -23,10 +23,17 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary btn-lg mt-5">Update Files</button>
+                        <button type="submit" class="btn btn-warning text-white mt-5">Update Files</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<style>
+    .container-upload-photos{
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+</style>

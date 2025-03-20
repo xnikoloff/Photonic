@@ -1,18 +1,65 @@
-﻿@model Place
+﻿@model PlaceByIdDTO
 
-<div class="container">
-    <div class="row my-5">
-        <div class="col-12 text-center">
-            <h1>@Model.Name</h1>
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="breadcrumb_area mt-5">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">@Model.Name</h2>
+            <ol class="breadcrumb">
+                <li><a asp-controller="Place" asp-action="All">Популярни локации</a></li>
+                <li class="active">@Model.Name</li>
+            </ol>
         </div>
     </div>
-    <hr />
-    <div class="row mt-4">
+</section>
+<div class="container container-place">
+    <div class="row row-place">
+        <div class="col-12 col-md-6 col-lg-8 text-center col-place">
+            <img src="~/resources/places/@Model.PhotoFileName" style="width:600px" alt="place image" />
+        </div>
         <div class="col-12 col-md-6 col-lg-4">
+            <h2>@Model.Name</h2>
             <p>@Model.Description</p>
         </div>
-        <div class="col-12 col-md-6 col-lg-8 text-center">
-            <img src="~/resources/places/@Model.PhotoBase.FileName" style="width:600px" alt="place image" />
+    </div>
+    <div class="row row-place-photos-title">
+        <div class="col-12 col-place-photos-title text-center">
+            <h2>Снимки от локацията</h2>
         </div>
     </div>
+    <div class="row row-place-photos mt-5">
+        @foreach (PhotoShootPhoto photo in Model?.Photos ?? new())
+        {
+            <div class="col-md-4 gallery_item">
+                <div class="gallery_img">
+                    <img src="~/resources/@photo.FilePath/@photo.FileName" alt="gallery-photo" />
+                    <div class="hover">
+                        <a class="light" href="~/resources/@photo.FilePath/@photo.FileName"><i class="fa fa-expand"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+<style>
+    .container-place{
+        margin-top: 150px;
+        margin-bottom: 200px;
+    }
+
+    .container-place .row-place-photos-title{
+        margin-top: 100px;
+        padding: 20px 10px;
+        background: #ededed;
+        font-weight: bold;
+    }
+
+    .container-place .row-place-photos-title h2{
+        font-weight: bold;
+    }
+</style>

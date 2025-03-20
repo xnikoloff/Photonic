@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
+using OwlStock.Services.DTOs.Place;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Services
@@ -22,6 +23,7 @@ namespace OwlStock.Services
             }
 
             return await _context.Places
+                .Include(p => p.PhotoBase)
                 .Include(p => p.City)
                 .ToListAsync();
         }
@@ -56,15 +58,22 @@ namespace OwlStock.Services
                 .ToListAsync();
         }
 
-        public async Task<Place?> PlaceById(Guid id)
+        public async Task<PlaceByIdDTO> PlaceById(Guid id)
         {
             if (_context.Places is null)
             {
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
+            if(_context.PhotoShoots is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+            }
+
             Place? place = await _context.Places
                 .Include(p => p.PhotoBase)
+                .Include(p => p.PhotoShoots)
+                    .ThenInclude(ps => ps.PhotoShootPhotos)
                 .Include(p => p.City)
                 .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
@@ -74,7 +83,21 @@ namespace OwlStock.Services
                 place!.PhotoBase = new();
             }
 
-            return place;
+            List<PhotoShootPhoto>? photos = place?.PhotoShoots
+                .Where(p => p.PlaceId == place.Id)
+                .Select(p => p.PhotoShootPhotos.ToList())
+                .FirstOrDefault() ?? new List<PhotoShootPhoto>();
+
+
+            PlaceByIdDTO dto = new()
+            {
+                Name = place.Name,
+                Description = place.Description,
+                PhotoFileName = place?.PhotoBase?.FileName,
+                Photos = photos
+            };
+
+            return dto;
         }
         
         public async Task<Place?> Create(Place place)
@@ -89,7 +112,7 @@ namespace OwlStock.Services
             await _context.AddAsync(place);
             await _context.SaveChangesAsync();
 
-            return await PlaceById(place.Id);
+            return place;
 
         }
 
@@ -100,7 +123,7 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
-            Place? existingPlace = await PlaceById(place.Id);
+            Place? existingPlace = await _context.Places.FindAsync(place?.Id);
 
             if (existingPlace != null)
             {
@@ -111,7 +134,7 @@ namespace OwlStock.Services
                 await _context.SaveChangesAsync();
             }
 
-            return await PlaceById(place.Id);
+            return place;
         }
 
         public async Task<Place?> UpdatePhotoId(Guid placeId, Guid photoId)
@@ -121,7 +144,7 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
-            Place? existingPlace = await PlaceById(placeId);
+            Place? existingPlace = await _context.Places.FindAsync(placeId);
 
             if (existingPlace != null)
             {
@@ -129,7 +152,7 @@ namespace OwlStock.Services
                 await _context.SaveChangesAsync();
             }
 
-            return await PlaceById(placeId);
+            return existingPlace;
 
         }
     }
