@@ -34,6 +34,8 @@ namespace OwlStock.Domain.Entities
         public bool TransportCustomer { get; set; }
         public string? PickUpAddress { get; set; }
 
+        public bool IsSmallProduct { get; set; }
+
         public Place? Place { get; set; }
 
         [ForeignKey(nameof(Place))]

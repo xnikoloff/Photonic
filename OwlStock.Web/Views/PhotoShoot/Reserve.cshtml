@@ -390,7 +390,10 @@
                                 </div>
                             </div>
                             <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-product" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                <div class="small-product-prompt">
+                                    <h4>Ако продуктът, който искате да бъде заснет е малък продукт от порядъка на дрехи, обувки, бижута и други малки предмети, моля да използвате формата за резервация на <a asp-controller="PhotoShoot" asp-action="ReserveSmallProduct"><b>малък продукт</b></a>.</h4>
+                                </div>
+                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet mt-4">
                                     <div class="card mx-auto card-packet">
                                         <div class="card-header text-center">
                                             <h5>Стандартен</h5>
@@ -527,13 +530,13 @@
                                     <button type="button" class="btn-location-type btn-location-type-decided-by-us btn-location-type-inactive">Нека ние изберем</button>
                                 </div>
                             </div>
-                            <div class="row row-custom-location-description mt-5 px-3" style="display:none">
-                                <div class="col-decided-by-us-description">
-                                    <h5></h5>
+                            <div class="row row-popular-locations-description mt-5 px-3">
+                                <div class="col-popular-locations-description">
+                                    <a asp-controller="Place" asp-action="All" target="_blank"><h5>Списък с всички популярни локации</h5></a>
                                 </div>
                             </div>
                             <div class="row row-custom-location-description mt-5 px-3" style="display:none">
-                                <div class="col-decided-by-us-description">
+                                <div class="col-custom-location-description">
                                     <h5>Въвете локация по избор, ако не намирате подходяща сред популярните</h5>
                                 </div>
                             </div>
@@ -1292,6 +1295,7 @@
             $(".row-location-settlement").css("display", "none");
             $(".row-location-user-place").css("display", "none");
             $(".row-location-google-maps-link").css("display", "none");
+            $(".row-popular-locations-description").css("display", "block");
             $(".row-custom-location-description").css("display", "none");
             $(".row-decided-by-us-description").css("display", "none");
 
@@ -1319,6 +1323,7 @@
             //show the appropriate inputs only
             $(".row-location-type-popular").css("display", "none");
             $(".row-location-settlement").css("display", "block");
+            $(".row-popular-locations-description").css("display", "none");
             $(".row-custom-location-description").css("display", "block");
             $(".row-decided-by-us-description").css("display", "none");
 
@@ -1342,6 +1347,7 @@
             $(".row-location-settlement").css("display", "block");
             $(".row-location-user-place").css("display", "none");
             $(".row-location-google-maps-link").css("display", "none");
+            $(".row-popular-locations-description").css("display", "none");
             $(".row-custom-location-description").css("display", "none");
             $(".row-decided-by-us-description").css("display", "block");
 

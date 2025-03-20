@@ -23,10 +23,15 @@
                 <h3 class="text-warning"><i class="fa-solid fa-camera fa-lg"></i></h3>
                 <h3 class="photoshoot-details-top">@(Model.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</h3>
             </div>
-            <div class="col-4 mx-auto text-center">
-                <h3 class="text-warning"><i class="fa-solid fa-calendar-days fa-lg"></i></h3>
-                <h3 class="photoshoot-details-top">@Model.ReservationDate.ToString("dd.MM.yyyy") г. @Model.ReservationDate.ToString("h:mm") ч.</h3>
-            </div>
+            
+            @if (Model?.IsSmallProduct != true)
+            {
+                <div class="col-4 mx-auto text-center">
+                    <h3 class="text-warning"><i class="fa-solid fa-calendar-days fa-lg"></i></h3>
+                    <h3 class="photoshoot-details-top">@Model.ReservationDate.ToString("dd.MM.yyyy") г. @Model.ReservationDate.ToString("h:mm") ч.</h3>
+                </div>
+            }
+            
             <div class="col-4 mx-auto text-center">
                 <h3 class="text-warning"><i class="fa-solid fa-sack-dollar fa-lg"></i></h3>
                 <h3 class="photoshoot-details-top">@Model.Price лв</h3>
@@ -55,24 +60,29 @@
             </div>
         </div>
         <div class="row my-5">
-            <div class="col-12 col-md-4 text-center mx-auto">
-                <h2>Локация</h2>
-                <p>@Model?.Settlement, обл. @Model?.Region</p>
-                <h4><i class="fa-solid fa-location-dot fa-lg"></i> @Model?.Place</h4>
-            </div>
-            <div class="col-12 col-md-4 mt-5 mt-md-0 text-center mx-auto">
-                <h2>Транспорт</h2>
-                @if (Model!.TransportCustomer)
-                {
-                    <p>Да</p>
-                    <h6><i class="fa-solid fa-location-dot fa-lg"></i> @Model.PickUpAddress</h6>
-                }
-                else
-                {
-                    <p>-</p>
-                    <h6>Не</h6>
-                }
-            </div>
+
+            @if (Model?.IsSmallProduct != true)
+            {
+                <div class="col-12 col-md-4 text-center mx-auto">
+                    <h2>Локация</h2>
+                    <p>@Model?.Settlement, обл. @Model?.Region</p>
+                    <h4><i class="fa-solid fa-location-dot fa-lg"></i> @Model?.Place</h4>
+                </div>
+                <div class="col-12 col-md-4 mt-5 mt-md-0 text-center mx-auto">
+                    <h2>Транспорт</h2>
+                    @if (Model!.TransportCustomer)
+                    {
+                        <p>Да</p>
+                        <h6><i class="fa-solid fa-location-dot fa-lg"></i> @Model.PickUpAddress</h6>
+                    }
+                    else
+                    {
+                        <p>-</p>
+                        <h6>Не</h6>
+                    }
+                </div>
+            }
+            
             <div class="col-12 col-md-4 mt-5 mt-md-0 text-center mx-auto">
                 <h2>Снимки</h2>
                 <p>@(Model?.PhotoDeliveryMethod?.GetAttribute<DisplayAttribute>().Name ?? "-")</p>
@@ -90,6 +100,7 @@
                 }
             </div>
         </div>
+        
         @if (!string.IsNullOrEmpty(Model?.PhotoShootTypeDescription))
         {
             <div class="row pt-5 my-5">

@@ -73,6 +73,12 @@ namespace OwlStock.Web.Controllers
             return View("Reserve", dto);
         }
 
+        [HttpGet]
+        public IActionResult ReserveSmallProduct()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Reserve(CreatePhotoShootDTO dto)
         {
@@ -158,6 +164,59 @@ namespace OwlStock.Web.Controllers
             //create the photoshoot
             await _photoShootService.Add(dto);
             return RedirectToAction(nameof(SuccessfulReservation));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReserveSmallProduct(CreateSmallProductPhotoshootDTO dto)
+        {
+            //return error if ModelState is invalid
+            //There is a solid validation in the front end, so
+            //invalid model state  should not be possible
+            if (!ModelState.IsValid)
+            {
+                return View("Error", "Съжаляваме, нещо се обърка повреме на резервирането...");
+
+            }
+
+            //get user id and email
+            dto.IdentityUserId = GetUserId();
+            IdentityUser user = new();
+
+            if (!dto.IdentityUserId.IsNullOrEmpty())
+            {
+                dto.PersonEmail = User.FindFirstValue(ClaimTypes.Email);
+            }
+
+
+            else
+            {
+                user.Email = dto.PersonEmail;
+                user.UserName = dto.PersonEmail;
+
+
+                string password = await _administrationService.CreateUserFromGuest(user);
+
+                if (password.IsNullOrEmpty())
+                {
+                    return View("Error", "Съжаляваме, нещо се обърка по време на резервирането...");
+                }
+
+                //assign id of newly created user to the photoshoot DTO
+                dto.IdentityUserId = user.Id;
+
+                //assign password of newly created user to the photoshoot DTO
+                dto.Password = password;
+
+            }
+
+            bool result = await _photoShootService.AddSmallProduct(dto);
+
+            if (result)
+            {
+                return RedirectToAction(nameof(SuccessfulReservation));
+            }
+
+            return View("Error", "Съжаляваме, нещо се обърка по време на резервирането...");
         }
 
         [Authorize]

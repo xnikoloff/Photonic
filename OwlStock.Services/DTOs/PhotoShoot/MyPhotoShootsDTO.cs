@@ -12,5 +12,6 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public PhotoDeliveryMethod? PhotoDeliveryMethod { get; set; }
         public PhotoshootStatus? PhotoshootStatus { get; set; }
         public string? ReservationFor { get; set; }
+        public bool IsSmallProduct { get; set; }
     }
 }

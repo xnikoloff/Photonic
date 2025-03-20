@@ -38,8 +38,19 @@
                         <div class="col-4 col-lg-3">
                             <div class="card-body">
                                 <h6>Дата</h6>
-                                <h2 class="text-data">@dto?.ReservationDate.ToString("dd.MM")</h2>
-                                <h3 class="text-data text-year">@dto?.ReservationDate.ToString("yyyy") г.</h3>
+                                
+                                @if (dto?.IsSmallProduct != true)
+                                {
+                                    <h2 class="text-data">@dto?.ReservationDate.ToString("dd.MM")</h2>
+                                    <h3 class="text-data text-year">@dto?.ReservationDate.ToString("yyyy") г.</h3>
+                                }
+
+                                else
+                                {
+                                    <h2 class="text-data">-</h2>
+                                    <h3 class="text-data text-year">-</h3>
+                                }
+
                             </div>
                         </div>
                         <div class="col-4 col-lg-3">

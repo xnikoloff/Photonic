@@ -23,6 +23,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public decimal Price { get; set; }
         public bool TransportCustomer { get; set; }
         public string? PickUpAddress { get; set; }
+        public bool IsSmallProduct { get; set; }
         public string? IdentityUserId { get; set; }
         public ICollection<PhotoShootPhoto>? PhotoShootPhotos { get; set; }
     }

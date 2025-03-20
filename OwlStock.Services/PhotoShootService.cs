@@ -106,6 +106,7 @@ namespace OwlStock.Services
                 Price = photoshoot.Price,
                 TransportCustomer = photoshoot.TransportCustomer,
                 PickUpAddress = photoshoot?.PickUpAddress,
+                IsSmallProduct = photoshoot.IsSmallProduct,
                 PhotoShootPhotos = photoshoot?.PhotoShootPhotos,
                 IdentityUserId = userId,
             };
@@ -137,6 +138,7 @@ namespace OwlStock.Services
                     PhotoDeliveryMethod = phs.PhotoDeliveryMethod,
                     Price = phs.Price,
                     PhotoshootStatus = phs.Status,
+                    IsSmallProduct = phs.IsSmallProduct
                 })
                 .OrderByDescending(phs => phs.ReservationDate)
                 .ToListAsync();
@@ -228,6 +230,46 @@ namespace OwlStock.Services
             }
 
             return photoShootResult;
+        }
+
+        public async Task<bool> AddSmallProduct(CreateSmallProductPhotoshootDTO dto)
+        {
+            if (_context.PhotoShoots is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+            }
+
+            //fuelPrice is hardcoded as 0 because it will be discounted as feature soon
+            decimal totalPrice = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, 0);
+
+            await _context.PhotoShoots.AddAsync(new()
+            {
+                PersonFirstName = dto.PersonFirstName,
+                PersonLastName = dto.PersonLastName,
+                PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
+                PersonEmail = dto.PersonEmail,
+                PersonPhone = dto.PersonPhone,
+                PhotoShootType = dto.PhotoShootType,
+                PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
+                CreatedOn = DateTime.Now,
+                DoNotUploadPhotos = dto.DoNotUploadPhotos,
+                PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
+                PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
+                Price = totalPrice,
+                IdentityUserId = dto.IdentityUserId,
+                Status = PhotoshootStatus.New,
+                PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
+                IsSmallProduct = dto.IsSmallProduct
+            });
+
+            int result = await _context.SaveChangesAsync();
+
+            if (result == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task<PhotoShoot> Update(ManagePhotoshootDTO dto)

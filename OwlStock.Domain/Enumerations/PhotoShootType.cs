@@ -65,7 +65,7 @@ namespace OwlStock.Domain.Enumerations
         [Display(Name = "Събитие")]
         Event = 20,
 
-        [Display(Name = "ProductPlus")]
+        [Display(Name = "Артистичен продукт")]
         ProductPlus = 21,
     }
 }
