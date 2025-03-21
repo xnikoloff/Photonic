@@ -58,7 +58,7 @@ namespace OwlStock.Services
                 .ToListAsync();
         }
 
-        public async Task<PlaceByIdDTO> PlaceById(Guid id)
+        public async Task<PlaceByIdDTO?> PlaceById(Guid id)
         {
             if (_context.Places is null)
             {
@@ -83,16 +83,16 @@ namespace OwlStock.Services
                 place!.PhotoBase = new();
             }
 
-            List<PhotoShootPhoto>? photos = place?.PhotoShoots
-                .Where(p => p.PlaceId == place.Id)
+            List<PhotoShootPhoto>? photos = (place?.PhotoShoots ?? new List<PhotoShoot>())
+                .Where(p => p.PlaceId == place?.Id)
                 .Select(p => p.PhotoShootPhotos.ToList())
                 .FirstOrDefault() ?? new List<PhotoShootPhoto>();
 
 
             PlaceByIdDTO dto = new()
             {
-                Name = place.Name,
-                Description = place.Description,
+                Name = place?.Name,
+                Description = place?.Description,
                 PhotoFileName = place?.PhotoBase?.FileName,
                 Photos = photos
             };
@@ -127,9 +127,9 @@ namespace OwlStock.Services
 
             if (existingPlace != null)
             {
-                existingPlace.Name = place.Name;
-                existingPlace.Description = place.Description;
-                existingPlace.GoogleMapsURL = place.GoogleMapsURL;
+                existingPlace.Name = place?.Name;
+                existingPlace.Description = place?.Description;
+                existingPlace.GoogleMapsURL = place?.GoogleMapsURL;
                 existingPlace.IsPopular = place.IsPopular;
                 await _context.SaveChangesAsync();
             }

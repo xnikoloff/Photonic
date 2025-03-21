@@ -40,7 +40,7 @@ namespace OwlStock.Domain.Entities
         public IdentityUser? EditedBy { get; set; }
 
         [ForeignKey(nameof(PhotoBase))]
-        public Guid? PhotoBaseId { get; set; }
+        public Guid PhotoBaseId { get; set; }
 
         public PhotoBase? PhotoBase { get; set; }
 

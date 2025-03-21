@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
@@ -18,13 +19,15 @@ namespace OwlStock.Services
         private readonly IEmailService _emailService;
         private readonly ICalendarService _calendarService;
         private readonly ICalculationsService _calculationsService;
+        private readonly ILogger<AdministrationService> _logger;
 
-        public PhotoShootService(OwlStockDbContext context, IEmailService emailService, ICalendarService calendarService, ICalculationsService calculationsService)
+        public PhotoShootService(OwlStockDbContext context, IEmailService emailService, ICalendarService calendarService, ICalculationsService calculationsService, ILogger<AdministrationService> logger)
         {
             _context = context;
             _emailService = emailService;
             _calendarService = calendarService;
             _calculationsService = calculationsService;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<PhotoShoot>> GetAll()
@@ -436,11 +439,11 @@ namespace OwlStock.Services
 
             string number = 
                         "PH-" +
-                        DateTime.Now.Year.ToString().Substring(2) +
+                        DateTime.Now.Year.ToString()[2..] +
                         DateTime.Now.Month +
                         DateTime.Now.Day +
-                        photoShootType.ToString().Substring(0, 3).ToUpper() +
-                        email.ToUpper().Substring(0, 3) + "-" +
+                        photoShootType.ToString()[..3].ToUpper() +
+                        email.ToUpper()[..3] + "-" +
                         alphabet[randomNumber1] + alphabet[randomNumber2] + alphabet[randomNumber3];
             
             return number;

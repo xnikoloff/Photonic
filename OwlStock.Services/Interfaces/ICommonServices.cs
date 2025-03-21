@@ -1,4 +1,4 @@
-﻿namespace OwlStock.Services
+﻿namespace OwlStock.Services.Interfaces
 {
     public interface ICommonServices
     {

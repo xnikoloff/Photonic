@@ -3,11 +3,40 @@ using Microsoft.EntityFrameworkCore;
 using OwlStock.Infrastructure;
 using OwlStock.Infrastructure.Identity;
 using OwlStock.Services;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
+using System.Data;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Load configuration
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .Build();
+
 // Add services to the container.
+var columnOptions = new ColumnOptions();
+columnOptions.Store.Remove(StandardColumn.Properties); 
+columnOptions.Store.Add(StandardColumn.LogEvent);
+columnOptions.LogEvent.DataType = SqlDbType.NVarChar;
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration) // Read config from appsettings.json
+    .WriteTo.MSSqlServer(
+        connectionString: configuration.GetConnectionString("DefaultConnection"),
+        sinkOptions: new MSSqlServerSinkOptions
+        {
+            TableName = "Logs",
+            AutoCreateSqlTable = true // Automatically creates table if not exists
+        },
+        columnOptions: columnOptions
+    )
+    .CreateLogger();
+
+// Add Serilog to ASP.NET Core
+builder.Host.UseSerilog();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<OwlStockDbContext>(options =>
     options.UseSqlServer(connectionString ?? 

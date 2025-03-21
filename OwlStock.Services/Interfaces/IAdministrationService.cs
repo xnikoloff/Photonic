@@ -4,7 +4,6 @@ namespace OwlStock.Services.Interfaces
 {
     public interface IAdministrationService
     {
-        string GeneratePassword();
-        Task<string> CreateUserFromGuest(IdentityUser user);
+        Task<string> CreateUser(IdentityUser user);
     }
 }

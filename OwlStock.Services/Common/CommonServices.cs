@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using OwlStock.Infrastructure.Common;
+using OwlStock.Services.Interfaces;
 using System.Text.Json.Nodes;
 
 namespace OwlStock.Services.Common

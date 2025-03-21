@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
-using OwlStock.Services;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.DTOs.Testimonies;
 using OwlStock.Services.Interfaces;

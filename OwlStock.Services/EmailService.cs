@@ -7,25 +7,28 @@ using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
 using OwlStock.Infrastructure.Common.EmailTemplates;
 using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Infrastructure.Common.EmailTemplates.Inquiry;
+using Microsoft.Extensions.Logging;
 
 namespace OwlStock.Services
 {
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<EmailService> _logger;
 
         private readonly string _smtpHost;
         private readonly int _smtpPort;
         private readonly string _smtpUser;
         private readonly string _smtpKey;
-
-        public EmailService(IConfiguration configuration)
+        
+        public EmailService(IConfiguration configuration, ILogger<EmailService> logger)
         {
             _configuration = configuration;
             _smtpHost = _configuration.GetValue<string>("Smpt:Host") ?? throw new NullReferenceException("Host is null");
             _smtpPort = _configuration.GetValue<int>("Smpt:Port");
             _smtpUser = _configuration.GetValue<string>("Smpt:Login") ?? throw new NullReferenceException("Smtp:Login is null");
             _smtpKey = _configuration.GetValue<string>("Smpt:Key") ?? throw new NullReferenceException("Smtp:Key is null");
+            _logger = logger;
         }
 
         public async Task SendInquiry(SendInquiryEmailTemplateDTO dto)
@@ -91,7 +94,14 @@ namespace OwlStock.Services
             
             for(int i = 0; i < messages.Length; i++) 
             {
-                await client.SendMailAsync(messages[i]);
+                try
+                {
+                    await client.SendMailAsync(messages[i]);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                }
             }
 
         }
@@ -102,7 +112,7 @@ namespace OwlStock.Services
             {
                 case EmailTemplate.CreatePhotoShoot:
                 {
-                        return PhotoShootEmailTemplates.CreatePhotoShootTemplate(dto.PhotoShootId);
+                    return PhotoShootEmailTemplates.CreatePhotoShootTemplate(dto.PhotoShootId);
                 }
 
                 case EmailTemplate.UpdatePhotosForPhotoShoot:

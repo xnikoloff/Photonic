@@ -2,12 +2,12 @@
 using OwlStock.Domain.Entities;
 using OwlStock.Services.DTOs;
 
-namespace OwlStock.Services
+namespace OwlStock.Services.Interfaces
 {
     public interface IFileService
-    { 
+    {
         bool CreatePhotoFile(PhotoBase photo);
-        Task<bool> CreatePlacePhotoFile(CreatePlacePhotoFileDTO dto);
+        bool CreatePlacePhotoFile(CreatePlacePhotoFileDTO dto);
         Task CreateIFormFile(IFormFile file, string webRootPath);
     }
 }

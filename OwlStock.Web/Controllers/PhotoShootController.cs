@@ -123,7 +123,7 @@ namespace OwlStock.Web.Controllers
                 user.UserName = dto.PersonEmail;
                 
 
-                string password = await _administrationService.CreateUserFromGuest(user);
+                string password = await _administrationService.CreateUser(user);
 
                 if (password.IsNullOrEmpty()) 
                 {
@@ -194,7 +194,7 @@ namespace OwlStock.Web.Controllers
                 user.UserName = dto.PersonEmail;
 
 
-                string password = await _administrationService.CreateUserFromGuest(user);
+                string password = await _administrationService.CreateUser(user);
 
                 if (password.IsNullOrEmpty())
                 {

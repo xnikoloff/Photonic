@@ -7,6 +7,5 @@ namespace OwlStock.Services.Interfaces
         Task<WeatherForecast> GetForecast(string settlementId);
         Task<WeatherForecast> GetForecastForPlace(Guid placeId);
         Task<WeatherCurrent> GetCurrentWeather(string settlement);
-        Task<IEnumerable<SettlementInfo>> Autocomplete(string name);
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
-using OwlStock.Services;
+using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Areas.Identity.Pages.Account
 {

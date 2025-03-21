@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Services.Interfaces;
 
@@ -8,43 +9,66 @@ namespace OwlStock.Services
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ILogger<AdministrationService> _logger;
         
-        public AdministrationService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AdministrationService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<AdministrationService> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
-        public async Task<string> CreateUserFromGuest(IdentityUser user)
+        /// <summary>
+        /// Creates IdentityUser
+        /// </summary>
+        /// <param name="user">IdentityUser</param>
+        /// <returns>Password of the created user as string if creation was successful, else return empty string </returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<string> CreateUser(IdentityUser user)
         {
             if(user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                _logger.LogInformation("{user} is null in {Method}, {Class}, {DateTime}", nameof(user), nameof(CreateUser), nameof(AdministrationService), DateTime.Now);
+                return string.Empty;
             }
             if (user.Email.IsNullOrEmpty())
             {
-                throw new ArgumentNullException(nameof(user.Email));
+                _logger.LogInformation("{email)} is null or empty in {Method}, {Class}, {DateTime}", nameof(user.Email), nameof(CreateUser), nameof(AdministrationService), DateTime.Now);
+                return string.Empty;
             }
 
-            user.EmailConfirmed = true;
-            string password = GeneratePassword();
-            IdentityResult result = await _userManager.CreateAsync(user, password);
-            
-            if (result.Succeeded)
+            try
             {
-                IdentityResult resultRole = await _userManager.AddToRoleAsync(user, "User");
+                user.EmailConfirmed = true;
+                string password = GeneratePassword();
+                IdentityResult result = await _userManager.CreateAsync(user, password);
 
-                if (resultRole.Succeeded)
+                if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, true);
-                    return password;
-                }
-            }
+                    IdentityResult resultRole = await _userManager.AddToRoleAsync(user, "User");
 
-            return string.Empty;
+                    if (resultRole.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, true);
+                        return password;
+                    }
+                }
+
+                return string.Empty;
+            }
+            catch(Exception e)
+            {
+                _logger.LogError(e, "An error occurred at {Time}", DateTime.UtcNow);
+                return string.Empty;
+            }
         }
 
-        public string GeneratePassword()
+        /// <summary>
+        /// Generates password for user with
+        /// uppercase, lowercase, number and special char
+        /// </summary>
+        /// <returns>The generated password as string</returns>
+        private string GeneratePassword()
         {
             string password = "";
             
@@ -58,18 +82,29 @@ namespace OwlStock.Services
 
             Random random = new();
 
-            for (int i = 0; i < 3; i++)
+            try
             {
-                
-                string uppercase = charGroups[0][random.Next(charGroups[0].Length)].ToString();
-                string lowerrcase = charGroups[1][random.Next(charGroups[1].Length)].ToString();
-                string digit = charGroups[2][random.Next(charGroups[2].Length)].ToString();
-                string special = charGroups[3][random.Next(charGroups[3].Length)].ToString();
+                for (int i = 0; i < 3; i++)
+                {
 
-                password += uppercase + lowerrcase + digit + special;
+                    string uppercase = charGroups[0][random.Next(charGroups[0].Length)].ToString();
+                    string lowerrcase = charGroups[1][random.Next(charGroups[1].Length)].ToString();
+                    string digit = charGroups[2][random.Next(charGroups[2].Length)].ToString();
+                    string special = charGroups[3][random.Next(charGroups[3].Length)].ToString();
+
+                    password += uppercase + lowerrcase + digit + special;
+                }
+
+                return password;
             }
 
-            return password;
+            catch (Exception e)
+            {
+                _logger.LogError(e, "An error occurred at {Time}", DateTime.UtcNow);
+                return string.Empty;
+            }
+
+            
         }
     }
 }

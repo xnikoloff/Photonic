@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Services.DTOs;
@@ -9,10 +10,12 @@ namespace OwlStock.Services
     public class FileService : IFileService
     {
         private readonly IPhotoResizer _photoResizer;
+        private readonly ILogger<FileService> _logger;
 
-        public FileService(IPhotoResizer photoResizer)
+        public FileService(IPhotoResizer photoResizer, ILogger<FileService> logger)
         {
             _photoResizer = photoResizer;
+            _logger = logger;
         }
 
         public bool CreatePhotoFile(PhotoBase photo)
@@ -29,11 +32,13 @@ namespace OwlStock.Services
 
             if(photo.FileName is null)
             {
+                _logger.LogInformation("{FileName} is null in {Method}, {Class}, {DateTime}", nameof(photo.FileName), nameof(CreatePhotoFile), nameof(AdministrationService), DateTime.Now);
                 throw new NullReferenceException($"{nameof(photo.FileName)}");
             }
 
             if(photo.FileData is null)
             {
+                _logger.LogInformation("{FileData} is null in {Method}, {Class}, {DateTime}", nameof(photo.FileData), nameof(CreatePhotoFile), nameof(AdministrationService), DateTime.Now);
                 throw new NullReferenceException($"{nameof(photo.FileData)} is null");
             }
 
@@ -63,24 +68,33 @@ namespace OwlStock.Services
             return false;
         }
 
-        public async Task<bool> CreatePlacePhotoFile(CreatePlacePhotoFileDTO dto)
+        public bool CreatePlacePhotoFile(CreatePlacePhotoFileDTO dto)
         {
-            //photobase is null when updating place with new photo
             if (dto.PhotoBase == null)
             {
                 throw new NullReferenceException($"{nameof(dto.PhotoBase)} is null");
             }
 
+            if (dto.PhotoBase.FilePath == null)
+            {
+                throw new NullReferenceException($"{nameof(dto.PhotoBase.FilePath)} is null");
+            }
+
             int lastIndexOfSlash = dto.PhotoBase.FilePath.LastIndexOf('\\');
-            string directoryPath = dto.PhotoBase.FilePath.Substring(0, lastIndexOfSlash);
+            string directoryPath = dto.PhotoBase.FilePath[..lastIndexOfSlash];
 
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
 
+            if(dto.FileData == null)
+            {
+                throw new NullReferenceException(nameof(dto.FileData));
+            }
+
             byte[]? bytes = dto.FileData;
-            using FileStream streamSmallSize = File.OpenWrite(dto?.PhotoBase?.FilePath);
+            using FileStream streamSmallSize = File.OpenWrite(dto?.PhotoBase?.FilePath ?? "");
             streamSmallSize.Write(bytes, 0, bytes.Length);
 
             return true;

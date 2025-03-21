@@ -3,7 +3,6 @@ using OwlStock.Domain.Enumerations;
 using OwlStock.Services.DTOs;
 using OwlStock.Services.Interfaces;
 using System.Security.Claims;
-using OwlStock.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;

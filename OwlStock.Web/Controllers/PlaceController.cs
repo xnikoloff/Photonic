@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
-using OwlStock.Services;
 using OwlStock.Services.DTOs;
 using OwlStock.Services.DTOs.Place;
 using OwlStock.Services.Interfaces;
@@ -66,7 +65,7 @@ namespace OwlStock.Web.Controllers
             dto.Place.PhotoBaseId = (await CreatePlacePhoto(dto)).Id;
             Place? createdPlace = await _placeService.Create(dto.Place);
 
-            await CreatePlacePhotoFile(createdPlace, ConvertFormFileToByteArray(dto.File));
+            CreatePlacePhotoFile(createdPlace, ConvertFormFileToByteArray(dto.File));
 
             if (createdPlace != null)
             {
@@ -103,7 +102,7 @@ namespace OwlStock.Web.Controllers
             {
                 PhotoBase createdPhoto = dto.Place.PhotoBase = await CreatePlacePhoto(dto);
                 await _placeService.UpdatePhotoId(updatedPlace.Id, createdPhoto.Id);
-                await CreatePlacePhotoFile(dto.Place, ConvertFormFileToByteArray(dto.File));
+                CreatePlacePhotoFile(dto.Place, ConvertFormFileToByteArray(dto.File));
             }
             
             if (updatedPlace != null)
@@ -130,11 +129,12 @@ namespace OwlStock.Web.Controllers
             return await _photoService.Create(photoBase, GetUserId());
         }
 
-        private async Task CreatePlacePhotoFile(Place place, byte[] fileData)
+        private void CreatePlacePhotoFile(Place place, byte[] fileData)
         {
             byte[] resized = _photoResizer.Resize(fileData, PhotoSize.Small);
             place.PhotoBase.FilePath = Path.Combine(_webHostEnvironment.WebRootPath, place.PhotoBase.FilePath);
-            await _fileService.CreatePlacePhotoFile(new CreatePlacePhotoFileDTO()
+
+            _fileService.CreatePlacePhotoFile(new CreatePlacePhotoFileDTO()
             {
                 PlaceId = place!.Id,
                 PhotoBase = place.PhotoBase,
