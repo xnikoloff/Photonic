@@ -4,9 +4,7 @@ using OwlStock.Services.DTOs;
 using OwlStock.Services.Interfaces;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
-using System.Reflection.Metadata.Ecma335;
 using OwlStock.Web.Extensions;
 using System.ComponentModel.DataAnnotations;
 

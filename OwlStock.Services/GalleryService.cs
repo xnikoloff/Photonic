@@ -34,17 +34,17 @@ namespace OwlStock.Services
 
         private async Task<List<PhotoShootPhoto>> AllPhotoshootPhotos(PhotoShootType photoShootType)
         {
-            if (_context.PhotoShootPhotos is not null)
+            if (_context.PhotoShootPhotos is null)
             {
-                List<PhotoShootPhoto> photos = await _context.PhotoShootPhotos
+                throw new NullReferenceException($"{_context.PhotoShootPhotos} is null");
+            }
+
+            List<PhotoShootPhoto> photos = await _context.PhotoShootPhotos
                     .Include(p => p.PhotoShoot)
                     .Where(p => p.PhotoShoot.PhotoShootType == photoShootType)
                     .ToListAsync();
 
-                return photos;
-            }
-
-            throw new NullReferenceException($"{_context.PhotoShootPhotos} is null");
+            return photos;
         }
 
         public async Task<List<PhotoShootPhoto>> AllByPhotoshootType(PhotoShootType photoshootType)
