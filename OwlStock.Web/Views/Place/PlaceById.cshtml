@@ -21,7 +21,7 @@
         <div class="col-12 col-md-6 col-lg-8 text-center col-place">
             <img src="~/resources/places/@Model.PhotoFileName" style="width:600px" alt="place image" />
         </div>
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4 col-place-title">
             <h2>@Model.Name</h2>
             <p>@Model.Description</p>
         </div>
@@ -61,5 +61,24 @@
 
     .container-place .row-place-photos-title h2{
         font-weight: bold;
+    }
+
+    @@media only screen and (max-width: 768px){
+        .container-place {
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .container-place .row-place .col-place-title{
+            margin-top: 20px;
+        }
+
+        .container-place .row-place .col-place img{
+            width: 350px !important;
+        }
+
+        .container-place .row-place-photos-title{
+            margin-top: 30px;
+        }
     }
 </style>
