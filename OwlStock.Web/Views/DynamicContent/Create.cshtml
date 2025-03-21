@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<div class="container py-5 my-5">
+<div class="container container-dynamic-content">
     <div class="row">
         <div class="col-12">
             <form asp-action="Create" method="POST" enctype="multipart/form-data">
@@ -41,6 +41,12 @@
         </div>
     </div>
 </div>
+
+<style>
+    .container-dynamic-content {
+        margin-top: 150px;
+    }
+</style>
 
 <script>
     $("#DynamicContent_Content").richText({

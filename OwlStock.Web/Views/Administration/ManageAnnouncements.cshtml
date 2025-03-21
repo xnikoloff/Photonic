@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Announcement>
 
-<div class="container py-5 my-5">
+<div class="container container-announcement">
     <div class="row">
         <div class="col-4">
             <a asp-action="CreateAnnouncement" asp-controller="Administration" class="btn btn-warning text-white">Create</a>
@@ -41,3 +41,9 @@
         </div>
     </div>
 </div>
+
+<style>
+    .container-announcement{
+        margin-top: 150px;
+    }
+</style>

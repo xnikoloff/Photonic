@@ -1,6 +1,6 @@
 ﻿@model CreateGalleryPhotoDTO
 
-<div class="container mt-5 py-5">
+<div class="container container-create-photo">
     <div class="row">
         <div class="col-12 col-md-6 col-lg-4 mt-3">
             <form asp-action="Create" method="post" enctype="multipart/form-data">
@@ -60,6 +60,10 @@
 </div>
 
 <style>
+    .container-create-photo {
+        margin-top: 150px;
+    }
+
     .is-free{
         transform: scale(1.6);
         margin-left: 5px;
