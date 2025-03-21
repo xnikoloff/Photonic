@@ -26,13 +26,19 @@ namespace OwlStock.Services
                 throw new ArgumentNullException(nameof(user.Email));
             }
 
+            user.EmailConfirmed = true;
             string password = GeneratePassword();
             IdentityResult result = await _userManager.CreateAsync(user, password);
             
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, true);
-                return password;
+                IdentityResult resultRole = await _userManager.AddToRoleAsync(user, "User");
+
+                if (resultRole.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, true);
+                    return password;
+                }
             }
 
             return string.Empty;
@@ -47,7 +53,7 @@ namespace OwlStock.Services
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ",   // Uppercase
                 "abcdefghijklmnopqrstuvwxyz",   // Lowercase
                 "0123456789",                   // Digits
-                "!@#$"        // Non-alphanumeric
+                "!#$"        // Non-alphanumeric
             };
 
             Random random = new();

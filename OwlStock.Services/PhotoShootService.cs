@@ -264,6 +264,37 @@ namespace OwlStock.Services
 
             int result = await _context.SaveChangesAsync();
 
+            PhotoShoot? photoShootResult = await _context.PhotoShoots
+                .OrderByDescending(ph => ph.Id)
+                .FirstOrDefaultAsync() ??
+                    throw new NullReferenceException($"No records found");
+
+            PhotoShootEmailTemplateDTO emailDto = new()
+            {
+                Date = DateTime.Now,
+                Topic = "Успешна резервация",
+                Recipient = dto.PersonEmail,
+                Type = dto.PhotoShootType,
+                PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
+                EmailTemplate = EmailTemplate.CreatePhotoShoot,
+                PhotoShootId = photoShootResult.Id
+            };
+
+            await _emailService.Send(emailDto);
+
+            if (!dto.Password.IsNullOrEmpty())
+            {
+                CreateAccountEmailTemplateDTO accountEmailDTO = new()
+                {
+                    Password = dto.Password,
+                    EmailTemplate = EmailTemplate.CreateAccount,
+                    Topic = "Създадохме вашия профил",
+                    Recipient = dto.PersonEmail
+                };
+
+                await _emailService.Send(accountEmailDTO);
+            }
+
             if (result == 0)
             {
                 return false;
