@@ -63,13 +63,26 @@ namespace OwlStock.Web.Controllers
         public async Task<IActionResult> Create(PlaceDTO dto)
         {
             dto.Place.PhotoBaseId = (await CreatePlacePhoto(dto)).Id;
-            Place? createdPlace = await _placeService.Create(dto.Place);
-
-            CreatePlacePhotoFile(createdPlace, ConvertFormFileToByteArray(dto.File));
-
-            if (createdPlace != null)
+            Guid placeGuid = await _placeService.Create(new()
             {
-                return RedirectToAction(nameof(PlaceById), new { id = createdPlace.Id, isUpdate = false });
+                Name = dto.Place.Name,
+                GoogleMapsURL = dto.Place.GoogleMapsURL,
+                CityId = dto.Place.CityId,
+                CreatedById = dto.Place.CreatedById,
+                CreatedOn = dto.Place.CreatedOn,
+                IsPopular = dto.Place.IsPopular
+            });
+
+             
+
+            
+
+            if (placeGuid != Guid.Empty)
+            {
+                PlaceByIdDTO? createdPlace = await _placeService.PlaceById(placeGuid);
+
+                CreatePlacePhotoFile(createdPlace, ConvertFormFileToByteArray(dto.File));
+                return RedirectToAction(nameof(PlaceById), new { id = placeGuid, isUpdate = false });
             }
 
             return View("Error", "An error occured while updating the place");
@@ -95,19 +108,26 @@ namespace OwlStock.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(PlaceDTO dto)
         {
-            Place? updatedPlace = await _placeService.Update(dto.Place);
+            Guid placeId = await _placeService.Update(dto.Place);
+
+            if (placeId == Guid.Empty)
+            {
+                return View("Error", "An error occured while updating the place");
+            }
+
+            PlaceByIdDTO? photoByIdDTO = await _placeService.PlaceById(placeId);
             
             //update place photo if file is not null
             if (dto.File != null)
             {
                 PhotoBase createdPhoto = dto.Place.PhotoBase = await CreatePlacePhoto(dto);
-                await _placeService.UpdatePhotoId(updatedPlace.Id, createdPhoto.Id);
-                CreatePlacePhotoFile(dto.Place, ConvertFormFileToByteArray(dto.File));
+                await _placeService.UpdatePhotoId(placeId, createdPhoto.Id);
+                CreatePlacePhotoFile(photoByIdDTO ?? new(), ConvertFormFileToByteArray(dto.File));
             }
             
-            if (updatedPlace != null)
+            if (placeId != Guid.Empty)
             {
-                return RedirectToAction(nameof(PlaceById), new{ id = updatedPlace.Id, isUpdate = false });
+                return RedirectToAction(nameof(PlaceById), new{ id = placeId, isUpdate = false });
             }
 
             return View("Error", "An error occured while updating the place");
@@ -129,7 +149,7 @@ namespace OwlStock.Web.Controllers
             return await _photoService.Create(photoBase, GetUserId());
         }
 
-        private void CreatePlacePhotoFile(Place place, byte[] fileData)
+        private void CreatePlacePhotoFile(PlaceByIdDTO place, byte[] fileData)
         {
             byte[] resized = _photoResizer.Resize(fileData, PhotoSize.Small);
             place.PhotoBase.FilePath = Path.Combine(_webHostEnvironment.WebRootPath, place.PhotoBase.FilePath);

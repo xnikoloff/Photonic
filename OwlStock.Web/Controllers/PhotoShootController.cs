@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Services.DTOs.PhotoShoot;
+using OwlStock.Services.Facades.Interfaces;
 using OwlStock.Services.Interfaces;
 using System.Security.Claims;
 
@@ -16,14 +16,16 @@ namespace OwlStock.Web.Controllers
         private readonly ISettlementService _settlementService;
         private readonly IPlaceService _placeService;
         private readonly IAdministrationService _administrationService;
+        private readonly IPhotoshootFacade _photoshootFacade;
         
         public PhotoShootController(IPhotoShootService photoShootService, ISettlementService settlementService, 
-            IPlaceService placeService, IAdministrationService administrationService)
+            IPlaceService placeService, IAdministrationService administrationService, IPhotoshootFacade photoshootFacade)
         {
             _photoShootService = photoShootService;
             _settlementService = settlementService;
             _placeService = placeService;
             _administrationService = administrationService;
+            _photoshootFacade = photoshootFacade;
         }
 
         [HttpGet]
@@ -107,62 +109,15 @@ namespace OwlStock.Web.Controllers
                 return View(dto);
             }
 
-            //get user id and email
             dto.IdentityUserId = GetUserId();
-            IdentityUser user = new();
 
-            if (!dto.IdentityUserId.IsNullOrEmpty())
+            bool isSuccessfull = await _photoshootFacade.ReservePhotoshoot(dto);
+
+            if (!isSuccessfull)
             {
-                dto.PersonEmail = User.FindFirstValue(ClaimTypes.Email);
-            }
-
-
-            else
-            {
-                user.Email = dto.PersonEmail;
-                user.UserName = dto.PersonEmail;
-                
-
-                string password = await _administrationService.CreateUser(user);
-
-                if (password.IsNullOrEmpty()) 
-                {
-                     return View("Error", "Съжаляваме, нещо се обърка по време на резервирането...");
-                }
-
-                //assign id of newly created user to the photoshoot DTO
-                dto.IdentityUserId = user.Id;
-
-                //assign password of newly created user to the photoshoot DTO
-                dto.Password = password;
-                
+                return View("Error", "Съжаляваме, нещо се обърка повреме на резервирането...");
             }
             
-            //Create new place if UserPlace is not null
-            if (!string.IsNullOrEmpty(dto.UserPlace))
-            {
-                Place? place = await _placeService.Create(new()
-                {
-                    CityId = Convert.ToInt32(dto.SelectedSettlementId),
-                    IsPopular = false,
-                    Name = dto.UserPlace,
-                    GoogleMapsURL = dto.GoogleMapsLink,
-                    CreatedById = dto.IdentityUserId
-                });
-
-                //Return error if place was not created
-                if (place == null)
-                {
-                    return View("Error", "Нещо се обърка повреме на резервирането...");
-                }
-                
-                //Set the newly created place id
-                dto.PlaceId = place.Id;
-            }
-           
-            //If reached that line, everything is OK,
-            //create the photoshoot
-            await _photoShootService.Add(dto);
             return RedirectToAction(nameof(SuccessfulReservation));
         }
 

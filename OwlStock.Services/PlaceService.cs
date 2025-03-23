@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
 using OwlStock.Services.DTOs.Place;
@@ -9,10 +10,12 @@ namespace OwlStock.Services
     public class PlaceService : IPlaceService
     {
         private readonly OwlStockDbContext _context;
+        private readonly ILogger<PlaceService> _logger;
 
-        public PlaceService(OwlStockDbContext context) 
+        public PlaceService(OwlStockDbContext context, ILogger<PlaceService> logger) 
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Place>> All()
@@ -94,47 +97,72 @@ namespace OwlStock.Services
                 Name = place?.Name,
                 Description = place?.Description,
                 PhotoFileName = place?.PhotoBase?.FileName,
-                Photos = photos
+                Photos = photos,
+                PhotoBase = place?.PhotoBase ?? new()
             };
 
             return dto;
         }
         
-        public async Task<Place?> Create(Place place)
+        public async Task<Guid> Create(CreatePlaceDTO dto)
         {
             if(_context.Places is null)
             {
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
-            place.CreatedOn = DateTime.Now;
-            
-            await _context.AddAsync(place);
-            await _context.SaveChangesAsync();
+            try
+            {
+                Place place = new()
+                {
+                    Name = dto.Name,
+                    GoogleMapsURL = dto.GoogleMapsURL,
+                    IsPopular = dto.IsPopular,
+                    CityId = dto.CityId,
+                    CreatedById = dto.CreatedById,
+                    CreatedOn = dto.CreatedOn
+                };
 
-            return place;
+                await _context.Places.AddAsync(place);
+                await _context.SaveChangesAsync();
 
+                return place.Id;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return Guid.Empty;
+            }
         }
 
-        public async Task<Place?> Update(Place place)
+        public async Task<Guid> Update(Place place)
         {
             if (_context.Places is null)
             {
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
-            Place? existingPlace = await _context.Places.FindAsync(place?.Id);
-
-            if (existingPlace != null)
+            try
             {
-                existingPlace.Name = place?.Name;
-                existingPlace.Description = place?.Description;
-                existingPlace.GoogleMapsURL = place?.GoogleMapsURL;
-                existingPlace.IsPopular = place.IsPopular;
-                await _context.SaveChangesAsync();
+                Place? existingPlace = await _context.Places.FindAsync(place?.Id);
+
+                if (existingPlace != null)
+                {
+                    existingPlace.Name = place?.Name;
+                    existingPlace.Description = place?.Description;
+                    existingPlace.GoogleMapsURL = place?.GoogleMapsURL;
+                    existingPlace.IsPopular = place.IsPopular;
+                    await _context.SaveChangesAsync();
+                }
+
+                return existingPlace?.Id ?? Guid.Empty;
             }
 
-            return place;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return Guid.Empty;
+            }
         }
 
         public async Task<Place?> UpdatePhotoId(Guid placeId, Guid photoId)

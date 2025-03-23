@@ -5,7 +5,7 @@ namespace OwlStock.Services.Interfaces
 {
     public interface IEmailService
     {
-        Task Send(EmailTemplateBaseDTO dto);
+        Task<bool> Send(EmailTemplateBaseDTO dto);
         Task SendInquiry(SendInquiryEmailTemplateDTO dto);
     }
 }

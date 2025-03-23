@@ -36,7 +36,7 @@ namespace OwlStock.Services
             await Send(dto);
         }
 
-        public async Task Send(EmailTemplateBaseDTO dto)
+        public async Task<bool> Send(EmailTemplateBaseDTO dto)
         {
             SmtpClient client = new(_smtpHost)
             {
@@ -101,8 +101,11 @@ namespace OwlStock.Services
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                    return false;
                 }
             }
+
+            return true;
 
         }
 

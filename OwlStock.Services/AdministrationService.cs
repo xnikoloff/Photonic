@@ -56,9 +56,34 @@ namespace OwlStock.Services
 
                 return string.Empty;
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                _logger.LogError(e, "An error occurred at {Time}", DateTime.UtcNow);
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return string.Empty;
+            }
+        }
+
+        public async Task<string> GetUserEmailByIdAsync(string userId)
+        {
+            if (userId.IsNullOrEmpty())
+            {
+                return string.Empty;
+            }
+
+            try
+            {
+                string? email = await _userManager.GetEmailAsync(new IdentityUser() { Id = userId });
+
+                if (email == null)
+                {
+                    return string.Empty;
+                }
+
+                return email;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
                 return string.Empty;
             }
         }

@@ -149,90 +149,58 @@ namespace OwlStock.Services
             return myPhotoShoots;
         }
 
-        public async Task<PhotoShoot> Add(CreatePhotoShootDTO dto)
+        public async Task<Guid> Add(CreatePhotoShootDTO dto)
         {
-            if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto));
-            }
-
-            string number = GeneratePhotoshootNumber(dto.PersonEmail ?? 
-                throw new NullReferenceException($"{nameof(dto.PersonEmail)} is null"),
-                dto.PhotoShootType);
-
             if (_context.PhotoShoots is null)
             {
                 throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
             }
 
-            decimal totalPrice = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, dto.FuelPrice);
-            //not used for now
-            //double[] settlementLatAndLon = await _settlementService.GetLatitudeAndLongitude(dto.SettlementName ?? 
-            //    throw new NullReferenceException($"{nameof(dto.SettlementName)} is null or empty"));
-
-            PhotoShoot photoShoot = new()
+            if (dto == null)
             {
-                PersonFirstName = dto.PersonFirstName,
-                PersonLastName = dto.PersonLastName,
-                PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
-                PersonEmail = dto.PersonEmail,
-                PersonPhone = dto.PersonPhone,
-                ReservationDate = new DateTime(dto.ReservationDate.Year, dto.ReservationDate.Month, dto.ReservationDate.Day, dto.ReservationTime.Hour, dto.ReservationTime.Minute, 0),
-                PhotoShootType = dto.PhotoShootType,
-                PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
-                CreatedOn = DateTime.Now,
-                IsDecidedByUs = dto.IsDecidedByUs,
-                DoNotUploadPhotos = dto.DoNotUploadPhotos,
-                PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
-                PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
-                Price = totalPrice,
-                IdentityUserId = dto.IdentityUserId,
-                Status = PhotoshootStatus.New,
-                PlaceId = dto.PlaceId == Guid.Empty ? null : dto.PlaceId,
-                PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
-                TransportCustomer = dto.TransportCustomer,
-                PickUpAddress = dto.PickUpAddress
-            };
-
-            //not used for now
-            //double timeForTravel = _calculationsService.CalculateTimeForTravel(DefaultValue.DefaultSettlementLatitude, DefaultValue.DefaultSettlementLongitude,
-            //    settlementLatAndLon[0], settlementLatAndLon[1]);
-
-            await _context.AddAsync(photoShoot);
-            await _context.SaveChangesAsync();
-
-            PhotoShoot? photoShootResult = await _context.PhotoShoots
-                .OrderByDescending(ph => ph.Id)
-                .FirstOrDefaultAsync() ??
-                    throw new NullReferenceException($"No records found");
-
-            PhotoShootEmailTemplateDTO emailDto = new()
-            {
-                Date = new DateTime(dto.ReservationDate.Year, dto.ReservationDate.Month, dto.ReservationDate.Day, dto.ReservationTime.Hour, dto.ReservationTime.Minute, 0),
-                Topic = "Успешна резервация",
-                Recipient = dto.PersonEmail,
-                Type = dto.PhotoShootType,
-                PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
-                EmailTemplate = EmailTemplate.CreatePhotoShoot,
-                PhotoShootId = photoShootResult.Id
-            };
-
-            await _emailService.Send(emailDto);
-
-            if (!dto.Password.IsNullOrEmpty())
-            {
-                CreateAccountEmailTemplateDTO accountEmailDTO = new()
-                {
-                    Password = dto.Password,
-                    EmailTemplate = EmailTemplate.CreateAccount,
-                    Topic = "Създадохме вашия профил",
-                    Recipient = dto.PersonEmail
-                };
-
-                await _emailService.Send(accountEmailDTO);
+                throw new ArgumentNullException(nameof(dto));
             }
 
-            return photoShootResult;
+            try
+            {
+                string number = GeneratePhotoshootNumber(dto.PersonEmail ?? throw new NullReferenceException($"{nameof(dto.PersonEmail)} is null"), dto.PhotoShootType);
+                decimal totalPrice = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, dto.FuelPrice);
+
+                PhotoShoot photoShoot = new()
+                {
+                    PersonFirstName = dto.PersonFirstName,
+                    PersonLastName = dto.PersonLastName,
+                    PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
+                    PersonEmail = dto.PersonEmail,
+                    PersonPhone = dto.PersonPhone,
+                    ReservationDate = new DateTime(dto.ReservationDate.Year, dto.ReservationDate.Month, dto.ReservationDate.Day, dto.ReservationTime.Hour, dto.ReservationTime.Minute, 0),
+                    PhotoShootType = dto.PhotoShootType,
+                    PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
+                    CreatedOn = DateTime.Now,
+                    IsDecidedByUs = dto.IsDecidedByUs,
+                    DoNotUploadPhotos = dto.DoNotUploadPhotos,
+                    PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
+                    PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
+                    Price = totalPrice,
+                    IdentityUserId = dto.IdentityUserId,
+                    Status = PhotoshootStatus.New,
+                    PlaceId = dto.PlaceId == Guid.Empty ? null : dto.PlaceId,
+                    PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
+                    TransportCustomer = dto.TransportCustomer,
+                    PickUpAddress = dto.PickUpAddress
+                };
+
+                await _context.AddAsync(photoShoot);
+                await _context.SaveChangesAsync();
+
+                return photoShoot.Id;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return Guid.Empty;
+            }
         }
 
         public async Task<bool> AddSmallProduct(CreateSmallProductPhotoshootDTO dto)

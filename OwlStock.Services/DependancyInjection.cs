@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OwlStock.Services.Common;
+using OwlStock.Services.Facades.Implementations;
+using OwlStock.Services.Facades.Interfaces;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Services
@@ -29,6 +31,7 @@ namespace OwlStock.Services
             services.AddTransient<IAdministrationService, AdministrationService>();
             services.AddTransient<ITestimonyService, TestimonyService>();
             services.AddTransient<IAnnouncementService, AnnouncementService>();
+            services.AddTransient<IPhotoshootFacade, PhotoshootFacade>();
 
             return services;
         }
