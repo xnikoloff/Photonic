@@ -62,15 +62,18 @@ namespace OwlStock.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(PlaceDTO dto)
         {
-            dto.Place.PhotoBaseId = (await CreatePlacePhoto(dto)).Id;
+            Guid photoBaseId = (await CreatePlacePhoto(dto)).Id;
+
             Guid placeGuid = await _placeService.Create(new()
             {
-                Name = dto.Place.Name,
-                GoogleMapsURL = dto.Place.GoogleMapsURL,
+                Name = dto?.Place?.Name,
+                Description = dto?.Place?.Description,
+                GoogleMapsURL = dto?.Place?.GoogleMapsURL,
                 CityId = dto.Place.CityId,
-                CreatedById = dto.Place.CreatedById,
-                CreatedOn = dto.Place.CreatedOn,
-                IsPopular = dto.Place.IsPopular
+                CreatedById = dto?.Place?.CreatedById,
+                CreatedOn = DateTime.Now,
+                IsPopular = dto.Place.IsPopular,
+                PhotoBaseId = photoBaseId
             });
 
              

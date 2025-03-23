@@ -3,11 +3,13 @@
     public class CreatePlaceDTO
     {
         public string? Name { get; set; }
+        public string? Description { get; set; }
         public string? GoogleMapsURL { get; set; }
         public bool IsPopular { get; set; }
         public int CityId { get; set; }
         public string? CreatedById { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool IsNewPlace { get; set; }
+        public Guid PhotoBaseId { get; set; }
     }
 }

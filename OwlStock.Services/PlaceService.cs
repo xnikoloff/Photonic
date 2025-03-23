@@ -116,11 +116,13 @@ namespace OwlStock.Services
                 Place place = new()
                 {
                     Name = dto.Name,
+                    Description = dto.Description,
                     GoogleMapsURL = dto.GoogleMapsURL,
                     IsPopular = dto.IsPopular,
                     CityId = dto.CityId,
                     CreatedById = dto.CreatedById,
-                    CreatedOn = dto.CreatedOn
+                    CreatedOn = dto.CreatedOn,
+                    PhotoBaseId = dto.PhotoBaseId,
                 };
 
                 await _context.Places.AddAsync(place);
