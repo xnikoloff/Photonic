@@ -75,11 +75,7 @@ namespace OwlStock.Web.Controllers
                 IsPopular = dto.Place.IsPopular,
                 PhotoBaseId = photoBaseId
             });
-
-             
-
             
-
             if (placeGuid != Guid.Empty)
             {
                 PlaceByIdDTO? createdPlace = await _placeService.PlaceById(placeGuid);

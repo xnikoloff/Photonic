@@ -15,14 +15,17 @@ namespace OwlStock.Services.Facades.Implementations
         private readonly IAdministrationService _administrationService;
         private readonly IPlaceService _placeService;
         private readonly IPhotoShootService _photoShootService;
+        private readonly ICalculationsService _calculationsService;
         private readonly IEmailService _emailService;
 
-        public PhotoshootFacade(IAdministrationService administrationService, IPhotoShootService photoShootService, IPlaceService placeService, IEmailService emailService)
+        public PhotoshootFacade(IAdministrationService administrationService, IPhotoShootService photoShootService, 
+            IPlaceService placeService, IEmailService emailService, ICalculationsService calculationsService)
         {
             _administrationService = administrationService;
             _placeService = placeService;
             _photoShootService = photoShootService;
             _emailService = emailService;
+            _calculationsService = calculationsService;
         }
 
         public async Task<bool> ReservePhotoshoot(CreatePhotoShootDTO dto)
@@ -48,7 +51,9 @@ namespace OwlStock.Services.Facades.Implementations
                 
                 dto.PlaceId = placeGuid;
             }
-            
+
+            dto.Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, dto.FuelPrice);
+
             Guid photoshootGuid = await _photoShootService.Add(dto);
 
             if (photoshootGuid == Guid.Empty)

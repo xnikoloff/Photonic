@@ -164,8 +164,7 @@ namespace OwlStock.Services
             try
             {
                 string number = GeneratePhotoshootNumber(dto.PersonEmail ?? throw new NullReferenceException($"{nameof(dto.PersonEmail)} is null"), dto.PhotoShootType);
-                decimal totalPrice = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, dto.FuelPrice);
-
+                
                 PhotoShoot photoShoot = new()
                 {
                     PersonFirstName = dto.PersonFirstName,
@@ -181,7 +180,7 @@ namespace OwlStock.Services
                     DoNotUploadPhotos = dto.DoNotUploadPhotos,
                     PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
                     PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
-                    Price = totalPrice,
+                    Price = dto.Price,
                     IdentityUserId = dto.IdentityUserId,
                     Status = PhotoshootStatus.New,
                     PlaceId = dto.PlaceId == Guid.Empty ? null : dto.PlaceId,
