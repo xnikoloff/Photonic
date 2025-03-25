@@ -19,7 +19,7 @@ namespace OwlStock.Tests.PhotoshootTests
             CalendarService calendarService = new();
             //PhotoShootService photoShootService = new(await seeder.ArrangeDbContext(), emailServiceMock.Object, calendarService, calculationServiceMock.Object);
 
-            CreatePhotoShootDTO dto = new()
+            CreateRegularPhotoShootDTO dto = new()
             {
                 PersonFirstName = "Test",
                 PersonLastName = "User",

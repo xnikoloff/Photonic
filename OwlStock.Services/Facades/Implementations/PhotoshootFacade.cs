@@ -28,7 +28,7 @@ namespace OwlStock.Services.Facades.Implementations
             _calculationsService = calculationsService;
         }
 
-        public async Task<bool> ReservePhotoshoot(CreatePhotoShootDTO dto)
+        public async Task<bool> ReservePhotoshoot(CreateRegularPhotoShootDTO dto)
         {
             bool isUserSuccessful = await HandleUser(dto);
 
@@ -71,18 +71,46 @@ namespace OwlStock.Services.Facades.Implementations
             return true;
         }
 
-        private async Task<bool> HandleUser(CreatePhotoShootDTO dto)
+        public async Task<bool> ReserveSmallProductPhotoshoot(CreateSmallProductPhotoshootDTO dto)
+        {
+            bool isUserSuccessful = await HandleUser(dto);
+
+            if (!isUserSuccessful)
+            {
+                return false;
+            }
+
+            //create place only when user has set a name for it
+            //otherwise no new place should be created
+            
+
+            dto.Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, 0);
+
+            Guid photoshootGuid = await _photoShootService.AddSmallProduct(dto);
+
+            if (photoshootGuid == Guid.Empty)
+            {
+                return false;
+            }
+
+            bool areEmailsHandled = await HandleEmails(dto, photoshootGuid);
+
+            if (!areEmailsHandled)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
+
+        private async Task<bool> HandleUser(CreatePhotoshootDTO dto)
         {
             //get user id and email
             IdentityUser user = new();
 
-            if (!dto.IdentityUserId.IsNullOrEmpty())
-            {
-                await _administrationService.GetUserEmailByIdAsync(dto?.IdentityUserId ?? "");
-            }
-
-
-            else
+            if (dto.IdentityUserId.IsNullOrEmpty())
             {
                 user.Email = dto.PersonEmail;
                 user.UserName = dto.PersonEmail;
@@ -101,6 +129,7 @@ namespace OwlStock.Services.Facades.Implementations
                 //assign password of newly created user to the photoshoot DTO
                 dto.Password = password;
 
+                return true;
             }
 
             return true;
@@ -126,11 +155,18 @@ namespace OwlStock.Services.Facades.Implementations
             return placeGuid;
         }
 
-        private async Task<bool> HandleEmails(CreatePhotoShootDTO dto, Guid photoshootGuid)
+        private async Task<bool> HandleEmails(CreatePhotoshootDTO dto, Guid photoshootGuid)
         {
             PhotoShootEmailTemplateDTO emailDto = new()
             {
-                Date = new DateTime(dto.ReservationDate.Year, dto.ReservationDate.Month, dto.ReservationDate.Day, dto.ReservationTime.Hour, dto.ReservationTime.Minute, 0),
+                Date = dto is CreateRegularPhotoShootDTO ? new DateTime
+                (
+                    ((CreateRegularPhotoShootDTO)dto).ReservationDate.Year, 
+                    ((CreateRegularPhotoShootDTO)dto).ReservationDate.Month, 
+                    ((CreateRegularPhotoShootDTO)dto).ReservationDate.Day, 
+                    ((CreateRegularPhotoShootDTO)dto).ReservationTime.Hour, 
+                    ((CreateRegularPhotoShootDTO)dto).ReservationTime.Minute, 0
+                ) : null,
                 Topic = "Успешна резервация",
                 Recipient = dto.PersonEmail,
                 Type = dto.PhotoShootType,

@@ -37,7 +37,7 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Reserve()
         {
-            CreatePhotoShootDTO dto = new()
+            CreateRegularPhotoShootDTO dto = new()
             {
                 Calendar = await _photoShootService.GetPhotoShootsCalendar(),
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
@@ -49,7 +49,7 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> QuickReserve(PhotoShootType photoshootType, string firstName, string lastName, string phone)
         {
-            CreatePhotoShootDTO dto = new()
+            CreateRegularPhotoShootDTO dto = new()
             {
                 PhotoShootType = photoshootType,
                 PersonFirstName = firstName,
@@ -65,7 +65,7 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> ReserveByType(PhotoShootType photoShootType)
         {
-            CreatePhotoShootDTO dto = new()
+            CreateRegularPhotoShootDTO dto = new()
             {
                 PhotoShootType = photoShootType,
                 Calendar = await _photoShootService.GetPhotoShootsCalendar(),
@@ -82,7 +82,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Reserve(CreatePhotoShootDTO dto)
+        public async Task<IActionResult> Reserve(CreateRegularPhotoShootDTO dto)
         {
             //When photoshoot's place is decided by the studio or a popular place is selected
             //UserPlace (the name of the place that is created by the user) is no longer required
@@ -133,40 +133,11 @@ namespace OwlStock.Web.Controllers
 
             }
 
-            //get user id and email
             dto.IdentityUserId = GetUserId();
-            IdentityUser user = new();
 
-            if (!dto.IdentityUserId.IsNullOrEmpty())
-            {
-                dto.PersonEmail = User.FindFirstValue(ClaimTypes.Email);
-            }
+            bool isSuccessful = await _photoshootFacade.ReserveSmallProductPhotoshoot(dto);
 
-
-            else
-            {
-                user.Email = dto.PersonEmail;
-                user.UserName = dto.PersonEmail;
-
-
-                string password = await _administrationService.CreateUser(user);
-
-                if (password.IsNullOrEmpty())
-                {
-                    return View("Error", "Съжаляваме, нещо се обърка по време на резервирането...");
-                }
-
-                //assign id of newly created user to the photoshoot DTO
-                dto.IdentityUserId = user.Id;
-
-                //assign password of newly created user to the photoshoot DTO
-                dto.Password = password;
-
-            }
-
-            bool result = await _photoShootService.AddSmallProduct(dto);
-
-            if (result)
+            if (isSuccessful)
             {
                 return RedirectToAction(nameof(SuccessfulReservation));
             }

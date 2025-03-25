@@ -195,7 +195,7 @@ namespace OwlStock.Services
                 {
                         return PhotoShootEmailTemplates.CreatePhotoShootTemplateDreampix
                     (
-                         ((PhotoShootEmailTemplateDTO)dto).Date,
+                         ((PhotoShootEmailTemplateDTO)dto).Date ?? new DateTime(),
                          ((PhotoShootEmailTemplateDTO)dto).Type
                     );
                 }

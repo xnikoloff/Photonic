@@ -7,7 +7,7 @@ namespace OwlStock.Web.Components
     {
         public IViewComponentResult Invoke()
         {
-            return View(new CreatePhotoShootDTO());
+            return View(new CreateRegularPhotoShootDTO());
         }
     }
 }

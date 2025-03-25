@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure;
-using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
 using OwlStock.Services.Common.HelperClasses;
 using OwlStock.Services.DTOs.PhotoShoot;
@@ -18,15 +16,13 @@ namespace OwlStock.Services
         private readonly OwlStockDbContext _context;
         private readonly IEmailService _emailService;
         private readonly ICalendarService _calendarService;
-        private readonly ICalculationsService _calculationsService;
         private readonly ILogger<AdministrationService> _logger;
 
-        public PhotoShootService(OwlStockDbContext context, IEmailService emailService, ICalendarService calendarService, ICalculationsService calculationsService, ILogger<AdministrationService> logger)
+        public PhotoShootService(OwlStockDbContext context, IEmailService emailService, ICalendarService calendarService, ILogger<AdministrationService> logger)
         {
             _context = context;
             _emailService = emailService;
             _calendarService = calendarService;
-            _calculationsService = calculationsService;
             _logger = logger;
         }
 
@@ -149,7 +145,7 @@ namespace OwlStock.Services
             return myPhotoShoots;
         }
 
-        public async Task<Guid> Add(CreatePhotoShootDTO dto)
+        public async Task<Guid> Add(CreateRegularPhotoShootDTO dto)
         {
             if (_context.PhotoShoots is null)
             {
@@ -202,35 +198,32 @@ namespace OwlStock.Services
             }
         }
 
-        public async Task<bool> AddSmallProduct(CreateSmallProductPhotoshootDTO dto)
+        public async Task<Guid> AddSmallProduct(CreateSmallProductPhotoshootDTO dto)
         {
-            if (_context.PhotoShoots is null)
-            {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
-            }
+                if (_context.PhotoShoots is null)
+                {
+                    throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                }
 
-            //fuelPrice is hardcoded as 0 because it will be discounted as feature soon
-            decimal totalPrice = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, 0);
-
-            await _context.PhotoShoots.AddAsync(new()
-            {
-                PersonFirstName = dto.PersonFirstName,
-                PersonLastName = dto.PersonLastName,
-                PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
-                PersonEmail = dto.PersonEmail,
-                PersonPhone = dto.PersonPhone,
-                PhotoShootType = dto.PhotoShootType,
-                PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
-                CreatedOn = DateTime.Now,
-                DoNotUploadPhotos = dto.DoNotUploadPhotos,
-                PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
-                PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
-                Price = totalPrice,
-                IdentityUserId = dto.IdentityUserId,
-                Status = PhotoshootStatus.New,
-                PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
-                IsSmallProduct = dto.IsSmallProduct
-            });
+                await _context.PhotoShoots.AddAsync(new()
+                {
+                    PersonFirstName = dto.PersonFirstName,
+                    PersonLastName = dto.PersonLastName,
+                    PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
+                    PersonEmail = dto.PersonEmail,
+                    PersonPhone = dto.PersonPhone,
+                    PhotoShootType = dto.PhotoShootType,
+                    PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
+                    CreatedOn = DateTime.Now,
+                    DoNotUploadPhotos = dto.DoNotUploadPhotos,
+                    PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
+                    PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
+                    Price = dto.Price,
+                    IdentityUserId = dto.IdentityUserId,
+                    Status = PhotoshootStatus.New,
+                    PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
+                    IsSmallProduct = dto.IsSmallProduct
+                });
 
             int result = await _context.SaveChangesAsync();
 
@@ -239,38 +232,12 @@ namespace OwlStock.Services
                 .FirstOrDefaultAsync() ??
                     throw new NullReferenceException($"No records found");
 
-            PhotoShootEmailTemplateDTO emailDto = new()
-            {
-                Date = DateTime.Now,
-                Topic = "Успешна резервация",
-                Recipient = dto.PersonEmail,
-                Type = dto.PhotoShootType,
-                PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
-                EmailTemplate = EmailTemplate.CreatePhotoShoot,
-                PhotoShootId = photoShootResult.Id
-            };
-
-            await _emailService.Send(emailDto);
-
-            if (!dto.Password.IsNullOrEmpty())
-            {
-                CreateAccountEmailTemplateDTO accountEmailDTO = new()
-                {
-                    Password = dto.Password,
-                    EmailTemplate = EmailTemplate.CreateAccount,
-                    Topic = "Създадохме вашия профил",
-                    Recipient = dto.PersonEmail
-                };
-
-                await _emailService.Send(accountEmailDTO);
-            }
-
             if (result == 0)
             {
-                return false;
+                return Guid.Empty;
             }
 
-            return true;
+            return photoShootResult.Id;
         }
 
         public async Task<PhotoShoot> Update(ManagePhotoshootDTO dto)

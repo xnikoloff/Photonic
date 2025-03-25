@@ -4,6 +4,7 @@ namespace OwlStock.Services.Facades.Interfaces
 {
     public interface IPhotoshootFacade
     {
-        Task<bool> ReservePhotoshoot(CreatePhotoShootDTO dto);
+        Task<bool> ReservePhotoshoot(CreateRegularPhotoShootDTO dto);
+        Task<bool> ReserveSmallProductPhotoshoot(CreateSmallProductPhotoshootDTO dto);
     }
 }

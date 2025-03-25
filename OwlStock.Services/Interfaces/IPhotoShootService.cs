@@ -8,8 +8,8 @@ namespace OwlStock.Services.Interfaces
     public interface IPhotoShootService
     {
         Task<IEnumerable<PhotoShoot>> GetAll();
-        Task<Guid> Add(CreatePhotoShootDTO dto);
-        Task<bool> AddSmallProduct(CreateSmallProductPhotoshootDTO dto);
+        Task<Guid> Add(CreateRegularPhotoShootDTO dto);
+        Task<Guid> AddSmallProduct(CreateSmallProductPhotoshootDTO dto);
         Task<PhotoShoot> Update(ManagePhotoshootDTO dto);
         Task<PhotoShoot> PhotoShootById(Guid id);
         Task<PhotoShootByIdDTO> PhotoShootById(Guid id, string userId);
