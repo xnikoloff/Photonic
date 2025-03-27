@@ -7,6 +7,7 @@ using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.DTOs.Testimonies;
+using OwlStock.Services.Facades.Interfaces;
 using OwlStock.Services.Interfaces;
 using OwlStock.Web.DTOs.Identity;
 using OwlStock.Web.DTOs.PhotoShootDTOs;
@@ -24,13 +25,14 @@ namespace OwlStock.Web.Controllers
         private readonly IFileService _fileService;
         private readonly ITestimonyService _testimonyService;
         private readonly IAnnouncementService _announcementService;
+        private readonly IPhotoshootFacade _photoshootFacade;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AdministrationController(IPhotoShootService photoShootService, IPhotoService photoService, IGalleryService galleryService, 
-            IFileService fileService, IWebHostEnvironment webHostEnvironment, UserManager<IdentityUser> userManager, 
+            IFileService fileService, IPhotoshootFacade photoshootFacade, IWebHostEnvironment webHostEnvironment, UserManager<IdentityUser> userManager, 
             SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
             ITestimonyService testimonyService, IAnnouncementService announcementService)
         {
@@ -40,6 +42,7 @@ namespace OwlStock.Web.Controllers
             _fileService = fileService;
             _testimonyService = testimonyService;
             _announcementService = announcementService;
+            _photoshootFacade = photoshootFacade;
             _webHostEnvironment = webHostEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -160,8 +163,7 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> CompletePhotoshoot(Guid id)
         {
-            string email = await GetUserEmail();
-            await _photoShootService.ChangeStatus(id, PhotoshootStatus.Completed);
+            bool isSuccessful = await _photoshootFacade.ChangeStatus(id, PhotoshootStatus.Completed);
             return RedirectToAction(nameof(Photoshoots));
         }
 

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
+using OwlStock.Services.Common.HelperClasses;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.DTOs.Place;
 using OwlStock.Services.Facades.Interfaces;
@@ -17,15 +19,17 @@ namespace OwlStock.Services.Facades.Implementations
         private readonly IPhotoShootService _photoShootService;
         private readonly ICalculationsService _calculationsService;
         private readonly IEmailService _emailService;
+        private readonly ICalendarService _calendarService;
 
         public PhotoshootFacade(IAdministrationService administrationService, IPhotoShootService photoShootService, 
-            IPlaceService placeService, IEmailService emailService, ICalculationsService calculationsService)
+            IPlaceService placeService, IEmailService emailService, ICalculationsService calculationsService, ICalendarService calendarService)
         {
             _administrationService = administrationService;
             _placeService = placeService;
             _photoShootService = photoShootService;
             _emailService = emailService;
             _calculationsService = calculationsService;
+            _calendarService = calendarService;
         }
 
         public async Task<bool> ReservePhotoshoot(CreateRegularPhotoShootDTO dto)
@@ -103,7 +107,50 @@ namespace OwlStock.Services.Facades.Implementations
             return true;
         }
 
+        public async Task<Dictionary<DateOnly, IEnumerable<TimeSlot>>> GetPhotoShootsCalendar()
+        {
+            IEnumerable<DateTime> reservationDates = await _photoShootService.GetReservedDates();
 
+            return _calendarService.GetPhotoShootsCalendar(reservationDates.ToList());
+        }
+
+        public async Task<bool> ChangeStatus(Guid id, PhotoshootStatus status)
+        {
+            ChangePhotoshootStatusDTO dto = await _photoShootService.ChangeStatus(id, status);
+
+            UpdatePhotoShootEmailTemplateDTO emailDTO = new()
+            {
+                Recipient = dto.PersonEmail,
+                PhotoShootId = dto.Id
+            };
+
+            //set status and topic for DTO
+            switch (status)
+            {
+                case PhotoshootStatus.Completed:
+                    {
+                        emailDTO.EmailTemplate = EmailTemplate.UpdatePhotosForPhotoShoot;
+                        emailDTO.Topic = "Страхотни новини";
+                        break;
+                    }
+
+                case PhotoshootStatus.Declined:
+                    {
+                        emailDTO.EmailTemplate = EmailTemplate.DeclinePhotoShoot;
+                        emailDTO.Topic = "Отхвърлена фотосесия";
+                        break;
+                    }
+
+                case PhotoshootStatus.Cancelled:
+                    {
+                        emailDTO.EmailTemplate = EmailTemplate.CancelPhotoShoot;
+                        emailDTO.Topic = "Отказана фотосесия";
+                        break;
+                    }
+            }
+
+            return await _emailService.Send(emailDTO);
+        }
 
         private async Task<bool> HandleUser(CreatePhotoshootDTO dto)
         {

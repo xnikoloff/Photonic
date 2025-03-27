@@ -39,7 +39,7 @@ namespace OwlStock.Web.Controllers
         {
             CreateRegularPhotoShootDTO dto = new()
             {
-                Calendar = await _photoShootService.GetPhotoShootsCalendar(),
+                Calendar = await _photoshootFacade.GetPhotoShootsCalendar(),
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
             };
             
@@ -55,7 +55,7 @@ namespace OwlStock.Web.Controllers
                 PersonFirstName = firstName,
                 PersonLastName = lastName,
                 PersonPhone = phone,
-                Calendar = await _photoShootService.GetPhotoShootsCalendar(),
+                Calendar = await _photoshootFacade.GetPhotoShootsCalendar(),
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList()
             };
 
@@ -68,7 +68,7 @@ namespace OwlStock.Web.Controllers
             CreateRegularPhotoShootDTO dto = new()
             {
                 PhotoShootType = photoShootType,
-                Calendar = await _photoShootService.GetPhotoShootsCalendar(),
+                Calendar = await _photoshootFacade.GetPhotoShootsCalendar(),
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
             };
 
@@ -105,7 +105,7 @@ namespace OwlStock.Web.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Описането на фотосесията е задължително");
 
-                dto.Calendar = await _photoShootService.GetPhotoShootsCalendar();
+                dto.Calendar = await _photoshootFacade.GetPhotoShootsCalendar();
                 return View(dto);
             }
 

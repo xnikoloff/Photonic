@@ -1,4 +1,6 @@
-﻿using OwlStock.Services.DTOs.PhotoShoot;
+﻿using OwlStock.Domain.Enumerations;
+using OwlStock.Services.Common.HelperClasses;
+using OwlStock.Services.DTOs.PhotoShoot;
 
 namespace OwlStock.Services.Facades.Interfaces
 {
@@ -6,5 +8,7 @@ namespace OwlStock.Services.Facades.Interfaces
     {
         Task<bool> ReservePhotoshoot(CreateRegularPhotoShootDTO dto);
         Task<bool> ReserveSmallProductPhotoshoot(CreateSmallProductPhotoshootDTO dto);
+        Task<Dictionary<DateOnly, IEnumerable<TimeSlot>>> GetPhotoShootsCalendar();
+        Task<bool> ChangeStatus(Guid id, PhotoshootStatus status);
     }
 }

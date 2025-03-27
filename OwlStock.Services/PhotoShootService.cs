@@ -4,7 +4,6 @@ using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure;
 using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
-using OwlStock.Services.Common.HelperClasses;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.Interfaces;
 using SixLabors.ImageSharp;
@@ -14,15 +13,11 @@ namespace OwlStock.Services
     public class PhotoShootService : IPhotoShootService
     {
         private readonly OwlStockDbContext _context;
-        private readonly IEmailService _emailService;
-        private readonly ICalendarService _calendarService;
         private readonly ILogger<AdministrationService> _logger;
 
-        public PhotoShootService(OwlStockDbContext context, IEmailService emailService, ICalendarService calendarService, ILogger<AdministrationService> logger)
+        public PhotoShootService(OwlStockDbContext context, ILogger<AdministrationService> logger)
         {
             _context = context;
-            _emailService = emailService;
-            _calendarService = calendarService;
             _logger = logger;
         }
 
@@ -270,24 +265,17 @@ namespace OwlStock.Services
             return existingPhotoShoot;
         }
 
-        public async Task<Dictionary<DateOnly, IEnumerable<TimeSlot>>> GetPhotoShootsCalendar()
+        public async Task<IEnumerable<DateTime>> GetReservedDates()
         {
-            if (_context.PhotoShoots is null)
-            {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
-            }
-
             //Get reservation dates from today's date forward
-            List<DateTime> reservationDates = await _context.PhotoShoots
+            return await _context.PhotoShoots
                 .Where(p => p.ReservationDate.Date >= DateTime.Now.Date)
                 .Select(ph => ph.ReservationDate)
                 .OrderBy(p => p.Date)
                 .ToListAsync();
-
-            return _calendarService.GetPhotoShootsCalendar(reservationDates);
         }
         
-        public async Task<PhotoShoot> ChangeStatus(Guid id, PhotoshootStatus status)
+        public async Task<ChangePhotoshootStatusDTO> ChangeStatus(Guid id, PhotoshootStatus status)
         {
             if (_context.PhotoShoots is null)
             {
@@ -305,40 +293,11 @@ namespace OwlStock.Services
             photoShoot.Status = status;
             await _context.SaveChangesAsync();
             
-            UpdatePhotoShootEmailTemplateDTO photoShootEmailTemplateDTO = new()
+            return new()
             {
-                Recipient = photoShoot.PersonEmail,
-                PhotoShootId = photoShoot.Id
+                Id = photoShoot.Id,
+                PersonEmail = photoShoot.PersonEmail
             };
-
-            //set status and topic for DTO
-            switch (status)
-            {
-                case PhotoshootStatus.Completed:
-                {
-                    photoShootEmailTemplateDTO.EmailTemplate = EmailTemplate.UpdatePhotosForPhotoShoot;
-                    photoShootEmailTemplateDTO.Topic = "Страхотни новини";
-                    break;
-                }
-
-                case PhotoshootStatus.Declined:
-                {
-                    photoShootEmailTemplateDTO.EmailTemplate = EmailTemplate.DeclinePhotoShoot;
-                    photoShootEmailTemplateDTO.Topic = "Отхвърлена фотосесия";
-                    break;
-                }
-
-                case PhotoshootStatus.Cancelled:
-                {
-                    photoShootEmailTemplateDTO.EmailTemplate = EmailTemplate.CancelPhotoShoot;
-                    photoShootEmailTemplateDTO.Topic = "Отказана фотосесия";
-                    break;
-                }
-            }
-
-            await _emailService.Send(photoShootEmailTemplateDTO);
-
-            return photoShoot;
         }
 
         public async Task<string> GetPersonName(Guid id)
