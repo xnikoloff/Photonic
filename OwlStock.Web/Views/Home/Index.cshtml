@@ -19,11 +19,19 @@
     @await Component.InvokeAsync("QuickBooking")
 </section>
 <!--================Banner Area =================-->
+<section class="container mt-5 pt-5">
+    <div class="section_title text-center">
+        <h2 class="title_color">Фотосесии</h2>
+        <p>Резервирайте лесно, удобно и напълно безплатно вашата следваща фотосесия</p>
+    </div>
+    <partial name="_GalleryCategories" model="true"></partial>
+</section>
+<!-- Portfolio Grid-->
 <!--================ Accomodation Area  =================-->
 <section class="accomodation_area section_gap">
     <div class="container">
         <div class="section_title text-center">
-            <h2 class="title_color">Повече за нас</h2>
+            <h2 class="title_color">Разгледайте</h2>
             <p>Услуги, цени, творчесто, мисия</p>
         </div>
         <div class="row mb_30">
@@ -66,14 +74,8 @@
         </div>
     </div>
 </section>
-<section class="container">
-    <div class="section_title text-center">
-        <h2 class="title_color">Фотосесии</h2>
-        <p>Резервирайте лесно, удобно и напълно безплатно вашата следваща фотосесия</p>
-    </div>
-    <partial name="_GalleryCategories" model="true"></partial>
-</section>
-<!-- Portfolio Grid-->
+
+
 <!--================ Accomodation Area  =================-->
 <!--================ About History Area  =================-->
 <section class="about_history_area section_gap">
@@ -82,7 +84,7 @@
             <div class="col-md-6 d_flex align-items-center">
                 <div class="about_content ">
                     <h2 class="title title_color">За нас <br>Нашата история<br>Какво целим</h2>
-                    <p>Фотоник се роди с идеята да улесни максимално клиентите си. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията Ви, а тя да се окаже повредена. Никой ме е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайта на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
+                    <p>Фотоник се роди с идеята да улесни максимално клиентите си. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията Ви, а тя да се окаже повредена. Никой не е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайта на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
                     <a asp-action="About" asp-controller="StaticContent" class="button_hover theme_btn_two">Научете повече</a>
                 </div>
             </div>

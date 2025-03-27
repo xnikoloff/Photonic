@@ -515,7 +515,7 @@ button:focus {
   position: relative;
   overflow: hidden;
   width: 100%;
-  min-height: 800px;
+  min-height: 100vh;
 }
 
 .overlay {

@@ -1,31 +1,15 @@
 ﻿@model bool
 
 <div class="row row-portfolio">
-    <div class="col-12 col-md-6 text-center col-portfolio col-portrait">
+    <div class="col-12 col-md-4 text-center col-portfolio col-wedding">
         <div class="portfolio-content-wrap">
-            <h1>Идивидуална</h1>
-            <p>Превърнете се в модел</p>
-        </div>
-        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Portrait" class="btn btn-light btn-view-services">Разгледайте</a>
-        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-warning btn-book-services">Резервирайте</a>
-    </div>
-    <div class="col-12 col-md-6 text-center col-portfolio col-wedding">
-        <div class="portfolio-content-wrap">
-            <h1>Семейна</h1>
-            <p>Скъпоценни моменти, завинаги заедно</p>
+            <h1>Сватба</h1>
+            <p>Ще създадем красиви и стилни снимки, които ще Ви напомнят за този вълнуващ момент.</p>
         </div>
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Wedding" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 text-center col-portfolio col-baptism">
-        <div class="portfolio-content-wrap">
-            <h1>Свето кръщение</h1>
-            <p>Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение.</p>
-        </div>
-        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Baptism" class="btn btn-light btn-view-services">Разгледайте</a>
-        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-warning btn-book-services">Резервирайте</a>
-    </div>
-    <div class="col-12 col-md-6 text-center col-portfolio col-prom">
+    <div class="col-12 col-md-4 text-center col-portfolio col-prom">
         <div class="portfolio-content-wrap">
             <h1>Абитуриентски бал</h1>
             <p>Ще създадем красиви и стилни снимки, които ще Ви напомнят за този вълнуващ момент.</p>
@@ -33,23 +17,34 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Prom" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 text-center col-portfolio col-automobile">
+    <div class="col-12 col-md-4 text-center col-portfolio col-baptism">
         <div class="portfolio-content-wrap">
-            <h1>Автомобил</h1>
-            <p>Нека автомобилът Ви бъде звездата!</p>
+            <h1>Свето кръщение</h1>
+            <p>Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение.</p>
         </div>
-        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Automotive" class="btn btn-light btn-view-services">Разгледайте</a>
-        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Automotive" class="btn btn-warning btn-book-services">Резервирайте</a>
+        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Baptism" class="btn btn-light btn-view-services">Разгледайте</a>
+        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 text-center col-portfolio col-product">
+</div>
+<div class="row row-portfolio">
+    <div class="col-12 col-md-4 text-center col-portfolio col-portrait">
         <div class="portfolio-content-wrap">
-            <h1>Продукт</h1>
-            <p>Ще представим продуктовия Ви каталог в най-добра светлина.</p>
+            <h1>Идивидуална</h1>
+            <p>Превърнете се в модел</p>
         </div>
-        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Product" class="btn btn-light btn-view-services">Разгледайте</a>
-        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-warning btn-book-services">Резервирайте</a>
+        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Portrait" class="btn btn-light btn-view-services">Разгледайте</a>
+        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 text-center col-portfolio col-business-portrait">
+    <div class="col-12 col-md-4 text-center col-portfolio col-family">
+        <div class="portfolio-content-wrap">
+            <h1>Семейна</h1>
+            <p>Скъпоценни моменти, завинаги заедно</p>
+        </div>
+        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Wedding" class="btn btn-light btn-view-services">Разгледайте</a>
+        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-warning btn-book-services">Резервирайте</a>
+    </div>
+
+    <div class="col-12 col-md-4 text-center col-portfolio col-business-portrait">
         <div class="portfolio-content-wrap">
             <h1>Бизнес портрет</h1>
             <p>Професионални портрети, отразяващи вашата увереност и индивидуалност</p>
@@ -57,7 +52,25 @@
         <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Business" class="btn btn-light btn-view-services">Разгледайте</a>
         <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.BusinessPortrait" class="btn btn-warning btn-book-services">Резервирайте</a>
     </div>
-    <div class="col-12 col-md-6 text-center col-portfolio col-event">
+</div>
+<div class="row row-portfolio">
+    <div class="col-12 col-md-4 text-center col-portfolio col-product">
+        <div class="portfolio-content-wrap">
+            <h1>Продукт</h1>
+            <p>Ще представим продуктовия Ви каталог в най-добра светлина.</p>
+        </div>
+        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Product" class="btn btn-light btn-view-services">Разгледайте</a>
+        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-warning btn-book-services">Резервирайте</a>
+    </div>
+    <div class="col-12 col-md-4 text-center col-portfolio col-automobile">
+        <div class="portfolio-content-wrap">
+            <h1>Автомобил</h1>
+            <p>Нека автомобилът Ви бъде звездата!</p>
+        </div>
+        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Automotive" class="btn btn-light btn-view-services">Разгледайте</a>
+        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Automotive" class="btn btn-warning btn-book-services">Резервирайте</a>
+    </div>
+    <div class="col-12 col-md-4 text-center col-portfolio col-event">
         <div class="portfolio-content-wrap">
             <h1>Събитие</h1>
             <p>Дали рожден ден, корпоратиено събитие или концерт - ще запечатаме всички интересни моменти от събитието.</p>
@@ -69,7 +82,7 @@
 
 <style>
     .row-portfolio {
-        margin-top: 80px;
+        margin-top: 30px;
     }
 
     .row-portfolio .col-portfolio {
@@ -109,8 +122,14 @@
         font-weight: bold;
     }
 
-    .row-portfolio .col-wedding {
+    .row-portfolio .col-family {
         background-image: url(@Url.Content("~/resources/images/family.jpg"));
+
+    }
+
+    .row-portfolio .col-wedding {
+        background-image: url(@Url.Content("~/resources/images/wedding.jpg"));
+
     }
 
     .row-portfolio .col-portrait {
