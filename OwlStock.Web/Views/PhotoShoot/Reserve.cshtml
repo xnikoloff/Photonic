@@ -1134,6 +1134,9 @@
         //calculate price on page load
         calculatePrice($("#PhotoShootType").val());
 
+        //validate description on page load
+        validateDescription($("#PhotoShootType").val());
+
         //reset the value of reservation date on page load
         $("#ReservationDate").val("");
 
@@ -1214,6 +1217,7 @@
             setPhotoshootTypeSummary($(this).find("option:selected").text());
             calculatePrice($(this).val());
             togglePhotoshootPacket($(this).val());
+            validateDescription($(this).val());
         });
 
         
@@ -1478,7 +1482,9 @@
         });
     });
 
-
+    $("#PhotoShootTypeDescription").change(function () {
+        validateDescription($("#PhotoShootType").val());
+    });
 
 
 
@@ -1488,8 +1494,7 @@
         //get id of packed that is used in swtich statement
         let packetName = packet.attr('id');
         let photoshootEnum = 0;
-        console.log(packetName);
-
+        
         //set photoshoot type based on selected packet
         switch(packetName){
             case "personal":{
@@ -1929,6 +1934,33 @@
         }
     }
 
+
+    //validate description
+    function validateDescription(photoshootType){
+        //10 is Other, 20 is Event
+        //if Other or Event is selected, make description required 
+        if(photoshootType == "10" || photoshootType == '20'){
+            $("#PhotoShootTypeDescription").prop("required", true);
+            
+            //if description is null or empty, disabled the submit button
+            if ($("#PhotoShootTypeDescription").val() == "" || $("#PhotoShootTypeDescription").val() == null){
+                $(".btn-submit").prop("disabled", true);
+            }
+
+            //else, else enable the button
+            else {
+                $("#PhotoShootTypeDescription").prop("required", false);
+                $(".btn-submit").prop("disabled", false);
+            }
+        }
+
+        //else, not required
+        else{
+            $("#PhotoShootTypeDescription").prop("required", false);
+            $(".btn-submit").prop("disabled", false);
+        }
+    }
+
     
 
 
@@ -2233,7 +2265,6 @@
 
     //toggle photoshoot packets on photoshootType type change
     function togglePhotoshootPacket(photoshootType){
-        console.log(photoshootType);
         let photoshootPacket = mapPhotoshootToPacket(photoshootType);
             
         //hide all packets
@@ -2255,9 +2286,7 @@
             data: { settlementId: settlementId },
             success: function (response) {
                 let json = JSON.parse(JSON.stringify(response));
-                console.log(json);
                 $(".card-weather").each(function (i) {
-                    console.log(i);
                     if(i == 0){
                         $(this).css("opacity", ".3");
                         $(this).css("pointer-events", "none");
