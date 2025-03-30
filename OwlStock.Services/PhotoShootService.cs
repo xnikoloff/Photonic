@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure;
-using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.Interfaces;
 using SixLabors.ImageSharp;

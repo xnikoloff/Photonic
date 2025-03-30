@@ -51,7 +51,7 @@ namespace OwlStock.Services.Interfaces
         /// Calculates reading time by counting words >= 2 characters
         /// </summary>
         /// <param name="text"></param>
-        /// <returns></returns>
+        /// <returns>Reading time in minutes</returns>
         int CalculateReadingTime(string text);
     }
 }

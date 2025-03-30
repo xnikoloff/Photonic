@@ -1,7 +1,6 @@
 ﻿using Braintree;
 using Microsoft.Extensions.Configuration;
 using OwlStock.Services.Interfaces;
-using System.Security.Cryptography.X509Certificates;
 
 namespace OwlStock.Services
 {

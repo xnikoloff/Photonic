@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
@@ -13,18 +14,57 @@ namespace OwlStock.Services
         private const int _visibleTopContent = 3;
 
         private readonly OwlStockDbContext _context;
-        private readonly IFileService _fileService;
-        private readonly ICalculationsService _calculationsService;
+        private readonly ILogger<DynamicContentService> _logger;
 
-        public DynamicContentService(OwlStockDbContext context, IFileService fileService, ICalculationsService calculationsService)
+        public DynamicContentService(OwlStockDbContext context, ILogger<DynamicContentService> logger)
         {
             _context = context;
-            _fileService = fileService;
-            _calculationsService = calculationsService;
+            _logger = logger;
 
         }
 
-        public async Task<DynamicContent> Create(CreateDynamicContentDTO dto)
+        /// <summary>
+        /// Creates new DynamicContentCategory if the name of the category is not null
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>If created, Id of the created DynamucContentCategory, else empty GUID</returns>
+        private async Task<CreateDynamicContentCategoryDTO> CreateDynamicContentCategory(CreateDynamicContentCategoryDTO dto)
+        {
+            try
+            {
+                if (!dto.Name.IsNullOrEmpty())
+                {
+                    DynamicContentCategory category = new()
+                    {
+                        CreatedById = dto.CreatedById,
+                        CreatedOn = DateTime.Now,
+                        Name = dto.Name
+                    };
+
+                    await _context.DynamicContentCategories.AddAsync(category);
+                    await _context.SaveChangesAsync();
+
+                    dto.Id = category.Id;
+                    dto.IsSuccessful = true;
+
+                    return dto;
+                }
+                else
+                {
+                    dto.Id = Guid.Empty;
+                    dto.IsSuccessful = true;
+                    return dto;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                dto.IsSuccessful = false;
+                return dto;
+            }
+        }
+
+        public async Task<bool> Create(CreateDynamicContentDTO dto)
         {
             if(_context.DynamicContents is null)
             {
@@ -56,38 +96,43 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(dto.WebRootPath)} is null");
             }
 
-            if (!dto.NewCategoryName.IsNullOrEmpty())
+            CreateDynamicContentCategoryDTO categoryDTO = await CreateDynamicContentCategory(new()
             {
-                DynamicContentCategory category = new()
+                CreatedById = dto.DynamicContent.CreatedById,
+                Name = dto.NewCategoryName,
+                
+            });
+
+            if (categoryDTO.IsSuccessful)
+            {
+                if (categoryDTO.Id != Guid.Empty)
                 {
-                    CreatedById = dto.DynamicContent.CreatedById,
-                    CreatedOn = DateTime.Now,
-                    Name = dto.NewCategoryName
-                };
+                    dto.DynamicContent.DynamicContentCategoryId = categoryDTO.Id;
+                }
 
-                await _context.AddAsync(category);
-                await _context.SaveChangesAsync();
-
-                dto.DynamicContent.DynamicContentCategoryId = category.Id;
-
+                else
+                {
+                    dto.DynamicContent.DynamicContentCategoryId = dto.SelectedCategoryId;
+                }
             }
+
             else
             {
-                dto.DynamicContent.DynamicContentCategoryId = dto.SelectedCategoryId;
+                return false;
             }
 
             dto.DynamicContent.ImageName = dto?.Image?.FileName;
-            dto!.DynamicContent.ReadingTime = _calculationsService.CalculateReadingTime(dto.DynamicContent.Content);
             dto.DynamicContent.CreatedOn = DateTime.Now;
-
+            
             await _context.AddAsync(dto!.DynamicContent);
-            await _context.SaveChangesAsync();
-            await _fileService.CreateIFormFile(dto!.Image, dto!.WebRootPath);
+            int result = await _context.SaveChangesAsync();
+            
+            if(result == 0)
+            {
+                return false;
+            }
 
-            return await _context.DynamicContents
-                .OrderByDescending(dc => dc.Id)
-                .FirstOrDefaultAsync() ?? 
-                    throw new NullReferenceException($"Cannot find DynamicContent");
+            return true;
         }
 
         public async Task Delete(Guid id)

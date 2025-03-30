@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwlStock.Domain.Entities;
 using OwlStock.Services.DTOs.DynamicContents;
+using OwlStock.Services.Facades.Interfaces;
 using OwlStock.Services.Interfaces;
 using System.Security.Claims;
 
@@ -9,11 +10,13 @@ namespace OwlStock.Web.Controllers
     public class DynamicContentController : Controller
     {
         private readonly IDynamicContentService _dynamicContentService;
+        private readonly IDynamicContentServiceFacade __dynamicContentServiceFacade;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public DynamicContentController(IDynamicContentService dynamicContentService, IWebHostEnvironment webHostEnvironment)
+        public DynamicContentController(IDynamicContentService dynamicContentService, IDynamicContentServiceFacade dynamicContentServiceFacade, IWebHostEnvironment webHostEnvironment)
         {
             _dynamicContentService = dynamicContentService;
+            __dynamicContentServiceFacade = dynamicContentServiceFacade;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -62,8 +65,13 @@ namespace OwlStock.Web.Controllers
             dto.DynamicContent.CreatedById = User.FindFirstValue(ClaimTypes.NameIdentifier) ??
                 throw new NullReferenceException("User not logged in");
 
-            DynamicContent dynamicContent = await _dynamicContentService.Create(dto);
-            return RedirectToAction(nameof(Content), new { id = dynamicContent?.Id });
+            bool isSuccessful = await __dynamicContentServiceFacade.Create(dto);
+
+            if (!isSuccessful)
+            {
+                return View("Error", "An error occured while creating the dynamic content. See the log for details");
+            }
+            return RedirectToAction(nameof(AllByPage));
         }
     }
 }

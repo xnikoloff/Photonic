@@ -32,6 +32,7 @@ namespace OwlStock.Services
             services.AddTransient<ITestimonyService, TestimonyService>();
             services.AddTransient<IAnnouncementService, AnnouncementService>();
             services.AddTransient<IPhotoshootFacade, PhotoshootFacade>();
+            services.AddTransient<IDynamicContentServiceFacade, DynamicContentServiceFacade>();
 
             return services;
         }
