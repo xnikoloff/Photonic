@@ -17,6 +17,9 @@ namespace OwlStock.Domain.Enumerations
         Cancelled = 4,
 
         [Display(Name = "Приключен")]
-        Completed = 5
+        Completed = 5,
+
+        [Display(Name = "Служебен")]
+        Service = 6
     }
 }

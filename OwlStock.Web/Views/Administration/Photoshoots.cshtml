@@ -7,6 +7,11 @@
 <div class="container container-all-photoshoots">
     <div class="row">
         <div class="col-12">
+            <a asp-action="SetResevedDate" asp-controller="Photoshoot" class="btn btn-success">Служебни фотосесии</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
             <table class="table table-stripe">
                 <thead>
                     <tr>
@@ -44,6 +49,11 @@
                             case PhotoshootStatus.Cancelled:
                             {
                                 tableRowColor = "#d4d4d4";
+                                break;
+                            }
+                            case PhotoshootStatus.Service:
+                            {
+                                tableRowColor = "#4b0f75";
                                 break;
                             }
                             default:

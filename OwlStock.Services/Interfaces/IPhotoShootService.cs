@@ -8,6 +8,14 @@ namespace OwlStock.Services.Interfaces
     public interface IPhotoShootService
     {
         Task<IEnumerable<PhotoShoot>> GetAll();
+
+        /// <summary>
+        /// Sets provided dates as reserved 
+        /// </summary>
+        /// <param name="reservedDates">Dates that need to be set as reserved</param>
+        /// <returns>True if succesfull or false if not successful</returns>
+        Task<bool> SetReservedDate(DateTime dates);
+
         Task<Guid> Add(CreateRegularPhotoShootDTO dto);
         Task<Guid> AddSmallProduct(CreateSmallProductPhotoshootDTO dto);
         Task<PhotoShoot> Update(ManagePhotoshootDTO dto);

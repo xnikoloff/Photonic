@@ -20,6 +20,45 @@ namespace OwlStock.Services
             _logger = logger;
         }
 
+        public async Task<bool> SetReservedDate (DateTime date)
+        {
+            if(_context.PhotoShoots is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+            }
+
+            try
+            {
+                List<PhotoShoot> photoshoots = new();
+
+                PhotoShoot photoShoot = new()
+                {
+                    CreatedOn = DateTime.Now,
+                    ReservationDate = date,
+                    PhotoShootTypeDescription = "Reserved by admin",
+                    Status = PhotoshootStatus.Service
+                };
+
+                photoshoots.Add(photoShoot);
+                
+                await _context.PhotoShoots.AddRangeAsync(photoshoots);
+                int result = await _context.SaveChangesAsync();
+
+                if(result == 0)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
+        }
+
         public async Task<IEnumerable<PhotoShoot>> GetAll()
         {
             if (_context.PhotoShoots is null)

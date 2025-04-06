@@ -113,6 +113,23 @@ namespace OwlStock.Services.Facades.Implementations
             return _calendarService.GetPhotoShootsCalendar(reservationDates.ToList());
         }
 
+        public async Task<IEnumerable<SetReservedDateDTO>> GetCalendarWithStatus()
+        {
+            List<SetReservedDateDTO> dtos = new List<SetReservedDateDTO>();
+            Dictionary<DateOnly, IEnumerable <TimeSlot>> calendar = await GetPhotoShootsCalendar();
+
+            foreach (KeyValuePair<DateOnly, IEnumerable<TimeSlot>> calendarEntry in calendar)
+            {
+                dtos.Add(new()
+                {
+                    ReservationDate = calendarEntry.Key.ToDateTime(new TimeOnly()),
+                    IsAvailable = calendarEntry.Value.First().IsAvailable
+                });
+            }
+
+            return dtos;
+        }
+
         public async Task<bool> ChangeStatus(Guid id, PhotoshootStatus status)
         {
             ChangePhotoshootStatusDTO dto = await _photoShootService.ChangeStatus(id, status);

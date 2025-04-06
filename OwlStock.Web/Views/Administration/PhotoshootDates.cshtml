@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SetReservedDateDTO>
+
+@{
+    ViewData["Title"] = "Служебна резервация";
+}
+
+<div class="container container-all-photoshoots">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-stripe">
+                <thead>
+                    <tr>
+                        <th>Свободен</th>
+                        <th>Дата</th>
+                        <th>Управление</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (SetReservedDateDTO dto in Model)
+                    {
+                        string tableRowColor = "";
+
+                        if (dto.IsAvailable)
+                        {
+                            tableRowColor = "#ffc800";
+                        }
+
+                        else 
+                        {
+                            tableRowColor = "#bd79b5";
+                        }
+
+                        <tr style="background-color:@tableRowColor; color:#fff">
+                            <td>@dto.IsAvailable</td>
+                            <td>@dto?.ReservationDate.ToString("dd.MM.yyyy")</td>
+                            <td>
+                                <form asp-action="ServiceReservation" method="POST">
+                                    <input type="hidden" name="date" value="@dto?.ReservationDate"/>
+                                    <button type="submit" class="btn btn-dark btn-sm">Служебна резервация</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container-all-photoshoots{
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+</style>

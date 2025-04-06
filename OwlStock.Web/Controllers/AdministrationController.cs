@@ -62,6 +62,26 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> PhotoshootDates()
+        {
+            return View(await _photoshootFacade.GetCalendarWithStatus());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ServiceReservation(DateTime date)
+        {
+            bool success = await _photoShootService.SetReservedDate(date);
+            if (success)
+            {
+                return RedirectToAction(nameof(PhotoshootDates));
+            }
+            else
+            {
+                return View("Error", "Неуспешна служебна резервация");
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ManagePhotoshoot(Guid id)
         {
             PhotoShoot? photoshoot = await _photoShootService.PhotoShootById(id);
@@ -319,7 +339,7 @@ namespace OwlStock.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeUserRole(ChangeUserRoleDTO dto)
         {
-            IdentityUser? user = await _userManager.FindByIdAsync(dto.UserId);
+            IdentityUser? user = await _userManager.FindByIdAsync(dto?.UserId ?? "");
 
             if (user == null)
             {
@@ -337,7 +357,7 @@ namespace OwlStock.Web.Controllers
             //remove current roles, if user has any
             if (currentRoles.Any())
             {
-                IdentityResult removeResult = await _userManager.RemoveFromRoleAsync(user, currentRoles.FirstOrDefault());
+                IdentityResult removeResult = await _userManager.RemoveFromRoleAsync(user, currentRoles.FirstOrDefault() ?? "");
 
                 if (!removeResult.Succeeded)
                 {
@@ -351,7 +371,7 @@ namespace OwlStock.Web.Controllers
             }
             
             //assign new role
-            IdentityResult addResult = await _userManager.AddToRoleAsync(user, dto.SelectedRole);
+            IdentityResult addResult = await _userManager.AddToRoleAsync(user, dto?.SelectedRole ?? "");
 
             if (!addResult.Succeeded)
             {
