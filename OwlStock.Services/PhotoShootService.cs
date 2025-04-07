@@ -29,9 +29,7 @@ namespace OwlStock.Services
 
             try
             {
-                List<PhotoShoot> photoshoots = new();
-
-                PhotoShoot photoShoot = new()
+                PhotoShoot photoshoot = new()
                 {
                     CreatedOn = DateTime.Now,
                     ReservationDate = date,
@@ -39,9 +37,7 @@ namespace OwlStock.Services
                     Status = PhotoshootStatus.Service
                 };
 
-                photoshoots.Add(photoShoot);
-                
-                await _context.PhotoShoots.AddRangeAsync(photoshoots);
+                await _context.PhotoShoots.AddAsync(photoshoot);
                 int result = await _context.SaveChangesAsync();
 
                 if(result == 0)
