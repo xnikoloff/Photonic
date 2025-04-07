@@ -121,8 +121,8 @@ namespace OwlStock.Services
                     IsPopular = dto.IsPopular,
                     CityId = dto.CityId,
                     CreatedById = dto.CreatedById,
-                    CreatedOn = dto.CreatedOn,
-                    PhotoBaseId = dto.PhotoBaseId,
+                    CreatedOn = DateTime.Now,
+                    PhotoBaseId = dto.PhotoBaseId == Guid.Empty ? null : dto.PhotoBaseId,
                 };
 
                 await _context.Places.AddAsync(place);

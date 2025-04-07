@@ -49,10 +49,11 @@ namespace OwlStock.Services.Facades.Implementations
                     IsPopular = true,
                     Name = dto.UserPlace,
                     GoogleMapsURL = dto.GoogleMapsLink,
-                    CreatedById = dto.IdentityUserId
+                    CreatedById = dto.IdentityUserId,
+                    CityId = int.Parse(dto?.SelectedSettlementId ?? "")
                 });
                 
-                dto.PlaceId = placeGuid;
+                dto!.PlaceId = placeGuid;
             }
 
             dto.Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, dto.FuelPrice);
@@ -206,13 +207,7 @@ namespace OwlStock.Services.Facades.Implementations
             //Create new place if UserPlace is not null
             if (!string.IsNullOrEmpty(dto.Name))
             {
-                placeGuid = await _placeService.Create(new()
-                {
-                    IsPopular = false,
-                    Name = dto.Name,
-                    GoogleMapsURL = dto.GoogleMapsURL,
-                    CreatedById = dto.CreatedById
-                });
+                placeGuid = await _placeService.Create(dto);
             }
 
             return placeGuid;

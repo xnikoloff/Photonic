@@ -90,6 +90,13 @@ namespace OwlStock.Web.Controllers
                 ModelState.Remove("UserPlace");
             }
 
+            //else remove the Id of the select place from the ModelState since
+            //no place was selected
+            else 
+            {
+                ModelState.Remove("PlaceId");
+            }
+
             //return error if ModelState is invalid
             //There is a solid validation in the front end, so
             //invalid model state  should not be possible
