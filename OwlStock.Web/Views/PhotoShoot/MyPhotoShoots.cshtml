@@ -4,18 +4,6 @@
     ViewData["Title"] = "Моите фотосесии";
 }
 
-<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">@ViewData["Title"]</h2>
-            <ol class="breadcrumb">
-                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
-                <li class="active">@ViewData["Title"]</li>
-            </ol>
-        </div>
-    </div>
-</section>
 <div class="container my-photoshoots-container mt-5">
     <div class="row mb-5">
         <div class="col-12 text-dark text-center">
@@ -30,14 +18,14 @@
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <div class="card-body">
-                                <h3><a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="text-warning mb-3">@(dto?.PhotoShootType.GetAttribute<DisplayAttribute>()?.Name)</a></h3>
+                                <h3><a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="text-primary mb-3">@(dto?.PhotoShootType.GetAttribute<DisplayAttribute>()?.Name)</a></h3>
                                 <span>Резервиран за</span>
                                 <h4 class="text-data">@dto?.ReservationFor</h4>
                             </div>
                         </div>
                         <div class="col-4 col-lg-3">
                             <div class="card-body">
-                                <h6>Дата</h6>
+                                <p>Дата</p>
                                 
                                 @if (dto?.IsSmallProduct != true)
                                 {
@@ -55,15 +43,15 @@
                         </div>
                         <div class="col-4 col-lg-3">
                             <div class="card-body">
-                                <h6>Цена</h6>
+                                <p>Цена</p>
                                 <h2 class="text-data">@dto?.Price лв</h2>
                             </div>
                         </div>
                         <div class="col-4 col-lg-2">
                             <div class="card-body text-center mx-auto">
                                 <span><i class="fa-solid fa-wand-magic-sparkles text-info fa-lg"></i></span>
-                                <h6>@(dto?.PhotoshootStatus?.GetAttribute<DisplayAttribute>().Name)</h6>
-                                <a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="btn btn-warning btn btn-lg text-white">Преглед</a>
+                                <p>@(dto?.PhotoshootStatus?.GetAttribute<DisplayAttribute>().Name)</p>
+                                <a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="btn btn-primary btn btn-lg text-white">Преглед</a>
                             </div>
                         </div>
                     </div>
@@ -83,29 +71,29 @@
                         <div class="row">
                             <div class="col-12 col-lg-4">
                                 <div class="card-body">
-                                    <h3><a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="text-warning mb-3">@(dto?.PhotoShootType.GetAttribute<DisplayAttribute>()?.Name)</a></h3>
+                                    <h3><a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="text-primary mb-3">@(dto?.PhotoShootType.GetAttribute<DisplayAttribute>()?.Name)</a></h3>
                                     <span>Резервиран за</span>
                                     <h4 class="text-data">@dto?.ReservationFor</h4>
                                 </div>
                             </div>
                             <div class="col-4 col-lg-3">
                                 <div class="card-body">
-                                    <h6>Дата</h6>
+                                    <p>Дата</p>
                                     <h3 class="text-data">@dto?.ReservationDate.ToString("dd.MM")</h3>
                                     <h2 class="text-data text-year">@dto?.ReservationDate.ToString("dyyyy") г.</h2>
                                 </div>
                             </div>
                             <div class="col-4 col-lg-3">
                                 <div class="card-body">
-                                    <h6>Цена</h6>
+                                    <p>Цена</p>
                                     <h2 class="text-data">@dto?.Price лв</h2>
                                 </div>
                             </div>
                             <div class="col-4 col-lg-2">
                                 <div class="card-body text-center mx-auto">
                                     <span><i class="fa-solid fa-check text-info fa-lg"></i></span>
-                                    <h6>@(dto?.PhotoshootStatus?.GetAttribute<DisplayAttribute>().Name)</h6>
-                                    <a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="btn btn-warning btn btn-lg text-white">Преглед</a>
+                                    <p>@(dto?.PhotoshootStatus?.GetAttribute<DisplayAttribute>().Name)</p>
+                                    <a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="btn btn-primary btn btn-lg text-white">Преглед</a>
                                 </div>
                             </div>
                         </div>

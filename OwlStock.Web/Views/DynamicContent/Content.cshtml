@@ -4,27 +4,12 @@
     ViewData["Title"] = Model.Title;
 }
 
-<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">@Model.Title</h2>
-            <ol class="breadcrumb">
-                <li><a asp-action="All" asp-controller="DynamicContent">Актуално</a></li>
-                <li class="active">@Model.Title</li>
-            </ol>
-        </div>
-    </div>
-</section>
+<div class="container">
+    <h2>@Model.Title</h2>
+</div>
 <div class="container mb-5">
     <div class="row">
         <div class="col-12 col-md-6 col-lg-7 mt-4">
-            <div class="row">
-                <div class="col-12 col-data">
-                    <span><i class="lnr lnr-calendar-full"></i> <span class="data"><b>@(Model.CreatedOn.ToString("dd.MM.yyyy hh:mm"))</b></span></span> <i class="lnr lnr-clock"></i> <span class="data"><b>@(Model.ReadingTime == 0 ? "< 1 мин" : Model.ReadingTime + "мин")</b></span>
-                </div>
-            </div>
-            <hr />
             <div class="row">
                 <div class="col-12 col-banner">
                     <img style="width:750px" id="image" src="~/resources/images/@(Model.ImageName)" />
@@ -50,9 +35,9 @@
                     continue;
                 }
 
-                <div class="blog_post mx-auto mt-3">
-                    <img src="~/resources/images/@(content?.ImageName)" alt="">
-                    <div class="blog_details">
+                <div class="mx-auto mt-3">
+                    <img style="width:200px" src="~/resources/images/@(content?.ImageName)" alt="more-image">
+                    <div>
                         <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@content?.Id"><h6>@content?.Title</h6></a>
                         <span class="more-details"><i class="lnr lnr-calendar-full"></i> @content?.CreatedOn.ToString("dd.MM.yyy г hh:mm ч")</span> <span class="more-details"><i class="lnr lnr-clock"></i> @(content?.ReadingTime == 0 ? "< 1 мин" : content?.ReadingTime + "мин")</span>
                     </div>

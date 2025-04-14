@@ -4,78 +4,66 @@
     ViewData["Title"] = "Контакти";
 }
 
-<!--================Breadcrumb Area =================-->
-<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+<div class="container">
+    <p>Може да се свържете с нас всеки ден от 9:00 до 18:00 ч</p>
+    <p><i class="fa fa-map-marker-alt me-2"></i>Асеновград, България</p>
+    <p><i class="fa fa-phone-alt me-2"></i>+359 878 131828</p>
+    <p><i class="fa fa-envelope me-2"></i>photonic@gmail.com</p>
+</div>
+
+<!-- Google Map Start -->
+<div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d741.0489308045962!2d24.8849853!3d42.0175335!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acd8920977cc05%3A0xc964e51cf5827cbf!2z0KbQtdC90YLRitGALCDRg9C7LiDigJ7Qk9C10L3QtdGA0LDQuyDQmtC-0LvQtdCy4oCcIDIyLCA0MjMxINCQ0YHQtdC90L7QstCz0YDQsNC0!5e0!3m2!1sbg!2sbg!4v1744447429690!5m2!1sbg!2sbg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+<!-- Google Map End -->
+
+<!-- Contact Start -->
+<div class="container-xxl py-5">
     <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">Контакти</h2>
-            <ol class="breadcrumb">
-                <li><a href="index.html">Начало</a></li>
-                <li class="active">Контакти</li>
-            </ol>
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="text-primary text-uppercase mb-2">Запитване</p>
+            <h1 class="display-6 mb-5">Изпратете ни запитване по всяко време</h1>
         </div>
-    </div>
-</section>
-<!--================Breadcrumb Area =================-->
-<!--================Contact Area =================-->
-<section class="contact_area section_gap">
-    <div class="container">
-        <!--<div id="mapBox" class="mapBox"
-             data-lat="40.701083"
-             data-lon="-74.1522848"
-             data-zoom="13"
-             data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
-             data-mlat="40.701083"
-             data-mlon="-74.1522848">
-        </div>-->
-        <div class="row">
-            <div class="col-md-3">
-                <div class="contact_info">
-                    <div class="info_item">
-                        <i class="lnr lnr-home"></i>
-                        <h6>Асеновград, България</h6>
-                    </div>
-                    <div class="info_item mt-3">
-                        <i class="lnr lnr-phone-handset"></i>
-                        <h6><a href="#">+359 878 131828</a></h6>
-                        <p>Може да се свържете с нас всеки ден от 9:00 до 18:00 ч</p>
-                    </div>
-                    <div class="info_item">
-                        <i class="lnr lnr-envelope"></i>
-                        <h6><a href="#">photonic@gmail.com</a></h6>
-                        <p>Изпратете ни запитване по всяко време</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-9">
+        <div class="row g-0 justify-content-center">
+            <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
+                <p class="text-center mb-4">Може да ни зададете всякакви въпроси по всяко време. Стараем се да отговорим на всеки един от тях възможно най-скоро.</p>
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <form class="row contact_form" asp-action="SendInquiry" asp-controller="Inquiry" method="POST" id="contactForm">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" asp-for="Name" placeholder="Име">
+                <form asp-action="SendInquiry" asp-controller="Inquiry" method="POST" id="contactForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" asp-for="Name" placeholder="Име">
+                                <label for="name">Име</label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" asp-for="From" placeholder="Имейл">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" asp-for="From" placeholder="Имейл">
+                                <label for="email">Имейл</label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" asp-for="Topic" placeholder="Тема">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" asp-for="Topic" placeholder="Тема">
+                                <label for="subject">Тема</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <textarea class="form-control" asp-for="Content" rows="1" placeholder="Съобщение"></textarea>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Вашето запитване" asp-for="Content" style="height: 200px"></textarea>
+                                <label for="message">Вашето запитване</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 text-right">
-                        <button type="submit" value="submit" class="btn theme_btn button_hover btn-submit">Изпращане</button>
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary py-3 px-5" type="submit">Изпрати</button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</section>
-<!--================Contact Area =================-->
+</div>
+<!-- Contact End -->
 
 <script>
     $(document).ready(function () {

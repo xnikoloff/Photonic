@@ -3,27 +3,24 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav ml-3">
 @if (SignInManager.IsSignedIn(User))
 {
-        <li class="nav-item"><a class="nav-link font-weight-bold nav-link-my-photoshoots" asp-controller="PhotoShoot" asp-action="MyPhotoShoots"><i class="fa-solid fa-camera fa-xl"></i> Фотосесии</a></li>
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Email" title="Manage"><i class="fa-solid fa-user fa-lg"></i> Профил</a>
-    </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa-solid fa-right-from-bracket fa-lg"></i> Изход</button>
-        </form>
-    </li>
+    <div class="nav-item dropdown"> 
+        <a asp-area="Identity" asp-page="/Account/Manage/Email" title="Manage" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa-solid fa-user-tie"></i></a>
+        <div class="dropdown-menu rounded-0 shadow-sm border-0 m-0">
+            <a asp-controller="PhotoShoot" asp-action="MyPhotoShoots" class="dropdown-item"><i class="fa-solid fa-camera"></i> Фотосесии</a>
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                <button id="logout" type="submit" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Изход</button>
+            </form>
+        </div>
+    </div>
 }
 else
 {
     <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login"><i class="fa-solid fa-door-open fa-lg"></i> Вход</a>
+        <a class="nav-link active" id="login" asp-area="Identity" asp-page="/Account/Login"><i class="fa-solid fa-user-tie fa-lg"></i></a>
     </li>
 }
-</ul>
-
 <style>
     .identity-link {
         margin-left: 8px;

@@ -4,154 +4,54 @@
     ViewData["Title"] = "Блог";
 }
 
-<!--================Banner Area =================-->
-<section class="banner_area blog_banner d_flex align-items-center">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="banner_content text-center">
-            <h4>Нашият блог</h4>
-            <p>Новини, истории, любопитни факти</p>
-            <!--<a href="#" class="btn white_btn button_hover">View More</a>-->
-        </div>
-    </div>
-</section>
-<!--================Banner Area =================-->
-<!--================Blog Area =================-->
-<section class="blog_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="blog_left_sidebar">
-                    <article class="row blog_item">
-                        @foreach (DynamicContent dynamicContent in Model?.DynamicContents ?? new List<DynamicContent>())
-                        {
-                            <div class="col-md-3">
-                                <div class="blog_info text-right">
-                                    <ul class="blog_meta list_style">
-                                        <li><a>@dynamicContent?.CreatedBy?.Email<i class="lnr lnr-user"></i></a></li>
-                                        <li><a>@(dynamicContent?.ReadingTime == 0 ? "< 1 мин" : dynamicContent?.ReadingTime + "мин")<i class="lnr lnr-clock"></i></a></li>
-                                        <li><a>@dynamicContent?.CreatedOn.ToString("dd.MM.yyy г hh:mm ч")<i class="lnr lnr-calendar-full"></i></a></li>
-                                        <li><a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.DynamicContentCategories?.Id">@dynamicContent?.DynamicContentCategories?.Name<i class="lnr lnr-layers"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="blog_post mt-3">
-                                    <img src="~/resources/images/@(dynamicContent?.ImageName)" alt="">
-                                    <div class="blog_details">
-                                        <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h2>@dynamicContent?.Title</h2></a>
-                                        <p>@dynamicContent?.Description</p>
-                                        <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id" class="view_btn button_hover">Прочетете повече</a>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </article>
-                    <nav class="blog-pagination justify-content-center d-flex">
-                        <ul class="pagination">
-                            <!--<li class="page-item">
-                                <a href="#" class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">
-                                        <span class="lnr lnr-chevron-left"></span>
-                                    </span>
-                                </a>
-                            </li>-->
 
-                            @for(int i = 1; i <= Model?.PagesCount; i++)
-                            {
-                                <li class="page-item active" id="page-item-@i"><a asp-action="AllByPage" asp-controller="DynamicContent" asp-route-pageNumber="@i" class="page-link">@i</a></li>
-                            }
-                            
-                            <!--<li class="page-item">
-                                <a href="#" class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">
-                                        <span class="lnr lnr-chevron-right"></span>
-                                    </span>
-                                </a>
-                            </li>-->
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="blog_right_sidebar">
-                    <!--<aside class="single_sidebar_widget search_widget">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Търсене в блога">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
-                            </span>
+
+<!-- Team Start -->
+<div class="container-xxl px-0 py-5">
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+        <p class="text-primary text-uppercase mb-2">Актуално</p>
+        <h1 class="display-6 mb-0">Последните новини и публикации</h1>
+    </div>
+    <div class="row g-0">
+
+        @foreach (DynamicContent dynamicContent in Model?.DynamicContents ?? new List<DynamicContent>())
+        {
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="row g-0 flex-sm-row">
+                    <div class="col-sm-6">
+                        <div class="team-img position-relative">
+                            <img class="img-fluid" src="~/resources/images/@(dynamicContent.ImageName)" alt="">
                         </div>
-                    </aside>
-                    <aside class="single_sidebar_widget ads_widget">
-                        <a href="#"><img class="img-fluid" src="image/blog/add.jpg" alt=""></a>
-                        <div class="br"></div>
-                    </aside>-->
-                    <aside class="single_sidebar_widget post_category_widget">
-                        <h4 class="widget_title">Категории</h4>
-                        <ul class="list_style cat-list">
-
-                            @foreach(DynamicContentCategory dynamicContentCategory in Model?.DynamicContentCategories ?? new List<DynamicContentCategory>())
-                            {
-                                <li>
-                                    <a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContentCategory?.Id" class="d-flex justify-content-between">
-                                        <p>@dynamicContentCategory.Name</p>
-                                    </a>
-                                </li>
-                            }
-                           
-                        </ul>
-                        <div class="br"></div>
-                    </aside>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                            <div class="mb-3">
+                                <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h4>@(dynamicContent.Title ?? "")</h4></a>
+                                <span>@(dynamicContent?.DynamicContentCategories?.Name ?? "") | @(dynamicContent?.CreatedOn.ToString("dd.MM.yyyy") ?? "") г.</span>
+                            </div>
+                            <p>@(dynamicContent?.Description ?? "")</p>
+                            <div class="d-flex">
+                                <a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.DynamicContentCategories?.Id" class="me-2"><i class="fa-solid fa-layer-group"></i> @dynamicContent?.DynamicContentCategories?.Name</a>
+                                <p class="me-2"><i class="fa-solid fa-clock"></i> @(dynamicContent?.ReadingTime == 0 ? "< 1 мин" : dynamicContent?.ReadingTime + "мин")</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+
+        <nav class="blog-pagination justify-content-center d-flex">
+            <ul class="pagination">
+                @for (int i = 1; i <= Model?.PagesCount; i++)
+                {
+                    <li class="page-item active" id="page-item-@i"><a asp-action="AllByPage" asp-controller="DynamicContent" asp-route-pageNumber="@i" class="page-link">@i</a></li>
+                }
+            </ul>
+        </nav>
+
     </div>
-</section>
-<!--================Blog Area =================-->
-
-<style>
-    .blog_item li{
-        text-align: right !important;
-    }
-    
-    .card{
-        max-width: 250px;
-        /*min-height: 380px;*/
-    }
-
-    .card .card-header{
-        min-height: 80px;
-    }
-
-    .card .card-body{
-        width: 100%;
-    }
-
-    .card .card-body img{
-        width: 200px;
-        text-align: center;
-        margin: 0 auto;
-        border-radius: 8px;
-    }
-
-    .card .card-footer{
-        min-height: 100px;
-    }
-
-    @@media only screen and (max-width: 900px) {
-        .card .card-body img {
-            width: 320px;
-            text-align: center;
-            margin: 0 auto;
-        }
-
-        .card {
-            max-width: unset;
-            min-height: 300px;
-        }
-    }
-</style>
+</div>
+<!-- Team End -->
 
 <script>
     $(document).ready(function () {

@@ -11,7 +11,7 @@ namespace OwlStock.Services
     public class DynamicContentService : IDynamicContentService
     {
         private const int _visibleContentByPage = 4;
-        private const int _visibleTopContent = 3;
+        private const int _visibleTopContent = 4;
 
         private readonly OwlStockDbContext _context;
         private readonly ILogger<DynamicContentService> _logger;

@@ -2,66 +2,77 @@
     ViewData["Title"] = "За нас";
 }
 
-<!--================Breadcrumb Area =================-->
-<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+<!-- About Start -->
+<div class="container-xxl py-5">
     <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">За нас</h2>
-            <ol class="breadcrumb">
-                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
-                <li class="active">За нас</li>
-            </ol>
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="row g-3 img-twice position-relative h-100">
+                    <div class="col-6">
+                        <img class="img-fluid bg-light p-3" src="img/about-1.jpg" alt="">
+                    </div>
+                    <div class="col-6 align-self-end">
+                        <img class="img-fluid bg-light p-3" src="img/about-2.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="h-100">
+                    <p class="text-primary text-uppercase mb-2">За нас</p>
+                    <h1 class="display-6 mb-4">За нас | Какво целим?</h1>
+                    <p>Нашата страст е посветена на улавянето на най-ценните Ви моменти. Вярваме, че всяка снимка разказва история и всяка история заслужава да бъде разказана с изключително внимание към детайла и артистичност.</p>
+                    <p>Целта на Фотоник е да превърнем вашите спомени в изкуство. Независимо дали става дума за сватба, семеен портрет, корпоративно събитие или индивидуална фотосесия, ние се стремим да уловим емоцията и красотата във всеки кадър.</p>
+                    <p>Фотоник се роди с идеята да улесни максимално клиентите ни. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията, а тя да се окаже повредена. Никой ме е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайтът на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
+                    <div class="row g-2 mb-4">
+                        <div class="col-sm-6">
+                            <i class="fa fa-check text-primary me-3"></i>Индивидуален подход
+                        </div>
+                        <div class="col-sm-6">
+                            <i class="fa fa-check text-primary me-3"></i>Внимание към детайла
+                        </div>
+                        <div class="col-sm-6">
+                            <i class="fa fa-check text-primary me-3"></i>Удобен уеб сайт
+                        </div>
+                        <div class="col-sm-6">
+                            <i class="fa fa-check text-primary me-3"></i>Транспорт до локация
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</section>
-<!--================Breadcrumb Area =================-->
-<!--================ About History Area  =================-->
-<section class="about_history_area section_gap">
+</div>
+<!-- About End -->
+<!-- Facts Start -->
+<div class="container-xxl py-5">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 d_flex align-items-center">
-                <div class="about_content ">
-                    <h2 class="title title_color">За нас <br>Нашата история<br>Какво целим</h2>
-                    <p>Нашата страст е посветена на улавянето на най-ценните Ви моменти. Вярваме, че всяка снимка разказва история и всяка история заслужава да бъде разказана с изключително внимание към детайла и артистичност.<br /><br />Целта на Фотон е да превърнем вашите спомени в изкуство. Независимо дали става дума за сватба, семеен портрет, корпоративно събитие или индивидуална фотосесия, ние се стремим да уловим емоцията и красотата във всеки кадър.<br /><br />Фотон се роди с идеята да улесни максимално клиентите ни. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията, а тя да се окаже повредена. Никой ме е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайтът на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
-                    <a asp-action="Reserve" asp-controller="Photoshoot" class="button_hover theme_btn_two">Резервирай</a>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <img class="img-fluid" src="~/image/about_bg.jpg" alt="img">
-            </div>
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="text-primary text-uppercase mb-2">Защо да изберете PHOTONIC?</p>
+            <h1 class="display-6 mb-5">Това е нашето предложение за Вас</h1>
         </div>
-    </div>
-</section>
-<!--================ About History Area  =================-->
-<!--================ Facilities Area  =================-->
-<section class="facilities_area section_gap">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
-    </div>
-    <div class="container">
-        <div class="section_title text-center">
-            <h2 class="title_w">Какво предлагаме?</h2>
-            <p></p>
-        </div>
-        <div class="row mb_30">
-            <div class="col-lg-4 col-md-6">
-                <div class="facilities_item">
-                    <h4 class="sec_h4"><i class="fa-solid fa-camera-retro fa-lg text-warning"></i> Креативен подход</h4>
-                    <p>Нашата цел е да превърнем вашите спомени в картини. Независимо дали става дума за сватба, семеен портрет, корпоративно събитие или индивидуална фотосесия, ние се стремим да уловим емоцията и красотата във всеки кадър.</p>
+        <div class="row g-3">
+            <div class="col-lg-4 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="fact-item bg-light text-center h-100 p-5">
+                    <h1 class="display-2 text-primary mb-3"><i class="fa-solid fa-heart"></i></h1>
+                    <h4 class="mb-3">Отдаденост</h4>
+                    <span>Нашата цел е да превърнем Вашите спомени в картини. Независимо дали става дума за сватба, семеен портрет, корпоративно събитие или индивидуална фотосесия, ние се стремим да уловим емоцията и красотата във всеки кадър.</span>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="facilities_item">
-                    <h4 class="sec_h4"><i class="fa-solid fa-face-smile-beam fa-lg text-warning"></i> Удобство</h4>
-                    <p>Предлагаме уеб сайт, през който можете лесно и бързо да резервирате фотосесии, като избете удобно време за Вас. Ще получите снимките си в профила си, като можете да ги разгледате или изтеглите, когато пожелаете.</p>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="fact-item bg-light text-center h-100 p-5">
+                    <h1 class="display-2 text-primary mb-3"><i class="fa-solid fa-face-smile-beam"></i></h1>
+                    <h4 class="mb-3">Удобство</h4>
+                    <span>Предлагаме уеб сайт, през който можете лесно и бързо да резервирате фотосесии, като избете удобно време за Вас. Ще получите снимките си в профила си, като можете да ги разгледате или изтеглите, когато пожелаете.</span>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="facilities_item">
-                    <h4 class="sec_h4"><i class="fa-solid fa-car-side fa-lg text-warning"></i> Превоз</h4>
-                    <p>Развиваме дейността си в няколко области в Южна България - Пловдив, Стара Загора, Пазарджик и Хасково. Разполагаме със служебен автомобил, с който, ако желаете, можем да ви заведем до локацията.</p>
+            <div class="col-lg-4 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="fact-item bg-light text-center h-100 p-5">
+                    <h1 class="display-2 text-primary mb-3"><i class="fa-solid fa-car"></i></h1>
+                    <h4 class="mb-3">Превоз до локацията</h4>
+                    <span>Развиваме дейността си в няколко области в Южна България - Пловдив, Стара Загора, Пазарджик и Хасково. Разполагаме със служебен автомобил, с който, ако желаете, можем да ви заведем до локацията.</span>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+<!-- Facts End -->

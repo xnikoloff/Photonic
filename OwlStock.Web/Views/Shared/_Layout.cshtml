@@ -8,142 +8,34 @@
         <meta name="author" content="" />
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="~/favicon.ico" />   
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="~/css/bootstrap.css">
-        <link rel="stylesheet" href="~/vendors/linericon/style.css">
+        <!-- FontAwesome-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="~/css/font-awesome.min.css">
-        <link rel="stylesheet" href="~/vendors/owl-carousel/owl.carousel.min.css">
-        <link rel="stylesheet" href="~/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.css">
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
         <link rel="stylesheet" href="~/vendors/nice-select/css/nice-select.css">
-        <link rel="stylesheet" href="~/vendors/lightbox/simpleLightbox.css">
-        <!-- main css -->
-        <link rel="stylesheet" href="~/css/site.css">
-        <link rel="stylesheet" href="~/css/style.css">
-        <link rel="stylesheet" href="~/css/responsive.css">
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="~/js/jquery-3.2.1.min.js"></script>
-        <script src="~/js/popper.js"></script>
-        <script src="~/js/bootstrap.min.js"></script>
-        
+        <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" />
 
-</head>
-<body class="page-top text-dark">
-<!-- Navigation-->
-    <header class="header_area">
-        @await Component.InvokeAsync("Announcement")
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light main-navbar">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <!--<a asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/photonic.png" alt="DreamPix" class="logo" style="width: 120px;"/></a>-->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav ml-auto">
-                        @if (this.User.IsInRole("Administrator"))
-                        {
-                            <li class="nav-item text-warning"><a class="nav-link" asp-controller="Administration" asp-action="Index"><b>Admin</b></a></li>
-                        }
-                        <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Photoshoot">Резервация</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Photo" asp-action="Index">Галерия</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="DynamicContent" asp-action="AllByPage">Блог</a></li>
-                        <!--<li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Блог</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" asp-action="All" asp-controller="DynamicContent">Blog</a></li>
-                                <li class="nav-item"><a class="nav-link" href="blog-single.html">Blog Details</a></li>
-                            </ul>
-                        </li>-->
-                        <li class="nav-item"><a class="nav-link" asp-action="Contacts" asp-controller="StaticContent">Контакти</a></li>
-                    </ul>
-                    <form asp-controller="Photo" asp-action="AllByTag" method="GET" class="form-inline mx-2">
-                        <input name="tag" class="form-control ml-3" type="search" placeholder="Търсене" aria-label="Search" style="width: 200px;">
-                    </form>
-                    <partial name="_LoginPartial" />
-                </div>
-            </nav>
-        </div>
-    </header>
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="~/css/bootstrap.min.css" rel="stylesheet">
 
-    <main role="main" class="mt-3">
-            @RenderBody()
-    </main>
+        <!-- Template Stylesheet -->
+        <link href="~/css/style.css" rel="stylesheet">
 
-    <!--================ start footer Area  =================-->
-    <footer class="footer-area section_gap">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                    <a id="logo-footer" asp-action="Index" asp-controller="Home"><img src="~/DreamPixW.png" alt="logo" /></a>
-                </div>
-                <div class="col-lg-3  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6 class="footer_title">За нас</h6>
-                        <p class="text-secondary"><i class="lnr lnr-phone-handset text-warning"></i> +359 878 131828</p>
-                        <p class="text-secondary"><i class="lnr lnr-envelope text-warning"></i> photonic@gmail.com</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6 class="footer_title">Разгледайте</h6>
-                        <div class="row">
-                            <div class="col-4">
-                                <ul class="list_style">
-                                    <li><a asp-action="Reserve" asp-controller="PhotoShoot">Резервация</a></li>
-                                    <li><a asp-action="Pricing" asp-controller="StaticContent" >Цени</a></li>
-                                    <li><a asp-action="Index" asp-controller="Photo">Галерия</a></li>
-                                    <li><a asp-action="About" asp-controller="StaticContent">За нас</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-4">
-                                <ul class="list_style">
-                                    <li><a asp-action="Contacts" asp-controller="StaticContent">Контакти</a></li>
-                                    <li><a asp-action="Services" asp-controller="StaticContent">Услуги</a></li>
-                                    <li><a asp-action="All" asp-controller="DynamicContent">Блог</a></li>
-                                    <li><a asp-action="All" asp-controller="Place">Локации</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="border_line"></div>
-            <div class="row footer-bottom d-flex justify-content-between align-items-center">
-                <p class="col-lg-8 col-sm-12 footer-text m-0">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa-regular fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-                <div class="col-lg-4 col-sm-12 footer-social">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!--================ End footer Area  =================-->
+        <!--Bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <!-- Optional JavaScript -->
-    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
-    <script src="~/js/jquery.ajaxchimp.min.js"></script>
-    <script src="~/js/mail-script.js"></script>
-    <script src="~/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
-    <script src="~/vendors/nice-select/js/jquery.nice-select.js"></script>
-    <script src="~/vendors/lightbox/simpleLightbox.min.js"></script>
-    <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="~/vendors/isotope/isotope-min.js"></script>
-    <script src="~/js/stellar.js"></script>
-    <script src="~/js/mail-script.js"></script>
-    <script src="~/js/custom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
             integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
             crossorigin="anonymous"
@@ -155,7 +47,135 @@
           integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
           crossorigin="anonymous"
           referrerpolicy="no-referrer" />
+       
 
+</head>
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light fixed-top shadow py-lg-0 px-4 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+        <a class="navbar-brand d-block d-lg-none">
+            <h1 class="text-primary">PHOTONIC</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between py-4 py-lg-0" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a asp-controller="PhotoShoot" asp-action="Reserve" class="nav-item nav-link active">РЕЗЕРВАЦИЯ</a>
+                <a asp-controller="StaticContent" asp-action="About" class="nav-item nav-link">За нас</a>
+                <a asp-controller="StaticContent" asp-action="Services" class="nav-item nav-link">Услуги</a>
+            </div>
+            <a asp-controller="Home" asp-action="Index" class="navbar-brand bg-primary py-2 px-4 mx-3 d-none d-lg-block">
+                <h1 class="text-white">PHOTONIC</h1>
+            </a>
+            <div class="navbar-nav me-auto py-0">
+                <div class="nav-item dropdown">
+                    <a asp-controller="Photo" asp-action="Index" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Портфолио</a>
+                    <div class="dropdown-menu rounded-0 shadow-sm border-0 m-0">
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Wedding" class="dropdown-item">Сватба</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Prom" class="dropdown-item">Абитуриетски бал</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Baptism" class="dropdown-item">Свето кръщене</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Portrait" class="dropdown-item">Индивидуална фотосесия</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.People" class="dropdown-item">Семейна фотосесия</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Business" class="dropdown-item">Бизнес портрет</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Product" class="dropdown-item">Продукт</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Automotive" class="dropdown-item">Автомобил</a>
+                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Events" class="dropdown-item">Събитие</a>
+                    </div>
+                </div>
+                <a asp-controller="DynamicContent" asp-action="AllByPage" class="nav-item nav-link">Блог</a>
+                <a asp-controller="StaticContent" asp-action="Contacts" class="nav-item nav-link">Контакти</a>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <main id="main" role="main">
+            @RenderBody()
+    </main>
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer position-relative bg-dark text-white-50 mt-5 py-5 px-4 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="row g-5 py-5">
+            <div class="col-lg-6 pe-lg-5">
+                <a href="index.html" class="navbar-brand">
+                    <h1 class="display-5 text-primary">PHOTONIC</h1>
+                </a>
+                <p>Нашето вдъхновение са вашите спомени</p>
+                <p><i class="fa fa-map-marker-alt me-2"></i>Асеновград, България</p>
+                <p><i class="fa fa-phone-alt me-2"></i>+359 878 131828</p>
+                <p><i class="fa fa-envelope me-2"></i>photonic@gmail.com</p>
+                <div class="d-flex justify-content-start mt-4">
+                    <a class="btn btn-square btn-outline-primary rounded-circle me-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-square btn-outline-primary rounded-circle me-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-square btn-outline-primary rounded-circle me-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-square btn-outline-primary rounded-circle me-2" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 ps-lg-5">
+                <div class="row g-5">
+                    <div class="col-sm-6">
+                        <h4 class="text-light mb-4">За нас</h4>
+                        <a class="btn btn-link" href="">PHOTONIC</a>
+                        <a class="btn btn-link" href="">Контакти</a>
+                        <a class="btn btn-link" href="">Услуги</a>
+                        <a class="btn btn-link" href="">Информация</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4 class="text-light mb-4">Разгледайте</h4>
+                        <a class="btn btn-link" href="">Портфолио</a>
+                        <a class="btn btn-link" href="">Цени</a>
+                        <a class="btn btn-link" href="">Блог</a>
+                        <a class="btn btn-link" href="">Локации</a>
+                    </div>
+                    <div class="col-sm-12">
+                        <h4 class="text-light mb-4">Търсене</h4>
+                        <div class="w-100">
+                            <div class="input-group">
+                                <input type="text" class="form-control border-0 bg-secondary" style="padding: 20px 30px;" placeholder="котки, бал, BMW..."><button class="btn btn-primary px-4">Търси</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <!-- Copyright Start -->
+    <div class="container-fluid bg-dark text-white border-top border-secondary px-0">
+        <div class="d-flex flex-column flex-md-row justify-content-between">
+            <div class="py-4 px-5 text-center text-md-start">
+                <p class="mb-0">&copy; <a class="text-primary" href="#">PHOTONIC</a> All Rights Reserved.</p>
+            </div>
+            <div class="py-4 px-5 bg-secondary footer-shape position-relative text-center text-md-end">
+                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                <p class="mb-0">Designed by <a class="text-primary fw-bold" href="https://htmlcodex.com">HTML Codex</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+    <!-- JavaScript Libraries -->
+    <script src="~/lib/wow/wow.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/waypoints/waypoints.min.js"></script>
+    <script src="~/lib/counterup/counterup.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="~/vendors/nice-select/js/jquery.nice-select.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="~/js/main.js"></script>
+
+    
 
     <!--RichText editor-->
     <link rel="stylesheet" href="~/lib/RichText-master/src/richtext.min.css">
@@ -166,23 +186,8 @@
 </html>
 
 <style>
-    .main-navbar{
-        background: none;
-    }
-
-    .main-navbar .nav-link{
-        color: #fff !important;
-        font-weight: bold;
-    }
-
-    .navbar_fixed .nav-link{
-        color: #000 !important;
-    }
-
-    @@media only screen and (max-width: 768px){
-        #logo-footer img {
-            width: 80%;
-            margin-bottom: 80px;
-        }
-    }   
+   #main{
+       /*Navbar is always fixed now, so main content is pushed down a bit*/
+       margin-top: 150px
+   } 
 </style>

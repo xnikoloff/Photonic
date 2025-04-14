@@ -5,7 +5,7 @@
 }
 
 <!--================Banner Area =================-->
-<section class="banner_area">
+@*<section class="banner_area">
     <div class="booking_table d_flex align-items-center">
         <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
         <div class="container">
@@ -170,138 +170,342 @@
     </div>
 </section>
 <!--================ Testimonial Area  =================-->
-<style>
-    .title_color{
-        text-transform: uppercase;
-    }
-    .testimonial_item{
-        min-height: 380px;
-    }
+*@
 
-    .testimony-container{
-        margin-top: 100px;
-    }
 
-    .testimony-container input, .testimony-container textarea{
-        border: none;
-        border-radius: 0;
-    }
 
-    .book_now_btn{
-        font-weight: bold;
-    }
 
-    .services-subheading{
-        margin-top: 30px;
-    }
 
-    /*Override from styles.css*/
-    .banner_area .bg-parallax {
-        background: url(@(Url.Content($"~/resources/{ViewBag.HomePhoto}"))) no-repeat scroll center 0/cover;
-        opacity: 0.50;
-    }
-    header.masthead {
-        background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(@(Url.Content($"~/resources/{ViewBag.HomePhoto}")));
-        background-size: cover;
-    }
 
-    .masthead-heading-wrapper{
-        transform: scale(.5);
-        animation-name: animateMastheadTexts;
-        animation-duration: 2s;
-        transform: scale(1);
-    }
 
-    #your-colored{
-        color: #ffc800;
-        font-weight: bold;
-    }
 
-    .btn-book{
-        animation-name: animateBookButton;
-        animation-delay: 2s;
-        animation-iteration-count: infinite;
-        animation-duration: 2s;
-    }
 
-    .btn-book:hover {
-        animation-name: unset;
-    }
 
-    .icons-container {
-        padding: 150px 0;
-    }
 
-    .icons-container .icons-column {
-        margin: 0 auto;
-        padding-bottom: 80px;
-        text-align: center;
-        border-right: 1px solid #dbdbdb;
-        transition: .4s;
-    }
 
-    .icons-container .icons-column:last-child {
-        border-right: unset;
-    }
 
-    .icons-container .icons-column .icon-title {
-        margin-top: 30px;
-        margin-bottom: 20px;
-    }
 
-    .icons-container .icons-column .icon-text{
-        min-height: 90px;
-    }
 
-    @@media only screen and (max-width: 768px){
-        .icons-container .icons-column .icon-text {
-            min-height: 40px;
+<!-- Header Start -->
+<div class="container-fluid hero-header bg-light pb-5 mb-5" style="margin-top: -80px !important">
+    <div class="container pb-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <p class="text-primary text-uppercase mb-2 animated slideInDown">Фотографска агенция <b>PHOTONIC</b></p>
+                <h1 class="display-4 mb-3 animated slideInDown">Нашето вдъхновение са вашите спомени</h1>
+                <p class="animated slideInDown">Миговете отминават, но спомените остават. Твоята радост, любов и смях също. Ние запечатваме историите ти такива, каквито са. Вдъхновени от теб, улавяме душата, запазвайки времето във всеки кадър.</p>
+                <div class="d-flex align-items-center pt-4 animated slideInDown">
+                    <a href="" class="btn btn-primary py-3 px-4 me-5">Портфолио</a>
+                    <a asp-controller="PhotoShoot" asp-action="Reserve" class="btn-play">
+                        <span></span>
+                    </a>
+                    <h5 class="ms-4 mb-0 d-none d-sm-block">Резервация</h5>
+                </div>
+            </div>
+            <div class="col-lg-6 animated fadeIn">
+                <div class="row g-3">
+                    <div class="col-6 text-end">
+                        <img class="img-fluid bg-white p-3 w-100 mb-3" id="img-fluid-1" src="~/resources/gallery-photos/Small_IMG_3322.jpg" alt="">
+                        <img class="img-fluid bg-white p-3 w-50" id="img-fluid-2" src="~/resources/gallery-photos/Small_IMG_3642.jpg" alt="">
+                    </div>
+                    <div class="col-6">
+                        <img class="img-fluid bg-white p-3 w-50 mb-3" id="img-fluid-3" src="~/resources/gallery-photos/Small_IMG_7076.jpg" alt="">
+                        <img class="img-fluid bg-white p-3 w-100" id="img-fluid-4" src="~/resources/gallery-photos/Small_IMG_7151.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+<!-- Video Modal Start -->
+<div class="modal modal-video fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Youtube Video</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 16:9 aspect ratio -->
+                <div class="ratio ratio-16x9">
+                    <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
+                            allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Video Modal End -->
+<!-- Project Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="text-primary text-uppercase mb-2">Фотосесии</p>
+            <h1 class="display-6 mb-0">Разгледайте нашите фотосесии</h1>
+        </div>
+        <div class="row g-3">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="project-item">
+                            <img class="img-fluid" src="img/project-5.jpg" alt="">
+                            <a class="project-title h5 mb-0" href="img/project-5.jpg" data-lightbox="project">
+                                Сватба
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="project-item">
+                            <img class="img-fluid" src="img/project-1.jpg" alt="">
+                            <a class="project-title h5 mb-0" href="img/project-1.jpg" data-lightbox="project">
+                                Абитуриенти
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="project-item">
+                            <img class="img-fluid" src="img/project-2.jpg" alt="">
+                            <a class="project-title h5 mb-0" href="img/project-2.jpg" data-lightbox="project">
+                                Свето кръщение
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="project-item">
+                            <img class="img-fluid" src="img/project-6.jpg" alt="">
+                            <a class="project-title h5 mb-0" href="img/project-6.jpg" data-lightbox="project">
+                                Идивидуална
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="project-item">
+                            <img class="img-fluid" src="img/project-7.jpg" alt="">
+                            <a class="project-title h5 mb-0" href="img/project-7.jpg" data-lightbox="project">
+                                Семейна
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="project-item">
+                            <img class="img-fluid" src="img/project-3.jpg" alt="">
+                            <a class="project-title h5 mb-0" href="img/project-3.jpg" data-lightbox="project">
+                                Събитие
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="project-item">
+                            <img class="img-fluid" src="img/project-4.jpg" alt="">
+                            <a class="project-title h5 mb-0" href="img/project-4.jpg" data-lightbox="project">
+                                Продукт
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="project-item">
+                            <img class="img-fluid" src="img/project-8.jpg" alt="">
+                            <a class="project-title h5 mb-0" href="img/project-8.jpg" data-lightbox="project">
+                                Автомобил
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Project End -->
+<!-- Service Start -->
+<div class="container-xxl bg-light py-5 my-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="text-primary text-uppercase mb-2">Повече</p>
+            <h1 class="display-6 mb-4">Научете повече</h1>
+        </div>
+        <div class="row g-3">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item d-flex flex-column bg-white p-3 pb-0">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/service-1.jpg" alt="">
+                        <div class="service-overlay">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i class="fa fa-link text-primary"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4">
+                        <h4>Услуги</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item d-flex flex-column bg-white p-3 pb-0">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/service-2.jpg" alt="">
+                        <div class="service-overlay">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i class="fa fa-link text-primary"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4">
+                        <h4>Цени</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item d-flex flex-column bg-white p-3 pb-0">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/service-3.jpg" alt="">
+                        <div class="service-overlay">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i class="fa fa-link text-primary"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4">
+                        <h4>Галерия</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="service-item d-flex flex-column bg-white p-3 pb-0">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/service-4.jpg" alt="">
+                        <div class="service-overlay">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i class="fa fa-link text-primary"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4">
+                        <h4>За нас</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+<!-- About Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="row g-3 img-twice position-relative h-100">
+                    <div class="col-6">
+                        <img class="img-fluid bg-light p-3" src="img/about-1.jpg" alt="">
+                    </div>
+                    <div class="col-6 align-self-end">
+                        <img class="img-fluid bg-light p-3" src="img/about-2.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="h-100">
+                    <p class="text-primary text-uppercase mb-2">За нас</p>
+                    <h1 class="display-6 mb-4">Повече за нас и нашата дейност</h1>
+                    <p>Фотоник се роди с идеята да улесни максимално клиентите си. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията Ви, а тя да се окаже повредена. Никой не е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайта на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
+                    <p>Целта на Фотон е да превърнем вашите спомени в изкуство. Независимо дали става дума за сватба, семеен портрет, корпоративно събитие или индивидуална фотосесия, ние се стремим да уловим емоцията и красотата във всеки кадър.</p>
+                    <!--<div class="row g-2 mb-4">
+                        <div class="col-sm-6">
+                            <i class="fa fa-check text-primary me-3"></i>Quality Products
+                        </div>
+                        <div class="col-sm-6">
+                            <i class="fa fa-check text-primary me-3"></i>Custom Products
+                        </div>
+                        <div class="col-sm-6">
+                            <i class="fa fa-check text-primary me-3"></i>Online Order
+                        </div>
+                        <div class="col-sm-6">
+                            <i class="fa fa-check text-primary me-3"></i>Home Delivery
+                        </div>
+                    </div>-->
+                    <a class="btn btn-primary py-3 px-5" href="">Научете повече</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+<!-- Team Start -->
+<div class="container-xxl px-0 py-5">
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+        <p class="text-primary text-uppercase mb-2">Актуално</p>
+        <h1 class="display-6 mb-0">Последните новини и публикации</h1>
+    </div>
+    <div class="row g-0">
+
+        @foreach (DynamicContent dynamicContent in Model?.DynamicContents ?? new List<DynamicContent>())
+        {
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="row g-0 flex-sm-row">
+                    <div class="col-sm-6">
+                        <div class="team-img position-relative">
+                            <img class="img-fluid" src="~/resources/images/@(dynamicContent.ImageName)" alt="">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                            <div class="mb-3">
+                                <h4>@(dynamicContent.Title ?? "")</h4>
+                                <span>@(dynamicContent?.DynamicContentCategories?.Name ?? "") | @(dynamicContent?.CreatedOn.ToString("dd.MM.yyyy") ?? "") г.</span>
+                            </div>
+                            <p>@(dynamicContent?.Description ?? "")</p>
+                            <div class="d-flex">
+                                <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
 
-        .logo-homepage {
-            width: 350px;
-        }
+    </div>
+</div>
+<!-- Team End -->
+<!-- Testimonial Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="text-primary text-uppercase mb-2">Оценки</p>
+            <h1 class="display-6 mb-0">Какво споделят нашите клиенти</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
 
-        header.masthead{
-            padding-top: 100px;
-            
-        }
+            @foreach(Testimony testimony in Model?.Testimonies ?? new List<Testimony>())
+            {
+                <div class="testimonial-item bg-white p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <img class="flex-shrink-0 rounded-circle border p-1" src="~/img/user-testimony.png" alt="">
+                        <div class="ms-4">
+                            <h5 class="mb-1">@((testimony.PersonFirstName ?? "") + " " + (testimony.PersonLastName ?? ""))</h5>
+                            <div class="star">
+                                @for (int i = 0; i < testimony.Stars; i++)
+                                {
+                                    <i class="fa fa-star text-warning"></i>
+                                }
+                                @for (int i = testimony.Stars + 1; i <= 5; i++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mb-0">@testimony.Content</p>
+                </div>
+            }
 
-        header.masthead .dimmer {
-            
-        }
-    }
-    @@keyframes animateMastheadTexts {
-        from {
-            transform: scale(.5);
-        }
-
-        to {
-            transform: scale(1);
-        }
-    }
-
-    @@keyframes animateBookButton{
-        0% {
-            transform: unset;
-            box-shadow: 0px 0px 22px #ffc800;
-        }
-
-        50% {
-            transform: scale(0.9);
-            box-shadow: 0px 0px 8px #ffc800;
-        }
-
-        100%{
-            box-shadow: 0px 0px 22px #ffc800;
-        }
-    }
-</style>
-
-<script src="~/js/custom/helpers.js"></script>
-<script>
-    $(document).ready(function () {
-        //filter select options for photoshoot type
-        filterPhotoshootTypeOptions();
-    });
-</script>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
