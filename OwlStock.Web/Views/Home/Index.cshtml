@@ -250,7 +250,7 @@
                     <div class="col-12">
                         <div class="project-item">
                             <img class="img-fluid" src="img/project-5.jpg" alt="">
-                            <a class="project-title h5 mb-0" href="img/project-5.jpg" data-lightbox="project">
+                            <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Wedding" class="project-title h5 mb-0">
                                 Сватба
                             </a>
                         </div>
@@ -258,7 +258,7 @@
                     <div class="col-12">
                         <div class="project-item">
                             <img class="img-fluid" src="img/project-1.jpg" alt="">
-                            <a class="project-title h5 mb-0" href="img/project-1.jpg" data-lightbox="project">
+                            <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Prom" class="project-title h5 mb-0">
                                 Абитуриенти
                             </a>
                         </div>
@@ -270,7 +270,7 @@
                     <div class="col-12">
                         <div class="project-item">
                             <img class="img-fluid" src="img/project-2.jpg" alt="">
-                            <a class="project-title h5 mb-0" href="img/project-2.jpg" data-lightbox="project">
+                            <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Baptism" class="project-title h5 mb-0">
                                 Свето кръщение
                             </a>
                         </div>
@@ -278,7 +278,7 @@
                     <div class="col-12">
                         <div class="project-item">
                             <img class="img-fluid" src="img/project-6.jpg" alt="">
-                            <a class="project-title h5 mb-0" href="img/project-6.jpg" data-lightbox="project">
+                            <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Portrait" class="project-title h5 mb-0">
                                 Идивидуална
                             </a>
                         </div>
@@ -290,7 +290,7 @@
                     <div class="col-12">
                         <div class="project-item">
                             <img class="img-fluid" src="img/project-7.jpg" alt="">
-                            <a class="project-title h5 mb-0" href="img/project-7.jpg" data-lightbox="project">
+                            <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Wedding" class="project-title h5 mb-0">
                                 Семейна
                             </a>
                         </div>
@@ -298,7 +298,7 @@
                     <div class="col-12">
                         <div class="project-item">
                             <img class="img-fluid" src="img/project-3.jpg" alt="">
-                            <a class="project-title h5 mb-0" href="img/project-3.jpg" data-lightbox="project">
+                            <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Events" class="project-title h5 mb-0">
                                 Събитие
                             </a>
                         </div>
@@ -310,7 +310,7 @@
                     <div class="col-12">
                         <div class="project-item">
                             <img class="img-fluid" src="img/project-4.jpg" alt="">
-                            <a class="project-title h5 mb-0" href="img/project-4.jpg" data-lightbox="project">
+                            <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Product" class="project-title h5 mb-0">
                                 Продукт
                             </a>
                         </div>
@@ -318,7 +318,7 @@
                     <div class="col-12">
                         <div class="project-item">
                             <img class="img-fluid" src="img/project-8.jpg" alt="">
-                            <a class="project-title h5 mb-0" href="img/project-8.jpg" data-lightbox="project">
+                            <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Automotive" class="project-title h5 mb-0">
                                 Автомобил
                             </a>
                         </div>
@@ -342,7 +342,7 @@
                     <div class="position-relative">
                         <img class="img-fluid" src="img/service-1.jpg" alt="">
                         <div class="service-overlay">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i class="fa fa-link text-primary"></i></a>
+                            <a asp-controller="StaticContent" asp-action="Services" class="btn btn-lg-square btn-outline-light rounded-circle"><i class="fa fa-link text-primary"></i></a>
                         </div>
                     </div>
                     <div class="text-center p-4">
@@ -355,7 +355,7 @@
                     <div class="position-relative">
                         <img class="img-fluid" src="img/service-2.jpg" alt="">
                         <div class="service-overlay">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i class="fa fa-link text-primary"></i></a>
+                            <a asp-controller="StaticContent" asp-action="Pricing" class="btn btn-lg-square btn-outline-light rounded-circle"><i class="fa fa-link text-primary"></i></a>
                         </div>
                     </div>
                     <div class="text-center p-4">
@@ -368,11 +368,11 @@
                     <div class="position-relative">
                         <img class="img-fluid" src="img/service-3.jpg" alt="">
                         <div class="service-overlay">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i class="fa fa-link text-primary"></i></a>
+                            <a asp-controller="StaticContent" asp-action="Contacts" class="btn btn-lg-square btn-outline-light rounded-circle"><i class="fa fa-link text-primary"></i></a>
                         </div>
                     </div>
                     <div class="text-center p-4">
-                        <h4>Галерия</h4>
+                        <h4>Контакти</h4>
                     </div>
                 </div>
             </div>
@@ -381,11 +381,11 @@
                     <div class="position-relative">
                         <img class="img-fluid" src="img/service-4.jpg" alt="">
                         <div class="service-overlay">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i class="fa fa-link text-primary"></i></a>
+                            <a asp-controller="DynamicContent" asp-action="AllByPage" class="btn btn-lg-square btn-outline-light rounded-circle"><i class="fa fa-link text-primary"></i></a>
                         </div>
                     </div>
                     <div class="text-center p-4">
-                        <h4>За нас</h4>
+                        <h4>Блог</h4>
                     </div>
                 </div>
             </div>
@@ -427,7 +427,7 @@
                             <i class="fa fa-check text-primary me-3"></i>Home Delivery
                         </div>
                     </div>-->
-                    <a class="btn btn-primary py-3 px-5" href="">Научете повече</a>
+                    <a asp-controller ="StaticContent" asp-action="About" class="btn btn-primary py-3 px-5">Научете повече</a>
                 </div>
             </div>
         </div>
@@ -455,15 +455,10 @@
                     <div class="col-sm-6">
                         <div class="h-100 p-5 d-flex flex-column justify-content-between">
                             <div class="mb-3">
-                                <h4>@(dynamicContent.Title ?? "")</h4>
-                                <span>@(dynamicContent?.DynamicContentCategories?.Name ?? "") | @(dynamicContent?.CreatedOn.ToString("dd.MM.yyyy") ?? "") г.</span>
+                                <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h4>@(dynamicContent?.Title ?? "")</h4></a>
+                                <span><a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.DynamicContentCategories?.Id">@(dynamicContent?.DynamicContentCategories?.Name ?? "")</a> | @(dynamicContent?.CreatedOn.ToString("dd.MM.yyyy") ?? "") г.</span>
                             </div>
                             <p>@(dynamicContent?.Description ?? "")</p>
-                            <div class="d-flex">
-                                <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-outline-primary rounded-circle me-2" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
                         </div>
                     </div>
                 </div>

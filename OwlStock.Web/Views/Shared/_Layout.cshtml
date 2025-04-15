@@ -122,24 +122,28 @@
                 <div class="row g-5">
                     <div class="col-sm-6">
                         <h4 class="text-light mb-4">За нас</h4>
-                        <a class="btn btn-link" href="">PHOTONIC</a>
-                        <a class="btn btn-link" href="">Контакти</a>
-                        <a class="btn btn-link" href="">Услуги</a>
-                        <a class="btn btn-link" href="">Информация</a>
+                        <a asp-controller="StaticContent" asp-action="About" class="btn btn-link">PHOTONIC</a>
+                        <a asp-controller="StaticContent" asp-action="Contacts" class="btn btn-link">Контакти</a>
+                        <a asp-controller="StaticContent" asp-action="Services" class="btn btn-link">Услуги</a>
+                        <a asp-controller="StaticContent" asp-action="Services" class="btn btn-link">Информация</a>
                     </div>
                     <div class="col-sm-6">
                         <h4 class="text-light mb-4">Разгледайте</h4>
-                        <a class="btn btn-link" href="">Портфолио</a>
-                        <a class="btn btn-link" href="">Цени</a>
-                        <a class="btn btn-link" href="">Блог</a>
-                        <a class="btn btn-link" href="">Локации</a>
+                        <a asp-controller="Photo" asp-action="Index" class="btn btn-link">Портфолио</a>
+                        <a asp-controller="StaticContent" asp-action="Pricing" class="btn btn-link">Цени</a>
+                        <a asp-controller="DynamicContent" asp-action="AllByPage" class="btn btn-link">Блог</a>
+                        <a asp-controller="Place" asp-action="All" class="btn btn-link">Локации</a>
                     </div>
                     <div class="col-sm-12">
                         <h4 class="text-light mb-4">Търсене</h4>
                         <div class="w-100">
-                            <div class="input-group">
-                                <input type="text" class="form-control border-0 bg-secondary" style="padding: 20px 30px;" placeholder="котки, бал, BMW..."><button class="btn btn-primary px-4">Търси</button>
-                            </div>
+                            <form asp-controller="Photo" asp-action="AllByTag" method="GET">
+                                <div class="input-group">
+                                    <input type="text" name="tag" class="form-control border-0 bg-secondary text-white" style="padding: 20px 30px;" placeholder="котки, бал, BMW..."><button type="submit" class="btn btn-primary px-4">Търси</button>
+                                </div>
+                            </form>
+
+                            
                         </div>
                     </div>
                 </div>

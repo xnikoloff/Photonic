@@ -4,22 +4,18 @@
     ViewData["Title"] = "Галерия";
 }
 
-<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">Галерия</h2>
-            <ol class="breadcrumb">
-                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
-                <li class="active">Галерия</li>
-            </ol>
+<div class="container-xxl">
+    <div class="container mt-5">
+        <div class="col-lg-6 wow fadeInUp mx-auto text-center" data-wow-delay="0.5s">
+            <div class="h-100">
+                <p class="text-primary text-uppercase mb-2">Галерия</p>
+                <h1 class="display-6 mb-4">Нашато портфолио</h1>
+                <p>Разгледайте снимки от нашите фотосесии.</p>
+                <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+            </div>
         </div>
     </div>
-</section>
-<div class="container my-5">
-    <div class="section_title text-center">
-        <h2 class="title_color">Фотосесии</h2>
-        <p>Галерия от уловени от нас моменти</p>
+    <div class="container my-5">
+        <partial name="_GalleryCategories" model="true"></partial>
     </div>
-    <partial name="_GalleryCategories" model="true"></partial>
 </div>
