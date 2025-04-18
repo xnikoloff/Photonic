@@ -1,39 +1,59 @@
 ﻿@model Testimony
 
-<div class="row">
-    <div class="col-12">
-        <form asp-action="Create" asp-controller="Testimony" method="post" id="testimony-form">
-            <div class="form-group">
-                <label asp-for="PersonFirstName"></label>
-                <input asp-for="PersonFirstName" class="form-control" />
-                <span asp-validation-for="PersonFirstName" class="text-danger"></span>
+<!-- Create Testimony Start -->
+<div class="container-xxl bg-light py-5 my-5">
+    <div class="container">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="text-primary text-uppercase mb-2">Вашето мнение</p>
+            <h1 class="display-6 mb-5">Ще се радваме да чуем и Вашето мнение</h1>
+        </div>
+        <div class="row g-0 justify-content-center">
+            <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
+                <p class="text-center mb-4">Ценим всеки един отздив, който оставяте, независимо дали добър или градивна критика.</p>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-action="Create" asp-controller="Testimony" method="post" id="testimony-form">
+                    <div class="row g-3">
+                        <div class="col-12 my-5 text-center">
+                            <div class="form-floating">
+                                <input type="hidden" asp-for="Stars" class="text-danger"/>
+                                <span asp-validation-for="Stars" class="text-danger"></span>
+                                <div class="stars">
+                                    <span class="star-rating" id="1" onclick="setStarsRating(1);"><i class="fa fa-star fa-2xl"></i></span>
+                                    <span class="star-rating" id="2" onclick="setStarsRating(2);"><i class="fa fa-star fa-2xl"></i></span>
+                                    <span class="star-rating" id="3" onclick="setStarsRating(3);"><i class="fa fa-star fa-2xl"></i></span>
+                                    <span class="star-rating" id="4" onclick="setStarsRating(4);"><i class="fa fa-star fa-2xl"></i></span>
+                                    <span class="star-rating" id="5" onclick="setStarsRating(5);"><i class="fa fa-star fa-2xl"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" asp-for="PersonFirstName" placeholder="Име">
+                                <label asp-for="PersonFirstName">Име</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" asp-for="PersonLastName" placeholder="Имейл">
+                                <label asp-for="PersonLastName">Имейл</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Вашето мнение за нас" asp-for="Content" style="height: 200px"></textarea>
+                                <label asp-for="Content">Вашето мнение за нас</label>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary py-3 px-5 btn-submit" type="submit">Изпрати</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="PersonLastName"></label>
-                <input asp-for="PersonLastName" class="form-control" />
-                <span asp-validation-for="PersonLastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Stars"></label>
-                <input type="hidden" asp-for="Stars" class="text-danger"/>
-                <span asp-validation-for="Stars" class="text-danger"></span>
-                <div class="stars">
-                    <span class="star-rating" id="1" onclick="setStarsRating(1);"><i class="fa fa-star fa-lg"></i></span>
-                    <span class="star-rating" id="2" onclick="setStarsRating(2);"><i class="fa fa-star fa-lg"></i></span>
-                    <span class="star-rating" id="3" onclick="setStarsRating(3);"><i class="fa fa-star fa-lg"></i></span>
-                    <span class="star-rating" id="4" onclick="setStarsRating(4);"><i class="fa fa-star fa-lg"></i></span>
-                    <span class="star-rating" id="5" onclick="setStarsRating(5);"><i class="fa fa-star fa-lg"></i></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Content"></label>
-                <textarea rows="8" asp-for="Content" class="form-control"></textarea>
-                <span asp-validation-for="Content" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-submit theme_btn button_hover mt-3">Добави отзив</button>
-        </form>
+        </div>
     </div>
 </div>
+<!-- Create Testimony End -->
 
 <script>
     $(document).ready(function () {
