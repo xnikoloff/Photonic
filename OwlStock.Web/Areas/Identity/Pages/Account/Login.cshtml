@@ -6,86 +6,90 @@
     string siteKey = configuration["ReCaptcha:SiteKey"] ?? "";
     ViewData["Title"] = "Вход";
 }
-<form id="account" method="post" onsubmit="onSubmit()">
-    <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId"/>
-    <div class="hotel_booking_area position">
-        <div class="container booking-container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h1 class="mr-lg-5">@ViewData["Title"]</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 text-center mx-auto">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                </div>
-            </div>
-            <div class="hotel_booking_table">
-                <div class="col-md-12">
-                    <div class="boking_table">
-                        <div class="row">
-                            <div class="col-md-4 text-center mx-auto">
-                                <div class="book_tabel_item">
-                                    <div class="form-group">
-                                        <div class="input-group border border-warning">
-                                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email"/>
-                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-4 text-center mx-auto">
-                                <div class="book_tabel_item">
-                                    <div class="form-group">
-                                        <div class="input-group border border-warning">
-                                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Парола"/>
-                                            <button type="button" class="btn btn-light btn-password btn-password-show"><i class="fa-solid fa-eye"></i></button>
-                                            <button type="button" class="btn btn-light btn-password btn-password-hide" style="display:none"><i class="fa-solid fa-eye-slash"></i></button>
-                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-12 col-md-4 text-center mx-auto">
-                                <div class="book_tabel_item">
-                                    <div class="form-group">
-                                        <div class="input-group ml-4">
-                                            <label asp-for="Input.RememberMe" class="form-label">
-                                                <input class="form-check-input" asp-for="Input.RememberMe" />
-                                                @Html.DisplayNameFor(m => m.Input.RememberMe)
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-12 col-md-4 text-center mx-auto">
-                                <div id="recaptcha-container" data-callback="recaptchaCallback"></div>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-12 col-md-4 text-center mx-auto">
-                                <button id="btn-account-submit" type="submit" class="w-100 btn btn-lg btn-warning text-white btn-account-submit" disabled>Вход</button>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-12 col-md-4 text-center mx-auto">
-                                <a id="forgot-password" asp-page="./ForgotPassword" class="btn btn-sm btn-dark account-prompt">Забравена парола?</a>
-                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-sm btn-secondary account-prompt">Нямате акаунт?</a>
-                                @*<a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>*@
-                            </div>
+
+
+
+
+<!-- Login Start -->
+<div class="container-xxl pb-5">
+    <div class="container">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="text-primary text-uppercase mb-2">Вход</p>
+            <h1 class="display-6 mb-5">Влезте в профила си</h1>
+        </div>
+        <div class="row g-0 justify-content-center">
+            <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
+                <p class="text-center mb-4">От тук може да намерите Вашите фотосесии, да резервирате нова или да управлявате профила си</p>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form id="account" method="post" onsubmit="onSubmit()">
+                    <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />
+                    <div class="row">
+                        <div class="col-12 text-center mx-auto">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         </div>
                     </div>
-                </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email" />
+                                <label asp-for="Input.Email">Имейл</label>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Input.Password" type="password" class="form-control input-inline" autocomplete="current-password" aria-required="true" placeholder="Парола" />
+                                <label asp-for="Input.Password">Парола</label>
+                                <span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="form-floating text-center">
+                                <div class="text-center" id="recaptcha-container" data-callback="recaptchaCallback"></div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <label asp-for="Input.RememberMe" class="form-label">
+                                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary py-3 px-5" type="submit">Вход</button>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-6 mx-auto text-end">
+                            <div class="form-floating">
+                                <a id="forgot-password" asp-page="./ForgotPassword" class="btn btn-sm btn-dark account-prompt">Забравена парола?</a>
+                            </div>
+                        </div>
+                        <div class="col-6 mx-auto text-left">
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-sm btn-secondary account-prompt">Нямате акаунт?</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
+</div>
+<!-- Login End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
@@ -96,13 +100,24 @@
 }
 
 <style>
-    .hotel_booking_table {
-        background: none;
+    .password-toggle-icon {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
     }
 
-    .booking-container{
-        padding-top: 150px;
-        padding-bottom: 50px;
+    .password-toggle-icon i {
+        font-size: 18px;
+        line-height: 1;
+        color: #333;
+        transition: color 0.3s ease-in-out;
+        margin-bottom: 20px;
+    }
+
+    .password-toggle-icon i:hover {
+        color: #000;
     }
 
     .btn-password{

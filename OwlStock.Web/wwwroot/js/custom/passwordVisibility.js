@@ -1,18 +1,15 @@
-﻿$(document).ready(function () {
-    $(".btn-password-show").click(function () {
-        $(".btn-password-show").css("display", "none");
-        $(".btn-password-hide").css("display", "inline");
-        $("#Input_Password").attr("type", "text");
-        $("#Input_ConfirmPassword").attr("type", "text");
-    });
+﻿const passwordField = document.getElementById("Input_Password");
+const togglePasswordWrap = document.querySelector(".password-toggle-icon");
+const togglePassword = document.querySelector(".password-toggle-icon i");
 
-    $(".btn-password-hide").click(function () {
-        $(".btn-password-show").css("display", "inline");
-        $(".btn-password-hide").css("display", "none");
-        $("#Input_Password").attr("type", "password");
-        $("#Input_ConfirmPassword").attr("type", "password");
-
-        console.log($("#Input_ConfirmPassword").val());
-        console.log($("#Input_Password").val());
-    });
+togglePasswordWrap.addEventListener("click", function () {
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        togglePassword.classList.remove("fa-eye");
+        togglePassword.classList.add("fa-eye-slash");
+    } else {
+        passwordField.type = "password";
+        togglePassword.classList.remove("fa-eye-slash");
+        togglePassword.classList.add("fa-eye");
+    }
 });
