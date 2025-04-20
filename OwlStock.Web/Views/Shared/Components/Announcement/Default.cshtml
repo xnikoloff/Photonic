@@ -3,15 +3,19 @@
 <div class="container-fluid container-news">
     @foreach(Announcement announcement in Model)
     {
-        <div class="row row-news py-1 bg-dark text-white text-center">
+        <div class="row row-news pt-2 bg-dark text-center">
             <div class="col-12 col-news">
-                <h4 class="col-news-text">@(announcement?.Content ?? "")</h4>
+                <p class="col-news-text text-white">@(announcement?.Content ?? "")</p>
             </div>
         </div>
     }
 </div>
 
 <style>
+    .navbar-light {
+        margin-top: 50px!important;
+    }
+
     @@media only screen and (max-width: 768px) {
         .container-news .row-news .col-news h4{
             font-size: 1rem;
