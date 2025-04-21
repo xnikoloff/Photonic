@@ -6,6 +6,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
 {
     public class CreatePhotoshootDTO
     {
+        [Display(Name = "Имейл")]
         [MaxLength(ModelConstraints.PersonEmailMaxLength)]
         public string? PersonEmail { get; set; }
 

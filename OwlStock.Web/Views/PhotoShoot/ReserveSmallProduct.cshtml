@@ -5,18 +5,6 @@
     ViewData["Title"] = "Резервация";
 }
 
-<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">Резервация</h2>
-            <ol class="breadcrumb">
-                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
-                <li class="active">Резервация</li>
-            </ol>
-        </div>
-    </div>
-</section>
 <form asp-action="ReserveSmallProduct" method="post" id="booking-form">
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -27,9 +15,9 @@
     <!-- #endregion -->
 
 
-    <div class="hotel_booking_area position mb-5">
-        <div class="container-fluid booking-container">
-            <div class="hotel_booking_table">
+    <div class="container-xxl pb-5 booking-container">
+        <div class="container">
+            <div class="row">
                 <div class="col-12 col-md-8 col-booking mx-auto">
                     <div class="row row-small-product-title mb-5">
                         <div class="col-12">
@@ -38,7 +26,7 @@
                     </div>
                     <div class="row row-small-product-description mb-5">
                         <div class="col-12">
-                            <h4>Продуктите може да изпратите на адрес <b>гр. Асеновград, ул. „Генерал Колев“ 22</b> или до офис на Спиди - <b>гр. Асеновград, офис „Зъбчето“ (Авксентий Велешки)</b> заедно с номера на фотосесията (номерът ще намерите на страницата „Моите фотосесии“ при съответната фотосесия след резервация)</h4>
+                            <p>Продуктите може да изпратите на адрес <b>гр. Асеновград, ул. „Генерал Колев“ 22</b> или до офис на Спиди - <b>гр. Асеновград, офис „Зъбчето“ (Авксентий Велешки)</b> заедно с номера на фотосесията (номерът ще намерите на страницата „Моите фотосесии“ при съответната фотосесия след резервация)</p>
                         </div>
                     </div>
                     <div class="row row-progress-bar">
@@ -66,10 +54,10 @@
                                         <div class="card-body text-center">
                                             <h3>100 лв</h3>
                                             <hr />
-                                            <h6>Кадри на продукта на бял фон (например за електронни магазини)</h6>
+                                            <p>Кадри на продукта на бял фон (например за електронни магазини)</p>
                                         </div>
                                         <div class="card-footer text-center">
-                                            <button type="button" class="btn-warning text-white btn-section-submit" id="product" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                            <button type="button" class="btn btn-primary btn-section-submit" id="product" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -81,10 +69,10 @@
                                         <div class="card-body text-center">
                                             <h3>250 лв</h3>
                                             <hr />
-                                            <h6>Кадри на продукта с артистични елементи (например за реклами, блогове и др.)</h6>
+                                            <p>Кадри на продукта с артистични елементи (например за реклами, блогове и др.)</p>
                                         </div>
                                         <div class="card-footer text-center">
-                                            <a class="bg-warning text-white btn-section-submit" id="productArt" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                            <a class="btn btn-primary btn-section-submit" id="productArt" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -94,12 +82,12 @@
                                             <h5>Друго</h5>
                                         </div>
                                         <div class="card-body text-center">
-                                            <h3 class="negotiation">По договаряне</h3>
+                                            <h5 class="negotiation">По договаряне</h5>
                                             <hr />
-                                            <h6>Ще изчислим цената спрямо вашите нужди</h6>
+                                            <p>Ще изчислим цената спрямо вашите нужди</p>
                                         </div>
                                         <div class="card-footer text-center">
-                                            <a class="bg-warning text-white btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -113,54 +101,51 @@
                             </div>
                             <div class="row row-section-2 mt-1 row-email">
                                 <div class="col-md-12 mx-auto">
-                                    <div class="book_tabel_item">
-                                        <div class="form-group email-wrap">
+                                    <div class="form-floating email-wrap">
 
-                                            @if (User?.Identity?.IsAuthenticated == true)
-                                            {
-                                                <input asp-for="PersonEmail" value="@User.FindFirstValue(ClaimTypes.Email)" class="rect-control text-muted" readonly />
-                                            }
+                                        @if (User?.Identity?.IsAuthenticated == true)
+                                        {
+                                            <input asp-for="PersonEmail" value="@User.FindFirstValue(ClaimTypes.Email)" class="form-control text-muted" readonly />
+                                        }
 
-                                            else
-                                            {
-                                                <input asp-for="PersonEmail" class="rect-control" placeholder="Email" />
-                                            }
+                                        else
+                                        {
+                                            <input asp-for="PersonEmail" class="form-control" placeholder="Email" />
+                                        }
 
-                                        </div>
+                                        <label asp-for="PersonEmail"></label>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="row row-section-2 mt-3 row-first-name">
                                 <div class="col-md-12 mx-auto">
-                                    <div class="book_tabel_item">
-                                        <div class="form-group first-name-wrap">
-                                            <input asp-for="PersonFirstName" class="rect-control" placeholder="Име" />
-                                        </div>
+                                    <div class="form-floating first-name-wrap">
+                                        <input asp-for="PersonFirstName" class="form-control" placeholder="Име" />
+                                        <label asp-for="PersonFirstName"></label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row row-section-2 mt-3  row-last-name">
                                 <div class="col-md-12 mx-auto">
-                                    <div class="book_tabel_item">
-                                        <div class="form-group last-name-wrap">
-                                            <input asp-for="PersonLastName" class="rect-control" placeholder="Фамилия" />
-                                        </div>
+                                    <div class="form-floating last-name-wrap">
+                                        <input asp-for="PersonLastName" class="form-control" placeholder="Фамилия" />
+                                        <label asp-for="PersonLastName"></label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row row-section-2 mt-3 row-phone">
                                 <div class="col-md-12 mx-auto">
-                                    <div class="book_tabel_item">
-                                        <div class="form-group phone-wrap">
-                                            <input asp-for="PersonPhone" class="rect-control" placeholder="Телефон" />
-                                        </div>
+                                    <div class="form-floating phone-wrap">
+                                        <input asp-for="PersonPhone" class="form-control" placeholder="Телефон" />
+                                        <label asp-for="PersonPhone"></label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12 mx-auto">
-                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-2">НАЗАД</button>
-                                    <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-2">ЗАПАЗИ</button>
+                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-2">НАЗАД</button>
+                                    <button type="button" class="btn btn-primary text-white btn-section-submit btn-section-submit-seciton-2">ЗАПАЗИ</button>
                                 </div>
                             </div>
                         </div>
@@ -172,32 +157,26 @@
                             </div>
                             <div class="row row-section-5 mt-3 row-do-not-upload">
                                 <div class="col-md-12 mx-auto">
-                                    <div class="book_tabel_item">
-                                        <div class="form-group do-not-upload-photos-wrap">
-                                            <input class="text-warning" asp-for="DoNotUploadPhotos" />
-                                            <span class="checkbox-label checkbox-photos-label">Не желая снимките ми да се качват на сайта на Photonic</span>
-                                        </div>
+                                    <div class="form-floating do-not-upload-photos-wrap">
+                                        <input class="text-primary" asp-for="DoNotUploadPhotos" />
+                                        <span class="checkbox-label checkbox-photos-label">Не желая снимките ми да се качват на сайта на Photonic</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="photo-delivery-wrap" style="display:none">
                                 <div class="row row-section-3 mt-3 row-photo-delivery">
                                     <div class="col-md-12 mx-auto">
-                                        <div class="book_tabel_item">
-                                            <div class="form-group photo-delivery-method-wrap">
-                                                <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="wide">
-                                                    <option value="">Начин на получаване на снимките</option>
-                                                </select>
-                                            </div>
+                                        <div class="form-floating photo-delivery-method-wrap">
+                                            <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="wide">
+                                                <option value="">Начин на получаване на снимките</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row row-section-3 mt-3 row-photo-delivery-address" style="display:none">
                                     <div class="col-md-12 mx-auto">
-                                        <div class="book_tabel_item">
-                                            <div class="form-group photo-delivery-address-wrap">
-                                                <input asp-for="PhotoDeliveryAddress" class="rect-control" placeholder="Адрес или офис на Еконт" />
-                                            </div>
+                                        <div class="form-floating photo-delivery-address-wrap">
+                                            <input asp-for="PhotoDeliveryAddress" class="form-control" placeholder="Адрес или офис на Еконт" />
                                         </div>
                                     </div>
                                 </div>
@@ -212,12 +191,12 @@
                             </div>
                             <div class="row mt-5">
                                 <div class="col-12 mx-auto text-center">
-                                    <button type="submit" class="btn btn-warning btn-lg text-white btn-submit" style="border-radius: 0">РЕЗЕРВИРАЙ</button>
+                                    <button type="submit" class="btn btn-primary btn-lg text-white btn-submit">РЕЗЕРВИРАЙ</button>
                                 </div>
                             </div>
                             <div class="row mt-5">
                                 <div class="col-12 mx-auto">
-                                    <button type="button" class="bg-secondary text-white btn-section-back btn-section-back-seciton-3">НАЗАД</button>
+                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-3">НАЗАД</button>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +204,7 @@
                 </div>
                 <div class="col-12 col-md-3 col-summary-section mx-auto mt-5 mt-md-0 p-5">
                     <div class="summary-section-photoshoot-type">
-                        <p class="summary-section-icon text-warning"><i class="fa-solid fa-camera fa-lg"></i><span class="summary-data" id="summary-photoshoot-type">Абитуриентски бал Extra</span></p>
+                        <p class="summary-section-icon text-primary"><i class="fa-solid fa-camera fa-lg"></i><span class="summary-data" id="summary-photoshoot-type">Абитуриентски бал Extra</span></p>
                     </div>
                     <hr />
                     <div class="summary-section-personal-data">
@@ -252,7 +231,7 @@
                     </div>
                     <hr />
                     <div class="summary-section-price">
-                        <h3 class="text-warning"><b>ЦЕНА</b> <span class="text-dark" id="price-summary">-</span></h3>
+                        <h3 class="text-primary"><b>ЦЕНА</b> <span class="text-dark" id="price-summary">-</span></h3>
                     </div>
                 </div>
             </div>
@@ -295,67 +274,10 @@
         opacity: .5;
     }
 
-    .hotel_booking_table {
-        background: none;
-        align-items: unset !important;
+    .btn-section-submit, .btn-section-back {
+        border: none;
+        font-weight: bold;
     }
-
-        .hotel_booking_table .btn-section-submit, .btn-section-back {
-            border: none;
-            padding: 5px 10px;
-            font-weight: bold;
-        }
-
-        .hotel_booking_table .col-booking {
-            margin-top: 50px;
-        }
-
-        .hotel_booking_table .col-booking .form-section {
-            margin-top: 100px;
-        }
-
-        .hotel_booking_table .row-section-title .section-title {
-            color: #000;
-        }
-
-        .hotel_booking_table .section-2 .btn-location-type {
-            width: 100%;
-            background: #f5f5f5;
-            color: #fff;
-            padding: 5px 10px;
-            font-size: 1.1em;
-            border: none;
-            transition: .4s;
-        }
-
-        .hotel_booking_table .section-2 .btn-location-type:hover {
-            cursor: pointer;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-            transform: scale(1.05);
-            transition: .4s;
-        }
-
-        .hotel_booking_table .section-6 .btn-submit {
-            border-radius: 0 !important;
-            font-weight: bold;
-        }
-
-        .hotel_booking_table .other-types {
-            min-height: 300px;
-        }
-
-        .hotel_booking_table hr {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-        .hotel_booking_table .card-packet {
-            min-height: 300px;
-        }
-
-        .hotel_booking_table .card .negotiation {
-            font-size: 1.1rem;
-        }
 
     .btn-legend {
         width: 100px;
@@ -363,57 +285,21 @@
         margin-left: 3px;
     }
 
-    .hotel_booking_area .booking-container .col-summary-section {
+    .card-packet{
+        min-height: 380px;
+    }
+
+    .booking-container .col-summary-section {
         border-radius: 2%;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px, rgba(0, 0, 0, 0.1) 0px 0px 8px;
     }
 
-    .hotel_booking_area .booking-container .col-summary-section .summary-data {
+    .booking-container .col-summary-section .summary-data {
         margin-left: 10px;
     }
 
-    .hotel_booking_area .booking-container .col-summary-section .summary-section-photoshoot-type #summary-photoshoot-type {
+    .booking-container .booking-container .col-summary-section .summary-section-photoshoot-type #summary-photoshoot-type {
         font-weight: bold;
-    }
-
-
-
-
-
-
-    @@media only screen and (max-width: 768px) {
-        .hotel_booking_table .card {
-            min-height: 250px;
-        }
-
-        .hotel_booking_table .card-header h5 {
-            font-size: 1.2rem;
-        }
-
-        .hotel_booking_table .card-body h3 {
-            font-size: 1.5rem;
-        }
-
-        .hotel_booking_table .card-body h6 {
-            font-size: .7rem;
-        }
-
-        .hotel_booking_table .card-body .negotiation {
-            font-size: 1.2rem;
-        }
-
-        .hotel_booking_table .section-title {
-            font-size: 1.8rem;
-        }
-
-        .hotel_booking_table .card .btn {
-            padding: 5px;
-            font-size: 1rem;
-        }
-
-        .hotel_booking_table .services .card {
-            min-height: 150px;
-        }
     }
 
 </style>
