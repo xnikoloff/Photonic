@@ -68,7 +68,7 @@ namespace OwlStock.Web.Controllers
         public async Task<IActionResult> AllByTag(string tag)
         {
             ViewData["categoryDescription"] = tag;
-            return View("AllByCategory", await _galleryService.AllByTags(tag));
+            return View(nameof(Portfolio), await _galleryService.AllByTags(tag));
         }
 
         [Authorize(Roles = "Administrator")]

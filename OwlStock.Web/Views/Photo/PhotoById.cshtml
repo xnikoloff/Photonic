@@ -103,7 +103,7 @@
                 @foreach (PhotoCategory photoCategory in Model.Photo.PhotoCategories)
                 {
                     <span class="details-text featured-in-text" id="featured-in">
-                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@photoCategory.Category" class="text-warning"><b>@(photoCategory.Category.GetAttribute<DisplayAttribute>().Name)</b></a>
+                        <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@photoCategory.Category" class="text-warning"><b>@(photoCategory.Category.GetAttribute<DisplayAttribute>().Name)</b></a>
                     </span>
                 }
             </div>
