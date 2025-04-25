@@ -47,6 +47,32 @@ namespace OwlStock.Services
             return photos;
         }
 
+        public async Task<Dictionary<Category, List<GalleryPhoto?>>> BuildCategoriesGallery()
+        {
+            if(_context.PhotosCategories is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.PhotosCategories)} is null");
+            }
+
+            Dictionary<Category, List<GalleryPhoto?>> categoriesWithPhotos = new();
+
+            //build a list with all enum values of Category
+            IEnumerable<Category> categories = Enum.GetValues(typeof(Category)).Cast<Category>();
+            
+            foreach (Category category in categories)
+            {
+                //get all photos for the current category
+                List<GalleryPhoto?> photos = await _context.PhotosCategories
+                    .Where(pc => pc.Category == category)
+                    .Select(pc => pc.GalleryPhoto)
+                    .ToListAsync() ?? new();
+
+                categoriesWithPhotos.Add(category, photos);
+            }
+
+            return categoriesWithPhotos;
+        }
+
         public async Task<List<PhotoShootPhoto>> AllByPhotoshootType(PhotoShootType photoshootType)
         {
             List<PhotoShootPhoto> photos = await AllPhotoshootPhotos(photoshootType);

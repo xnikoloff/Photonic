@@ -1,7 +1,7 @@
 ﻿using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 
-namespace OwlStock.Services.DTOs
+namespace OwlStock.Services.DTOs.Photo
 {
     public class AllPhotosDTO
     {

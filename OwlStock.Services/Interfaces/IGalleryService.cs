@@ -9,5 +9,6 @@ namespace OwlStock.Services.Interfaces
         Task<List<PhotoShootPhoto>> AllByPhotoshootType(PhotoShootType photoShootType);
         Task<List<GalleryPhoto>> AllByCategory(Category category);
         Task<List<GalleryPhoto>> AllByTags(string tag);
+        Task<Dictionary<Category, List<GalleryPhoto?>>> BuildCategoriesGallery();
     }
 }

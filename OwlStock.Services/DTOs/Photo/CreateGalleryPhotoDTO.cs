@@ -4,7 +4,7 @@ using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using System.ComponentModel.DataAnnotations;
 
-namespace OwlStock.Services.DTOs
+namespace OwlStock.Services.DTOs.Photo
 {
     public class CreateGalleryPhotoDTO
     {

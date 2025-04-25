@@ -5,8 +5,7 @@ using OwlStock.Services.Interfaces;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using OwlStock.Domain.Entities;
-using OwlStock.Web.Extensions;
-using System.ComponentModel.DataAnnotations;
+using OwlStock.Services.DTOs.Photo;
 
 namespace OwlStock.Web.Controllers
 {
@@ -52,10 +51,10 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AllByCategory(Category category)
+        public async Task<IActionResult> Portfolio(Category category)
         {
-            ViewData["categoryDescription"] = category.GetAttribute<DisplayAttribute>().Name;
-            return View(await _galleryService.AllByCategory(category));
+            ViewData["categoryDescription"] = category.ToString();
+            return View(await _galleryService.BuildCategoriesGallery());
         }
 
         [HttpGet]
