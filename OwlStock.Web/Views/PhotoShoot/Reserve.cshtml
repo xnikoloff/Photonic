@@ -750,7 +750,8 @@
                                     <div class="col-md-12 mx-auto">
                                         <div class="book_tabel_item">
                                             <div class="form-floating photo-delivery-address-wrap">
-                                                <input asp-for="PhotoDeliveryAddress" class="rect-control" placeholder="Адрес или офис на Еконт" />
+                                                <input asp-for="PhotoDeliveryAddress" class="form-control" placeholder="Адрес или офис на Еконт" />
+                                                <label asp-for=PhotoDeliveryAddress>Адрес или офис на Еконт</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1167,6 +1168,8 @@
             calculatePrice($(this).val());
             togglePhotoshootPacket($(this).val());
             validateDescription($(this).val());
+
+            $("#PhotoShootType").val($(this).val());
         });
 
         
@@ -1443,6 +1446,9 @@
         //get id of packed that is used in swtich statement
         let packetName = packet.attr('id');
         let photoshootEnum = 0;
+
+        console.log(packet);
+        console.log(packetName);
         
         //set photoshoot type based on selected packet
         switch(packetName){
@@ -1488,7 +1494,7 @@
                 break;
             }
 
-            case "businessPortrait": {
+            case "business-portrait": {
                 photoshootEnum = 2;
                 setPhotoshootTypeSummary("Бизнес портрет");
                 calculatePrice(photoshootEnum);
@@ -1595,6 +1601,7 @@
         }
 
         //set photoshoot type
+        console.log(photoshootEnum);
         $("#PhotoShootType").val(photoshootEnum);
 
         //hide section one /services/ and show section two /location/
