@@ -167,9 +167,10 @@
                                 <div class="row row-section-3 mt-3 row-photo-delivery">
                                     <div class="col-md-12 mx-auto">
                                         <div class="form-floating photo-delivery-method-wrap">
-                                            <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="wide">
+                                            <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="form-control">
                                                 <option value="">Начин на получаване на снимките</option>
                                             </select>
+                                            <label asp-for="PhotoDeliveryMethod"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -177,6 +178,7 @@
                                     <div class="col-md-12 mx-auto">
                                         <div class="form-floating photo-delivery-address-wrap">
                                             <input asp-for="PhotoDeliveryAddress" class="form-control" placeholder="Адрес или офис на Еконт" />
+                                            <label asp-for="PhotoDeliveryAddress"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -334,7 +336,6 @@
              forwardProgress(2, false);
 
              validateDoNotUpload();
-             validateTransportAddress();
          });
 
          //show section two /location/ and hide section three /date and time/
