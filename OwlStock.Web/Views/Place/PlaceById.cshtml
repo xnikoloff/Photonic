@@ -4,18 +4,6 @@
     ViewData["Title"] = Model.Name;
 }
 
-<section class="breadcrumb_area mt-5">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">@Model.Name</h2>
-            <ol class="breadcrumb">
-                <li><a asp-controller="Place" asp-action="All">Популярни локации</a></li>
-                <li class="active">@Model.Name</li>
-            </ol>
-        </div>
-    </div>
-</section>
 <div class="container container-place">
     <div class="row row-place">
         <div class="col-12 col-md-6 col-lg-8 text-center col-place">

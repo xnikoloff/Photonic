@@ -1,61 +1,60 @@
 ﻿@model IEnumerable<Place>
 
 @{
-    ViewData["Title"] = "Популярни места";
+    ViewData["Title"] = "Популярни локации";
 }
 
 
 
-<section class="breadcrumb_area mt-5">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">Популярни локации</h2>
-            <ol class="breadcrumb">
-                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
-                <li class="active">Популярни локации</li>
-            </ol>
+
+
+<div class="container-xxl pb-5">
+    <div class="container mt-5">
+        <div class="col-lg-6 wow fadeInUp mx-auto text-center" data-wow-delay="0.5s">
+            <div class="h-100">
+                <p class="text-primary text-uppercase mb-2">@ViewData["Title"]</p>
+                <h1 class="display-6 mb-4">Най-често посещаваните локации за фотосесии</h1>
+                <p>Прочетете повече за популярните локации, които избираме най-често за фотосесии.</p>
+                <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+            </div>
         </div>
     </div>
-</section>
-<div class="container my-5">
-    <div class="section_title text-center">
-        <h2 class="title_color">Популярни локации</h2>  
-        <p>Списък на най-често посещаваните локации за фотосесии</p>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <table class="table table-image">
-                <tbody>
-                    @foreach (Place place in Model)
-                    {
-                        <tr> 
-                            <td class="w-25">
-                                <a asp-controller="Place" asp-action="PlaceById" asp-route-id="@place.Id"><img src="~/resources/places/@place?.PhotoBase?.FileName" class="img-fluid img-thumbnail" alt="place-thumb"></a>
-                            </td>
-                            @if (User?.Identity?.IsAuthenticated == true)
-                            {
-                                if (User.IsInRole("Administrator"))
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-image">
+                    <tbody>
+                        @foreach (Place place in Model)
+                        {
+                            <tr>
+                                <td class="w-25">
+                                    <a asp-controller="Place" asp-action="PlaceById" asp-route-id="@place?.Id"><img src="~/resources/places/@place?.PhotoBase?.FileName" class="img-fluid img-thumbnail" alt="place-thumb"></a>
+                                </td>
+                                @if (User?.Identity?.IsAuthenticated == true)
                                 {
-                                    <td>@(place?.IsPopular == true ? "Popular" : "User")</td>
+                                    if (User.IsInRole("Administrator"))
+                                    {
+                                        <td>@(place?.IsPopular == true ? "Popular" : "User")</td>
+                                    }
                                 }
-                            }
-                            <td scope="row">@place?.Name</td>
-                            <td scope="row">@place?.Description<td>
-                            <td>@place?.City?.Name</td>
-                            @if (User?.Identity?.IsAuthenticated == true)
-                            {
-                                if (User.IsInRole("Administrator"))
-                                {
-                                    <td>
-                                        <a asp-action="Update" asp-controller="Place" asp-route-id="@place?.Id" class="btn btn-primary btn-sm">Update</a>
-                                    </td>
-                                }
-                            }
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                <td scope="row">@place?.Name</td>
+                                <td scope="row">@place?.Description
+                                <td>
+                                <td>@place?.City?.Name</td>
+                                        @if (User?.Identity?.IsAuthenticated == true)
+                                        {
+                                            if (User.IsInRole("Administrator"))
+                                            {
+                                        <td>
+                                            <a asp-action="Update" asp-controller="Place" asp-route-id="@place?.Id" class="btn btn-primary btn-sm">Update</a>
+                                        </td>
+                                            }
+                                        }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
