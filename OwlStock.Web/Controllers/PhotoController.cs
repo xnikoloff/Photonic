@@ -38,16 +38,11 @@ namespace OwlStock.Web.Controllers
             return View(await _galleryService.All());
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(List<GalleryPhoto>? photos = null)
         {
             return View(await _galleryService.All());
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> PhotoById(Guid? id)
-        {
-            return View(await _photoService.GetById(id));
         }
 
         [HttpGet]
@@ -58,17 +53,16 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AllByPhotoshootType(PhotoShootType photoshootType)
+        public async Task<IActionResult> AllByTag(string tag)
         {
-            ViewData["categoryDescription"] = _commonServices.GetEnumDescription(photoshootType);
-            return View(await _galleryService.AllByPhotoshootType(photoshootType));
+            ViewData["Title"] = "Търсене | " + tag;
+            return View(nameof(All), await _galleryService.AllByTags(tag));
         }
 
         [HttpGet]
-        public async Task<IActionResult> AllByTag(string tag)
+        public async Task<IActionResult> PhotoById(Guid? id)
         {
-            ViewData["categoryDescription"] = tag;
-            return View(nameof(Portfolio), await _galleryService.AllByTags(tag));
+            return View(await _photoService.GetById(id));
         }
 
         [Authorize(Roles = "Administrator")]

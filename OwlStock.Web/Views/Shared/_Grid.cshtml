@@ -1,53 +1,66 @@
 ﻿@model List<GalleryPhoto>
 
-    <div class="row row-gallery">
-
-    @for (int i = 0; i < Model.Count; i++)
+<div class="portfolio-item row">
+    @foreach (GalleryPhoto photo in Model)
     {
-        @if (!Model[i].IsDeleted)
-        {
-            <div class="col-12 col-md-6 col-lg-3 column">
-                <a asp-controller="Photo" asp-action="PhotoById" asp-route-id="@(Model[i].Id)">
-                    <img src="~/resources/@Model[i].FilePathSmall">
-                </a>
-            </div>
-        }
+        <div class="item col-lg-3 col-md-4 col-6 col-sm">
+            <a href="~/resources/@photo?.FilePathSmall" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/resources/@photo?.FilePathSmall" alt="gallery-item">
+            </a>
+        </div>
     }
-
-    </div>
+</div>
 
 <style>
-    .row-gallery {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0 4px;
-    }
-    /* Create four equal columns that sits next to each other */
-    .column {
-        flex: 25%;
-        max-width: 25%;
-        padding: 0 4px;
+    .portfolio-menu-item {
+        font-weight: bold;
     }
 
-    .column img {
-        margin-top: 8px;
-        vertical-align: middle;
-        width: 100%;
+    .portfolio-menu {
+        text-align: center;
     }
 
-    /* Responsive layout - makes a two column-layout instead of four columns */
-    @@media screen and (max-width: 800px) {
-        .column {
-            flex: 50%;
-            max-width: 50%;
+        .portfolio-menu ul li {
+            display: inline-block;
+            margin: 0;
+            list-style: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            -webkit-transition: all 05s ease;
+            -moz-transition: all 05s ease;
+            -ms-transition: all 05s ease;
+            -o-transition: all 05s ease;
+            transition: all .5s ease;
         }
-    }
 
-    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-    @@media screen and (max-width: 600px) {
-        .column {
-            flex: 100%;
-            max-width: 100%;
+        .portfolio-menu .active {
+            color: #EAA636;
         }
+
+    .portfolio-item .item {
+        float: left;
+        margin-bottom: 10px;
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+        //harcode "all"
+        filter("*");
+
+        var popup_btn = $('.popup-btn');
+        popup_btn.magnificPopup({
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+
+    function filter(filter){
+        $('.portfolio-item').isotope({
+            filter: filter
+        });
+        return false;
+    }
+</script>
