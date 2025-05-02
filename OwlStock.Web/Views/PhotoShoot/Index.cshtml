@@ -2,24 +2,21 @@
     ViewData["Title"] = "Резервация";
 }
 
-<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">Резервация</h2>
-            <ol class="breadcrumb">
-                <li><a asp-action="Index" asp-controller="Home">Начало</a></li>
-                <li class="active">Резервация</li>
-            </ol>
+
+
+<div class="container-xxl pb-5">
+    <div class="container mt-5">
+        <div class="col-lg-6 wow fadeInUp mx-auto text-center" data-wow-delay="0.5s">
+            <div class="h-100">
+                <p class="text-primary text-uppercase mb-2">Резервация</p>
+                <h1 class="display-6 mb-4">Изберете тип на фотосесия</h1>
+                <p>Във <span class="text-primary"><b>PHOTONIC</b></span> предлагаме разнообразие от фотографски услуги. Изберете една от списъка.</p>
+                <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+            </div>
         </div>
     </div>
-</section>
-<div class="container services-container my-5 py-5">
-    <div class="row row-services-title">
-        <div class="col-12 text-center">
-            <h1>Изберете услуга</h1>
-        </div>
+    <div class="container overflow-hidden">
+        <partial name="_GalleryCategories" model="false"></partial>
     </div>
-    <partial name="_GalleryCategories" model="false"></partial>
 </div>
 

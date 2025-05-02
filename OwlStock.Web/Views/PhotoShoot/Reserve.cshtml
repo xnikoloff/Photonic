@@ -519,11 +519,6 @@
                                     <a asp-controller="Place" asp-action="All" target="_blank"><p>Списък с всички популярни локации</p></a>
                                 </div>
                             </div>
-                            <div class="row row-custom-location-description mt-5 px-3" style="display:none">
-                                <div class="col-custom-location-description">
-                                    <p>Въвете локация по избор, ако не намирате подходяща сред популярните</p>
-                                </div>
-                            </div>
                             <div class="row row-decided-by-us-description mt-5 px-3" style="display:none">
                                 <div class="col-decided-by-us-description">
                                     <p>Ще изберем подходяща локация в околността на населеното място, което сте избрали</p>
@@ -610,16 +605,16 @@
                                                         }
                                                         @dayName
                                                     </p>
-                                                    <p class="card-header-date-num">
-                                                        @if (calendarKVP.Key.Year > DateTime.Now.Year)
-                                                        {
-                                                            @calendarKVP.Key.ToString("dd.MM.yyyy")
-                                                        }
-                                                        else
-                                                        {
-                                                            @calendarKVP.Key.ToString("dd.MM")
-                                                        }
-                                                    </p>
+                                                    
+                                                    @if (calendarKVP.Key.Year > DateTime.Now.Year)
+                                                    {
+                                                        <p class="card-header-date-num">@calendarKVP.Key.ToString("dd.MM.yyyy")</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="card-header-date-num">@calendarKVP.Key.ToString("dd.MM")</p>
+                                                    }
+                                                   
                                                 </div>
                                                 <div class="card-body card-body-weather text-center @(isAvailable ? "card-body-available" : "card-body-unavailable")" style="background: @Html.Raw(backgroundColor)">
                                                     @foreach (TimeSlot slot in calendarKVP.Value)
@@ -1971,7 +1966,7 @@
     //set date and time summary
     function setDateSummary(date) {
         if (date != "" && date != undefined) {
-            $("#summary-date").text(date + " г, ");
+            $("#summary-date").text(date + " г. | ");
 
         }
 
@@ -2315,6 +2310,7 @@
     //the function formats it to format [dd.MM.yyyy]
     function formatSelectedDateInBulgarianFormat(selectedDate) {
         let selectedDateSplit = selectedDate.split('.');
+        console.log(selectedDateSplit);
         return `${selectedDateSplit[0]}.${selectedDateSplit[1]}.${new Date().getUTCFullYear()}`;
     }
 

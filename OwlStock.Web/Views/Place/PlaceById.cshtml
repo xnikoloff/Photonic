@@ -22,13 +22,8 @@
     <div class="row row-place-photos mt-5">
         @foreach (PhotoShootPhoto photo in Model?.Photos ?? new())
         {
-            <div class="col-md-4 gallery_item">
-                <div class="gallery_img">
-                    <img src="~/resources/@photo.FilePath/@photo.FileName" alt="gallery-photo" />
-                    <div class="hover">
-                        <a class="light" href="~/resources/@photo.FilePath/@photo.FileName"><i class="fa fa-expand"></i></a>
-                    </div>
-                </div>
+            <div class="col-md-4 mt-3 text-center mx-auto">
+                <img src="~/resources/@photo.FilePath/@photo.FileName" alt="gallery-photo" />
             </div>
         }
     </div>
@@ -51,6 +46,10 @@
         font-weight: bold;
     }
 
+    .container-place .row-place-photos img {
+        width: 100% !important;
+    }
+
     @@media only screen and (max-width: 768px){
         .container-place {
             margin-top: 50px;
@@ -61,7 +60,7 @@
             margin-top: 20px;
         }
 
-        .container-place .row-place .col-place img{
+        .container-place .row-place-photos img{
             width: 350px !important;
         }
 
