@@ -33,6 +33,7 @@ namespace OwlStock.Services
             services.AddTransient<IAnnouncementService, AnnouncementService>();
             services.AddTransient<IPhotoshootFacade, PhotoshootFacade>();
             services.AddTransient<IDynamicContentServiceFacade, DynamicContentServiceFacade>();
+            services.AddTransient<IHomeFacade, HomeFacade>();
 
             return services;
         }

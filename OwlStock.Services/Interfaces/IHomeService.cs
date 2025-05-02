@@ -5,6 +5,12 @@ namespace OwlStock.Services.Interfaces
 {
     public interface IHomeService
     {
-        Task<HomePageDTO> GetHomeData();
+        /// <summary>
+        /// Gets list of the last four DynamicContents and Testimonies that are shown on the home page
+        /// </summary>
+        /// <param name="dynamicContents">List of last four DynamicContents</param>
+        /// <param name="testimonies">List of last four Testimonies</param>
+        /// <returns>HomePageDTO with the lists</returns>
+        Task<HomePageDTO> GetHomeData(IEnumerable<DynamicContent> dynamicContents, IEnumerable<Testimony> testimonies);
     }
 }

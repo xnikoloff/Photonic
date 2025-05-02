@@ -8,22 +8,15 @@ namespace OwlStock.Services
 {
     public class HomeService : IHomeService
     {
-        private readonly IDynamicContentService _dynamicContentService;
-        private readonly ITestimonyService _testimonyService;
         private readonly OwlStockDbContext _context;
 
-        public HomeService(OwlStockDbContext context, IDynamicContentService dynamicContentService, ITestimonyService testimonyService)
+        public HomeService(OwlStockDbContext context)
         {
             _context = context;
-            _dynamicContentService = dynamicContentService;
-            _testimonyService = testimonyService;
         }
 
-        public async Task<HomePageDTO> GetHomeData()
+        public async Task<HomePageDTO> GetHomeData(IEnumerable<DynamicContent> dynamicContents, IEnumerable<Testimony> testimonies)
         {
-            IEnumerable<DynamicContent> dynamicContents = await _dynamicContentService.GetTopContent();
-            IEnumerable<Testimony> testimonies = await _testimonyService.GetLastFour();
-
             return new HomePageDTO()
             {
                 Photo = await ChooseHomePagePhoto(),
