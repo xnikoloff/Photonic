@@ -26,16 +26,13 @@
         {
             foreach(GalleryPhoto? photo in categoriesWithPhotos.Value)
             {
-                <div class="item @categoriesWithPhotos.Key.ToString().ToLower() col-lg-3 col-md-4 col-6 col-sm">
+                <div class="item @categoriesWithPhotos.Key.ToString().ToLower() col-lg-3 col-md-4 col-6 col-sm text-center mt-4">
                     <a href="~/resources/@photo?.FilePathSmall" class="fancylight popup-btn" data-fancybox-group="light">
                         <img class="img-fluid" src="~/resources/@photo?.FilePathSmall" alt="gallery-item">
                     </a>
+                    <a asp-controller="Photo" asp-action="PhotoById" asp-route-id="@photo?.Id" class="item-details-btn"><b>ДЕТАЙЛИ</b></a>
                 </div>
             }
-
-            
-            
-            
         }
     </div>
 </div>
@@ -69,6 +66,16 @@
     .portfolio-item .item {
         float: left;
         margin-bottom: 10px;
+    }
+
+    .portfolio-item .item .item-details-btn{
+        display: none;
+        transition: .5s;
+    }
+
+    .portfolio-item .item:hover .item-details-btn {
+        display: block;
+        transition: .5s;
     }
 </style>
 

@@ -4,8 +4,8 @@
     ViewData["Title"] = Model?.Photo?.Name;
 }
 
-<div class="container mt-5 py-5">
-    <div class="row py-4">
+<div class="container">
+    <div class="row">
         @if (User.IsInRole("Administrator"))
         {
             <div class="col-12 col-md-6 col-lg-2">
@@ -34,7 +34,7 @@
             <p class="photo-description">@Model?.Photo?.Description</p>
         </div>
         <div class="col-12 col-md-2 col-select">
-            <select asp-for="PhotoSize" asp-items="Html.GetEnumSelectList<PhotoSize>()" class="wide"></select>
+            <select asp-for="PhotoSize" asp-items="Html.GetEnumSelectList<PhotoSize>()" class="form-control py-2"></select>
         </div>
         <div class="col-12 col-md-1 col-details">
             <form asp-controller="Order" asp-action="OrderInfo" method="GET" enctype="multipart/form-data">
@@ -47,7 +47,7 @@
                 
                 @if (Model.Photo.IsFree)
                 {
-                    <button class="btn btn-warning btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
+                    <button class="btn btn-primary btn-lg btn-download" type="submit"><i class="fa-solid fa-download"></i></button>
                 }
 
                 else
@@ -90,7 +90,7 @@
                 
                 @foreach (Tag tag in Model.Photo.Tags)
                 {
-                    <span class="details-text tags-text" id="tags"><a asp-controller="Photo" asp-action="AllByTag" asp-route-tag="@tag.Text" class="text-warning"><b>#@tag.Text</b></a></span>
+                    <span class="details-text tags-text" id="tags"><a asp-controller="Photo" asp-action="AllByTag" asp-route-tag="@tag.Text" class="text-primary"><b>#@tag.Text</b></a></span>
                 }
             </div>
         </div>
@@ -103,7 +103,7 @@
                 @foreach (PhotoCategory photoCategory in Model.Photo.PhotoCategories)
                 {
                     <span class="details-text featured-in-text" id="featured-in">
-                        <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@photoCategory.Category" class="text-warning"><b>@(photoCategory.Category.GetAttribute<DisplayAttribute>().Name)</b></a>
+                        <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@photoCategory.Category" class="text-primary"><b>@(photoCategory.Category.GetAttribute<DisplayAttribute>().Name)</b></a>
                     </span>
                 }
             </div>
