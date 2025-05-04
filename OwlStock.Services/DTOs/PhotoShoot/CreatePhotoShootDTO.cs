@@ -12,7 +12,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
 
         [Display(Name = "Тип на фотосесията")]
         [Required(ErrorMessage = "Тип на фотосесията е задължително поле")]
-        public PhotoShootType PhotoShootType { get; set; } = PhotoShootType.Product;
+        public PhotoShootType PhotoShootType { get; set; }
 
         [Required(ErrorMessage = "Име е задължително поле")]
         [Display(Name = "Име")]
