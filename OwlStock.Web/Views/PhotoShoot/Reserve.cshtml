@@ -549,7 +549,7 @@
                                     <div class="form-floating settlements-wrap">
                                         <select id="Settlement" class="form-control">
                                             <option value="">Населено място</option>
-                                            <label>Населено място</label>
+                                            <label for="Settlement">Населено място</label>
                                         </select>
                                     </div>
                                 </div>
@@ -557,14 +557,16 @@
                             <div class="row row-section-2 mt-3 row-location-user-place" style="display:none">
                                 <div class="col-md-12 mx-auto">
                                     <div class="form-floating user-place-wrap">
-                                        <input asp-for="UserPlace" class="rect-control" placeholder="Локация" />
+                                        <input asp-for="UserPlace" class="form-control" placeholder="Локация" />
+                                        <label asp-for="UserPlace"></label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row row-section-2 mt-3 row-location-google-maps-link" style="display:none">
                                 <div class="col-md-12 mx-auto">
                                     <div class="form-floating google-maps-link-wrap">
-                                        <input asp-for="GoogleMapsLink" class="rect-control" placeholder="Линк към Google Maps" />
+                                        <input asp-for="GoogleMapsLink" class="form-control" placeholder="Линк към Google Maps" />
+                                        <label asp-for="GoogleMapsLink"></label>
                                     </div>
                                 </div>
                             </div>
@@ -665,6 +667,7 @@
                                         }
 
                                         <label asp-for="PersonEmail">Имейл</label>
+                                        <span class="text-danger" id="email-error-message" style="display:none">Въведете валиден имейл</span>
 
                                     </div>
                                 </div>
@@ -690,6 +693,7 @@
                                     <div class="form-floating phone-wrap">
                                         <input asp-for="PersonPhone" class="form-control" />
                                         <label asp-for="PersonPhone">Телефон</label>
+                                        <span class="text-danger" id="phone-error-message" style="display:none">Въведете валиден номер</span>
                                     </div>
                                 </div>
                             </div>
@@ -1010,44 +1014,10 @@
     .booking-container .col-summary-section .summary-section-photoshoot-type  #summary-photoshoot-type{
         font-weight: bold;
     }
-
-
-
-
-
-
+    
     @@media only screen and (max-width: 768px) {
-       .hotel_booking_table .card {
-            min-height: 250px;
-        }
-
-        .hotel_booking_table .card-header h5 {
-            font-size: 1.2rem;
-        }
-
-        .hotel_booking_table .card-body h3 {
-            font-size: 1.5rem;
-        }
-
-        .hotel_booking_table .card-body h6 {
-            font-size: .7rem;
-        }
-
-        .hotel_booking_table .card-body .negotiation {
-            font-size: 1.2rem;
-        }
-
-        .hotel_booking_table .section-title {
-            font-size: 1.8rem;
-        }
-
-        .hotel_booking_table .card .btn {
-            padding: 5px;
-            font-size: 1rem;
-        }
-
-        .hotel_booking_table .services .card {
-            min-height: 150px;
+       .booking-container .col-photoshoot-packet {
+            margin-top: 20px;
         }
     }
 
@@ -1783,7 +1753,18 @@
         }
 
         else {
-            return true;
+            const email = $('#PersonEmail').val();
+            const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            if (!emailRegex.test(email)) {
+                $('#email-error-message').css("display", "block");
+                return false;
+            } 
+            
+            else {
+                console.log('else');
+                $('#email-error-message').css("display", "none");
+                return true;
+            }
         }
     }
 
@@ -1816,7 +1797,19 @@
         }
 
         else {
-            return true;
+            const phone = $('#PersonPhone').val();
+            const phoneRegex = /^\+?[0-9\s\-]{7,15}$/;
+
+            if (!phoneRegex.test(phone)) {
+                $('#phone-error-message').css("display", "block");
+                return false;
+            } 
+            
+            else {
+                $('#phone-error-message').css("display", "none");
+                return true;
+                
+            }
         }
     }
 
