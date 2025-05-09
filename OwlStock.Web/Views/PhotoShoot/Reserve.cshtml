@@ -19,6 +19,7 @@
     <input type="hidden" asp-for="IsPlace" />
     <input type="hidden" asp-for="PlaceId" />
     <input type="hidden" asp-for="FuelPrice" />
+    <input type="hidden" asp-for="IsDecidedByUs" />
     <input type="hidden" id="RegionId" />
     <!-- #endregion -->
     
@@ -1129,7 +1130,7 @@
             calculatePrice($(this).val());
             togglePhotoshootPacket($(this).val());
             validateDescription($(this).val());
-
+            
             $("#PhotoShootType").val($(this).val());
         });
 
@@ -1155,7 +1156,7 @@
                     break;
                 }
                 case "custom": 
-                case "decidedByUs": { 
+                case "decidedByUs": {  
                     //check if region is valid
                     if (isRegionValid()) {
                         $("#Settlement").prop("disabled", false);
@@ -1256,6 +1257,8 @@
         });
 
         $(".btn-location-type-decided-by-us").click(function () {
+            $("#IsDecidedByUs").val(true);
+
             //set location type to decided by us
             locationType = 'decidedByUs';
 
@@ -1408,9 +1411,6 @@
         let packetName = packet.attr('id');
         let photoshootEnum = 0;
 
-        console.log(packet);
-        console.log(packetName);
-        
         //set photoshoot type based on selected packet
         switch(packetName){
             case "personal":{
@@ -1562,7 +1562,6 @@
         }
 
         //set photoshoot type
-        console.log(photoshootEnum);
         $("#PhotoShootType").val(photoshootEnum);
 
         //hide section one /services/ and show section two /location/
@@ -2303,7 +2302,6 @@
     //the function formats it to format [dd.MM.yyyy]
     function formatSelectedDateInBulgarianFormat(selectedDate) {
         let selectedDateSplit = selectedDate.split('.');
-        console.log(selectedDateSplit);
         return `${selectedDateSplit[0]}.${selectedDateSplit[1]}.${new Date().getUTCFullYear()}`;
     }
 

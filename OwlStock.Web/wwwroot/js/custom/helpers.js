@@ -5,7 +5,7 @@
         
         // Check if it contains "Plus" or "Extra"
         if (optionText.includes("Plus") || optionText.includes("Extra")) {
-            $(this).remove(); // Hide the option
+            $(this).attr("hidden", true); // Hide the option
         }
     });
 }

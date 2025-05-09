@@ -85,16 +85,24 @@ namespace OwlStock.Web.Controllers
         {
             //When photoshoot's place is decided by the studio or a popular place is selected
             //UserPlace (the name of the place that is created by the user) is no longer required
-            if (dto.IsDecidedByUs || dto.IsPlaceSelected)
-            {
+            //and remove the Id of the select place from the ModelState since
+            //no place was selected
+                if (dto.IsDecidedByUs)
+                {
                 ModelState.Remove("UserPlace");
+                ModelState.Remove("PlaceId");
             }
 
-            //else remove the Id of the select place from the ModelState since
-            //no place was selected
-            else 
+            //if there is a custom place created remove the PlaceId (the Id of a popular place)
+            else if(!dto.UserPlace.IsNullOrEmpty())
             {
                 ModelState.Remove("PlaceId");
+            }
+
+            //else a popular place must have been selected, so remove the UserPlace (the custom place)
+            else
+            {
+                ModelState.Remove("UserPlace");
             }
 
             //return error if ModelState is invalid
