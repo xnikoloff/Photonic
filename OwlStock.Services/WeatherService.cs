@@ -2,7 +2,6 @@
 using OwlStock.Services.Common.HelperClasses.Weather;
 using OwlStock.Services.Interfaces;
 using Newtonsoft.Json;
-using OwlStock.Infrastructure;
 using OwlStock.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
