@@ -6,8 +6,6 @@
 
 <div class="container container-confirmation-message-wrap">
     <div class="row">
-    </div>
-    <div class="row mt-4">
         <div class="col-12 text-center">
             <h1>
                 @if (Model.IsSuccessful)
@@ -28,17 +26,13 @@
     </div>
     <div class="row row-account-prompt-container mt-5">
         <div class="col-12 text-center">
-            <h4>Влезте от <a asp-page="./Login" class="text-warning"><b>тук</b></a>.</h4>
+            <p>Влезте от <a asp-page="./Login" class="text-warning"><b>тук</b></a>.</p>
         </div>
     </div>
 </div>
 
 
 <style>
-    .container-confirmation-message-wrap{
-        padding: 150px 0;
-    }
-    
     @@media only screen and (max-width: 768px){
         .container-confirmation-message-wrap .status-message{
             font-size: 1.8rem;

@@ -118,7 +118,7 @@
                 <div class="col-12 mb-5 text-center mx-auto">
                     @if(Model?.PhotoShootPhotos?.Count > 0)
                     {
-                        <a asp-action="DownloadAll" asp-controller="Download" asp-route-photoshootId="@(Model?.Id)" class="button_hover theme_btn_two"><i class="fa-solid fa-download fa-lg text-white"></i> Изтегли албум</a>
+                        <a asp-action="DownloadAll" asp-controller="Download" asp-route-photoshootId="@(Model?.Id)" class="btn btn-primary mt-3"><i class="fa-solid fa-download fa-lg"></i> Изтегли албум</a>
                     }
                 </div>
             </div>
@@ -136,23 +136,18 @@
                 {
                     @foreach (PhotoShootPhoto photo in Model?.PhotoShootPhotos ?? new List<PhotoShootPhoto>())
                     {
+                        <div class="item col-lg-3 col-md-4 col-6 col-sm text-center mt-4">
+                            <a href="~/resources/@photo?.FilePath" class="fancylight popup-btn" data-fancybox-group="light">
+                                <img class="img-fluid" src="~/resources/@(photo.FilePath + '/' + photo.FileName)" alt="gallery-item">
+                            </a>
+                            <form asp-action="DownloadPhotoShootPhoto" asp-controller="Download">
+                                <input type="hidden" asp-for="@photo.FileName">
+                                <input type="hidden" asp-for="@photo.FileType">
+                                <input type="hidden" asp-for="@photo.FilePath">
 
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="accomodation_item text-center">
-                                <div class="hotel_img">
-                                    <img src="~/resources/@(photo.FilePath + '/' + photo.FileName)" alt="user-photo">
-                                    <form asp-action="DownloadPhotoShootPhoto" asp-controller="Download">
-                                        <input type="hidden" asp-for="@photo.FileName">
-                                        <input type="hidden" asp-for="@photo.FileType">
-                                        <input type="hidden" asp-for="@photo.FilePath">
-
-                                        <button type="submit" class="btn theme_btn button_hover"><i class="fa-solid fa-download fa-lg text-white"></i> <span class="text-white font-weight-bold">Изтегли</span></button>
-                                    </form>
-                            
-                                </div>
-                            </div>
+                                <button type="submit" class="btn btn-primary" style="border-radius:0"><i class="fa-solid fa-download fa-lg"></i> <span class="font-weight-bold">Изтегли</span></button>
+                            </form>
                         </div>
-
                     }
                 }
 
@@ -168,24 +163,19 @@
 </div>
 
 <style>
-    .photos-section-wrap{
-        width: 100%;
-        height: 100%;
-        background: #ededed;
+    .portfolio-item .item {
+        float: left;
+        margin-bottom: 10px;
     }
 
-    .col-image button {
-        border: none;
-        width: 180px;
+    .portfolio-item .item .item-details-btn {
+        display: none;
+        transition: .5s;
     }
 
-    .col-image img {
-        width: 180px;
-    }
-
-    .photos-section-wrap{
-        margin-top: 200px;
-        padding: 50px 0;
+    .portfolio-item .item:hover .item-details-btn {
+        display: block;
+        transition: .5s;
     }
 
     .testimony-container-wrap{
@@ -217,3 +207,25 @@
         }
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+        //harcode "all"
+        filter("*");
+
+        var popup_btn = $('.popup-btn');
+        popup_btn.magnificPopup({
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+
+    function filter(filter){
+        $('.portfolio-item').isotope({
+            filter: filter
+        });
+        return false;
+    }
+</script>
