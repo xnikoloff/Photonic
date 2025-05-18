@@ -5,6 +5,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
@@ -142,8 +143,14 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                         return Page();
                     }
 
-                    var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                    
+                    var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+
+                    if (result.IsLockedOut)
+                    {
+                        ModelState.AddModelError("", "Профилът ви е заключен за 20 минути поради многократни неуспешни опити за вход");
+                        return Page();
+                    }
+
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User logged in.");
@@ -152,7 +159,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
 
                     else
                     {
-                        ModelState.AddModelError(string.Empty, $"Несъществуващ имейл или неправилна парола.");
+                        ModelState.AddModelError(string.Empty, $"Несъществуващ имейл или неправилна парола. Съветваме Ви да възстановите паролата си, тъй като профилът Ви ще бъде заключен за 20 минути след 6 неуспешни опита за вход.");
                     }
 
                     /*if (result.RequiresTwoFactor)
