@@ -69,6 +69,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             /// </summary>
             [Required(ErrorMessage = "Имейл е задължително поле")]
             [EmailAddress(ErrorMessage = "Въведете валиден имейл адрес")]
+            [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Въведете валиден имейл адрес")]
             [Display(Name = "Имейл")]
             public string Email { get; set; }
 
@@ -77,7 +78,9 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessage = "Парола е задължително поле")]
+            [MinLength(8, ErrorMessage = "Паролата трябва да е поне 8 символа")]
             [DataType(DataType.Password)]
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$", ErrorMessage = "Паролата трябва да съдържа поне една главна, една малка буква и една цифра и един специален символ (напр. !, @, #)")]
             [Display(Name = "Парола")]
             public string Password { get; set; }
 

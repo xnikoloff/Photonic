@@ -72,6 +72,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             /// </summary>
             [Required(ErrorMessage = "Имейл е задължително поле")]
             [EmailAddress(ErrorMessage = "Въведете валиден имейл адрес")]
+            [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Въведете валиден имейл адрес")]
             [Display(Name = "Имейл")]
             public string Email { get; set; }
 
