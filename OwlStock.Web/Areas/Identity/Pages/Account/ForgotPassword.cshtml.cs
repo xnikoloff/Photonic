@@ -75,7 +75,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
                 var callbackUrl = Url.Page(
                     "/Account/ResetPassword",
                     pageHandler: null,
-                    values: new { area = "Identity", code },
+                    values: new { area = "Identity", email = user.Email, code = code },
                     protocol: Request.Scheme);
 
                 await _emailService.Send(new ResetPasswordEmailTemplateDTO()

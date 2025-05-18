@@ -41,18 +41,20 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessage = "Имейл е задължително поле")]
-            [Display(Name = "Email")]
             [EmailAddress(ErrorMessage = "Въведете валиден имейл адрес")]
+            [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Въведете валиден имейл адрес")]
+            [Display(Name = "Имейл")]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [Display(Name = "Парола")]
-            [StringLength(100, ErrorMessage = "Паролата трябва да бъде минимум 8 цифри.")]
+            [Required(ErrorMessage = "Парола е задължително поле")]
+            [MinLength(8, ErrorMessage = "Паролата трябва да е поне 8 символа")]
             [DataType(DataType.Password)]
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$", ErrorMessage = "Паролата трябва да съдържа поне една главна, една малка буква и една цифра и един специален символ (напр. !, @, #)")]
+            [Display(Name = "Парола")]
             public string Password { get; set; }
 
             /// <summary>
@@ -61,7 +63,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Потвърди парола")]
-            [Compare("Password", ErrorMessage = "Паролите не съвпадат")]
+            [Compare("Password", ErrorMessage = "Паролите не съвпадат.")]
             public string ConfirmPassword { get; set; }
 
             /// <summary>
@@ -73,9 +75,9 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
 
         }
 
-        public IActionResult OnGet(string code = null)
+        public IActionResult OnGet(string code = null, string email = null)
         {
-            if (code == null)
+            if (code == null || email == null)
             {
                 return BadRequest("Невалиден код за възстановяване.");
             }
@@ -83,7 +85,8 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             {
                 Input = new InputModel
                 {
-                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
+                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code)),
+                    Email = email
                 };
                 return Page();
             }
