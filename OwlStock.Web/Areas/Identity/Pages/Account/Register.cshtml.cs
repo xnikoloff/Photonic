@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.IdentityModel.Tokens;
-using OwlStock.Domain.Enumerations;
-using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Areas.Identity.Pages.Account
@@ -21,23 +19,23 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserStore<IdentityUser> _userStore;
+        private readonly IPasswordValidator<IdentityUser> _passwordValidator;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailService _emailSender;
-
+        
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailService emailSender)
+            IPasswordValidator<IdentityUser> passwordValidator)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
+            _passwordValidator = passwordValidator;
             _logger = logger;
-            _emailSender = emailSender;
         }
 
         /// <summary>
@@ -82,8 +80,9 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessage = "Парола е задължително поле")]
-            [StringLength(100, ErrorMessage = "{0} трябва да е поне {2} и най-много {1} символа.", MinimumLength = 6)]
+            [MinLength(8, ErrorMessage = "Паролата трябва да е поне 8 символа")]
             [DataType(DataType.Password)]
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$", ErrorMessage = "Паролата трябва да съдържа поне една главна, една малка буква и една цифра и един специален символ (напр. !, @, #)")]
             [Display(Name = "Парола")]
             public string Password { get; set; }
 

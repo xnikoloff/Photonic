@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OwlStock.Infrastructure;
-using OwlStock.Infrastructure.Identity;
 using OwlStock.Services;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
@@ -43,11 +42,17 @@ builder.Services.AddDbContext<OwlStockDbContext>(options =>
         throw new NullReferenceException($"{connectionString} is null")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services
-    .AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddErrorDescriber<CustomIdentityErrorDescriber>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<OwlStockDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    //password policy
+    options.Password.RequiredLength = 8;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequireNonAlphanumeric = false;
+})
+    .AddEntityFrameworkStores<OwlStockDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddMvc().
     AddJsonOptions(options =>
@@ -55,16 +60,6 @@ builder.Services.AddMvc().
         JsonStringEnumConverter enumConverter = new();
         options.JsonSerializerOptions.Converters.Add(enumConverter);
     });
-
-//configure password
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Password.RequiredLength = 8;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequireNonAlphanumeric = false;
-});
 
 builder.Services.AddServices();
 
