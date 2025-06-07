@@ -111,7 +111,11 @@ namespace OwlStock.Services
 
             if (photoshoot == null)
             {
-                throw new NullReferenceException($"{nameof(photoshoot)} with Id {id} cannot be found");
+                //return empty guid if photoshoot is not found
+                return new PhotoShootByIdDTO()
+                {
+                    Id = Guid.Empty
+                };
             }
 
             PhotoShootByIdDTO dto = new()

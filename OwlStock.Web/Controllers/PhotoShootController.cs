@@ -173,9 +173,9 @@ namespace OwlStock.Web.Controllers
         {
             PhotoShootByIdDTO? dto = await _photoShootService.PhotoShootById(id, GetUserId());
             
-            if (dto == null)
+            if (dto.Id == Guid.Empty)
             {
-                return View("Error", "Несъществуваща фотосесия");
+                return View("Error", "Не намерихме фотосесията, която търсите");
             }
             return View(dto);
         }
