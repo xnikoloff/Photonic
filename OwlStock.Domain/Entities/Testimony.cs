@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using OwlStock.Domain.Common;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,18 +11,25 @@ namespace OwlStock.Domain.Entities
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Име е задължително поле")]
+        [MinLength(ModelConstraints.TestimonyNameMinLength, ErrorMessage = ModelConstraints.TestimonyFirstNameMinLengthErrorMessage)]
+        [MaxLength(ModelConstraints.TestimonyNameMaxLength, ErrorMessage = ModelConstraints.TestimonyFirstNameMaxLengthErrorMessage)]
         [Display(Name = "Име")]
         public string? PersonFirstName { get; set; }
 
         [Required(ErrorMessage = "Фамилия е задължително поле")]
+        [MinLength(ModelConstraints.TestimonyNameMinLength, ErrorMessage = ModelConstraints.TestimonyLastNameNameMinLengthErrorMessage)]
+        [MaxLength(ModelConstraints.TestimonyNameMaxLength, ErrorMessage = ModelConstraints.TestimonyLastNameNameMaxLengthErrorMessage)]
         [Display(Name = "Фамилия")]
         public string? PersonLastName { get; set; }
 
         [Required(ErrorMessage = "Оценката със звезди е задължителна")]
+        [Range(ModelConstraints.TestimonyStarsMinCount, ModelConstraints.TestimonyStarsMaxCount, ErrorMessage = ModelConstraints.TestimonyDescriptionStarsErrorMessage)]
         [Display(Name = "Оценка")]
         public int Stars { get; set; }
 
         [Required(ErrorMessage = "Описание е задължително поле")]
+        [MinLength(ModelConstraints.TestimonyContentMinLength, ErrorMessage = ModelConstraints.TestimonyDescriptionMinLengthErrorMessage)]
+        [MaxLength(ModelConstraints.TestimonyContentMaxLength, ErrorMessage = ModelConstraints.TestimonyDescriptionMaxLengthErrorMessage)]
         [Display(Name = "Описание")]
         public string? Content { get; set; }
 
