@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure;
@@ -10,11 +11,13 @@ namespace OwlStock.Services
     {
         private readonly OwlStockDbContext _context;
         private readonly IPhotoTagService _photoTagService;
+        private readonly ILogger<GalleryService> _logger;
 
-        public GalleryService(OwlStockDbContext context, IPhotoTagService photoTagService)
+        public GalleryService(OwlStockDbContext context, IPhotoTagService photoTagService, ILogger<GalleryService> logger)
         {
             _context = context;
             _photoTagService = photoTagService;
+            _logger = logger;
         }
 
         public async Task<List<GalleryPhoto>> All()
@@ -29,22 +32,41 @@ namespace OwlStock.Services
                 return galleryPhotos;
             }
 
-            throw new NullReferenceException($"{_context.GalleryPhotos} is null");
+            _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(All)}, {nameof(_context.GalleryPhotos)} is null");
+            return new();
         }
 
         private async Task<List<PhotoShootPhoto>> AllPhotoshootPhotos(PhotoShootType photoShootType)
         {
             if (_context.PhotoShootPhotos is null)
             {
-                throw new NullReferenceException($"{_context.PhotoShootPhotos} is null");
+                 _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(AllPhotoshootPhotos)}, {nameof(_context.PhotoShootPhotos)} is null");
+                return new();
+                
             }
 
-            List<PhotoShootPhoto> photos = await _context.PhotoShootPhotos
+            if (_context.PhotoShoots is null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(AllPhotoshootPhotos)}, {nameof(_context.PhotoShoots)} is null");
+                return new();
+
+            }
+
+            try
+            {
+                List<PhotoShootPhoto> photos = await _context.PhotoShootPhotos
                     .Include(p => p.PhotoShoot)
-                    .Where(p => p.PhotoShoot.PhotoShootType == photoShootType)
+                    .Where(p => p.PhotoShoot!.PhotoShootType == photoShootType)
                     .ToListAsync();
 
-            return photos;
+                return photos;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
         }
 
         public async Task<Dictionary<Category, List<GalleryPhoto?>>> BuildCategoriesGallery()
@@ -76,6 +98,13 @@ namespace OwlStock.Services
         public async Task<List<PhotoShootPhoto>> AllByPhotoshootType(PhotoShootType photoshootType)
         {
             List<PhotoShootPhoto> photos = await AllPhotoshootPhotos(photoshootType);
+
+            if(photos.Count == 0)
+            {
+                _logger.LogError(null, "An unspecified error occured while getting photoshoot photos in GalleryService, AllByPhotoshootType()");
+                return new List<PhotoShootPhoto>();
+            }
+
             return photos;
         }
 

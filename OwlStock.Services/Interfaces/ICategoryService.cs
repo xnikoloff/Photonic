@@ -5,6 +5,6 @@ namespace OwlStock.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<int> Create(IEnumerable<Category> categories, Guid photoId);
+        Task<bool> Create(IEnumerable<Category> categories, Guid photoId);
     }
 }

@@ -23,13 +23,27 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Content(Guid id)
         {
-            return View(await _dynamicContentService.GetById(id));
+            DynamicContent content = await _dynamicContentService.GetById(id);
+
+            if(content.Id == Guid.Empty)
+            {
+                return View("Error", "Не успяхме да намерим статията, която търсите");
+            }
+
+            return View(content);
         }
 
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            return View(await _dynamicContentService.GetAll());
+            AllDynamicContentsDTO all = await _dynamicContentService.GetAll();
+
+            if(all.DynamicContents == null || all.DynamicContentCategories ==  null)
+            {
+                return View("Error", "Опитайте пак по-късно");
+            }
+
+            return View(all);
         }
 
         [HttpGet]
@@ -37,13 +51,26 @@ namespace OwlStock.Web.Controllers
         {
             ViewData["PageNumber"] = pageNumber;
             var all = await _dynamicContentService.GetAllByPage(pageNumber);
+
+            if(all.DynamicContents == null || all.DynamicContentCategories == null)
+            {
+                return View("Error", "Опитайте пак по-късно");
+            }
+
             return View(nameof(All), all);
         }
 
         [HttpGet]
         public async Task<IActionResult> AllByCategory(Guid id)
         {
-            return View(nameof(All), await _dynamicContentService.GetAllByCategory(id));
+            AllDynamicContentsDTO all = await _dynamicContentService.GetAllByCategory(id);
+
+            if (all.DynamicContents == null || all.DynamicContentCategories == null)
+            {
+                return View("Error", "Опитайте пак по-късно");
+            }
+
+            return View(nameof(All), all);
         }
 
         [HttpGet]

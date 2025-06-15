@@ -15,7 +15,6 @@ namespace OwlStock.Services
             services.AddTransient<IPhotoResizer, PhotoResizer>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<IBraintreeService, BraintreeService>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IPhotoTagService, PhotoTagService>();
             services.AddTransient<IPhotoShootService, PhotoShootService>();

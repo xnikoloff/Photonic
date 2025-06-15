@@ -63,6 +63,11 @@ namespace OwlStock.Services
             }
         }
 
+        /// <summary>
+        /// Gets user email by the provided user id
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <returns>Email of the user as string</returns>
         public async Task<string> GetUserEmailByIdAsync(string userId)
         {
             if (userId.IsNullOrEmpty())

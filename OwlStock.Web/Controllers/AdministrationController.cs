@@ -442,7 +442,12 @@ namespace OwlStock.Web.Controllers
                 return View(announcement);
             }
 
-            await _announcementService.Create(announcement, GetUserId());
+            bool result = await _announcementService.Create(announcement, GetUserId());
+
+            if (!result)
+            {
+                return View("Error", "Неуспешно създаване на новина");
+            }
 
             return RedirectToAction(nameof(ManageAnnouncements));
         }
@@ -450,8 +455,14 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateAnnouncement(Guid id)
         {
-            
-            return View(await _announcementService.GetById(id));
+            Announcement? announcement = await _announcementService.GetById(id);
+
+            if (announcement.Id == Guid.Empty)
+            {
+                return View("Error", "Новината не е намерена");
+            }
+
+            return View();
         }
 
         [HttpPost]
@@ -462,7 +473,12 @@ namespace OwlStock.Web.Controllers
                 return View(announcement);
             }
 
-            await _announcementService.Update(announcement, GetUserId());
+            bool result = await _announcementService.Update(announcement, GetUserId());
+
+            if (!result)
+            {
+                return View("Error", "Неуспешно обновяване на новина");
+            }
 
             return RedirectToAction(nameof(ManageAnnouncements));
         }
@@ -470,14 +486,14 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> ManageAnnouncementsVisibility(Guid id)
         {
-            await _announcementService.ManageAnnouncementsVisibility(id, GetUserId());
-            return RedirectToAction(nameof(ManageAnnouncements));
-        }
+            bool result = await _announcementService.ManageAnnouncementsVisibility(id, GetUserId());
 
-        private async Task<string> GetUserEmail()
-        {
-            var user = await _userManager.FindByIdAsync(GetUserId()) ?? throw new NullReferenceException($"User not logged in");
-            return user.Email ?? throw new NullReferenceException($"{nameof(user.Email)} is null");
+            if (!result)
+            {
+                return View("Error", "Неуспешна промяна на видимостта на новината");
+            }
+
+            return RedirectToAction(nameof(ManageAnnouncements));
         }
 
         private string GetUserId()

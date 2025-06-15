@@ -13,12 +13,10 @@ namespace OwlStock.Web.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
-        private readonly IBraintreeService _braintreeService;
-
-        public OrderController(IOrderService orderService, IBraintreeService braintreeService)
+        
+        public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
-            _braintreeService = braintreeService;
         }
 
         [HttpGet]
@@ -54,8 +52,6 @@ namespace OwlStock.Web.Controllers
                     new { id = order.Id });
             }
             
-            GenerateToken();
-
             return View(order);
         }
 
@@ -72,8 +68,6 @@ namespace OwlStock.Web.Controllers
                 return View("_Error");
             }
 
-            var gateway = _braintreeService.GetGateway();
-            
             if(order.Photo.Price is null)
             {
                 throw new NullReferenceException($"{nameof(order.Photo.Price)} is null");
@@ -90,11 +84,7 @@ namespace OwlStock.Web.Controllers
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
-
-            if (result.IsSuccess())
-            {
-                order.IdentityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            order.IdentityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 order = await _orderService.CreateOrder(order);
 
                 if (order.Photo is null)
@@ -105,17 +95,8 @@ namespace OwlStock.Web.Controllers
                 List<Category> categories = order.Photo.PhotoCategories.Select(pc => pc.Category).ToList();
                 return RedirectToAction(nameof(DownloadController.DownloadPrompt),"Download", 
                     new { id = order.Id, categories });
-            }
+            
 
-            return View("_Error");
-        }
-
-        private void GenerateToken()
-        {
-            //generate token
-            var gateway = _braintreeService.GetGateway();
-            var clientToken = gateway.ClientToken.Generate();
-            ViewBag.ClientToken = clientToken;
         }
     }
 }

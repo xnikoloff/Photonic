@@ -33,13 +33,13 @@ namespace OwlStock.Services
             if(photo.FileName is null)
             {
                 _logger.LogInformation("{FileName} is null in {Method}, {Class}, {DateTime}", nameof(photo.FileName), nameof(CreatePhotoFile), nameof(AdministrationService), DateTime.Now);
-                throw new NullReferenceException($"{nameof(photo.FileName)}");
+                return false;
             }
 
             if(photo.FileData is null)
             {
                 _logger.LogInformation("{FileData} is null in {Method}, {Class}, {DateTime}", nameof(photo.FileData), nameof(CreatePhotoFile), nameof(AdministrationService), DateTime.Now);
-                throw new NullReferenceException($"{nameof(photo.FileData)} is null");
+                return false;
             }
 
             switch (photo)
@@ -72,32 +72,43 @@ namespace OwlStock.Services
         {
             if (dto.PhotoBase == null)
             {
-                throw new NullReferenceException($"{nameof(dto.PhotoBase)} is null");
+                _logger.LogInformation("{FileName} is null in {Method}, {Class}, {DateTime}", nameof(dto.PhotoBase), nameof(CreatePlacePhotoFile), nameof(AdministrationService), DateTime.Now);
+                return false;
             }
 
             if (dto.PhotoBase.FilePath == null)
             {
-                throw new NullReferenceException($"{nameof(dto.PhotoBase.FilePath)} is null");
+                _logger.LogInformation("{FileName} is null in {Method}, {Class}, {DateTime}", nameof(dto.PhotoBase.FilePath), nameof(CreatePlacePhotoFile), nameof(AdministrationService), DateTime.Now);
+                return false;
             }
 
-            int lastIndexOfSlash = dto.PhotoBase.FilePath.LastIndexOf('\\');
-            string directoryPath = dto.PhotoBase.FilePath[..lastIndexOfSlash];
-
-            if (!Directory.Exists(directoryPath))
+            try
             {
-                Directory.CreateDirectory(directoryPath);
+                int lastIndexOfSlash = dto.PhotoBase.FilePath.LastIndexOf('\\');
+                string directoryPath = dto.PhotoBase.FilePath[..lastIndexOfSlash];
+
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                if (dto.FileData == null)
+                {
+                    throw new NullReferenceException(nameof(dto.FileData));
+                }
+
+                byte[]? bytes = dto.FileData;
+                using FileStream streamSmallSize = File.OpenWrite(dto?.PhotoBase?.FilePath ?? "");
+                streamSmallSize.Write(bytes, 0, bytes.Length);
+
+                return true;
             }
 
-            if(dto.FileData == null)
+            catch(Exception ex)
             {
-                throw new NullReferenceException(nameof(dto.FileData));
+                _logger.LogError(ex, "An error occurred while creating place photo file at {Time}", DateTime.UtcNow);
+                return false;
             }
-
-            byte[]? bytes = dto.FileData;
-            using FileStream streamSmallSize = File.OpenWrite(dto?.PhotoBase?.FilePath ?? "");
-            streamSmallSize.Write(bytes, 0, bytes.Length);
-
-            return true;
         }
 
         public async Task CreateIFormFile(IFormFile file, string webRootPath)

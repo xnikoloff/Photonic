@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
@@ -9,13 +10,15 @@ namespace OwlStock.Services
     public class AnnouncementService : IAnnouncementService
     {
         private readonly OwlStockDbContext _context;
+        private readonly ILogger<AnnouncementService> _logger;
 
-        public AnnouncementService(OwlStockDbContext context)
+        public AnnouncementService(OwlStockDbContext context, ILogger<AnnouncementService> logger)
         {   
             _context = context;
+            _logger = logger;
         }
 
-        public async Task<Announcement> Create(Announcement announcement, string usedId)
+        public async Task<bool> Create(Announcement announcement, string usedId)
         {
             if (announcement == null)
             {
@@ -27,17 +30,28 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(announcement.Content)} is null or empty");
             }
 
-            announcement.CreatedOn = DateTime.Now;
-            announcement.CreatedById = usedId;
-            announcement.IsActive = true;
+            try
+            {
+                announcement.CreatedOn = DateTime.Now;
+                announcement.CreatedById = usedId;
+                announcement.IsActive = true;
 
-            await _context.AddAsync(announcement);
-            await _context.SaveChangesAsync();
+                await _context.AddAsync(announcement);
+                await _context.SaveChangesAsync();
 
-            return announcement;
+                return true;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
+
+
         }
 
-        public async Task<Announcement> Update(Announcement announcement, string userId)
+        public async Task<bool> Update(Announcement announcement, string userId)
         {
             if (_context.Announcements is null)
             {
@@ -59,16 +73,24 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(announcement.Id)} is null or empty");
             }
 
-            Announcement existingAnnouncement = await _context.Announcements.FindAsync(announcement.Id) ??
+            try
+            {
+                Announcement existingAnnouncement = await _context.Announcements.FindAsync(announcement.Id) ??
                 throw new NullReferenceException($"{nameof(announcement)} with id {announcement.Id} cannot be found");
 
-            existingAnnouncement.Content = announcement.Content;
-            existingAnnouncement.EditedOn = DateTime.Now;
-            existingAnnouncement.EditedById = userId;
+                existingAnnouncement.Content = announcement.Content;
+                existingAnnouncement.EditedOn = DateTime.Now;
+                existingAnnouncement.EditedById = userId;
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return announcement;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
         }
 
         public async Task<IEnumerable<Announcement>> GetAll()
@@ -105,13 +127,12 @@ namespace OwlStock.Services
                 throw new NullReferenceException($"{nameof(id)} is null or empty");
             }
 
-            Announcement announcement = await _context.Announcements.FindAsync(id) ??
-                throw new NullReferenceException($"{nameof(announcement)} with id {id} cannot be found");
-
-            return announcement;
+            Announcement? announcement = await _context.Announcements.FindAsync(id);
+            
+            return announcement ?? new Announcement();
         }
 
-        public async Task<Announcement> ManageAnnouncementsVisibility(Guid id, string userId)
+        public async Task<bool> ManageAnnouncementsVisibility(Guid id, string userId)
         {
             if(_context.Announcements is null)
             {
@@ -123,26 +144,35 @@ namespace OwlStock.Services
                 throw new ArgumentNullException($"{nameof(id)}");
             }
 
-            Announcement announcement = await _context.Announcements.FindAsync(id) ?? 
+            try
+            {
+                Announcement announcement = await _context.Announcements.FindAsync(id) ??
                 throw new NullReferenceException($"{nameof(announcement)} with id {id} cannot be found");
 
-            if (announcement.IsActive)
-            {
-                announcement.IsActive = false;
-                announcement.HiddenOn = DateTime.Now;
-                announcement.HiddenById = userId;
+                if (announcement.IsActive)
+                {
+                    announcement.IsActive = false;
+                    announcement.HiddenOn = DateTime.Now;
+                    announcement.HiddenById = userId;
+                }
+
+                else
+                {
+                    announcement.IsActive = true;
+                    announcement.UnhiddenOn = DateTime.Now;
+                    announcement.UnhiddenById = userId;
+                }
+
+                await _context.SaveChangesAsync();
+
+                return true;
             }
 
-            else
+            catch (Exception ex)
             {
-                announcement.IsActive = true;
-                announcement.UnhiddenOn = DateTime.Now;
-                announcement.UnhiddenById = userId;
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
             }
-
-            await _context.SaveChangesAsync();
-
-            return announcement;
         }
     }
 }

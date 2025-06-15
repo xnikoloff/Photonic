@@ -18,7 +18,7 @@ namespace OwlStock.Services
 
         public DynamicContentService(OwlStockDbContext context, ILogger<DynamicContentService> logger)
         {
-            _context = context;
+            _context = context ?? new();
             _logger = logger;
 
         }
@@ -30,6 +30,13 @@ namespace OwlStock.Services
         /// <returns>If created, Id of the created DynamucContentCategory, else empty GUID</returns>
         private async Task<CreateDynamicContentCategoryDTO> CreateDynamicContentCategory(CreateDynamicContentCategoryDTO dto)
         {
+            if (_context.DynamicContentCategories == null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(CreateDynamicContentCategory)}, {nameof(_context.DynamicContentCategories)} was null");
+                dto.IsSuccessful = false;
+                return dto;
+            }
+
             try
             {
                 if (!dto.Name.IsNullOrEmpty())
@@ -66,34 +73,35 @@ namespace OwlStock.Services
 
         public async Task<bool> Create(CreateDynamicContentDTO dto)
         {
-            if(_context.DynamicContents is null)
-            {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
-            }
-
             if (dto == null)
             {
-                throw new NullReferenceException($"{nameof(dto)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Create)}, ${nameof(dto)} was null");
+                return false;
+
             }
 
             if (dto.DynamicContent == null)
             {
-                throw new NullReferenceException($"{nameof(dto.DynamicContent)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Create)}, {nameof(dto.DynamicContent)} was null");
+                return false;
             }
 
             if (dto.DynamicContent.Content == null)
             {
-                throw new NullReferenceException($"{nameof(dto.DynamicContent)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Create)}, {nameof(dto.DynamicContent.Content)} was null");
+                return false;
             }
 
             if (dto.Image == null)
             {
-                throw new NullReferenceException($"{nameof(dto.Image)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Create)}, {nameof(dto.Image)} was null");
+                return false;
             }
 
             if (dto.WebRootPath == null)
             {
-                throw new NullReferenceException($"{nameof(dto.WebRootPath)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Create)}, {nameof(dto.WebRootPath)} was null");
+                return false;
             }
 
             CreateDynamicContentCategoryDTO categoryDTO = await CreateDynamicContentCategory(new()
@@ -121,184 +129,286 @@ namespace OwlStock.Services
                 return false;
             }
 
-            dto.DynamicContent.ImageName = dto?.Image?.FileName;
-            dto.DynamicContent.CreatedOn = DateTime.Now;
-            
-            await _context.AddAsync(dto!.DynamicContent);
-            int result = await _context.SaveChangesAsync();
-            
-            if(result == 0)
+            try
             {
-                return false;
+                dto!.DynamicContent.ImageName = dto?.Image?.FileName;
+                dto!.DynamicContent.CreatedOn = DateTime.Now;
+
+                await _context.AddAsync(dto!.DynamicContent);
+                int result = await _context.SaveChangesAsync();
+
+                return true;
             }
 
-            return true;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
         }
 
-        public async Task Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
             if (_context.DynamicContents is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(_context.DynamicContents)} is null");
+                return false;
             }
 
-            DynamicContent dynamicContent = await _context.DynamicContents.FindAsync(id) ??
+            try
+            {
+                DynamicContent dynamicContent = await _context.DynamicContents.FindAsync(id) ??
                 throw new NullReferenceException($"DynamicContent with id {id} does not exists");
 
-            _context.DynamicContents.Remove(dynamicContent);
-            await _context.SaveChangesAsync();
+                _context.DynamicContents.Remove(dynamicContent);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
         }
 
         public async Task<DynamicContent> GetById(Guid id)
         {
             if (_context.DynamicContents is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetById)}, {nameof(_context.DynamicContents)} was null");
+                return new();
             }
 
-            return await _context.DynamicContents
+            try
+            {
+                return await _context.DynamicContents
                 .Include(dc => dc.DynamicContentCategories)
-                .ThenInclude(dcc => dcc.DynamicContents)
+                .ThenInclude(dcc => dcc!.DynamicContents)
                 .Where(dc => dc.Id == id)
-                .FirstOrDefaultAsync() ?? 
-                throw new NullReferenceException($"DynamicContent with id {id} does not exists");
+                .FirstOrDefaultAsync() ?? new();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
         }
 
         public async Task<AllDynamicContentsDTO> GetAll()
         {
             if (_context.DynamicContents is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAll)}, {nameof(_context.DynamicContents)} was null");
+                return new();
             }
 
             if (_context.DynamicContentCategories is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAll)}, {nameof(_context.DynamicContentCategories)} was null");
+                return new();
             }
 
-            List<DynamicContent>? dynamicContents = await _context.DynamicContents
+            try
+            {
+                List<DynamicContent>? dynamicContents = await _context.DynamicContents
                 .Include(dc => dc.CreatedBy)
                 .Include(dc => dc.DynamicContentCategories)
                 .ToListAsync();
 
-            List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
+                List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
 
-            return new AllDynamicContentsDTO()
+                return new AllDynamicContentsDTO()
+                {
+                    DynamicContents = dynamicContents,
+                    DynamicContentCategories = dynamicContentCategories
+                };
+            }
+
+            catch(Exception ex)
             {
-                DynamicContents = dynamicContents,
-                DynamicContentCategories = dynamicContentCategories
-            };
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }            
         }
 
         public async Task<AllDynamicContentsDTO> GetAllByCategory(Guid id)
         {
             if (_context.DynamicContents is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByCategory)}, {nameof(_context.DynamicContents)} was null");
+                return new();
             }
 
             if (_context.DynamicContentCategories is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByCategory)}, {nameof(_context.DynamicContentCategories)} was null");
+                return new();
             }
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(id));
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByCategory)}, {nameof(id)} was null or empty");
+                return new();
             }
 
-            List<DynamicContent>? dynamicContents = await _context.DynamicContents
-               .Include(dc => dc.CreatedBy)
-               .Include(dc => dc.DynamicContentCategories)
-               .Where(dc => dc.DynamicContentCategories.Id == id)
-               .ToListAsync();
-
-            List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
-
-            return new AllDynamicContentsDTO()
+            try
             {
-                DynamicContents = dynamicContents,
-                DynamicContentCategories = dynamicContentCategories
-            };
+                List<DynamicContent>? dynamicContents = await _context.DynamicContents
+                   .Include(dc => dc.CreatedBy)
+                   .Include(dc => dc.DynamicContentCategories)
+                   .Where(dc => dc.DynamicContentCategories!.Id == id)
+                   .ToListAsync();
+
+                List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
+
+                return new AllDynamicContentsDTO()
+                {
+                    DynamicContents = dynamicContents,
+                    DynamicContentCategories = dynamicContentCategories
+                };
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
         }
 
         public async Task<AllDynamicContentsDTO> GetAllByPage(int pageNumber)
         {
             if (_context.DynamicContents is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByPage)}, {nameof(_context.DynamicContents)} was null");
+                return new();
             }
 
             if (_context.DynamicContentCategories is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByPage)}, {nameof(_context.DynamicContentCategories)} was null");
+                return new();
             }
 
             if (pageNumber <= 0) 
-            { 
-                throw new ArgumentOutOfRangeException(nameof(pageNumber));
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByPage)}, {nameof(pageNumber)} was 0 or less that 0");
+                return new();
             }
 
-            List<DynamicContent> dynamicContents = await _context.DynamicContents
+            try
+            {
+                List<DynamicContent> dynamicContents = await _context.DynamicContents
                 .Where(dc => dc.IsVisible)
-                .Include (dc => dc.CreatedBy)
+                .Include(dc => dc.CreatedBy)
                 .Skip((pageNumber * _visibleContentByPage) - _visibleContentByPage)
                 .Take(_visibleContentByPage)
                 .ToListAsync();
 
-            List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
+                List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
 
-            
-            return new AllDynamicContentsDTO()
+                int pageCount = await CalculatePagesNumber();
+
+                if(pageCount == -1)
+                {
+                    _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByPage)}, {nameof(CalculatePagesNumber)} returned -1");
+                    return new();
+                }
+
+                return new AllDynamicContentsDTO()
+                {
+                    DynamicContents = dynamicContents,
+                    DynamicContentCategories = dynamicContentCategories,
+                    PagesCount = pageCount
+                };
+            }
+
+            catch (Exception ex)
             {
-                DynamicContents = dynamicContents,
-                DynamicContentCategories = dynamicContentCategories,
-                PagesCount = await CalculatePagesNumber()
-            };
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
         }
 
         public async Task<IEnumerable<DynamicContent>> GetTopContent()
         {
             if (_context.DynamicContents is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContents)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByPage)}, {nameof(_context.DynamicContents)} was null");
+                return new List<DynamicContent>();
             }
 
-            return await _context.DynamicContents
-                .Where(dc => dc.ShowInTopPosition && dc.IsVisible)
-                .Include(dc => dc.DynamicContentCategories)
-                .OrderBy(dc => dc.Id)
-                .Take(_visibleTopContent)
-                .ToListAsync();
+            try
+            {
+                return await _context.DynamicContents
+                    .Where(dc => dc.ShowInTopPosition && dc.IsVisible)
+                    .Include(dc => dc.DynamicContentCategories)
+                    .OrderBy(dc => dc.Id)
+                    .Take(_visibleTopContent)
+                    .ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new List<DynamicContent>();
+            }
         }
 
         public async Task<IEnumerable<DynamicContentCategory>> GetAllDynamicContentCategories()
         {
-            if (_context.DynamicContentCategories is null)
+            if (_context.DynamicContents is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContentCategories)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllDynamicContentCategories)}, {nameof(_context.DynamicContents)} was null");
+                return new List<DynamicContentCategory>();
             }
 
-            return await _context.DynamicContentCategories.ToListAsync();
+            if (_context.DynamicContentCategories is null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllDynamicContentCategories)}, {nameof(_context.DynamicContentCategories)} was null");
+                return new List<DynamicContentCategory>();
+            }
+
+            try
+            {
+                return await _context.DynamicContentCategories.ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new List<DynamicContentCategory>();
+            }
         }
 
         private async Task<int> CalculatePagesNumber()
         {
             if (_context.DynamicContents is null)
             {
-                throw new NullReferenceException($"{nameof(_context.DynamicContentCategories)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(CalculatePagesNumber)}, {nameof(_context.DynamicContents)} was null");
+                return -1;
             }
 
-            double total = await _context.DynamicContents.CountAsync();
-
-            if (total == 0)
+            try
             {
-                return 0;
+                double total = await _context.DynamicContents.CountAsync();
+
+                if (total == 0)
+                {
+                    return 0;
+                }
+
+                int result = (int)Math.Ceiling(total / _visibleContentByPage);
+
+                return result;
             }
 
-            int result = (int)Math.Ceiling(total / _visibleContentByPage);
-
-            return result;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return -1;
+            }
         }
     }
 }

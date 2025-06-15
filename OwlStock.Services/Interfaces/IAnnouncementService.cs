@@ -5,11 +5,11 @@ namespace OwlStock.Services.Interfaces
 {
     public interface IAnnouncementService
     {
-        Task<Announcement> Create(Announcement announcement, string userId);
-        Task<Announcement> Update(Announcement announcement, string userId);
+        Task<bool> Create(Announcement announcement, string userId);
+        Task<bool> Update(Announcement announcement, string userId);
         Task<IEnumerable<Announcement>> GetAll();
         Task<IEnumerable<Announcement>> GetActive();
         Task<Announcement> GetById(Guid id);
-        Task<Announcement> ManageAnnouncementsVisibility(Guid id, string userId);
+        Task<bool> ManageAnnouncementsVisibility(Guid id, string userId);
     }
 }
