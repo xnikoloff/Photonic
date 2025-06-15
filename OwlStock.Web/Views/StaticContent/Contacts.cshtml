@@ -41,6 +41,7 @@
                             <div class="form-floating">
                                 <input type="email" class="form-control" asp-for="From" placeholder="Имейл">
                                 <label for="email">Имейл</label>
+                                <span class="text-danger" id="email-error-message" style="display:none">Въведете валиден имейл</span>
                             </div>
                         </div>
                         <div class="col-12">
@@ -125,6 +126,19 @@
         }
 
         else {
+            const email = $('#From').val();
+            const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            if (!emailRegex.test(email)) {
+                $('#email-error-message').css("display", "block");
+                return false;
+            }
+
+            else {
+                console.log('else');
+                $('#email-error-message').css("display", "none");
+                return true;
+            }
+
             $("#From").removeClass("border border-danger");
             return true;
         }
