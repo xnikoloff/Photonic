@@ -199,7 +199,7 @@ namespace OwlStock.Services
 
             if (userId.IsNullOrEmpty())
             {
-                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(PhotoShootById)}, {nameof(id)} is empty");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(PhotoShootById)}, {nameof(userId)} is empty");
                 return new();
             }
 
