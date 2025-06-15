@@ -35,6 +35,7 @@
                             <td>@dto?.ReservationDate.ToString("dd.MM.yyyy")</td>
                             <td>
                                 <form asp-action="ServiceReservation" method="POST">
+                                    @Html.AntiForgeryToken()
                                     <input type="hidden" name="date" value="@dto?.ReservationDate"/>
                                     <button type="submit" class="btn btn-dark btn-sm">Служебна резервация</button>
                                 </form>

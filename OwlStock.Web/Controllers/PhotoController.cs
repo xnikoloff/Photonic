@@ -74,6 +74,7 @@ namespace OwlStock.Web.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateGalleryPhotoDTO? dto)
         {
             if (!ModelState.IsValid)
@@ -135,6 +136,7 @@ namespace OwlStock.Web.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(PhotoByIdDTO dto)
         {
             if (!ModelState.IsValid)
@@ -158,6 +160,7 @@ namespace OwlStock.Web.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeDownloadPermissions(PhotoByIdDTO dto)
         {
             if(dto.Photo == null)

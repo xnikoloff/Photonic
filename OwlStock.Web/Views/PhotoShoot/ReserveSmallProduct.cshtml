@@ -6,6 +6,8 @@
 }
 
 <form asp-action="ReserveSmallProduct" method="post" id="booking-form">
+    @Html.AntiForgeryToken()
+
     <div asp-validation-summary="All" class="text-danger"></div>
 
 

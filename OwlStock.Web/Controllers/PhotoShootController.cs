@@ -13,17 +13,12 @@ namespace OwlStock.Web.Controllers
     {
         private readonly IPhotoShootService _photoShootService;
         private readonly ISettlementService _settlementService;
-        private readonly IPlaceService _placeService;
-        private readonly IAdministrationService _administrationService;
         private readonly IPhotoshootFacade _photoshootFacade;
         
-        public PhotoShootController(IPhotoShootService photoShootService, ISettlementService settlementService, 
-            IPlaceService placeService, IAdministrationService administrationService, IPhotoshootFacade photoshootFacade)
+        public PhotoShootController(IPhotoShootService photoShootService, ISettlementService settlementService, IPhotoshootFacade photoshootFacade)
         {
             _photoShootService = photoShootService;
             _settlementService = settlementService;
-            _placeService = placeService;
-            _administrationService = administrationService;
             _photoshootFacade = photoshootFacade;
         }
 
@@ -81,6 +76,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Reserve(CreateRegularPhotoShootDTO dto)
         {
             //When photoshoot's place is decided by the studio or a popular place is selected
@@ -136,6 +132,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ReserveSmallProduct(CreateSmallProductPhotoshootDTO dto)
         {
             //return error if ModelState is invalid

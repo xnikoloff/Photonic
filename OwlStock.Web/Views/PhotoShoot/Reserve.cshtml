@@ -5,8 +5,9 @@
     ViewData["Title"] = "Резервация";
     Dictionary<DateOnly, IEnumerable<TimeSlot>> calendar = Model.Calendar ?? new();
 }
-
+    
 <form asp-action="Reserve" method="post" id="booking-form">
+    @Html.AntiForgeryToken()
     <div asp-validation-summary="All" class="text-danger"></div>
 
 

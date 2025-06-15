@@ -15,6 +15,7 @@ namespace OwlStock.Web.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             HomePageDTO homePageDTO = await _homeFacade.GetHomeData();

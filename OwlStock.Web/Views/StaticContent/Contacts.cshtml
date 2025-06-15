@@ -29,6 +29,7 @@
                 <p class="text-center mb-4">Може да ни зададете всякакви въпроси по всяко време. Стараем се да отговорим на всеки един от тях възможно най-скоро.</p>
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <form asp-action="SendInquiry" asp-controller="Inquiry" method="POST" id="contactForm">
+                    @Html.AntiForgeryToken()
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-floating">

@@ -8,15 +8,13 @@ namespace OwlStock.Web.Controllers
 {
     public class DownloadController : Controller
     {
-        private readonly IPhotoService _photoService;
         private readonly IPhotoResizer _photoResizer;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IOrderService _orderService;
         private readonly IPhotoShootService _photoShootService;
         
-        public DownloadController(IPhotoService photoService, IPhotoResizer photoResizer, IWebHostEnvironment webHostEnvironment, IOrderService orderService, IPhotoShootService photoShootService)
+        public DownloadController(IPhotoResizer photoResizer, IWebHostEnvironment webHostEnvironment, IOrderService orderService, IPhotoShootService photoShootService)
         {
-            _photoService = photoService;
             _photoResizer = photoResizer;
             _webHostEnvironment = webHostEnvironment;
             _orderService = orderService;
@@ -37,6 +35,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<FileResult> Download(Guid id)
         {
             Order order = await _orderService.GetById(id);
@@ -53,6 +52,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public FileResult DownloadPhotoShootPhoto(PhotoShootPhoto photo)
         {
             if(photo.FilePath is null)

@@ -56,6 +56,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Order order)
         {
             if (order.Photo == null)

@@ -22,6 +22,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendInquiry(SendInquiryEmailTemplateDTO dto)
         {
             if (dto.Name.IsNullOrEmpty() || dto.From.IsNullOrEmpty() || dto.Topic.IsNullOrEmpty() || dto.Content.IsNullOrEmpty())

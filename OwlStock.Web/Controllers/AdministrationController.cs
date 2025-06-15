@@ -75,6 +75,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ServiceReservation(DateTime date)
         {
             bool success = await _photoShootService.SetReservedDate(date);
@@ -123,18 +124,6 @@ namespace OwlStock.Web.Controllers
             return View(dto);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ManagePhotoshoot(ManagePhotoshootDTO dto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(dto);
-            }
-
-            await _photoShootService.Update(dto);
-            return RedirectToAction(nameof(Photoshoots));
-        }
-
         [HttpGet]
         public async Task<IActionResult> UpdateFiles(Guid id)
         {
@@ -157,6 +146,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateFiles(UpdatePhotoShootPhotosDTO dto)
         {
             if (!ModelState.IsValid)
@@ -237,6 +227,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateUser(IdentityUser user)
         {
             if (user.Id.IsNullOrEmpty())
@@ -302,6 +293,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRole(CreateRoleDTO dto)
         {
             if (!ModelState.IsValid)
@@ -355,6 +347,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeUserRole(ChangeUserRoleDTO dto)
         {
             IdentityUser? user = await _userManager.FindByIdAsync(dto?.UserId ?? "");
@@ -453,6 +446,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAnnouncement(Announcement announcement)
         {
             if (!ModelState.IsValid)
@@ -484,6 +478,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateAnnouncement(Announcement announcement)
         {
             if (!ModelState.IsValid)

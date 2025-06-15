@@ -60,6 +60,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PlaceDTO dto)
         {
             Guid photoBaseId = (await CreatePlacePhoto(dto)).Id;
@@ -110,6 +111,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(PlaceDTO dto)
         {
             Guid placeId = await _placeService.Update(dto.Place);

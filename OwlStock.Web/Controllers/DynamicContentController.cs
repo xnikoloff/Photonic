@@ -86,6 +86,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateDynamicContentDTO dto)
         {
             dto.WebRootPath = _webHostEnvironment.WebRootPath;

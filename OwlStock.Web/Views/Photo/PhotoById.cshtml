@@ -10,12 +10,14 @@
         {
             <div class="col-12 col-md-6 col-lg-2">
                 <form asp-controller="Photo" asp-action="ChangeDownloadPermissions" method="POST">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="Photo.Id" />
                     <button type="submit" class="btn btn-warning text-white">@(Model.Photo.IsDownloadable ? "Non-downloadble" : "Downloadable")</button>
                 </form>
             </div>
             <div class="col-12 col-md-6 col-lg-2">
                 <form asp-controller="Photo" asp-action="Delete" method="POST">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="Photo.Id" />
                     <input type="hidden" asp-for="Photo.Name" />
                     <button type="submit" class="btn btn-danger text-white">Delete</button>

@@ -12,6 +12,7 @@
                 <p class="text-center mb-4">Ценим всеки един отздив, който оставяте, независимо дали добър или градивна критика.</p>
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <form asp-action="Create" asp-controller="Testimony" method="post" id="testimony-form">
+                    @Html.AntiForgeryToken()
                     <div class="row g-3">
                         <div class="col-12 my-5 text-center">
                             <div class="form-floating">

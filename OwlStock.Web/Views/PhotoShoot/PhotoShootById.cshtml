@@ -141,6 +141,7 @@
                                 <img class="img-fluid" src="~/resources/@(photo.FilePath + '/' + photo.FileName)" alt="gallery-item">
                             </a>
                             <form asp-action="DownloadPhotoShootPhoto" asp-controller="Download">
+                                @Html.AntiForgeryToken()
                                 <input type="hidden" asp-for="@photo.FileName">
                                 <input type="hidden" asp-for="@photo.FileType">
                                 <input type="hidden" asp-for="@photo.FilePath">
