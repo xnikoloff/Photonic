@@ -58,7 +58,14 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Photoshoots()
         {
-            return View(await _photoShootService.GetAll());
+            IEnumerable<PhotoShoot> photoShoots = await _photoShootService.GetAll();
+
+            if(photoShoots == null || !photoShoots.Any())
+            {
+                return View("Error", "Нещо се обърка при извличането на Вашите фотосесии");
+            }
+
+            return View(photoShoots);
         }
 
         [HttpGet]
@@ -85,6 +92,12 @@ namespace OwlStock.Web.Controllers
         public async Task<IActionResult> ManagePhotoshoot(Guid id)
         {
             PhotoShoot? photoshoot = await _photoShootService.PhotoShootById(id);
+
+            if(photoshoot.Id == Guid.Empty)
+            {
+                return View("Error", "Фотосесията не е намерена");
+            }
+
             ManagePhotoshootDTO dto = new()
             {
                 Id = photoshoot.Id,
@@ -126,6 +139,11 @@ namespace OwlStock.Web.Controllers
         public async Task<IActionResult> UpdateFiles(Guid id)
         {
             PhotoShoot photoShootById = await _photoShootService.PhotoShootById(id);
+
+            if(photoShootById.Id == Guid.Empty)
+            {
+                return View("Error", "Фотосесията не е намерена");
+            }
 
             UpdatePhotoShootPhotosDTO filesToSPhotoShoot = new()
             {

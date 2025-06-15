@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure;
@@ -24,7 +25,8 @@ namespace OwlStock.Services
         {
             if(_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(SetReservedDate)}, {nameof(_context.PhotoShoots)} is null");
+                return false;
             }
 
             try
@@ -59,25 +61,42 @@ namespace OwlStock.Services
         {
             if (_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAll)}, {nameof(_context.PhotoShoots)} is null");
+                return new List<PhotoShoot>();
             }
 
-            return await _context.PhotoShoots
+            try
+            {
+                return await _context.PhotoShoots
                 .Include(ph => ph.IdentityUser)
                 .OrderByDescending(ph => ph.Id)
                 .ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new List<PhotoShoot>();
+            }
         }
 
         public async Task<PhotoShoot> PhotoShootById(Guid id)
         {
             if (_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAll)}, {nameof(_context.PhotoShoots)} is null");
+                return new();
             }
 
-            //List<string> files = await _fileService.GetFilesNamesForPhotoShoot(id);
+            if (id == Guid.Empty)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(PhotoShootById)}, {nameof(id)} is empty");
+                return new();
+            }
 
-            PhotoShoot? dto = await _context.PhotoShoots
+            try
+            {
+                PhotoShoot? dto = await _context.PhotoShoots
                 .Include(phs => phs.PhotoShootPhotos)
                 .Include(phs => phs.Place)
                     .ThenInclude(p => p.City)
@@ -86,22 +105,39 @@ namespace OwlStock.Services
                 .Where(phs => phs.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (dto == null)
-            {
-                throw new NullReferenceException($"{nameof(dto)} is null");
+                return dto;
             }
 
-            return dto;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
         }
 
         public async Task<PhotoShootByIdDTO?> PhotoShootById(Guid id, string userId)
         {
             if (_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAll)}, {nameof(_context.PhotoShoots)} is null");
+                return new();
             }
 
-            PhotoShoot? photoshoot = await _context.PhotoShoots
+            if (id == Guid.Empty)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(PhotoShootById)}, {nameof(id)} is empty");
+                return new();
+            }
+
+            if (userId.IsNullOrEmpty())
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(PhotoShootById)}, {nameof(userId)} is null or empty");
+                return new();
+            }
+
+            try
+            {
+                PhotoShoot? photoshoot = await _context.PhotoShoots
                 .Include(phs => phs.PhotoShootPhotos)
                 .Include(phs => phs.Place)
                     .ThenInclude(p => p.City)
@@ -109,53 +145,62 @@ namespace OwlStock.Services
                 .Where(phs => phs.Id == id && phs.IdentityUserId!.Equals(userId))
                 .FirstOrDefaultAsync();
 
-            if (photoshoot == null)
-            {
-                //return empty guid if photoshoot is not found
-                return new PhotoShootByIdDTO()
+                if (photoshoot == null)
                 {
-                    Id = Guid.Empty
+                    //return empty guid if photoshoot is not found
+                    return new PhotoShootByIdDTO()
+                    {
+                        Id = Guid.Empty
+                    };
+                }
+
+                PhotoShootByIdDTO dto = new()
+                {
+                    Id = photoshoot.Id,
+                    PhotoshootNumber = photoshoot.PhotoshootNumber,
+                    PersonFullName = photoshoot.PersonFullName,
+                    PersonPhone = photoshoot.PersonPhone,
+                    Status = photoshoot.Status,
+                    ReservationDate = photoshoot.ReservationDate,
+                    PhotoShootType = photoshoot.PhotoShootType,
+                    PhotoShootTypeDescription = photoshoot?.PhotoShootTypeDescription,
+                    CreatedOn = photoshoot.CreatedOn,
+                    IsPopularPlaceSelected = photoshoot?.PlaceId != null,
+                    Place = photoshoot?.Place?.Name,
+                    Settlement = photoshoot?.Place?.City?.Name,
+                    Region = photoshoot?.Place?.City?.Region?.Name,
+                    PhotoDeliveryAddress = photoshoot?.PhotoDeliveryAddress,
+                    PhotoDeliveryMethod = photoshoot?.PhotoDeliveryMethod,
+                    Price = photoshoot.Price,
+                    TransportCustomer = photoshoot.TransportCustomer,
+                    PickUpAddress = photoshoot?.PickUpAddress,
+                    IsSmallProduct = photoshoot.IsSmallProduct,
+                    PhotoShootPhotos = photoshoot?.PhotoShootPhotos,
+                    IdentityUserId = userId,
                 };
+
+                return dto;
             }
 
-            PhotoShootByIdDTO dto = new()
+            catch (Exception ex)
             {
-                Id = photoshoot.Id,
-                PhotoshootNumber = photoshoot.PhotoshootNumber,
-                PersonFullName = photoshoot.PersonFullName,
-                PersonPhone = photoshoot.PersonPhone,
-                Status = photoshoot.Status,
-                ReservationDate = photoshoot.ReservationDate,
-                PhotoShootType = photoshoot.PhotoShootType,
-                PhotoShootTypeDescription = photoshoot?.PhotoShootTypeDescription,
-                CreatedOn = photoshoot.CreatedOn,
-                IsPopularPlaceSelected = photoshoot?.PlaceId != null,
-                Place = photoshoot?.Place?.Name,
-                Settlement = photoshoot?.Place?.City?.Name,
-                Region = photoshoot?.Place?.City?.Region?.Name,
-                PhotoDeliveryAddress = photoshoot?.PhotoDeliveryAddress,
-                PhotoDeliveryMethod = photoshoot?.PhotoDeliveryMethod,
-                Price = photoshoot.Price,
-                TransportCustomer = photoshoot.TransportCustomer,
-                PickUpAddress = photoshoot?.PickUpAddress,
-                IsSmallProduct = photoshoot.IsSmallProduct,
-                PhotoShootPhotos = photoshoot?.PhotoShootPhotos,
-                IdentityUserId = userId,
-            };
-
-            return dto;
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
         }
 
         public async Task<List<MyPhotoShootsDTO>> MyPhotoShoots(string userId)
         {
-            if (userId == null)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
             if (_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAll)}, {nameof(_context.PhotoShoots)} is null");
+                return new();
+            }
+
+            if (userId.IsNullOrEmpty())
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(PhotoShootById)}, {nameof(id)} is empty");
+                return new();
             }
 
             List<MyPhotoShootsDTO> myPhotoShoots = await _context.PhotoShoots
@@ -233,30 +278,30 @@ namespace OwlStock.Services
 
         public async Task<Guid> AddSmallProduct(CreateSmallProductPhotoshootDTO dto)
         {
-                if (_context.PhotoShoots is null)
-                {
-                    throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
-                }
+            if (_context.PhotoShoots is null)
+            {
+                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+            }
 
-                await _context.PhotoShoots.AddAsync(new()
-                {
-                    PersonFirstName = dto.PersonFirstName,
-                    PersonLastName = dto.PersonLastName,
-                    PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
-                    PersonEmail = dto.PersonEmail,
-                    PersonPhone = dto.PersonPhone,
-                    PhotoShootType = dto.PhotoShootType,
-                    PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
-                    CreatedOn = DateTime.Now,
-                    DoNotUploadPhotos = dto.DoNotUploadPhotos,
-                    PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
-                    PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
-                    Price = dto.Price,
-                    IdentityUserId = dto.IdentityUserId,
-                    Status = PhotoshootStatus.New,
-                    PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
-                    IsSmallProduct = dto.IsSmallProduct
-                });
+            await _context.PhotoShoots.AddAsync(new()
+            {
+                PersonFirstName = dto.PersonFirstName,
+                PersonLastName = dto.PersonLastName,
+                PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
+                PersonEmail = dto.PersonEmail,
+                PersonPhone = dto.PersonPhone,
+                PhotoShootType = dto.PhotoShootType,
+                PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
+                CreatedOn = DateTime.Now,
+                DoNotUploadPhotos = dto.DoNotUploadPhotos,
+                PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
+                PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
+                Price = dto.Price,
+                IdentityUserId = dto.IdentityUserId,
+                Status = PhotoshootStatus.New,
+                PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
+                IsSmallProduct = dto.IsSmallProduct
+            });
 
             int result = await _context.SaveChangesAsync();
 

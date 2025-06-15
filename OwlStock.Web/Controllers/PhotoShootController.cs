@@ -164,6 +164,12 @@ namespace OwlStock.Web.Controllers
         public async Task<IActionResult> MyPhotoShoots()
         {
             List<MyPhotoShootsDTO> myPhotoShoots = await _photoShootService.MyPhotoShoots(GetUserId());
+
+            if (myPhotoShoots == null || myPhotoShoots.Count == 0)
+            {
+                return View("Error", "Не намерихме фотосесии");
+            }
+
             return View(myPhotoShoots);
         }
 
@@ -177,6 +183,7 @@ namespace OwlStock.Web.Controllers
             {
                 return View("Error", "Не намерихме фотосесията, която търсите");
             }
+
             return View(dto);
         }
 

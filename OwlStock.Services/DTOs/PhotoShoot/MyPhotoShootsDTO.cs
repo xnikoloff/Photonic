@@ -13,5 +13,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public PhotoshootStatus? PhotoshootStatus { get; set; }
         public string? ReservationFor { get; set; }
         public bool IsSmallProduct { get; set; }
+
+        public bool IsSuccessful { get; set; }
     }
 }
