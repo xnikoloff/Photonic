@@ -49,12 +49,14 @@ namespace OwlStock.Services
 
             MailMessage[] messages;
 
-            if (dto.EmailTemplate is EmailTemplate.CreatePhotoShoot)
+            try
             {
-                //if email template is for created photoshoot
-                //send template to user and Photon
-                messages = new MailMessage[]
+                if (dto.EmailTemplate is EmailTemplate.CreatePhotoShoot)
                 {
+                    //if email template is for created photoshoot
+                    //send template to user and Photon
+                    messages = new MailMessage[]
+                    {
                     new
                     (
                         "hristiyan.at.nikoloff@gmail.com",
@@ -72,15 +74,15 @@ namespace OwlStock.Services
                         GetTemplatePhoton(dto)
                     ),
 
-                };
-            }
+                    };
+                }
 
-            else
-            {
-                //if email template is not for created photoshoot
-                //send template to user only
-                messages = new MailMessage[]
+                else
                 {
+                    //if email template is not for created photoshoot
+                    //send template to user only
+                    messages = new MailMessage[]
+                    {
                     new
                     (
                         dto.From,
@@ -89,10 +91,17 @@ namespace OwlStock.Services
                         GetTemplate(dto)
                     )
 
-                };
+                    };
+                }
             }
-            
-            for(int i = 0; i < messages.Length; i++) 
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
+
+            for (int i = 0; i < messages.Length; i++) 
             {
                 try
                 {

@@ -35,7 +35,12 @@ namespace OwlStock.Web.Controllers
             }
 
             dto.EmailTemplate = EmailTemplate.SendInquiry;
-            await _emailService.Send(dto);
+            bool result = await _emailService.Send(dto);
+
+            if(!result)
+            {
+                return View("Error", "Получи се грешка при изпращането на запитването Ви. Моля опитайте отново.");
+            }
 
             return RedirectToAction(nameof(SuccessfulInquiry));
         }
