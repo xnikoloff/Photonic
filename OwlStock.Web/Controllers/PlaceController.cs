@@ -42,7 +42,7 @@ namespace OwlStock.Web.Controllers
         {
             PlaceByIdDTO? dto = await _placeService.PlaceById(id);
 
-            if (dto == null)
+            if (dto?.Id == Guid.Empty)
             {
                 return View("Error", "Мястото не може да бъде намерено");
             }
@@ -80,6 +80,11 @@ namespace OwlStock.Web.Controllers
             {
                 PlaceByIdDTO? createdPlace = await _placeService.PlaceById(placeGuid);
 
+                if(createdPlace?.Id == Guid.Empty)
+                {
+                    return View("Error", "An error occured while creating the place");
+                }
+
                 CreatePlacePhotoFile(createdPlace, ConvertFormFileToByteArray(dto.File));
                 return RedirectToAction(nameof(PlaceById), new { id = placeGuid, isUpdate = false });
             }
@@ -114,14 +119,19 @@ namespace OwlStock.Web.Controllers
                 return View("Error", "An error occured while updating the place");
             }
 
-            PlaceByIdDTO? photoByIdDTO = await _placeService.PlaceById(placeId);
+            PlaceByIdDTO? placeByIdDTO = await _placeService.PlaceById(placeId);
+
+            if(placeByIdDTO?.Id == Guid.Empty)
+            {
+                return View("Error", "An error occured while updating the place");
+            }
             
             //update place photo if file is not null
             if (dto.File != null)
             {
                 PhotoBase createdPhoto = dto.Place.PhotoBase = await CreatePlacePhoto(dto);
                 await _placeService.UpdatePhotoId(placeId, createdPhoto.Id);
-                CreatePlacePhotoFile(photoByIdDTO ?? new(), ConvertFormFileToByteArray(dto.File));
+                CreatePlacePhotoFile(placeByIdDTO ?? new(), ConvertFormFileToByteArray(dto.File));
             }
             
             if (placeId != Guid.Empty)

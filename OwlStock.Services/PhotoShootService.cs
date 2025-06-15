@@ -119,7 +119,7 @@ namespace OwlStock.Services
         {
             if (_context.PhotoShoots is null)
             {
-                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAll)}, {nameof(_context.PhotoShoots)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(PhotoShootById)}, {nameof(_context.PhotoShoots)} is null");
                 return new();
             }
 
@@ -193,7 +193,7 @@ namespace OwlStock.Services
         {
             if (_context.PhotoShoots is null)
             {
-                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAll)}, {nameof(_context.PhotoShoots)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(MyPhotoShoots)}, {nameof(_context.PhotoShoots)} is null");
                 return new();
             }
 
@@ -227,18 +227,20 @@ namespace OwlStock.Services
         {
             if (_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
-            }
-
-            if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto));
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Add)}, {nameof(_context.PhotoShoots)} is null");
+                return Guid.Empty;
             }
 
             try
             {
                 string number = GeneratePhotoshootNumber(dto.PersonEmail ?? throw new NullReferenceException($"{nameof(dto.PersonEmail)} is null"), dto.PhotoShootType);
                 
+                if(number.IsNullOrEmpty())
+                {
+                    _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Add)}, {nameof(GeneratePhotoshootNumber)} returned empty string");
+                    return Guid.Empty;
+                }
+
                 PhotoShoot photoShoot = new()
                 {
                     PersonFirstName = dto.PersonFirstName,
@@ -258,7 +260,7 @@ namespace OwlStock.Services
                     IdentityUserId = dto.IdentityUserId,
                     Status = PhotoshootStatus.New,
                     PlaceId = dto.PlaceId == Guid.Empty ? null : dto.PlaceId,
-                    PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
+                    PhotoshootNumber = number,
                     TransportCustomer = dto.TransportCustomer,
                     PickUpAddress = dto.PickUpAddress
                 };
@@ -280,42 +282,60 @@ namespace OwlStock.Services
         {
             if (_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
-            }
-
-            await _context.PhotoShoots.AddAsync(new()
-            {
-                PersonFirstName = dto.PersonFirstName,
-                PersonLastName = dto.PersonLastName,
-                PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
-                PersonEmail = dto.PersonEmail,
-                PersonPhone = dto.PersonPhone,
-                PhotoShootType = dto.PhotoShootType,
-                PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
-                CreatedOn = DateTime.Now,
-                DoNotUploadPhotos = dto.DoNotUploadPhotos,
-                PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
-                PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
-                Price = dto.Price,
-                IdentityUserId = dto.IdentityUserId,
-                Status = PhotoshootStatus.New,
-                PhotoshootNumber = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType),
-                IsSmallProduct = dto.IsSmallProduct
-            });
-
-            int result = await _context.SaveChangesAsync();
-
-            PhotoShoot? photoShootResult = await _context.PhotoShoots
-                .OrderByDescending(ph => ph.Id)
-                .FirstOrDefaultAsync() ??
-                    throw new NullReferenceException($"No records found");
-
-            if (result == 0)
-            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(AddSmallProduct)}, {nameof(_context.PhotoShoots)} is null");
                 return Guid.Empty;
             }
 
-            return photoShootResult.Id;
+            try
+            {
+                string number = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType);
+
+                if(number.IsNullOrEmpty())
+                {
+                    _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(AddSmallProduct)}, {nameof(GeneratePhotoshootNumber)} returned empty string");
+                    return Guid.Empty;
+                }
+
+                await _context.PhotoShoots.AddAsync(new()
+                {
+                    PersonFirstName = dto.PersonFirstName,
+                    PersonLastName = dto.PersonLastName,
+                    PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
+                    PersonEmail = dto.PersonEmail,
+                    PersonPhone = dto.PersonPhone,
+                    PhotoShootType = dto.PhotoShootType,
+                    PhotoShootTypeDescription = dto.PhotoShootTypeDescription,
+                    CreatedOn = DateTime.Now,
+                    DoNotUploadPhotos = dto.DoNotUploadPhotos,
+                    PhotoDeliveryMethod = dto.PhotoDeliveryMethod,
+                    PhotoDeliveryAddress = dto.PhotoDeliveryAddress,
+                    Price = dto.Price,
+                    IdentityUserId = dto.IdentityUserId,
+                    Status = PhotoshootStatus.New,
+                    PhotoshootNumber = number,
+                    IsSmallProduct = dto.IsSmallProduct
+                });
+
+                int result = await _context.SaveChangesAsync();
+
+                PhotoShoot? photoShootResult = await _context.PhotoShoots
+                    .OrderByDescending(ph => ph.Id)
+                    .FirstOrDefaultAsync() ??
+                        throw new NullReferenceException($"No records found");
+
+                if (result == 0)
+                {
+                    return Guid.Empty;
+                }
+
+                return photoShootResult.Id;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return Guid.Empty;
+            }
         }
 
         public async Task<PhotoShoot> Update(ManagePhotoshootDTO dto)
@@ -351,11 +371,20 @@ namespace OwlStock.Services
         public async Task<IEnumerable<DateTime>> GetReservedDates()
         {
             //Get reservation dates from today's date forward
-            return await _context.PhotoShoots
+            try
+            {
+                return await _context.PhotoShoots
                 .Where(p => p.ReservationDate.Date >= DateTime.Now.Date)
                 .Select(ph => ph.ReservationDate)
                 .OrderBy(p => p.Date)
                 .ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new List<DateTime>();
+            }
         }
         
         public async Task<ChangePhotoshootStatusDTO> ChangeStatus(Guid id, PhotoshootStatus status)
@@ -387,23 +416,34 @@ namespace OwlStock.Services
         {
             if (_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetPersonName)}, {nameof(_context.PhotoShoots)} is null");
+                return string.Empty;
             }
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentException("Guid is empty", $"{nameof(id)}");
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetPersonName)}, {nameof(id)} is empty");
+                return string.Empty;
             }
 
-            string? name = await _context.PhotoShoots
+            try
+            {
+                string? name = await _context.PhotoShoots
                 .Where(ps => ps.Id == id)
                 .Select(ps => ps.PersonFirstName + ps.PersonLastName)
                 .FirstOrDefaultAsync();
 
-            return name ?? throw new NullReferenceException($"{nameof(name)} is null or empty");
+                return name ?? string.Empty;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return string.Empty;
+            }
         }
 
-        private static string GeneratePhotoshootNumber(string email, PhotoShootType photoShootType)
+        private string GeneratePhotoshootNumber(string email, PhotoShootType photoShootType)
         {
             string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -413,16 +453,25 @@ namespace OwlStock.Services
             int randomNumber2 = random.Next(0, alphabet.Length);
             int randomNumber3 = random.Next(0, alphabet.Length);
 
-            string number = 
-                        "PH-" +
-                        DateTime.Now.Year.ToString()[2..] +
-                        DateTime.Now.Month +
-                        DateTime.Now.Day +
-                        photoShootType.ToString()[..3].ToUpper() +
-                        email.ToUpper()[..3] + "-" +
-                        alphabet[randomNumber1] + alphabet[randomNumber2] + alphabet[randomNumber3];
-            
-            return number;
+            try
+            {
+                string number =
+                    "PH-" +
+                    DateTime.Now.Year.ToString()[2..] +
+                    DateTime.Now.Month +
+                    DateTime.Now.Day +
+                    photoShootType.ToString()[..3].ToUpper() +
+                    email.ToUpper()[..3] + "-" +
+                    alphabet[randomNumber1] + alphabet[randomNumber2] + alphabet[randomNumber3];
+
+                return number;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return string.Empty;
+            }
         }
     }
 }

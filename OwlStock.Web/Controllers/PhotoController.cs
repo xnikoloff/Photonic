@@ -114,14 +114,19 @@ namespace OwlStock.Web.Controllers
                 _fileService.CreatePhotoFile(dto.GalleryPhoto);
 
                 PhotoBase photo = await _photoService.Create(dto.GalleryPhoto, GetUserId());
-                bool result = await _categoryService.Create(dto.Categories, photo.Id);
+                bool resultPhoto = await _categoryService.Create(dto.Categories, photo.Id);
 
-                if (!result)
+                if (!resultPhoto)
                 {
                     return View("Error", "Неуспешно съзваване на категория. Снимката не беше създадена.");
                 }
 
-                await _photoTagService.Add(dto.Tags, photo.Id);
+                bool resultTags = await _photoTagService.Add(dto.Tags, photo.Id);
+
+                if (!resultTags)
+                {
+                    return View("Error", "Неуспешно съзваване на тагове. Снимката не беше създадена.");
+                }
 
             }
             

@@ -73,6 +73,12 @@ namespace OwlStock.Web.Controllers
         public async Task<IActionResult> DownloadAll(Guid photoshootId)
         {
             string photoshootPersonName = await _photoShootService.GetPersonName(photoshootId);
+
+            if (string.IsNullOrEmpty(photoshootPersonName))
+            {
+                return View("Error", "Получи се грешка при изтеглянето на снимките");
+            }
+
             string photoshootFolderName = $"{photoshootPersonName}_{photoshootId}";
             string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, "resources", "photoshoots", photoshootFolderName);
             string[] files = Directory.GetFiles(folderPath);

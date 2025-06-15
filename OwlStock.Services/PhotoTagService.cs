@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
 using OwlStock.Services.Interfaces;
@@ -8,28 +9,46 @@ namespace OwlStock.Services
     public class PhotoTagService : IPhotoTagService
     {
         private readonly OwlStockDbContext _context;
+        private readonly ILogger<PhotoTagService> _logger;
 
-        public PhotoTagService(OwlStockDbContext context)
+        public PhotoTagService(OwlStockDbContext context, ILogger<PhotoTagService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
-        public async Task<int> Add(string tags, Guid photoId)
+        public async Task<bool> Add(string tags, Guid photoId)
         {
             List<string> tagsSplit = SplitTags(tags);
 
-            for(int i = 0; i < tagsSplit.Count; i++)
+            if (tagsSplit.Count == 0)
             {
-                Tag tag = new()
-                {
-                    PhotoId = photoId,
-                    Text = tagsSplit[i]
-                };
-
-                await _context.AddAsync(tag);
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Add)}, {nameof(tagsSplit)} is empty");
+                return false;
             }
 
-            return await _context.SaveChangesAsync();
+            try
+            {
+                for (int i = 0; i < tagsSplit.Count; i++)
+                {
+                    Tag tag = new()
+                    {
+                        PhotoId = photoId,
+                        Text = tagsSplit[i]
+                    };
+
+                    await _context.AddAsync(tag);
+                    await _context.SaveChangesAsync();
+                }
+                
+                return true;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
         }
 
         public async Task<List<Guid>> GetPhotoIdListByTag(string tagText)
@@ -44,15 +63,24 @@ namespace OwlStock.Services
         
         private List<string> SplitTags(string tags)
         {
-            List<string> tagsSplit = tags.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-            List<string> tagsCleaned = new();
-
-            for (int i = 0; i < tagsSplit.Count; i++)
+            try
             {
-                tagsCleaned.Add(tagsSplit[i].TrimStart());
+                List<string> tagsSplit = tags.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+                List<string> tagsCleaned = new();
+
+                for (int i = 0; i < tagsSplit.Count; i++)
+                {
+                    tagsCleaned.Add(tagsSplit[i].TrimStart());
+                }
+
+                return tagsCleaned;
             }
 
-            return tagsCleaned;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while splitting tags at {Time}", DateTime.UtcNow);
+                return new List<string>();
+            }
         }
     }
 }

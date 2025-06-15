@@ -22,6 +22,7 @@ namespace OwlStock.Services
         {
             if(_context.Places is null)
             {
+                _logger.LogInformation("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(All), nameof(PlaceService), DateTime.Now);
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
@@ -33,8 +34,9 @@ namespace OwlStock.Services
 
         public async Task<IEnumerable<Place>> AllPopular()
         {
-            if(_context.Places is null)
+            if (_context.Places is null)
             {
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(All), nameof(PlaceService), DateTime.Now);
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
@@ -47,11 +49,13 @@ namespace OwlStock.Services
         {
             if(regionId == 0)
             {
+                _logger.LogError("{var} is 0 in {Method}, {Class}, {DateTime}", nameof(regionId), nameof(GetPopularPlacesByRegion), nameof(PlaceService), DateTime.Now);
                 throw new ArgumentNullException($"{nameof(regionId)} is {regionId}");
             }
 
             if(_context.Places is null)
             {
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(GetPopularPlacesByRegion), nameof(PlaceService), DateTime.Now);
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
@@ -65,15 +69,19 @@ namespace OwlStock.Services
         {
             if (_context.Places is null)
             {
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(PlaceById), nameof(PlaceService), DateTime.Now);
                 throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
             if(_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.PhotoShoots), nameof(PlaceById), nameof(PlaceService), DateTime.Now);
+                throw new NullReferenceException($"{nameof(_context.Places)} is null");
             }
 
-            Place? place = await _context.Places
+            try
+            {
+                Place? place = await _context.Places
                 .Include(p => p.PhotoBase)
                 .Include(p => p.PhotoShoots)
                     .ThenInclude(ps => ps.PhotoShootPhotos)
@@ -81,27 +89,35 @@ namespace OwlStock.Services
                 .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
 
-            if(place != null && place?.PhotoBase == null)
-            {
-                place!.PhotoBase = new();
+                if (place != null && place?.PhotoBase == null)
+                {
+                    place!.PhotoBase = new();
+                }
+
+                List<PhotoShootPhoto>? photos = (place?.PhotoShoots ?? new List<PhotoShoot>())
+                    .Where(p => p.PlaceId == place?.Id)
+                    .Select(p => p.PhotoShootPhotos.ToList())
+                    .FirstOrDefault() ?? new List<PhotoShootPhoto>();
+
+
+                PlaceByIdDTO dto = new()
+                {
+                    Id = place?.Id ?? Guid.Empty,
+                    Name = place?.Name,
+                    Description = place?.Description,
+                    PhotoFileName = place?.PhotoBase?.FileName,
+                    Photos = photos,
+                    PhotoBase = place?.PhotoBase ?? new()
+                };
+
+                return dto;
             }
 
-            List<PhotoShootPhoto>? photos = (place?.PhotoShoots ?? new List<PhotoShoot>())
-                .Where(p => p.PlaceId == place?.Id)
-                .Select(p => p.PhotoShootPhotos.ToList())
-                .FirstOrDefault() ?? new List<PhotoShootPhoto>();
-
-
-            PlaceByIdDTO dto = new()
+            catch (Exception ex)
             {
-                Name = place?.Name,
-                Description = place?.Description,
-                PhotoFileName = place?.PhotoBase?.FileName,
-                Photos = photos,
-                PhotoBase = place?.PhotoBase ?? new()
-            };
-
-            return dto;
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
         }
         
         public async Task<Guid> Create(CreatePlaceDTO dto)
