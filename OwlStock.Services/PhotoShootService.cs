@@ -391,12 +391,14 @@ namespace OwlStock.Services
         {
             if (_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                _logger.LogError($"{nameof(_context.Announcements)} is null at {DateTime.UtcNow} in {nameof(PhotoService)}, {nameof(ChangeStatus)}");
+                return new ChangePhotoshootStatusDTO();
             }
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentException("Guid is empty", $"{nameof(id)}");
+                _logger.LogError($"{nameof(id)} is empty at {DateTime.UtcNow} in {nameof(PhotoService)}, {nameof(ChangeStatus)}");
+                return new ChangePhotoshootStatusDTO();
             }
 
             PhotoShoot? photoShoot = await _context.PhotoShoots.FindAsync(id) ??

@@ -50,13 +50,13 @@ namespace OwlStock.Services
             if(regionId == 0)
             {
                 _logger.LogError("{var} is 0 in {Method}, {Class}, {DateTime}", nameof(regionId), nameof(GetPopularPlacesByRegion), nameof(PlaceService), DateTime.Now);
-                throw new ArgumentNullException($"{nameof(regionId)} is {regionId}");
+                return Enumerable.Empty<Place>();
             }
 
             if(_context.Places is null)
             {
                 _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(GetPopularPlacesByRegion), nameof(PlaceService), DateTime.Now);
-                throw new NullReferenceException($"{nameof(_context.Places)} is null");
+                return Enumerable.Empty<Place>();
             }
 
             return await _context.Places
@@ -70,13 +70,13 @@ namespace OwlStock.Services
             if (_context.Places is null)
             {
                 _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(PlaceById), nameof(PlaceService), DateTime.Now);
-                throw new NullReferenceException($"{nameof(_context.Places)} is null");
+                return new();
             }
 
             if(_context.PhotoShoots is null)
             {
                 _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.PhotoShoots), nameof(PlaceById), nameof(PlaceService), DateTime.Now);
-                throw new NullReferenceException($"{nameof(_context.Places)} is null");
+                return new();
             }
 
             try
@@ -124,7 +124,8 @@ namespace OwlStock.Services
         {
             if(_context.Places is null)
             {
-                throw new NullReferenceException($"{nameof(_context.Places)} is null");
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(Create), nameof(PlaceService), DateTime.Now);
+                return Guid.Empty;
             }
 
             try

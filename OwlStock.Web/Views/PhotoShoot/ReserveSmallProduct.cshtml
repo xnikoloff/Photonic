@@ -116,6 +116,7 @@
                                         }
 
                                         <label asp-for="PersonEmail"></label>
+                                        <span class="text-danger" id="email-error-message" style="display:none">Въведете валиден имейл</span>
 
                                     </div>
                                 </div>
@@ -441,7 +442,18 @@
          }
 
          else {
-             return true;
+            const email = $('#PersonEmail').val();
+            const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            if (!emailRegex.test(email)) {
+                $('#email-error-message').css("display", "block");
+                return false;
+            }
+
+            else {
+                console.log('else');
+                $('#email-error-message').css("display", "none");
+                return true;
+            }
          }
      }
 

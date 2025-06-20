@@ -177,7 +177,13 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> DeclinePhotoshoot(Guid id)
         {
-            await _photoShootService.ChangeStatus(id, PhotoshootStatus.Declined);
+            ChangePhotoshootStatusDTO dto =  await _photoShootService.ChangeStatus(id, PhotoshootStatus.Declined);
+
+            if (dto.Id == Guid.Empty)
+            {
+                return View("Error", "Неуспешна промяна на статус");
+            }
+
             return RedirectToAction(nameof(Photoshoots));
         }
 
