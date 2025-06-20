@@ -22,12 +22,14 @@ namespace OwlStock.Services
         {
             if (announcement == null)
             {
-                throw new ArgumentNullException($"{nameof(announcement)}");
+                _logger.LogError($"Announcement is null at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(Create)}");
+                return false;
             }
 
             if (announcement.Content.IsNullOrEmpty())
             {
-                throw new NullReferenceException($"{nameof(announcement.Content)} is null or empty");
+                _logger.LogError($"Announcement content is null or empty at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(Create)}");
+                return false;
             }
 
             try
@@ -55,28 +57,37 @@ namespace OwlStock.Services
         {
             if (_context.Announcements is null)
             {
-                throw new NullReferenceException($"{nameof(_context.Announcements)} is null");
+                _logger.LogError($"{nameof(_context.Announcements)} is null at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(Update)}");
+                return false;
             }
 
             if (announcement == null)
             {
-                throw new ArgumentNullException($"{nameof(announcement)}");
+                _logger.LogError($"{nameof(announcement)} is null at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(Update)}");
+                return false;
             }
 
             if (announcement.Content.IsNullOrEmpty())
             {
-                throw new NullReferenceException($"{nameof(announcement.Content)} is null or empty");
+                _logger.LogError($"{nameof(announcement.Content)} is null or empty at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(Update)}");
+                return false;
             }
 
             if (announcement.Id == Guid.Empty)
             {
-                throw new NullReferenceException($"{nameof(announcement.Id)} is null or empty");
+                _logger.LogError($"{nameof(announcement.Id)} is null or empty at {DateTime.UtcNow}");
+                return false;
             }
 
             try
             {
-                Announcement existingAnnouncement = await _context.Announcements.FindAsync(announcement.Id) ??
-                throw new NullReferenceException($"{nameof(announcement)} with id {announcement.Id} cannot be found");
+                Announcement? existingAnnouncement = await _context.Announcements.FindAsync(announcement.Id);
+                
+                if (existingAnnouncement == null)
+                {
+                    _logger.LogError($"Announcement with id {announcement.Id} not found at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(Update)}");
+                    return false;
+                }
 
                 existingAnnouncement.Content = announcement.Content;
                 existingAnnouncement.EditedOn = DateTime.Now;
@@ -97,7 +108,8 @@ namespace OwlStock.Services
         {
             if(_context.Announcements is null)
             {
-                throw new NullReferenceException($"{nameof(_context.Announcements)} is null");
+                _logger.LogError($"{nameof(_context.Announcements)} is null at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(GetAll)}");
+                return Enumerable.Empty<Announcement>();
             }
 
             return await _context.Announcements.ToListAsync();
@@ -107,7 +119,8 @@ namespace OwlStock.Services
         {
             if (_context.Announcements is null)
             {
-                throw new NullReferenceException($"{nameof(_context.Announcements)} is null");
+                _logger.LogError($"{nameof(_context.Announcements)} is null at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(GetActive)}");
+                return Enumerable.Empty<Announcement>();
             }
 
             return await _context.Announcements
@@ -119,12 +132,14 @@ namespace OwlStock.Services
         {
             if (_context.Announcements is null)
             {
-                throw new NullReferenceException($"{nameof(_context.Announcements)} is null");
+                _logger.LogError($"{nameof(_context.Announcements)} is null at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(GetById)}");
+                return new Announcement();
             }
 
             if (id == Guid.Empty)
             {
-                throw new NullReferenceException($"{nameof(id)} is null or empty");
+                _logger.LogError($"{nameof(id)} is null or empty at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(GetById)}");
+                return new Announcement();
             }
 
             Announcement? announcement = await _context.Announcements.FindAsync(id);
@@ -136,18 +151,25 @@ namespace OwlStock.Services
         {
             if(_context.Announcements is null)
             {
-                throw new NullReferenceException($"{nameof(_context.Announcements)}");
+                _logger.LogError($"{nameof(_context.Announcements)} is null at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(ManageAnnouncementsVisibility)}");
+                return false;
             }
 
             if(id == Guid.Empty)
             {
-                throw new ArgumentNullException($"{nameof(id)}");
+                _logger.LogError($"{nameof(id)} is null or empty at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(ManageAnnouncementsVisibility)}");
+                return false;
             }
 
             try
             {
-                Announcement announcement = await _context.Announcements.FindAsync(id) ??
-                throw new NullReferenceException($"{nameof(announcement)} with id {id} cannot be found");
+                Announcement? announcement = await _context.Announcements.FindAsync(id);
+
+                if(announcement == null)
+                {
+                    _logger.LogError($"Announcement with id {id} not found at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(ManageAnnouncementsVisibility)}");
+                    return false;
+                }
 
                 if (announcement.IsActive)
                 {
