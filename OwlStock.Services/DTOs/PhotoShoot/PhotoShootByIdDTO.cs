@@ -20,6 +20,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public string? Region { get; set; }
         public PhotoDeliveryMethod? PhotoDeliveryMethod { get; set; }
         public string? PhotoDeliveryAddress { get; set; }
+        public string? UIC { get; set; }
         public decimal Price { get; set; }
         public bool TransportCustomer { get; set; }
         public string? PickUpAddress { get; set; }

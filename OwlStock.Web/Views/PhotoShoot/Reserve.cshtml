@@ -654,7 +654,7 @@
                                     <h2 class="section-title">Лични данни</h2>
                                 </div>
                             </div>
-                            <div class="row row-section-4 mt-1 row-email">
+                            <div class="row row-section-4 mt-2 row-email">
                                 <div class="col-md-12 mx-auto">
                                     <div class="form-floating email-wrap">
 
@@ -696,6 +696,16 @@
                                         <input asp-for="PersonPhone" class="form-control" />
                                         <label asp-for="PersonPhone">Телефон</label>
                                         <span class="text-danger" id="phone-error-message" style="display:none">Въведете валиден номер</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-4 my-5 row-invoice">
+                                <h6>Фактура за бизнес клиенти</h6>
+                                <div class="col-md-12 mx-auto">
+                                    <div class="form-floating invoice-wrap mt-3">
+                                        <input asp-for="UIC" class="form-control" />
+                                        <label asp-for="UIC"></label>
+                                        <span class="text-danger" id="uic-error-message" style="display:none">Въведете валиден ЕИК номер</span>
                                     </div>
                                 </div>
                             </div>
@@ -818,6 +828,7 @@
                             <span id="summary-last-name"></span>
                         </p>
                         <p><i class="fa-solid fa-phone fa-lg"></i><span class="summary-data" id="summary-telephone">Телефон</span></p>
+                        <p id="uic-summary-wrap"><i class="fa-solid fa-file-invoice fa-lg"></i><span class="summary-data" id="summary-uic">ЕИК</span></p>
                     </div>
                     <hr />
                     <div class="summary-section-price">
@@ -1339,6 +1350,11 @@
             validatePersonalData();
             setPhoneSummary($(this).val());
         });
+        
+        $("#UIC").change(function(){
+            validateUIC();
+            setUICSummary($(this).val());
+        });
 
         $("#TransportCustomer").change(function () {
             if($(this).is(":checked")){
@@ -1736,7 +1752,7 @@
     
     //validate seciton four -> peronal date
     function validatePersonalData(){
-        if(validateEmail() && validateFirstName() && validateLastName() && validatePhone()){
+         if(validateEmail() && validateFirstName() && validateLastName() && validatePhone()){
             $(".btn-section-submit-seciton-4").prop("disabled", false);
         }
         else{
@@ -1748,7 +1764,7 @@
 
     //validate email
     function validateEmail(){
-        if ($("#PersonEmail").val() == '' || $("#PersonEmail").val() == undefined) {
+        if ($("#PersonEmail").val() == '' || $("#PersonEmail").val() == undefined) {    
             return false;
         }
 
@@ -1812,6 +1828,33 @@
             }
         }
     }
+
+     //validate UIC
+     function validateUIC(){
+             console.log('inside');
+         if ($("#UIC").val() == '' || $("#UIC").val() == undefined) {
+              $(".btn-section-submit-seciton-4").prop("disabled", false);
+             return false;
+         }
+
+         else {
+             const uic = $('#UIC').val();
+             const uicRegex = /^(\d{9}|\d{13})$/;
+
+             if (!uicRegex.test(uic)) {
+                 $('#uic-error-message').css("display", "block");
+                 $(".btn-section-submit-seciton-4").prop("disabled", true);
+                 return false;
+             }
+
+             else {
+                 $('#uic-error-message').css("display", "none");
+                 $(".btn-section-submit-seciton-4").prop("disabled", false);
+                 return true;
+
+             }
+         }
+     }
 
 
 
@@ -2023,6 +2066,18 @@
 
         else {
             $("#summary-telephone").text("-");
+        }
+    }
+
+     function setUICSummary(uic) {
+        if (uic != "" && uic != undefined) {
+             $("#uic-summary-wrap").css("display", "block");
+            $("#summary-uic").text(uic);
+        }
+
+        else {
+             $("#uic-summary-wrap").css("display", "none");
+            $("#summary-uic").text("-");
         }
     }
 

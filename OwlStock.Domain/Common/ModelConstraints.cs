@@ -17,6 +17,8 @@
         public const int GoogleMapsLinkDescriptionMxLength = 300;
         public const int PhotoDeliveryAddressMxLength = 150;
         public const int UserPlace = 50;
+        public const int UICMinLength = 9;
+        public const int UICMaxLength = 13;
 
 
         //Common

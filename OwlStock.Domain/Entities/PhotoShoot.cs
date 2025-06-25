@@ -26,6 +26,7 @@ namespace OwlStock.Domain.Entities
         public string? PhotoShootTypeDescription { get; set; }
         public DateTime ReservationDate { get; set; }
         public bool IsDecidedByUs { get; set; }
+        public string? UIC { get; set; }
         public decimal Price { get; set; }
         public bool DoNotUploadPhotos { get; set; }
         public PhotoDeliveryMethod? PhotoDeliveryMethod { get; set; }

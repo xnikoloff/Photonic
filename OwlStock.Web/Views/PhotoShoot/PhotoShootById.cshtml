@@ -38,6 +38,7 @@
                             <th>Създаден</th>
                             <th>Име</th>
                             <th>Телефон</th>
+                            <th>ЕИК</th>
                             <th>Статус</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@
                             <td>@Model?.CreatedOn.ToString("dd.MM.yyyy") г. @Model?.CreatedOn.ToString("HH:mm") ч.</td>
                             <td>@Model?.PersonFullName</td>
                             <td>@Model?.PersonPhone</td>
+                            <td>@(Model?.UIC ?? "Няма")</td>
                             <td class="@(Model?.Status == PhotoshootStatus.New ? "text-info" : "text-success") font-weight-bold">@(Model?.Status?.GetAttribute<DisplayAttribute>().Name)</td>
                         </tr>
                     </tbody>

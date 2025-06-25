@@ -29,6 +29,10 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         [MaxLength(ModelConstraints.PersonPhoneMaxLenth)]
         public string? PersonPhone { get; set; }
 
+        [Display(Name = "ЕИК")]
+        [StringLength(ModelConstraints.UICMaxLength, MinimumLength = ModelConstraints.UICMinLength)]
+        public string? UIC { get; set; }
+
         [Display(Name = "Описание")]
         [MaxLength(ModelConstraints.PhotoShootTypeDescriptionMaxLength)]
         public string? PhotoShootTypeDescription { get; set; }
