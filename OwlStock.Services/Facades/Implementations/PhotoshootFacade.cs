@@ -176,8 +176,18 @@ namespace OwlStock.Services.Facades.Implementations
 
             if (dto.IdentityUserId.IsNullOrEmpty())
             {
-                user.Email = dto.PersonEmail;
-                user.UserName = dto.PersonEmail;
+                //check if user already exists
+                user = await _administrationService.GetUserByEmailAsync(dto?.PersonEmail ?? "");
+
+                if(user.Id != string.Empty)
+                {
+                    dto.IdentityUserId = user.Id;
+                    return true;
+                }
+
+                //else, create new user
+                user.Email = dto?.PersonEmail;
+                user.UserName = dto?.PersonEmail;
 
 
                 string password = await _administrationService.CreateUser(user);

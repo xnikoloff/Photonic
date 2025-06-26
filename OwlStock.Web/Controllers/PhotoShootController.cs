@@ -83,8 +83,8 @@ namespace OwlStock.Web.Controllers
             //UserPlace (the name of the place that is created by the user) is no longer required
             //and remove the Id of the select place from the ModelState since
             //no place was selected
-                if (dto.IsDecidedByUs)
-                {
+            if (dto.IsDecidedByUs)
+            {
                 ModelState.Remove("UserPlace");
                 ModelState.Remove("PlaceId");
             }

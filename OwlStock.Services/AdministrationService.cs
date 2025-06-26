@@ -94,6 +94,36 @@ namespace OwlStock.Services
         }
 
         /// <summary>
+        /// Gets user by the provided email
+        /// </summary>
+        /// <param name="userId">Email of the user</param>
+        /// <returns>An IdentityUser object</returns>
+        public async Task<IdentityUser> GetUserByEmailAsync(string email)
+        {
+            if (email.IsNullOrEmpty())
+            {
+                return new();
+            }
+
+            try
+            {
+                IdentityUser? user = await _userManager.FindByEmailAsync(email);
+
+                if (user == null)
+                {
+                    return new();
+                }
+
+                return user;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
+        }
+
+        /// <summary>
         /// Generates password for user with
         /// uppercase, lowercase, number and special char
         /// </summary>

@@ -6,5 +6,6 @@ namespace OwlStock.Services.Interfaces
     {
         Task<string> CreateUser(IdentityUser user);
         Task<string> GetUserEmailByIdAsync(string userId);
+        Task<IdentityUser> GetUserByEmailAsync(string email);
     }
 }
