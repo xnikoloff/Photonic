@@ -112,7 +112,16 @@ namespace OwlStock.Services
                 return Enumerable.Empty<Announcement>();
             }
 
-            return await _context.Announcements.ToListAsync();
+            try
+            {
+                return await _context.Announcements.ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return Enumerable.Empty<Announcement>();
+            }
         }
 
         public async Task<IEnumerable<Announcement>> GetActive()
@@ -123,9 +132,18 @@ namespace OwlStock.Services
                 return Enumerable.Empty<Announcement>();
             }
 
-            return await _context.Announcements
+            try
+            {
+                return await _context.Announcements
                 .Where(a => a.IsActive)
                 .ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return Enumerable.Empty<Announcement>();
+            }
         }
 
         public async Task<Announcement> GetById(Guid id)
@@ -142,9 +160,16 @@ namespace OwlStock.Services
                 return new Announcement();
             }
 
-            Announcement? announcement = await _context.Announcements.FindAsync(id);
+            try
+            {
+                return await _context.Announcements.FindAsync(id) ?? new Announcement();
+            }
             
-            return announcement ?? new Announcement();
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new Announcement();
+            }
         }
 
         public async Task<bool> ManageAnnouncementsVisibility(Guid id, string userId)

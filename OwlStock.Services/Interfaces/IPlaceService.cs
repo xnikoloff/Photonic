@@ -11,6 +11,6 @@ namespace OwlStock.Services.Interfaces
         Task<PlaceByIdDTO?> PlaceById(Guid id);
         Task<Guid> Create(CreatePlaceDTO place);
         Task<Guid> Update(Place place);
-        Task<Place?> UpdatePhotoId(Guid placeId, Guid photoId);
+        Task<bool> UpdatePhotoId(Guid placeId, Guid photoId);
     }
 }

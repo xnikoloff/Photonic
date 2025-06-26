@@ -53,12 +53,21 @@ namespace OwlStock.Services
 
         public async Task<List<Guid>> GetPhotoIdListByTag(string tagText)
         {
-            List<Guid> ids = await _context.Tags
+            try
+            {
+                List<Guid> ids = await _context.Tags
                 .Where(t => t.Text.Contains(tagText))
                 .Select(t => t.PhotoId)
                 .ToListAsync();
 
-            return ids;
+                return ids;
+            }
+            
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving photo IDs by tag at {Time}", DateTime.UtcNow);
+                return new List<Guid>();
+            }
         }
         
         private List<string> SplitTags(string tags)

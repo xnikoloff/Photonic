@@ -132,7 +132,13 @@ namespace OwlStock.Web.Controllers
             if (dto.File != null)
             {
                 PhotoBase createdPhoto = dto.Place.PhotoBase = await CreatePlacePhoto(dto);
-                await _placeService.UpdatePhotoId(placeId, createdPhoto.Id);
+                bool result = await _placeService.UpdatePhotoId(placeId, createdPhoto.Id);
+
+                if (!result)
+                {
+                    return View("Error", "An error occured while updating the place");
+                }
+
                 CreatePlacePhotoFile(placeByIdDTO ?? new(), ConvertFormFileToByteArray(dto.File));
             }
             

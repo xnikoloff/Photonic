@@ -8,6 +8,6 @@ namespace OwlStock.Services.Interfaces
     {
         bool CreatePhotoFile(PhotoBase photo);
         bool CreatePlacePhotoFile(CreatePlacePhotoFileDTO dto);
-        Task CreateIFormFile(IFormFile file, string webRootPath);
+        Task<bool> CreateIFormFile(IFormFile file, string webRootPath);
     }
 }

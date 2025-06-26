@@ -23,13 +23,22 @@ namespace OwlStock.Services
             if(_context.Places is null)
             {
                 _logger.LogInformation("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(All), nameof(PlaceService), DateTime.Now);
-                throw new NullReferenceException($"{nameof(_context.Places)} is null");
+                return Enumerable.Empty<Place>();
             }
 
-            return await _context.Places
-                .Include(p => p.PhotoBase)
-                .Include(p => p.City)
-                .ToListAsync();
+            try
+            {
+                return await _context.Places
+                        .Include(p => p.PhotoBase)
+                        .Include(p => p.City)
+                        .ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return Enumerable.Empty<Place>();
+            }
         }
 
         public async Task<IEnumerable<Place>> AllPopular()
@@ -37,12 +46,21 @@ namespace OwlStock.Services
             if (_context.Places is null)
             {
                 _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(All), nameof(PlaceService), DateTime.Now);
-                throw new NullReferenceException($"{nameof(_context.Places)} is null");
+                return Enumerable.Empty<Place>();
             }
 
-            return await _context.Places
+            try
+            {
+                return await _context.Places
                 .Where(p => p.IsPopular)
                 .ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return Enumerable.Empty<Place>();
+            }
         }
 
         public async Task<IEnumerable<Place>> GetPopularPlacesByRegion(int regionId)
@@ -59,10 +77,19 @@ namespace OwlStock.Services
                 return Enumerable.Empty<Place>();
             }
 
-            return await _context.Places
-                .Include(p => p.PhotoBase)
-                .Where(p => p.City!.RegionId == regionId)
-                .ToListAsync();
+            try
+            {
+                return await _context.Places
+                        .Include(p => p.PhotoBase)
+                        .Where(p => p.City!.RegionId == regionId)
+                        .ToListAsync();
+            }
+            
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return Enumerable.Empty<Place>();
+            }
         }
 
         public async Task<PlaceByIdDTO?> PlaceById(Guid id)
@@ -158,7 +185,8 @@ namespace OwlStock.Services
         {
             if (_context.Places is null)
             {
-                throw new NullReferenceException($"{nameof(_context.Places)} is null");
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(Update), nameof(PlaceService), DateTime.Now);
+                return Guid.Empty;
             }
 
             try
@@ -184,23 +212,34 @@ namespace OwlStock.Services
             }
         }
 
-        public async Task<Place?> UpdatePhotoId(Guid placeId, Guid photoId)
+        public async Task<bool> UpdatePhotoId(Guid placeId, Guid photoId)
         {
             if (_context.Places is null)
             {
-                throw new NullReferenceException($"{nameof(_context.Places)} is null");
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.Places), nameof(UpdatePhotoId), nameof(PlaceService), DateTime.Now);
+                return false;
             }
 
-            Place? existingPlace = await _context.Places.FindAsync(placeId);
-
-            if (existingPlace != null)
+            try
             {
-                existingPlace.PhotoBaseId = photoId;
-                await _context.SaveChangesAsync();
+                Place? existingPlace = await _context.Places.FindAsync(placeId);
+
+                if (existingPlace != null)
+                {
+                    existingPlace.PhotoBaseId = photoId;
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+
+                return false;
             }
 
-            return existingPlace;
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
         }
     }
 }

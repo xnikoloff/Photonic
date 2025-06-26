@@ -6,30 +6,24 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using OwlStock.Domain.Entities;
 using OwlStock.Services.DTOs.Photo;
+using OwlStock.Services.Facades.Interfaces;
 
 namespace OwlStock.Web.Controllers
 {
     public class PhotoController : Controller
     {
         private readonly IPhotoService _photoService;
+        private readonly IPhotoFacade _photoFacade;
         private readonly IGalleryService _galleryService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly ICategoryService _categoryService;
-        private readonly IPhotoTagService _photoTagService;
-        private readonly IFileService _fileService;
-        private readonly ICommonServices _commonServices;
         
-        public PhotoController(IPhotoService photoService, IWebHostEnvironment webHostEnvironment,
-            ICategoryService categoryService, IPhotoTagService photoTagService, IGalleryService galleryService,
-             IFileService fileService, ICommonServices commonServices)
+        public PhotoController(IPhotoService photoService, IWebHostEnvironment webHostEnvironment, 
+            IGalleryService galleryService, IPhotoFacade photoFacade)
         {
             _photoService = photoService;
+            _photoFacade = photoFacade;
             _webHostEnvironment = webHostEnvironment;
-            _categoryService = categoryService;
-            _photoTagService = photoTagService;
             _galleryService = galleryService;
-            _fileService = fileService;
-            _commonServices = commonServices;
         }
 
         [HttpGet]
@@ -60,7 +54,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> PhotoById(Guid? id)
+        public async Task<IActionResult> PhotoById(Guid id)
         {
             return View(await _photoService.GetById(id));
         }
@@ -89,17 +83,19 @@ namespace OwlStock.Web.Controllers
                 
                 if(dto.GalleryPhoto is null)
                 {
-                    throw new NullReferenceException($"{nameof(dto.GalleryPhoto)} is null");
+                    ModelState.AddModelError(string.Empty, "Please provide a photo");
+                    return View(dto);
                 }
 
                 if (dto.FormFile is null)
                 {
-
+                    ModelState.AddModelError(string.Empty, "Please upload a file");
                     return View(dto);
                 }
 
                 if (dto.Tags is null)
                 {
+                    ModelState.AddModelError(string.Empty, "Please add tags");
                     return View(dto);
                 }
 
@@ -112,23 +108,16 @@ namespace OwlStock.Web.Controllers
                 dto.GalleryPhoto.FileData = stream.ToArray();
                 dto.GalleryPhoto.IdentityUserId = userId;
 
-                _fileService.CreatePhotoFile(dto.GalleryPhoto);
+                bool result = await _photoFacade.Create(dto, userId);
 
-                PhotoBase photo = await _photoService.Create(dto.GalleryPhoto, GetUserId());
-                bool resultPhoto = await _categoryService.Create(dto.Categories, photo.Id);
-
-                if (!resultPhoto)
+                if(result)
                 {
-                    return View("Error", "Неуспешно съзваване на категория. Снимката не беше създадена.");
+                    return RedirectToAction(nameof(All));
                 }
-
-                bool resultTags = await _photoTagService.Add(dto.Tags, photo.Id);
-
-                if (!resultTags)
+                else
                 {
-                    return View("Error", "Неуспешно съзваване на тагове. Снимката не беше създадена.");
+                    return View("Error", "Неуспешно създаване на снимка");
                 }
-
             }
             
             return RedirectToAction(nameof(All));
@@ -172,23 +161,17 @@ namespace OwlStock.Web.Controllers
             if (dto.Photo.Id == default)
             {
                 ModelState.AddModelError(string.Empty, "Incorrect Id");
-                return await PhotoById(dto?.Photo?.Id);
+                return await PhotoById(dto.Photo.Id);
             }
 
-            Guid changePhotoId = await _photoService.ChangeDownloadPermissions(dto.Photo.Id);
+            bool result = await _photoService.ChangeDownloadPermissions(dto.Photo.Id);
 
-            if (changePhotoId.ToString().Equals(dto?.Photo?.Id.ToString()))
+            if (!result)
             {
-                return RedirectToAction(nameof(PhotoById), new { id = dto?.Photo?.Id });
+                return View("Error", "Неуспешна промяна");
             }
 
             return await All();
-        }
-
-        private string GetUserId()
-        {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier) ??
-                throw new NullReferenceException("User not logged in");
         }
     }
 }

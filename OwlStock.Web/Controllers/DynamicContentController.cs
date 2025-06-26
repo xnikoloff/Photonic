@@ -27,7 +27,7 @@ namespace OwlStock.Web.Controllers
 
             if(content.Id == Guid.Empty)
             {
-                return View("Error", "Не успяхме да намерим статията, която търсите");
+                return View("Error", "Не успяхме да намерим съдържанието, която търсите");
             }
 
             return View(content);

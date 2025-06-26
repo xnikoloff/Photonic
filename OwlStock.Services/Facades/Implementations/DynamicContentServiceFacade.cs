@@ -19,10 +19,21 @@ namespace OwlStock.Services.Facades.Implementations
 
         public async Task<bool> Create(CreateDynamicContentDTO dto)
         {
-            dto.DynamicContent.ReadingTime = _calculationsService.CalculateReadingTime(dto.DynamicContent.Content);
+            dto!.DynamicContent!.ReadingTime = _calculationsService.CalculateReadingTime(dto.DynamicContent.Content);
 
-            await _fileService.CreateIFormFile(dto!.Image, dto!.WebRootPath);
-            await _dynamicContentService.Create(dto);
+            bool resultIFormFile = await _fileService.CreateIFormFile(dto!.Image, dto!.WebRootPath);
+
+            if (!resultIFormFile)
+            {
+                return false;
+            }
+
+            bool resultContent = await _dynamicContentService.Create(dto);
+
+            if (!resultContent)
+            {
+                return false;
+            }
 
             return true;
         }

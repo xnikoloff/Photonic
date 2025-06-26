@@ -42,30 +42,39 @@ namespace OwlStock.Services
                 return false;
             }
 
-            switch (photo)
+            try
             {
-                case GalleryPhoto:
+                switch (photo)
                 {
-                    using FileStream streamOriginalSize = File.OpenWrite(Path.Combine(photo.FilePath, $"OriginalSize_{photo.FileName}").Replace('\\', '/'));
-                    using FileStream streamSmallSize = File.OpenWrite(Path.Combine(photo.FilePath, $"Small_{photo.FileName}").Replace('\\', '/'));
-                    
-                    streamOriginalSize.Write(photo.FileData, 0, photo.FileData.Length);
-                    byte[] resized = _photoResizer.Resize(photo.FileData, PhotoSize.Small);
-                    streamSmallSize.Write(resized, 0, resized.Length);
-                    
-                    break;
+                    case GalleryPhoto:
+                    {
+                        using FileStream streamOriginalSize = File.OpenWrite(Path.Combine(photo.FilePath, $"OriginalSize_{photo.FileName}").Replace('\\', '/'));
+                        using FileStream streamSmallSize = File.OpenWrite(Path.Combine(photo.FilePath, $"Small_{photo.FileName}").Replace('\\', '/'));
+
+                        streamOriginalSize.Write(photo.FileData, 0, photo.FileData.Length);
+                        byte[] resized = _photoResizer.Resize(photo.FileData, PhotoSize.Small);
+                        streamSmallSize.Write(resized, 0, resized.Length);
+
+                        break;
+                    }
+
+                    case PhotoShootPhoto:
+                    {
+                        using FileStream streamOriginalSize = File.OpenWrite(Path.Combine(photo.FilePath, photo.FileName).Replace('\\', '/'));
+                        streamOriginalSize.Write(photo.FileData, 0, photo.FileData.Length);
+
+                        break;
+                    }
                 }
 
-                case PhotoShootPhoto:
-                {
-                    using FileStream streamOriginalSize = File.OpenWrite(Path.Combine(photo.FilePath, photo.FileName).Replace('\\', '/'));
-                    streamOriginalSize.Write(photo.FileData, 0, photo.FileData.Length);
-                    
-                    break;
-                }
+                return true;
             }
-            
-            return false;
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while creating photo file at {Time}", DateTime.UtcNow);
+                return false;
+            }
         }
 
         public bool CreatePlacePhotoFile(CreatePlacePhotoFileDTO dto)
@@ -111,18 +120,30 @@ namespace OwlStock.Services
             }
         }
 
-        public async Task CreateIFormFile(IFormFile file, string webRootPath)
+        public async Task<bool> CreateIFormFile(IFormFile file, string webRootPath)
         {
-            if(file == null) 
-            { 
-                throw new NullReferenceException($"{nameof(file)} is null");
+            if (file == null)
+            {
+                _logger.LogError("File is null in {Method}, {Class}, {DateTime}", nameof(CreateIFormFile), nameof(FileService), DateTime.Now);
+                return false;
             }
 
-            string filePath = Path.Combine(webRootPath, "resources", "images", file.FileName);
-            if (file.Length > 0)
+            try
             {
-                using Stream fileStream = new FileStream(filePath, FileMode.Create);
-                await file.CopyToAsync(fileStream);
+                string filePath = Path.Combine(webRootPath, "resources", "images", file.FileName);
+                if (file.Length > 0)
+                {
+                    using Stream fileStream = new FileStream(filePath, FileMode.Create);
+                    await file.CopyToAsync(fileStream);
+                }
+
+                return true;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while creating IFormFile at {Time}", DateTime.UtcNow);
+                return false;
             }
         }
     }

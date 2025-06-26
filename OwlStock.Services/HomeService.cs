@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
 using OwlStock.Services.DTOs.HomePage;
@@ -9,10 +10,12 @@ namespace OwlStock.Services
     public class HomeService : IHomeService
     {
         private readonly OwlStockDbContext _context;
+        private readonly ILogger<HomeService> _logger;
 
-        public HomeService(OwlStockDbContext context)
+        public HomeService(OwlStockDbContext context, ILogger<HomeService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<HomePageDTO> GetHomeData(IEnumerable<DynamicContent> dynamicContents, IEnumerable<Testimony> testimonies)
@@ -29,21 +32,30 @@ namespace OwlStock.Services
         {
             if(_context.GalleryPhotos is null)
             {
-                throw new NullReferenceException($"{nameof(_context.GalleryPhotos)} is null");
-            }
-
-            List<GalleryPhoto> photos = await _context.GalleryPhotos.ToListAsync();
-
-            if(photos.Count == 0)
-            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(ChooseHomePagePhoto)}, {nameof(_context.GalleryPhotos)} is null");
                 return string.Empty;
             }
 
-            Random random = new();
-            int randomNumber = random.Next(0, _context.GalleryPhotos.Count());
+            try
+            {
+                List<GalleryPhoto> photos = await _context.GalleryPhotos.ToListAsync();
 
-            return photos[randomNumber].FilePathSmall ?? throw new NullReferenceException($"FilePath is null");
+                if (photos.Count == 0)
+                {
+                    return string.Empty;
+                }
 
+                Random random = new();
+                int randomNumber = random.Next(0, _context.GalleryPhotos.Count());
+
+                return photos[randomNumber].FilePathSmall ?? throw new NullReferenceException($"FilePath is null");
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while choosing home page photo at {Time}", DateTime.UtcNow);
+                return string.Empty;
+            }
         }
     }
 }

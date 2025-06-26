@@ -23,54 +23,6 @@ namespace OwlStock.Services
 
         }
 
-        /// <summary>
-        /// Creates new DynamicContentCategory if the name of the category is not null
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns>If created, Id of the created DynamucContentCategory, else empty GUID</returns>
-        private async Task<CreateDynamicContentCategoryDTO> CreateDynamicContentCategory(CreateDynamicContentCategoryDTO dto)
-        {
-            if (_context.DynamicContentCategories == null)
-            {
-                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(CreateDynamicContentCategory)}, {nameof(_context.DynamicContentCategories)} was null");
-                dto.IsSuccessful = false;
-                return dto;
-            }
-
-            try
-            {
-                if (!dto.Name.IsNullOrEmpty())
-                {
-                    DynamicContentCategory category = new()
-                    {
-                        CreatedById = dto.CreatedById,
-                        CreatedOn = DateTime.Now,
-                        Name = dto.Name
-                    };
-
-                    await _context.DynamicContentCategories.AddAsync(category);
-                    await _context.SaveChangesAsync();
-
-                    dto.Id = category.Id;
-                    dto.IsSuccessful = true;
-
-                    return dto;
-                }
-                else
-                {
-                    dto.Id = Guid.Empty;
-                    dto.IsSuccessful = true;
-                    return dto;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
-                dto.IsSuccessful = false;
-                return dto;
-            }
-        }
-
         public async Task<bool> Create(CreateDynamicContentDTO dto)
         {
             if (dto == null)
@@ -157,8 +109,13 @@ namespace OwlStock.Services
 
             try
             {
-                DynamicContent dynamicContent = await _context.DynamicContents.FindAsync(id) ??
-                throw new NullReferenceException($"DynamicContent with id {id} does not exists");
+                DynamicContent? dynamicContent = await _context.DynamicContents.FindAsync(id);
+
+                if(dynamicContent == null)
+                {
+                    _logger.LogError($"DynamicContent with Id {id} was not found, {DateTime.UtcNow}, {nameof(Delete)}");
+                    return false;
+                }
 
                 _context.DynamicContents.Remove(dynamicContent);
                 await _context.SaveChangesAsync();
@@ -379,6 +336,54 @@ namespace OwlStock.Services
             {
                 _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
                 return new List<DynamicContentCategory>();
+            }
+        }
+
+        /// <summary>
+        /// Creates new DynamicContentCategory if the name of the category is not null
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>If created, Id of the created DynamucContentCategory, else empty GUID</returns>
+        private async Task<CreateDynamicContentCategoryDTO> CreateDynamicContentCategory(CreateDynamicContentCategoryDTO dto)
+        {
+            if (_context.DynamicContentCategories == null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(CreateDynamicContentCategory)}, {nameof(_context.DynamicContentCategories)} was null");
+                dto.IsSuccessful = false;
+                return dto;
+            }
+
+            try
+            {
+                if (!dto.Name.IsNullOrEmpty())
+                {
+                    DynamicContentCategory category = new()
+                    {
+                        CreatedById = dto.CreatedById,
+                        CreatedOn = DateTime.Now,
+                        Name = dto.Name
+                    };
+
+                    await _context.DynamicContentCategories.AddAsync(category);
+                    await _context.SaveChangesAsync();
+
+                    dto.Id = category.Id;
+                    dto.IsSuccessful = true;
+
+                    return dto;
+                }
+                else
+                {
+                    dto.Id = Guid.Empty;
+                    dto.IsSuccessful = true;
+                    return dto;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                dto.IsSuccessful = false;
+                return dto;
             }
         }
 

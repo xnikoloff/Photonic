@@ -22,7 +22,13 @@ namespace OwlStock.Services
 
         public async Task<List<GalleryPhoto>> All()
         {
-            if(_context.GalleryPhotos is not null)
+            if (_context.GalleryPhotos is null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(All)}, {nameof(_context.GalleryPhotos)} is null");
+                return new();
+            }
+
+            try
             {
                 List<GalleryPhoto> galleryPhotos = await _context.GalleryPhotos
                     .Include(p => p.PhotoCategories)
@@ -32,8 +38,11 @@ namespace OwlStock.Services
                 return galleryPhotos;
             }
 
-            _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(All)}, {nameof(_context.GalleryPhotos)} is null");
-            return new();
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
         }
 
         private async Task<List<PhotoShootPhoto>> AllPhotoshootPhotos(PhotoShootType photoShootType)
@@ -80,19 +89,28 @@ namespace OwlStock.Services
 
             //build a list with all enum values of Category
             IEnumerable<Category> categories = Enum.GetValues(typeof(Category)).Cast<Category>();
-            
-            foreach (Category category in categories)
-            {
-                //get all photos for the current category
-                List<GalleryPhoto?> photos = await _context.PhotosCategories
-                    .Where(pc => pc.Category == category)
-                    .Select(pc => pc.GalleryPhoto)
-                    .ToListAsync() ?? new();
 
-                categoriesWithPhotos.Add(category, photos);
+            try
+            {
+                foreach (Category category in categories)
+                {
+                    //get all photos for the current category
+                    List<GalleryPhoto?> photos = await _context.PhotosCategories
+                        .Where(pc => pc.Category == category)
+                        .Select(pc => pc.GalleryPhoto)
+                        .ToListAsync() ?? new();
+
+                    categoriesWithPhotos.Add(category, photos);
+                }
+
+                return categoriesWithPhotos;
             }
 
-            return categoriesWithPhotos;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while building categories gallery at {Time}", DateTime.UtcNow);
+                return new Dictionary<Category, List<GalleryPhoto?>>();
+            }
         }
 
         public async Task<List<PhotoShootPhoto>> AllByPhotoshootType(PhotoShootType photoshootType)
