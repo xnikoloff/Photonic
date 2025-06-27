@@ -54,7 +54,9 @@
                                             <h5>Стандартен</h5>
                                         </div>
                                         <div class="card-body text-center">
-                                            <h3>100 лв</h3>
+                                            <h3>50 лв</h3>
+                                            <hr />
+                                            <h6>/Цена за един продукт/</h6>
                                             <hr />
                                             <p>Кадри на продукта на бял фон (например за електронни магазини)</p>
                                         </div>
@@ -69,7 +71,9 @@
                                             <h5>Артистичен</h5>
                                         </div>
                                         <div class="card-body text-center">
-                                            <h3>250 лв</h3>
+                                            <h3>100 лв</h3>
+                                            <hr />
+                                            <h6>/Цена за един продукт/</h6>
                                             <hr />
                                             <p>Кадри на продукта с артистични елементи (например за реклами, блогове и др.)</p>
                                         </div>
@@ -101,7 +105,7 @@
                                     <h2 class="section-title">Лични данни</h2>
                                 </div>
                             </div>
-                            <div class="row row-section-2 mt-1 row-email">
+                            <div class="row row-section-2 mt-2 row-email">
                                 <div class="col-md-12 mx-auto">
                                     <div class="form-floating email-wrap">
 
@@ -142,6 +146,16 @@
                                     <div class="form-floating phone-wrap">
                                         <input asp-for="PersonPhone" class="form-control" placeholder="Телефон" />
                                         <label asp-for="PersonPhone"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-section-4 my-5 row-invoice">
+                                <h6>Фактура за бизнес клиенти</h6>
+                                <div class="col-md-12 mx-auto">
+                                    <div class="form-floating invoice-wrap mt-3">
+                                        <input asp-for="UIC" class="form-control" />
+                                        <label asp-for="UIC"></label>
+                                        <span class="text-danger" id="uic-error-message" style="display:none">Въведете валиден ЕИК номер</span>
                                     </div>
                                 </div>
                             </div>
@@ -233,6 +247,7 @@
                             <span id="summary-last-name"></span>
                         </p>
                         <p><i class="fa-solid fa-phone fa-lg"></i><span class="summary-data" id="summary-telephone">Телефон</span></p>
+                        <p id="uic-summary-wrap" style="display:none"><i class="fa-solid fa-file-invoice fa-lg"></i><span class="summary-data" id="summary-uic">ЕИК</span></p>
                     </div>
                     <hr />
                     <div class="summary-section-price">
@@ -291,7 +306,7 @@
     }
 
     .card-packet{
-        min-height: 380px;
+        min-height: 480px;
     }
 
     .booking-container .col-summary-section {
@@ -373,6 +388,11 @@
              validatePersonalData();
              setPhoneSummary($(this).val());
          });
+
+         $("#UIC").change(function(){
+            validateUIC();
+            setUICSummary($(this).val());
+        });
 
          $("#DoNotUploadPhotos").change(function () {
              if($(this).is(":checked")){
@@ -487,6 +507,35 @@
 
          else {
              return true;
+         }
+     }
+
+
+
+     //validate UIC
+     function validateUIC(){
+             console.log('inside');
+         if ($("#UIC").val() == '' || $("#UIC").val() == undefined) {
+              $(".btn-section-submit-seciton-4").prop("disabled", false);
+             return false;
+         }
+
+         else {
+             const uic = $('#UIC').val();
+             const uicRegex = /^(\d{9}|\d{13})$/;
+
+             if (!uicRegex.test(uic)) {
+                 $('#uic-error-message').css("display", "block");
+                 $(".btn-section-submit-seciton-2").prop("disabled", true);
+                 return false;
+             }
+
+             else {
+                 $('#uic-error-message').css("display", "none");
+                 $(".btn-section-submit-seciton-2").prop("disabled", false);
+                 return true;
+
+             }
          }
      }
 
@@ -639,6 +688,18 @@
              $("#summary-telephone").text("-");
          }
      }
+
+     function setUICSummary(uic) {
+        if (uic != "" && uic != undefined) {
+             $("#uic-summary-wrap").css("display", "block");
+            $("#summary-uic").text(uic);
+        }
+
+        else {
+             $("#uic-summary-wrap").css("display", "none");
+            $("#summary-uic").text("-");
+        }
+    }
 
 
 

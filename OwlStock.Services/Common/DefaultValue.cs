@@ -20,8 +20,8 @@
         internal const decimal BaptismPlus = 500m;
         internal const decimal BaptismExtra = 700;
         internal const decimal Automotive = 100m;
-        internal const decimal Product = 100m;
-        internal const decimal ProductPlus = 250m;
+        internal const decimal Product = 50m;
+        internal const decimal ProductPlus = 100m;
 
         //Fuel
         public const decimal FuelPriceByKilometer = 0.18m;
