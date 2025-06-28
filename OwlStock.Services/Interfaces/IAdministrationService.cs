@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using OwlStock.Services.DTOs.Identity;
 
 namespace OwlStock.Services.Interfaces
 {
     public interface IAdministrationService
     {
-        Task<string> CreateUser(IdentityUser user);
+        Task<CreateIdentityUserDTO> CreateUser(IdentityUser user);
         Task<string> GetUserEmailByIdAsync(string userId);
-        Task<IdentityUser> GetUserByEmailAsync(string email);
+        Task<IdentityUser?> GetUserByEmailAsync(string email);
     }
 }

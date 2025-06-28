@@ -4,6 +4,7 @@ using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
 using OwlStock.Services.Common.HelperClasses;
+using OwlStock.Services.DTOs.Identity;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.DTOs.Place;
 using OwlStock.Services.Facades.Interfaces;
@@ -172,27 +173,30 @@ namespace OwlStock.Services.Facades.Implementations
         private async Task<bool> HandleUser(CreatePhotoshootDTO dto)
         {
             //get user id and email
-            IdentityUser user = new();
+            IdentityUser? user = null;
 
             if (dto.IdentityUserId.IsNullOrEmpty())
             {
                 //check if user already exists
                 user = await _administrationService.GetUserByEmailAsync(dto?.PersonEmail ?? "");
 
-                if(user.Id != string.Empty)
+                if(user != null)
                 {
                     dto.IdentityUserId = user.Id;
                     return true;
                 }
 
                 //else, create new user
-                user.Email = dto?.PersonEmail;
-                user.UserName = dto?.PersonEmail;
 
+                user = new()
+                {
+                    Email = dto?.PersonEmail,
+                    UserName = dto?.PersonEmail
+                };
+                
+                CreateIdentityUserDTO userDTO = await _administrationService.CreateUser(user);
 
-                string password = await _administrationService.CreateUser(user);
-
-                if (password.IsNullOrEmpty())
+                if (userDTO.Password.IsNullOrEmpty())
                 {
                     return false;
                 }
@@ -201,7 +205,7 @@ namespace OwlStock.Services.Facades.Implementations
                 dto.IdentityUserId = user.Id;
 
                 //assign password of newly created user to the photoshoot DTO
-                dto.Password = password;
+                dto.Password = userDTO.Password;
 
                 return true;
             }

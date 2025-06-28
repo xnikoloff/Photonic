@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using OwlStock.Services.DTOs.Identity;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Services
@@ -24,17 +25,25 @@ namespace OwlStock.Services
         /// <param name="user">IdentityUser</param>
         /// <returns>Password of the created user as string if creation was successful, else return empty string </returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<string> CreateUser(IdentityUser user)
+        public async Task<CreateIdentityUserDTO> CreateUser(IdentityUser user)
         {
             if(user == null)
             {
-                _logger.LogInformation("{user} is null in {Method}, {Class}, {DateTime}", nameof(user), nameof(CreateUser), nameof(AdministrationService), DateTime.Now);
-                return string.Empty;
+                _logger.LogError("{user} is null in {Method}, {Class}, {DateTime}", nameof(user), nameof(CreateUser), nameof(AdministrationService), DateTime.Now);
+                return new()
+                {
+                    IdentityUserId = string.Empty,
+                    Password = string.Empty
+                };
             }
             if (user.Email.IsNullOrEmpty())
             {
-                _logger.LogInformation("{email)} is null or empty in {Method}, {Class}, {DateTime}", nameof(user.Email), nameof(CreateUser), nameof(AdministrationService), DateTime.Now);
-                return string.Empty;
+                _logger.LogError("{email)} is null or empty in {Method}, {Class}, {DateTime}", nameof(user.Email), nameof(CreateUser), nameof(AdministrationService), DateTime.Now);
+                return new()
+                {
+                    IdentityUserId = string.Empty,
+                    Password = string.Empty
+                };
             }
 
             try
@@ -50,16 +59,28 @@ namespace OwlStock.Services
                     if (resultRole.Succeeded)
                     {
                         await _signInManager.SignInAsync(user, true);
-                        return password;
+                        return new()
+                        {
+                            IdentityUserId = user.Id,
+                            Password = password
+                        };
                     }
                 }
 
-                return string.Empty;
+                return new()
+                {
+                    IdentityUserId = string.Empty,
+                    Password = string.Empty
+                };
             }
             catch(Exception ex)
             {
                 _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
-                return string.Empty;
+                return new()
+                {
+                    IdentityUserId = string.Empty,
+                    Password = string.Empty
+                };
             }
         }
 
@@ -98,7 +119,7 @@ namespace OwlStock.Services
         /// </summary>
         /// <param name="userId">Email of the user</param>
         /// <returns>An IdentityUser object</returns>
-        public async Task<IdentityUser> GetUserByEmailAsync(string email)
+        public async Task<IdentityUser?> GetUserByEmailAsync(string email)
         {
             if (email.IsNullOrEmpty())
             {
@@ -108,12 +129,6 @@ namespace OwlStock.Services
             try
             {
                 IdentityUser? user = await _userManager.FindByEmailAsync(email);
-
-                if (user == null)
-                {
-                    return new();
-                }
-
                 return user;
             }
             catch (Exception ex)
