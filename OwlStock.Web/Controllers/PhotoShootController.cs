@@ -160,14 +160,7 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> MyPhotoShoots()
         {
-            List<MyPhotoShootsDTO> myPhotoShoots = await _photoShootService.MyPhotoShoots(GetUserId());
-
-            if (myPhotoShoots == null || myPhotoShoots.Count == 0)
-            {
-                return View("Error", "Не намерихме фотосесии");
-            }
-
-            return View(myPhotoShoots);
+            return View(await _photoShootService.MyPhotoShoots(GetUserId()));
         }
 
         [Authorize]

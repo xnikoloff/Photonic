@@ -10,7 +10,13 @@
             <h1>Активни фотосесии</h1>
             @if(Model.Where(m => m.PhotoshootStatus == PhotoshootStatus.New).Count() == 0)
             {
-                <h4 class="text-dark mt-5"><i>Нямате активни фотосесии</i></h4>
+                <h6 class="text-primary mt-5">Нямате активни фотосесии</h6>
+                <hr />
+                <div class="mt-5">
+                    <h1 id="book-cta-icon"><i class="fa-solid fa-camera text-primary"></i></h1>
+                    <h4 class="mt-3">Резервирайте първата си фотосесия</h4>
+                    <a asp-action="Reserve" asp-controller="PhotoShoot" class="btn btn-primary mt-4">РЕЗЕРВИРАЙ</a>
+                </div>
             }
             @foreach (MyPhotoShootsDTO dto in Model.Where(m => m?.PhotoshootStatus == PhotoshootStatus.New))
             {
@@ -109,6 +115,10 @@
         cursor: pointer;
     }
 
+    #book-cta-icon {
+        font-size: 4rem;
+    }
+
     @@media only screen and (max-width: 768px) {
         .photoshoot-card .text-data {
             font-size: 1.1rem;
@@ -121,6 +131,10 @@
         .photoshoot-card .btn{
             padding: 5px;
             border-radius: 0 !important;
+        }
+
+        #book-cta-icon {
+            font-size: 3rem;
         }
     }
 </style>

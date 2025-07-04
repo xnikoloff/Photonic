@@ -160,11 +160,11 @@ namespace OwlStock.Web.Controllers
 
             foreach (PhotoShootPhoto photo in photos)
             {
-                bool exists = _fileService.CreatePhotoFile(photo);
+                bool result = _fileService.CreatePhotoFile(photo);
 
-                if (exists)
+                if (!result)
                 {
-                    ModelState.AddModelError("Files", "File already exists");
+                    ModelState.AddModelError("Files", "Някой от файловете не беше добавен. Провери лога за повече детайли.");
                     return View(dto);
                 }
 

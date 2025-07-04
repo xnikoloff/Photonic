@@ -20,9 +20,10 @@ namespace OwlStock.Services
 
         public bool CreatePhotoFile(PhotoBase photo)
         {
-            if (File.Exists(photo.FilePath))
+            if (File.Exists(Path.Combine(photo.FilePath, photo.FileName)))
             {
-                return true;
+                _logger.LogError("File {FileName}/{FilePath} already exists. {Method}, {Class}, {DateTime}", photo.FileName, photo.FilePath, nameof(CreatePhotoFile), nameof(AdministrationService), DateTime.Now);
+                return false;
             }
 
             if (!Directory.Exists(photo.FilePath))
@@ -32,13 +33,13 @@ namespace OwlStock.Services
 
             if(photo.FileName is null)
             {
-                _logger.LogInformation("{FileName} is null in {Method}, {Class}, {DateTime}", nameof(photo.FileName), nameof(CreatePhotoFile), nameof(AdministrationService), DateTime.Now);
+                _logger.LogError("{FileName} is null in {Method}, {Class}, {DateTime}", nameof(photo.FileName), nameof(CreatePhotoFile), nameof(AdministrationService), DateTime.Now);
                 return false;
             }
 
             if(photo.FileData is null)
             {
-                _logger.LogInformation("{FileData} is null in {Method}, {Class}, {DateTime}", nameof(photo.FileData), nameof(CreatePhotoFile), nameof(AdministrationService), DateTime.Now);
+                _logger.LogError("{FileData} is null in {Method}, {Class}, {DateTime}", nameof(photo.FileData), nameof(CreatePhotoFile), nameof(AdministrationService), DateTime.Now);
                 return false;
             }
 
