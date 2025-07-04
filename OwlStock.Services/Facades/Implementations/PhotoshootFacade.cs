@@ -173,12 +173,11 @@ namespace OwlStock.Services.Facades.Implementations
         private async Task<bool> HandleUser(CreatePhotoshootDTO dto)
         {
             //get user id and email
-            IdentityUser? user = null;
-
+            
             if (dto.IdentityUserId.IsNullOrEmpty())
             {
                 //check if user already exists
-                user = await _administrationService.GetUserByEmailAsync(dto?.PersonEmail ?? "");
+                IdentityUser? user = await _administrationService.GetUserByEmailAsync(dto?.PersonEmail ?? "");
 
                 if(user != null)
                 {
