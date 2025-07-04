@@ -13,28 +13,28 @@
         <hr />
         @foreach(Testimony testimony in Model.NewTestimonies ?? new List<Testimony>())
         {
-            <div class="col-12 col-md-6 col-lg-4">
-            <div class="card testimony-card">
-                <div class="card-header bg-warning text-white">
-                    <h4>@testimony.PersonFirstName @testimony.PersonLastName</h4>
-                </div>
-                <div class="card-body">
-                    <p><i class="fa-solid fa-plus"></i> @testimony.CreatedOn.ToShortDateString()</p>
-                    <hr />
-                    <div class="star">
-                        @for(int i = 0; i < testimony.Stars; i++)
-                        {
-                            <i class="fa fa-star"></i>
-                        }
+            <div class="col-12 col-md-6 col-lg-4 mt-4">
+                <div class="card testimony-card">
+                    <div class="card-header bg-warning text-white">
+                        <h4>@testimony.PersonFirstName @testimony.PersonLastName</h4>
                     </div>
-                    <hr />
-                    <p>@testimony?.Content</p>
-                </div>
-                <div class="card-footer">
-                    <a asp-action="ApproveTestimony" asp-controller="Administration" asp-route-id="@testimony?.Id" class="btn btn-light">Approve</a>
+                    <div class="card-body">
+                        <p><i class="fa-solid fa-plus"></i> @testimony.CreatedOn.ToShortDateString()</p>
+                        <hr />
+                        <div class="star">
+                            @for(int i = 0; i < testimony.Stars; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </div>
+                        <hr />
+                        <p>@testimony?.Content</p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="ApproveTestimony" asp-controller="Administration" asp-route-id="@testimony?.Id" class="btn btn-light">Approve</a>
+                    </div>
                 </div>
             </div>
-        </div>
         }
 
         @if ((Model?.NewTestimonies ?? new List<Testimony>()).Count() == 0)
@@ -51,7 +51,7 @@
         <hr />
         @foreach (Testimony testimony in Model.ApprovedTestimonies ?? new List<Testimony>())
         {
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-4 mt-4">
                 <div class="card testimony-card">
                     <div class="card-header bg-success text-white">
                         <h4>@testimony.PersonFirstName @testimony.PersonLastName</h4>
@@ -90,7 +90,7 @@
         <hr />
         @foreach (Testimony testimony in Model.HiddenTestimonies ?? new List<Testimony>())
         {
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-4 mt-4">
                 <div class="card testimony-card">
                     <div class="card-header bg-secondary text-white">
                         <h4>@testimony.PersonFirstName @testimony.PersonLastName</h4>
@@ -128,7 +128,7 @@
         <hr />
         @foreach (Testimony testimony in Model.UnhiddenTestimonies ?? new List<Testimony>())
         {
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-4 mt-4">
                 <div class="card testimony-card">
                     <div class="card-header bg-info text-white">
                         <h4>@testimony.PersonFirstName @testimony.PersonLastName</h4>

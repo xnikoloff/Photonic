@@ -21,7 +21,7 @@
             {
                 <div class="col-4 mx-auto text-center">
                     <h3 class="text-primary"><i class="fa-solid fa-calendar-days fa-lg"></i></h3>
-                    <h3 class="photoshoot-details-top">@Model?.ReservationDate.ToString("dd.MM.yyyy") г. @Model?.ReservationDate.ToString("h:mm") ч.</h3>
+                    <h3 class="photoshoot-details-top">@Model?.ReservationDate.ToString("dd.MM.yyyy") г. @Model?.ReservationDate.ToString("HH:mm") ч.</h3>
                 </div>
             }
             
@@ -129,7 +129,7 @@
                 {
                     <div class="col-12 mx-auto text-center">
                         <div class="no-photos">
-                            <h3><i>Снимките ще Ви очакват тук скоро</i></h3>
+                            <h6 class="text-primary">Снимките ще Ви очакват тук скоро</h6>
                         </div>
                     </div>
                 }
@@ -138,7 +138,7 @@
                 {
                     @foreach (PhotoShootPhoto photo in Model?.PhotoShootPhotos ?? new List<PhotoShootPhoto>())
                     {
-                        <div class="item col-lg-3 col-md-4 col-6 col-sm text-center mt-4">
+                        <div class="item col-lg-3 col-md-4 col-6 col-sm text-center mt-5">
                             <a href="~/resources/@photo?.FilePath" class="fancylight popup-btn" data-fancybox-group="light">
                                 <img class="img-fluid" src="~/resources/@(photo.FilePath + '/' + photo.FileName)" alt="gallery-item">
                             </a>
@@ -159,11 +159,10 @@
     </div>
 }
 
-<div class="testimony-container-wrap">
-    <div class="container testimony-container">
-        <partial name="_CreateTestimony" model="new Testimony()"></partial>
-    </div>
+<div class="mt-5">
+    <partial name="_CreateTestimony" model="new Testimony()"></partial>
 </div>
+ 
 
 <style>
     .portfolio-item .item {
@@ -181,16 +180,6 @@
         transition: .5s;
     }
 
-    .testimony-container-wrap{
-        width: 100%;
-        height: 100%;
-    }
-
-    .testimony-container{
-        margin-bottom: 200px;
-        padding: 50px 80px;
-    }
-
     @@media only screen and (max-width: 768px) {
         .photoshoot-details-top{
             font-size: 1.1rem;
@@ -198,11 +187,6 @@
 
         .photos-section-wrap{
             margin-top: 50px;
-        }
-
-        .testimony-container {
-            margin-top: 0;
-            margin-bottom: 0;
         }
 
         .tesimonail-container-title{
