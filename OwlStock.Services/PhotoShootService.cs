@@ -376,7 +376,7 @@ namespace OwlStock.Services
             try
             {
                 return await _context.PhotoShoots
-                .Where(p => p.ReservationDate.Date >= DateTime.Now.Date)
+                .Where(p => p.ReservationDate.Date >= DateTime.Now.Date && p.Status != PhotoshootStatus.Declined && p.Status != PhotoshootStatus.Cancelled)
                 .Select(ph => ph.ReservationDate)
                 .OrderBy(p => p.Date)
                 .ToListAsync();
