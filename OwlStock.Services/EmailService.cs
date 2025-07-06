@@ -8,6 +8,7 @@ using OwlStock.Infrastructure.Common.EmailTemplates;
 using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Infrastructure.Common.EmailTemplates.Inquiry;
 using Microsoft.Extensions.Logging;
+using OwlStock.Services.DTOs.PhotoShoot;
 
 namespace OwlStock.Services
 {
@@ -54,7 +55,7 @@ namespace OwlStock.Services
                 if (dto.EmailTemplate is EmailTemplate.CreatePhotoShoot)
                 {
                     //if email template is for created photoshoot
-                    //send template to user and Photon
+                    //send template to user and to Photonic
                     messages = new MailMessage[]
                     {
                     new
@@ -65,7 +66,7 @@ namespace OwlStock.Services
                         GetTemplate(dto)
                     ),
 
-                    //second email is always sent to Photon
+                    //second email is always sent to Photonic
                     new
                     (
                         "hristiyan.at.nikoloff@gmail.com",
@@ -124,7 +125,12 @@ namespace OwlStock.Services
             {
                 case EmailTemplate.CreatePhotoShoot:
                 {
-                    return PhotoShootEmailTemplates.CreatePhotoShootTemplate(dto.PhotoShootId);
+                    return PhotoShootEmailTemplates.CreatePhotoShootTemplate
+                    (
+                        ((PhotoShootEmailTemplateDTO)dto).Date ?? new DateTime(),
+                        ((PhotoShootEmailTemplateDTO)dto).Type,
+                        ((PhotoShootEmailTemplateDTO)dto).PhotoShootId
+                    );
                 }
 
                 case EmailTemplate.UpdatePhotosForPhotoShoot:
