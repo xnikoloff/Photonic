@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
+using OwlStock.Services;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.DTOs.Testimonies;
 using OwlStock.Services.Facades.Interfaces;
@@ -53,6 +54,32 @@ namespace OwlStock.Web.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdatePhotoshoot(Guid id)
+        {
+            UpdatePhotoShootDTO dto = await _photoshootFacade.GetDataForUpdate(id);
+            return View(dto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdatePhotoshoot(UpdatePhotoShootDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(dto);
+            }
+
+            bool result = await _photoshootFacade.UpdatePhotoshoot(dto);
+
+            if(!result)
+            {
+                return View("Error", "Error while updating photoshoot");
+            }
+
+            return View(dto);
         }
 
         [HttpGet]

@@ -8,6 +8,8 @@ namespace OwlStock.Services.Facades.Interfaces
     {
         Task<bool> ReservePhotoshoot(CreateRegularPhotoShootDTO dto);
         Task<bool> ReserveSmallProductPhotoshoot(CreateSmallProductPhotoshootDTO dto);
+        Task<bool> UpdatePhotoshoot(UpdatePhotoShootDTO dto);
+        Task<UpdatePhotoShootDTO> GetDataForUpdate(Guid id  );
         Task<Dictionary<DateOnly, IEnumerable<TimeSlot>>> GetPhotoShootsCalendar();
         Task<IEnumerable<SetReservedDateDTO>> GetCalendarWithStatus();
         Task<bool> ChangeStatus(Guid id, PhotoshootStatus status);

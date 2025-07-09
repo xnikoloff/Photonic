@@ -4,6 +4,8 @@
     ViewData["Title"] = "Управление на фотосесия";
 }
 
+<a asp-action="UpdatePhotoshoot" asp-controller="Administration" asp-route-id="@Model.Id">Update</a>
+
 <div class="container container-manage-photoshoot">
     <div class="row text-white @(Model.Status == PhotoshootStatus.Completed ? "bg-success" : "bg-warning")">
         <div class="col-12 text-center">
@@ -117,6 +119,19 @@
 
             </div>
         </div>
+    </div>
+</div>
+
+<div class="container container-update">
+    <div class="row">
+        <form asp-action="UpdatePhotoShoot" asp-controller="PhotoShoot" method="POST">
+            @Html.AntiForgeryToken();
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input />
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 

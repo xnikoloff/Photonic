@@ -340,34 +340,54 @@ namespace OwlStock.Services
             }
         }
 
-        public async Task<PhotoShoot> Update(ManagePhotoshootDTO dto)
+        public async Task<bool> Update(UpdatePhotoShootDTO dto)
         {
             if (_context.PhotoShoots is null)
             {
-                throw new NullReferenceException($"{nameof(_context.PhotoShoots)} is null");
+                _logger.LogError($"An error occurred at {DateTime.UtcNow}, Service: {nameof(PhotoShootService)}, {nameof(Update)}, {nameof(_context.PhotoShoots)} is null");
+                return false;
             }
 
             if (dto.Id == Guid.Empty)
             {
-                throw new ArgumentException($"{nameof(dto.Id)}");
+                _logger.LogError($"An error occurred at {DateTime.UtcNow}, Service: {nameof(PhotoShootService)}, {nameof(Update)}, {nameof(dto.Id)} is empty");
+                return false;
             }
 
-            PhotoShoot? existingPhotoShoot = await _context.PhotoShoots.FindAsync(dto.Id) ??
-                throw new NullReferenceException($"{nameof(existingPhotoShoot)} with id ${dto?.Id} does not exists");
+            PhotoShoot? existingPhotoShoot = await _context.PhotoShoots.FindAsync(dto.Id);
 
-            existingPhotoShoot.PersonFullName = dto.PersonFullName;
-            existingPhotoShoot.ReservationDate = dto.ReservationDate;
-            existingPhotoShoot.PersonPhone = dto.PersonPhone;
-            existingPhotoShoot.PhotoShootType = dto.PhotoShootType;
-            //existingPhotoShoot.UserPlace = dto.UserPlace;
-            //existingPhotoShoot.GoogleMapsLink = dto.GoogleMapsLink;
-            existingPhotoShoot.Price = dto.Price;
-            existingPhotoShoot.PhotoDeliveryMethod = dto.PhotoDeliveryMethod;
-            existingPhotoShoot.PhotoDeliveryAddress = dto.PhotoDeliveryAddress;
+            if (existingPhotoShoot == null)
+            {
+                _logger.LogError($"An error occurred at {DateTime.UtcNow}, Service: {nameof(PhotoShootService)}, {nameof(Update)}, {nameof(existingPhotoShoot)} with id {dto.Id} does not exist");
+                return false;
+            }
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                existingPhotoShoot.PersonEmail = dto.Email;
+                existingPhotoShoot.PersonPhone = dto.Phone;
+                existingPhotoShoot.ReservationDate = dto.ReservationDate;
+                existingPhotoShoot.IsDecidedByUs = dto.IsDecidedByUs;
+                existingPhotoShoot.UIC = dto.UIC;
+                existingPhotoShoot.Price = dto.Price;
+                existingPhotoShoot.DoNotUploadPhotos = dto.DoNotUploadPhotos;
+                existingPhotoShoot.PhotoDeliveryMethod = dto.PhotoDeliveryMethod;
+                existingPhotoShoot.PhotoDeliveryAddress = dto.PhotoDeliveryAddress;
+                existingPhotoShoot.TransportCustomer = dto.TransportCustomer;
+                existingPhotoShoot.PickUpAddress = dto.PickUpAddress;
+                existingPhotoShoot.IsSmallProduct = dto.IsSmallProduct;
+                existingPhotoShoot.PhotoDeliveryMethod = dto.PhotoDeliveryMethod;
+                existingPhotoShoot.PhotoDeliveryAddress = dto.PhotoDeliveryAddress;
 
-            return existingPhotoShoot;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
         }
 
         public async Task<IEnumerable<DateTime>> GetReservedDates()

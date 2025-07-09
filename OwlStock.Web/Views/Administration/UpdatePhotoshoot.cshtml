@@ -1,0 +1,64 @@
+﻿@model UpdatePhotoShootDTO
+
+@{
+    ViewData["Title"] = "Update Photoshoot Data";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <form asp-action="UpdatePhotoshoot" asp-controller="Administration" method="POST">
+                <input asp-for="Id" type="hidden" />
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" class="form-control" />
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="ReservationDate"></label>
+                    <input asp-for="ReservationDate" class="form-control" />
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="IsDecidedByUs"></label>
+                    <input asp-for="IsDecidedByUs" />
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="UIC"></label>
+                    <input asp-for="UIC" class="form-control" />
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="DoNotUploadPhotos"></label>
+                    <input asp-for="DoNotUploadPhotos" />
+                </div>
+                <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="form-control">
+                    <option value="">Начин на получаване на снимките</option>
+                </select>
+                <div class="form-group mt-3">
+                    <label asp-for="PhotoDeliveryAddress"></label>
+                    <input asp-for="PhotoDeliveryAddress" class="form-control" />
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="TransportCustomer"></label>
+                    <input asp-for="TransportCustomer" />
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="PickUpAddress"></label>
+                    <input asp-for="PickUpAddress" class="form-control" />
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="IsSmallProduct"></label>
+                    <input asp-for="IsSmallProduct" />
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Update Photoshoot</button>
+            </form>
+        </div>
+    </div>
+</div>

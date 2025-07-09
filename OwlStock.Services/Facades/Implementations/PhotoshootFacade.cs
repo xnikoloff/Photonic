@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot;
@@ -113,6 +114,53 @@ namespace OwlStock.Services.Facades.Implementations
             IEnumerable<DateTime> reservationDates = await _photoShootService.GetReservedDates();
 
             return _calendarService.GetPhotoShootsCalendar(reservationDates.ToList());
+        }
+
+        public async Task<bool> UpdatePhotoshoot(UpdatePhotoShootDTO dto)
+        {
+            //update photoshoot
+            bool isUpdated = await _photoShootService.Update(dto);
+
+            if (!isUpdated)
+            {
+                return false;
+            }
+
+            return true;
+
+            //TODO
+            //send email to user
+           /* UpdatePhotoShootEmailTemplateDTO emailDTO = new()
+            {
+                Recipient = dto.Email,
+                PhotoShootId = dto.Id,
+                //EmailTemplate = EmailTemplate.UpdatePhotoShoot,
+                Topic = "Актуализация на фотосесия"
+            };
+
+            return await _emailService.Send(emailDTO);*/
+        }
+
+        public async Task<UpdatePhotoShootDTO> GetDataForUpdate(Guid id)
+        {
+            PhotoShoot photoShoot = await _photoShootService.PhotoShootById(id);
+
+            UpdatePhotoShootDTO dto = new()
+            {
+                DoNotUploadPhotos = photoShoot.DoNotUploadPhotos,
+                IsDecidedByUs = photoShoot!.IsDecidedByUs,
+                Phone = photoShoot.PersonPhone,
+                Email = photoShoot.PersonEmail,
+                ReservationDate = photoShoot.ReservationDate,
+                TransportCustomer = photoShoot.TransportCustomer,
+                PickUpAddress = photoShoot.PickUpAddress,
+                Price = photoShoot.Price,
+                IsSmallProduct = photoShoot.IsSmallProduct,
+                PhotoDeliveryAddress = photoShoot.PhotoDeliveryAddress,
+                PhotoDeliveryMethod = photoShoot.PhotoDeliveryMethod
+            };
+
+            return dto;
         }
 
         public async Task<IEnumerable<SetReservedDateDTO>> GetCalendarWithStatus()
