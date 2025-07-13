@@ -10,6 +10,7 @@
         ConfirmAccount = 6,
         SendInquiry = 7,
         ResetPassword = 8,
-        CreateConfirmedAccount = 9
+        CreateConfirmedAccount = 9,
+        UpdatePhotoShoot = 10
     }
 }

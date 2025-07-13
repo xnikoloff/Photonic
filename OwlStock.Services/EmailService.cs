@@ -140,6 +140,17 @@ namespace OwlStock.Services
                             ((UpdatePhotoShootEmailTemplateDTO)dto).PhotoShootId
                         );
                 }
+                
+                case EmailTemplate.UpdatePhotoShoot:
+                {
+                    return PhotoShootEmailTemplates.UpdatePhotoShootDataTemplate
+                        (
+                            ((UpdatePhotoshootDataEmailTemplateDTO)dto).PhotoShootId,
+                            ((UpdatePhotoshootDataEmailTemplateDTO)dto).PhotoShootType,
+                            ((UpdatePhotoshootDataEmailTemplateDTO)dto).PhotoshootNumber ?? "-",
+                            ((UpdatePhotoshootDataEmailTemplateDTO)dto).ReservationDate
+                        );
+                }
 
                 case EmailTemplate.DeclinePhotoShoot:
                 {

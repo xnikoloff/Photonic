@@ -120,25 +120,29 @@ namespace OwlStock.Services.Facades.Implementations
         {
             //update photoshoot
             bool isUpdated = await _photoShootService.Update(dto);
-
+            
             if (!isUpdated)
             {
                 return false;
             }
 
-            return true;
+            PhotoShoot? photoShoot = await _photoShootService.PhotoShootById(dto.Id);
 
-            //TODO
-            //send email to user
-           /* UpdatePhotoShootEmailTemplateDTO emailDTO = new()
+            UpdatePhotoshootDataEmailTemplateDTO emailDTO = new()
             {
                 Recipient = dto.Email,
                 PhotoShootId = dto.Id,
-                //EmailTemplate = EmailTemplate.UpdatePhotoShoot,
-                Topic = "Актуализация на фотосесия"
-            };
+                EmailTemplate = EmailTemplate.UpdatePhotoShoot,
+                Topic = "Актуализация на фотосесия",
+                PhotoshootNumber = photoShoot?.PhotoshootNumber ?? "-",
+                ReservationDate = dto.ReservationDate,
+                PhotoShootType = photoShoot?.PhotoShootType ?? 0
 
-            return await _emailService.Send(emailDTO);*/
+           };
+
+            await _emailService.Send(emailDTO);
+
+            return true;
         }
 
         public async Task<UpdatePhotoShootDTO> GetDataForUpdate(Guid id)
