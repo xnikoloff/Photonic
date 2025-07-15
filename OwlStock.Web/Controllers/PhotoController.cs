@@ -61,9 +61,13 @@ namespace OwlStock.Web.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            CreateGalleryPhotoDTO dto = new()
+            {
+                Gears = await _photoService.GetPhotoGears()
+            };
+            return View(dto);
         }
 
         [Authorize(Roles = "Administrator")]

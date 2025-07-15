@@ -11,6 +11,7 @@ namespace OwlStock.Services.DTOs.Photo
         public CreateGalleryPhotoDTO()
         {
             Categories = new HashSet<Category>();
+            Gears = new HashSet<Gear>();
         }
 
         public GalleryPhoto? GalleryPhoto { get; set; }
@@ -24,5 +25,7 @@ namespace OwlStock.Services.DTOs.Photo
         [Display(Name = ModelConstraints.PhotoFormFileDisplayName)]
         [Required(ErrorMessage = "Upload a file")]
         public IFormFile? FormFile { get; set; }
+
+        public IEnumerable<Gear> Gears { get; set; }
     }
 }

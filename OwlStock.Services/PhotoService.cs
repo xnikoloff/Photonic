@@ -88,6 +88,27 @@ namespace OwlStock.Services
             }
         }
 
+        public async Task<IEnumerable<Gear>> GetPhotoGears()
+        {
+            if (_context.Gear is null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetPhotoGears)}, {nameof(PhotoService)}, {nameof(_context.Gear)} was null");
+                return new List<Gear>();
+            }
+
+            try
+            {
+                return await _context.Gear.ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"An error occurred at {DateTime.UtcNow}, {nameof(GetPhotoGears)}, {nameof(PhotoService)}, {ex.Message}");
+                return new List<Gear>();
+            }
+        }
+        
+
         public async Task<PhotoBase> Create(PhotoBase? photo, string userId)
         {
             if(photo is null)
@@ -117,8 +138,43 @@ namespace OwlStock.Services
                 {
                     case GalleryPhoto:
                     {
+                        //create new Gear if GearId is empty and set the gear id to the photo
+                        if (((GalleryPhoto)photo).GearId == Guid.Empty || ((GalleryPhoto)photo).GearId == null)
+                        {
+                            await _context.Gear!.AddAsync
+                            (
+                                new()
+                                {
+                                    CameraBrand = ((GalleryPhoto)photo).Gear?.CameraBrand,
+                                    CameraModel = ((GalleryPhoto)photo).Gear?.CameraModel,
+                                    CameraLens = ((GalleryPhoto)photo).Gear?.CameraLens,
+                                    AdditionalInformation = ((GalleryPhoto)photo).Gear?.AdditionalInformation
+                                }
+                            );
+
+                            await _context.SaveChangesAsync();
+                            Gear? newGear = await _context.Gear.OrderByDescending(g =>g.Id).FirstOrDefaultAsync();
+                        
+                            if(newGear == null)
+                            {
+                                _logger.LogError($"An error occurred at {DateTime.UtcNow}, {nameof(Create)}, {nameof(PhotoService)}, {nameof(newGear)} was null");
+                                return new();
+                            }
+
+                            ((GalleryPhoto)photo).GearId = newGear.Id;
+                            ((GalleryPhoto)photo).Gear = null;
+                        }
+
+                        //if GearId is not empty, keep the gear that was set from the list in the View 
+                        else
+                        {
+                            ((GalleryPhoto)photo).GearId = ((GalleryPhoto)photo).GearId;
+                            ((GalleryPhoto)photo).Gear = null;
+                        }
+
                         photo.FilePath = Path.Combine("gallery-photos", PhotoSize.OriginalSize.ToString() + "_" + photo.FileName).Replace('\\', '/');
                         ((GalleryPhoto)photo).FilePathSmall = Path.Combine("gallery-photos", PhotoSize.Small.ToString() + "_" + photo.FileName).Replace('\\', '/');
+                        
                         await _context.GalleryPhotos!.AddAsync((GalleryPhoto)photo);
                         break;
                     }
@@ -148,7 +204,7 @@ namespace OwlStock.Services
 
                     default: throw new ArgumentException($"{nameof(photo)} has invalid type");
                 }
-
+                    
                 await _context.SaveChangesAsync();
 
                 await UpdateBasePhotoId(photo);

@@ -23,15 +23,15 @@ namespace OwlStock.Services.Facades.Implementations
 
         public async Task<bool> Create(CreateGalleryPhotoDTO? dto, string userId)
         {
-            _fileService.CreatePhotoFile(dto.GalleryPhoto);
+            bool resultFile = _fileService.CreatePhotoFile(dto?.GalleryPhoto);
 
-            PhotoBase photo = await _photoService.Create(dto.GalleryPhoto, userId);
-            bool resultPhoto = await _categoryService.Create(dto.Categories, photo.Id);
-
-            if (!resultPhoto)
+            if (!resultFile)
             {
                 return false;
             }
+
+            PhotoBase photo = await _photoService.Create(dto.GalleryPhoto, userId);
+            bool resultPhoto = await _categoryService.Create(dto.Categories, photo.Id);
 
             bool resultTags = await _photoTagService.Add(dto.Tags, photo.Id);
 
