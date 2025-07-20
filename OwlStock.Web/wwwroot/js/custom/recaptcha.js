@@ -8,10 +8,10 @@ var onloadCallback = function () {
 };
 
 function onSubmit() {
-    document.getElementById('recaptchaTokenInputId').value = grecaptcha.getResponse();
-    console.log(document.getElementById('recaptchaTokenInputId').value);
-}
-
-function recaptchaCallback() {
-    document.getElementById('btn-account-submit').disabled = false;
+    if (typeof grecaptcha !== 'undefined') {
+        const token = grecaptcha.getResponse();
+        document.getElementById('recaptchaTokenInputId').value = token;
+    } else {
+        console.error('reCAPTCHA not loaded or unavailable');
+    }
 }

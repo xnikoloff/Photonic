@@ -60,7 +60,6 @@
 
     function highlitActivePage() {
         let activePage = @(Html.Raw(ViewData["pageNumber"]))
-        console.log(activePage);
         
         //remove all pages active class
         $(".page-item").removeClass("active");

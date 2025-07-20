@@ -1,4 +1,9 @@
-﻿@model Testimony
+﻿@model CreateTestimonyDTO
+
+@{
+    @inject IConfiguration configuration
+    string siteKey = configuration["ReCaptcha:SiteKey"] ?? "";
+}
 
 <!-- Create Testimony Start -->
 <div class="container-xxl bg-light py-5">
@@ -13,11 +18,12 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <form asp-action="Create" asp-controller="Testimony" method="post" id="testimony-form">
                     @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />
                     <div class="row g-3">
                         <div class="col-12 my-5 text-center">
                             <div class="form-floating">
-                                <input type="hidden" asp-for="Stars" class="text-danger"/>
-                                <span asp-validation-for="Stars" class="text-danger"></span>
+                                <input type="hidden" asp-for="Testimony.Stars" class="text-danger"/>
+                                <span asp-validation-for="Testimony.Stars" class="text-danger"></span>
                                 <div class="stars">
                                     <span class="star-rating" id="1" onclick="setStarsRating(1);"><i class="fa fa-star fa-2xl"></i></span>
                                     <span class="star-rating" id="2" onclick="setStarsRating(2);"><i class="fa fa-star fa-2xl"></i></span>
@@ -29,20 +35,25 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" asp-for="PersonFirstName" placeholder="Име">
-                                <label asp-for="PersonFirstName">Име</label>
+                                <input type="text" class="form-control" asp-for="Testimony.PersonFirstName" placeholder="Име">
+                                <label asp-for="Testimony.PersonFirstName">Име</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" asp-for="PersonLastName" placeholder="Фамилия">
-                                <label asp-for="PersonLastName">Фамилия</label>
+                                <input type="text" class="form-control" asp-for="Testimony.PersonLastName" placeholder="Фамилия">
+                                <label asp-for="Testimony.PersonLastName">Фамилия</label>
                             </div>
                         </div>
                         <div class="col-12 mt-4">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Вашето мнение за нас" asp-for="Content" style="height: 200px"></textarea>
-                                <label asp-for="Content">Вашето мнение за нас</label>
+                                <textarea class="form-control" placeholder="Вашето мнение за нас" asp-for="Testimony.Content" style="height: 200px"></textarea>
+                                <label asp-for="Testimony.Content">Вашето мнение за нас</label>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div class="form-floating text-center">
+                                <div class="text-center" id="recaptcha-container" data-callback="onSubmit"></div>
                             </div>
                         </div>
                         <div class="col-12 text-center">
@@ -56,6 +67,10 @@
 </div>
 <!-- Create Testimony End -->
 
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script src="~/js/custom//recaptcha.js" data-siteKey="@siteKey"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
+
 <script>
     $(document).ready(function () {
         $(".star-rating").click(function () {
@@ -66,10 +81,10 @@
                 $("#" + i).addClass("text-warning");
             }
 
-            let staringStar = parseInt(id) + parseInt(1);
+            let staringStar = parseInt(id) + parseInt(1);   
+            $("#Testimony_Stars").val(parseInt(id));
 
             //remove the color of the rest stars
-            console.log(staringStar);
             for (let i = staringStar; i <= starsCount; i++) {
                 $("#" + i).removeClass("text-warning");
             }
@@ -93,19 +108,19 @@
 
 
         //check for changes in inputs
-        $("#PersonFirstName").change(function () {
+        $("#Testimony_PersonFirstName").change(function () {
             validateFirstName();
         });
 
-        $("#PersonLastName").change(function () {
+        $("#Testimony_PersonLastName").change(function () {
             validateLastName();
         });
 
-        $("#Stars").change(function () {
+        $("#Testimony_Stars").change(function () {
             validateStars();
         });
 
-        $("#Content").change(function () {
+        $("#Testimony_Content").change(function () {
             validateContent();
         });
     });
@@ -116,33 +131,36 @@
 
     //validate inputs
     function validateFirstName() {
-        if ($("#PersonFirstName").val() == "" || $("#PersonFirstName").val() == null) {
-            $("#PersonFirstName").addClass("border border-danger");
+        if ($("#Testimony_PersonFirstName").val() == "" || $("#Testimony_PersonFirstName").val() == null) {
+            $("#Testimony_PersonFirstName").addClass("border border-danger");
+            console.log($("#Testimony_PersonFirstName").val());
             return false;
         }
 
         else {
-            $("#FirstName").removeClass("border border-danger");
+            $("#Testimony_FirstName").removeClass("border border-danger");
             $(".btn-submit").prop('disabled', false);
             return true;
         }
     }
 
     function validateLastName() {
-        if ($("#PersonLastName").val() == "" || $("#PersonLastName").val() == null) {
-            $("#PersonLastName").addClass("border border-danger");
+        if ($("#Testimony_PersonLastName").val() == "" || $("#Testimony_PersonLastName").val() == null) {
+            $("#Testimony_PersonLastName").addClass("border border-danger");
+            console.log($("#Testimony_PersonLastName").val());
             return false;
         }
 
         else {
-            $("#LastName").removeClass("border border-danger");
+            $("#Testimony_LastName").removeClass("border border-danger");
             $(".btn-submit").prop('disabled', false);
             return true;
         }
     }
 
     function validateStars() {
-        if ($("#Stars").val() == 0 || $("#Stars").val() == "" || $("#Stars").val() == null) {
+        if ($("#Testimony_Stars").val() == 0 || $("#Testimony_Stars").val() == "" || $("#Testimony_Stars").val() == null) {
+            console.log($("#Testimony_Stars").val());
             return false;
         }
 
@@ -152,13 +170,14 @@
     }
 
     function validateContent() {
-        if ($("#Content").val() == "" || $("#Content").val() == null) {
-            $("#Content").addClass("border border-danger");
+        if ($("#Testimony_Content").val() == "" || $("#Testimony_Content").val() == null) {
+            $("#Testimony_Content").addClass("border border-danger");
+            console.log($("#Testimony_Content").val());
             return false;
         }
 
         else {
-            $("#Content").removeClass("border border-danger");
+            $("#Testimony_Content").removeClass("border border-danger");
             return true;
         }
     }

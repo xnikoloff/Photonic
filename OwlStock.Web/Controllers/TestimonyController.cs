@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
+using OwlStock.Services.DTOs.Testimonies;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Controllers
@@ -21,14 +23,20 @@ namespace OwlStock.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Testimony testimony)
+        public async Task<IActionResult> Create(CreateTestimonyDTO dto)
         {
-            if (!ModelState.IsValid) 
+            if (dto.ReCaptchaToken.IsNullOrEmpty())
             {
-                return View(testimony);
+                ModelState.AddModelError(string.Empty, $"Липсва проверка за робот");
+                return View(dto);
             }
 
-            await _testimonyService.Create(testimony);
+            if (!ModelState.IsValid) 
+            {
+                return View(dto);
+            }
+
+            await _testimonyService.Create(dto.Testimony ?? new Testimony());
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }

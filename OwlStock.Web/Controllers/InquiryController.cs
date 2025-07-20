@@ -25,6 +25,12 @@ namespace OwlStock.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendInquiry(SendInquiryEmailTemplateDTO dto)
         {
+            if (dto.ReCaptchaToken.IsNullOrEmpty())
+            {
+                ModelState.AddModelError(string.Empty, $"Липсва проверка за робот");
+                return View("../StaticContent/Contacts", dto);
+            }
+
             if (dto.Name.IsNullOrEmpty() || dto.From.IsNullOrEmpty() || dto.Topic.IsNullOrEmpty() || dto.Content.IsNullOrEmpty())
             {
                 //remove validation from the parrent class of the DTO
