@@ -37,7 +37,13 @@ namespace OwlStock.Web.Controllers
             }
 
             await _testimonyService.Create(dto.Testimony ?? new Testimony());
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(SuccessfulTestimony));
+        }
+
+        [HttpGet]
+        public IActionResult SuccessfulTestimony()
+        {
+            return View("_SuccessfulTestimony");
         }
     }
 }
