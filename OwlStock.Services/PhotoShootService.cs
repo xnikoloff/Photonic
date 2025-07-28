@@ -467,6 +467,11 @@ namespace OwlStock.Services
             }
         }
 
+        public Task<int[]> GetWorkingHoursSpan()
+        {
+            throw new NotImplementedException();
+        }
+
         private string GeneratePhotoshootNumber(string email, PhotoShootType photoShootType)
         {
             string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

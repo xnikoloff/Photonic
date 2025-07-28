@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
-using OwlStock.Services;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.DTOs.Testimonies;
 using OwlStock.Services.Facades.Interfaces;
@@ -20,6 +19,7 @@ namespace OwlStock.Web.Controllers
 
     public class AdministrationController : Controller
     {
+        private readonly IAdministrationService _administrationService;
         private readonly IPhotoShootService _photoShootService;
         private readonly IPhotoService _photoService;
         private readonly IGalleryService _galleryService;
@@ -32,11 +32,12 @@ namespace OwlStock.Web.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdministrationController(IPhotoShootService photoShootService, IPhotoService photoService, IGalleryService galleryService, 
+        public AdministrationController(IAdministrationService administrationService, IPhotoShootService photoShootService, IPhotoService photoService, IGalleryService galleryService, 
             IFileService fileService, IPhotoshootFacade photoshootFacade, IWebHostEnvironment webHostEnvironment, UserManager<IdentityUser> userManager, 
             SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
             ITestimonyService testimonyService, IAnnouncementService announcementService)
         {
+            _administrationService = administrationService;
             _photoShootService = photoShootService;
             _photoService = photoService;
             _galleryService = galleryService;
@@ -540,6 +541,49 @@ namespace OwlStock.Web.Controllers
             }
 
             return RedirectToAction(nameof(ManageAnnouncements));
+        }
+
+        [HttpGet]
+        public IActionResult ManageWorkingTime()
+        {
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> ManageWorkingTime(WorkingTime workingTime)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(workingTime);
+            }
+
+            if (workingTime.Start >= workingTime.End)
+            {
+                ModelState.AddModelError("", "Началният час трябва да е по-рано от крайния час");
+                return View(workingTime);
+            }
+
+            if (workingTime.Start < 0 || workingTime.End > 24)
+            {
+                ModelState.AddModelError("", "Работното време трябва да е в интервала [0, 24]");
+                return View(workingTime);
+            }
+
+            if (workingTime.Start % 1 != 0 || workingTime.End % 1 != 0)
+            {
+                ModelState.AddModelError("", "Работното време трябва да е цяло число");
+                return View(workingTime);
+            }
+
+            bool result = await _administrationService.SetWorkingTime(workingTime);
+
+            if (!result)
+            {
+                return View("Error", "Неуспешно обновяване на работното време");
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         private string GetUserId()

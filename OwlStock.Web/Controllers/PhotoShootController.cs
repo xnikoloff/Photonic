@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Services.DTOs.PhotoShoot;
 using OwlStock.Services.Facades.Interfaces;
@@ -34,6 +33,7 @@ namespace OwlStock.Web.Controllers
         {
             CreateRegularPhotoShootDTO dto = new()
             {
+                WorkingHoursSpan = await _photoShootService.GetWorkingHoursSpan(),
                 Calendar = await _photoshootFacade.GetPhotoShootsCalendar(),
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
             };

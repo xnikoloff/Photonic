@@ -1,6 +1,5 @@
 ﻿using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
-using OwlStock.Services.Common.HelperClasses;
 using OwlStock.Services.DTOs.PhotoShoot;
 
 namespace OwlStock.Services.Interfaces
@@ -39,5 +38,7 @@ namespace OwlStock.Services.Interfaces
         /// <param name="id">Id of the photoshoor</param>
         /// <returns>Name of the person as string</returns>
         Task<string> GetPersonName(Guid id);
+
+        Task<int[]> GetWorkingHoursSpan();
     }
 }

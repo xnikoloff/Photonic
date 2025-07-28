@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using OwlStock.Domain.Entities;
+using OwlStock.Infrastructure;
 using OwlStock.Services.DTOs.Identity;
 using OwlStock.Services.Interfaces;
 
@@ -8,12 +11,14 @@ namespace OwlStock.Services
 {
     public class AdministrationService : IAdministrationService
     {
+        private readonly OwlStockDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<AdministrationService> _logger;
         
-        public AdministrationService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<AdministrationService> logger)
+        public AdministrationService(OwlStockDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<AdministrationService> logger)
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -135,6 +140,45 @@ namespace OwlStock.Services
             {
                 _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
                 return new();
+            }
+        }
+
+        /// <summary>
+        /// Sets the working time for the calendar
+        /// </summary>
+        /// <param name="start">Starting hour for the timeslots</param>
+        /// <param name="end">End hour for the timeslots</param>
+        /// <returns>True if successful, false if failed</returns>
+        public async Task<bool> SetWorkingTime(WorkingTime workingTime)
+        {
+            if (_context.WorkingTime is null)
+            {
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.WorkingTime), nameof(SetWorkingTime), nameof(AdministrationService), DateTime.Now);
+                return false;
+            }
+
+            try
+            {
+                WorkingTime? existingWorkingTime = await _context.WorkingTime.FirstOrDefaultAsync();
+
+                if (existingWorkingTime == null)
+                {
+                    await _context.WorkingTime.AddAsync(workingTime);
+                }
+
+                else
+                {
+                    existingWorkingTime!.Start = workingTime.Start;
+                    existingWorkingTime!.End = workingTime.End;
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
             }
         }
 

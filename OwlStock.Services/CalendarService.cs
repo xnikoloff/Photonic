@@ -13,12 +13,20 @@ namespace OwlStock.Services
         //Available working hours
         private readonly TimeSlot[] _timeSlots =
         {
+            new(new(6, 0), true),
+            new(new(7, 0), true),
             new(new(8, 0), true),
+            new(new(9, 0), true),
             new(new(10, 0), true),
-            new(new(12, 00), true),
+            new(new(11, 0), true),
+            new(new(12, 0), true),
+            new(new(13, 00), true),
             new(new (14, 0), true),
-            new(new (16, 0), true),
+            new(new (15, 0), true),
+            new(new(16, 0), true),
+            new(new(17, 0), true),
             new(new(18, 0), true),
+            new(new(19, 0), true),
             new(new(20, 0), true)
         };
 
