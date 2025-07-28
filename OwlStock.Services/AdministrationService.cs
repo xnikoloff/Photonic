@@ -144,10 +144,40 @@ namespace OwlStock.Services
         }
 
         /// <summary>
+        /// Gets the working time for the calendar. Always has one record in the database - the current working time.
+        /// </summary>
+        /// <returns>WorkingTime object</returns>
+        public async Task<WorkingTime> GetWorkingTime()
+        {
+            if (_context.WorkingTime is null)
+            {
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.WorkingTime), nameof(GetWorkingTime), nameof(AdministrationService), DateTime.Now);
+                return new();
+            }
+
+            try
+            {
+                WorkingTime? workingTime = await _context.WorkingTime.FirstOrDefaultAsync();
+
+                if (workingTime == null)
+                {
+                    return new();
+                }
+
+                return workingTime;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
+        }
+
+        /// <summary>
         /// Sets the working time for the calendar
         /// </summary>
-        /// <param name="start">Starting hour for the timeslots</param>
-        /// <param name="end">End hour for the timeslots</param>
+        /// <param name="workingTime">Sets working time with properties {start} and {end}</param>
         /// <returns>True if successful, false if failed</returns>
         public async Task<bool> SetWorkingTime(WorkingTime workingTime)
         {

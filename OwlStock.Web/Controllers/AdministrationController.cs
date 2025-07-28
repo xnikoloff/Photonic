@@ -544,9 +544,9 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ManageWorkingTime()
+        public async Task<IActionResult> ManageWorkingTime()
         {
-            return View();
+            return View(await _administrationService.GetWorkingTime());
         }
 
         [ValidateAntiForgeryToken]

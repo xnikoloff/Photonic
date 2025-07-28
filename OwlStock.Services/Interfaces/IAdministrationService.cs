@@ -9,6 +9,7 @@ namespace OwlStock.Services.Interfaces
         Task<CreateIdentityUserDTO> CreateUser(IdentityUser user);
         Task<string> GetUserEmailByIdAsync(string userId);
         Task<IdentityUser?> GetUserByEmailAsync(string email);
+        Task<WorkingTime> GetWorkingTime();
         Task<bool> SetWorkingTime(WorkingTime workingTime);
     }
 }
