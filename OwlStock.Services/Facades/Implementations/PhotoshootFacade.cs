@@ -222,6 +222,11 @@ namespace OwlStock.Services.Facades.Implementations
             return await _emailService.Send(emailDTO);
         }
 
+        public async Task<WorkingTime> GetWorkingTime()
+        {
+            return await _administrationService.GetWorkingTime();
+        }
+
         private async Task<bool> HandleUser(CreatePhotoshootDTO dto)
         {
             //get user id and email

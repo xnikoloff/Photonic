@@ -627,7 +627,7 @@
                                                 <div class="card-body card-body-weather text-center @(isAvailable ? "card-body-available" : "card-body-unavailable")" style="background: @Html.Raw(backgroundColor)">
                                                     @foreach (TimeSlot slot in calendarKVP.Value)
                                                     {
-                                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-primary time-slot-available" : "btn-secondary time-slot-unavailable") text-white btn-sm my-1 btn-time-slot" id="time-slot">
+                                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-primary time-slot-available" : "btn-secondary time-slot-unavailable") text-white btn-sm my-1 btn-time-slot" id="time-slot-@(slot.Time.Hour)">
                                                             @(slot.Time.Hour < 10 ? $"0{slot.Time.Hour}" : slot.Time.Hour):@(slot.Time.Minute == 0 ? "00" : "30")
                                                         </button>
                                                     }
@@ -1064,6 +1064,9 @@
 
         //validate description on page load
         validateDescription($("#PhotoShootType").val());
+
+        //toggle timeslots based on set working time
+         toggleTimeSlots();
 
         //reset the value of reservation date on page load
         $("#ReservationDate").val("");
@@ -2380,5 +2383,34 @@
             case "11": return "product";
             case "12": return "baptism";
         }
+    }
+
+    function toggleTimeSlots(){
+        //hide all timeslots
+         $(".btn-time-slot").hide();
+
+
+         let start = @(Model?.WorkingHoursSpan?.Start ?? 0)
+         let end = @(Model?.WorkingHoursSpan?.End ?? 0)
+
+         console.log(start);
+         console.log(end);
+
+         let timeSlots = $(".btn-time-slot").toArray();
+
+         for (let i = 0; i < timeSlots.length; i++) {
+             //id looks like this time-slot-4
+             //we need to get the hour from the id (the third element)
+             let idHour = timeSlots[i].id.split('-')[2];
+
+              if(idHour < start || idHour > end){
+                  //hide the time slot if it is not in the working hours span
+                  $(timeSlots[i]).hide();
+              }
+              else{
+                  //show the time slot if it is in the working hours span
+                  $(timeSlots[i]).show();
+              }
+         }
     }
 </script>

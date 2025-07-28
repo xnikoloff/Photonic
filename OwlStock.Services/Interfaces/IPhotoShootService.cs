@@ -38,7 +38,5 @@ namespace OwlStock.Services.Interfaces
         /// <param name="id">Id of the photoshoor</param>
         /// <returns>Name of the person as string</returns>
         Task<string> GetPersonName(Guid id);
-
-        Task<int[]> GetWorkingHoursSpan();
     }
 }

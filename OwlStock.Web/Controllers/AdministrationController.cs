@@ -558,15 +558,15 @@ namespace OwlStock.Web.Controllers
                 return View(workingTime);
             }
 
-            if (workingTime.Start >= workingTime.End)
+            if (workingTime.Start > workingTime.End)
             {
                 ModelState.AddModelError("", "Началният час трябва да е по-рано от крайния час");
                 return View(workingTime);
             }
 
-            if (workingTime.Start < 0 || workingTime.End > 24)
+            if (workingTime.Start < 6 || workingTime.End > 20)
             {
-                ModelState.AddModelError("", "Работното време трябва да е в интервала [0, 24]");
+                ModelState.AddModelError("", "Работното време трябва да е в интервала [6, 20]");
                 return View(workingTime);
             }
 

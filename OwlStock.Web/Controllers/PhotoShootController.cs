@@ -33,7 +33,7 @@ namespace OwlStock.Web.Controllers
         {
             CreateRegularPhotoShootDTO dto = new()
             {
-                WorkingHoursSpan = await _photoShootService.GetWorkingHoursSpan(),
+                WorkingHoursSpan = await _photoshootFacade.GetWorkingTime(),
                 Calendar = await _photoshootFacade.GetPhotoShootsCalendar(),
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
             };
@@ -62,6 +62,7 @@ namespace OwlStock.Web.Controllers
         {
             CreateRegularPhotoShootDTO dto = new()
             {
+                WorkingHoursSpan = await _photoshootFacade.GetWorkingTime(),
                 PhotoShootType = photoShootType,
                 Calendar = await _photoshootFacade.GetPhotoShootsCalendar(),
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
