@@ -2390,8 +2390,8 @@
          $(".btn-time-slot").hide();
 
 
-         let start = @(Model?.WorkingHoursSpan?.Start ?? 0)
-         let end = @(Model?.WorkingHoursSpan?.End ?? 0)
+         let start = @(Model?.WorkingHoursSpan?.FirstOrDefault()?.Start ?? 0)
+         let end = @(Model?.WorkingHoursSpan?.FirstOrDefault()?.End ?? 0)
 
          let timeSlots = $(".btn-time-slot").toArray();
 

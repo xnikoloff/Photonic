@@ -222,7 +222,7 @@ namespace OwlStock.Services.Facades.Implementations
             return await _emailService.Send(emailDTO);
         }
 
-        public async Task<WorkingTime> GetWorkingTime()
+        public async Task<IEnumerable<WorkingTime>> GetWorkingTime()
         {
             return await _administrationService.GetWorkingTime();
         }

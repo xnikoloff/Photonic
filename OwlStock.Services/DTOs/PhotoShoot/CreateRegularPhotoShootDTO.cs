@@ -46,6 +46,6 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         
         public Dictionary<DateOnly, IEnumerable<TimeSlot>>? Calendar { get; set; }
         public List<Region>? ServicedRegions { get; set; }
-        public WorkingTime? WorkingHoursSpan { get; set; }
+        public IEnumerable<WorkingTime>? WorkingHoursSpan { get; set; }
     }
 }

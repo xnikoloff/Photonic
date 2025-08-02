@@ -29,7 +29,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Reserve()
+        public async Task<IActionResult> Reserve()  
         {
             CreateRegularPhotoShootDTO dto = new()
             {

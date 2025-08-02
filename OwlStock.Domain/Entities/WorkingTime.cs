@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OwlStock.Domain.Enumerations;
+using System.ComponentModel.DataAnnotations;
 
 namespace OwlStock.Domain.Entities
 {
@@ -14,5 +15,9 @@ namespace OwlStock.Domain.Entities
         [Required]
         [Display(Name = "Край")]
         public int End { get; set; }
+
+        [Required]
+        [Display(Name = "Тип")]
+        public WorkingTimeType WorkingTimeType { get; set; }
     }
 }

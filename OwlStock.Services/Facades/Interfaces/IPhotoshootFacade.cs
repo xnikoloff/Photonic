@@ -14,6 +14,6 @@ namespace OwlStock.Services.Facades.Interfaces
         Task<Dictionary<DateOnly, IEnumerable<TimeSlot>>> GetPhotoShootsCalendar();
         Task<IEnumerable<SetReservedDateDTO>> GetCalendarWithStatus();
         Task<bool> ChangeStatus(Guid id, PhotoshootStatus status);
-        Task<WorkingTime> GetWorkingTime();
+        Task<IEnumerable<WorkingTime>> GetWorkingTime();
     }
 }

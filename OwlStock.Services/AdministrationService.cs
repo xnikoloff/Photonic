@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using OwlStock.Domain.Entities;
+using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure;
 using OwlStock.Services.DTOs.Identity;
 using OwlStock.Services.Interfaces;
@@ -143,21 +144,51 @@ namespace OwlStock.Services
             }
         }
 
+        public async Task<IEnumerable<WorkingTime>> GetWorkingTime()
+        {
+            if (_context.WorkingTime is null)
+            {
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.WorkingTime), nameof(GetWorkingTimeByType), nameof(AdministrationService), DateTime.Now);
+                return new List<WorkingTime>();
+            }
+
+            try
+            {
+                IEnumerable<WorkingTime> workingTimes = await _context.WorkingTime
+                    .ToListAsync();
+
+                if (workingTimes == null)
+                {
+                    return new List<WorkingTime>();
+                }
+
+                return workingTimes;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new List<WorkingTime>();
+            }
+        }
+
         /// <summary>
         /// Gets the working time for the calendar. Always has one record in the database - the current working time.
         /// </summary>
         /// <returns>WorkingTime object</returns>
-        public async Task<WorkingTime> GetWorkingTime()
+        public async Task<WorkingTime> GetWorkingTimeByType(WorkingTimeType workingTimeType)
         {
             if (_context.WorkingTime is null)
             {
-                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.WorkingTime), nameof(GetWorkingTime), nameof(AdministrationService), DateTime.Now);
+                _logger.LogError("{context} is null in {Method}, {Class}, {DateTime}", nameof(_context.WorkingTime), nameof(GetWorkingTimeByType), nameof(AdministrationService), DateTime.Now);
                 return new();
             }
 
             try
             {
-                WorkingTime? workingTime = await _context.WorkingTime.FirstOrDefaultAsync();
+                WorkingTime? workingTime = await _context.WorkingTime
+                    .Where(w => w.WorkingTimeType == workingTimeType)
+                    .FirstOrDefaultAsync();
 
                 if (workingTime == null)
                 {
@@ -189,7 +220,9 @@ namespace OwlStock.Services
 
             try
             {
-                WorkingTime? existingWorkingTime = await _context.WorkingTime.FirstOrDefaultAsync();
+                WorkingTime? existingWorkingTime = await _context.WorkingTime
+                    .Where(w => w.WorkingTimeType == workingTime.WorkingTimeType)
+                    .FirstOrDefaultAsync();
 
                 if (existingWorkingTime == null)
                 {
@@ -201,7 +234,7 @@ namespace OwlStock.Services
                     existingWorkingTime!.Start = workingTime.Start;
                     existingWorkingTime!.End = workingTime.End;
                 }
-
+                
                 await _context.SaveChangesAsync();
                 return true;
             }

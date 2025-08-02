@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Работно време";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto text-center">
+            <a asp-controller="Administration" asp-action="ManageWorkingTime" asp-route-workingTimeType="@WorkingTimeType.WeekDay" class="btn btn-light mb-3 btn-lg">Делнични дни</a>
+        </div>
+        <div class="col-6 mx-auto text-center">
+            <a asp-controller="Administration" asp-action="ManageWorkingTime" asp-route-workingTimeType="@WorkingTimeType.WeekEnd" class="btn btn-dark mb-3 btn-lg">Уикенд</a>
+        </div>
+    </div>
+</div>
