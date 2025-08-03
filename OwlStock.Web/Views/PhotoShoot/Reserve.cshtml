@@ -605,7 +605,7 @@
 
                                             <div class="card card-weather text-center btn-date btn-date-simple text-white @(isAvailable ? "bg-primary card-available" : "bg-secondary card-unavailable")" id="date-button-simple">
                                                 <div class="card-header card-header-date">
-                                                    <p id="card-header-date-text">
+                                                    <p class="card-header-date-text">
                                                         @{
                                                             DayOfWeek dayOfWeek = calendarKVP.Key.DayOfWeek;
                                                             CultureInfo cultureInfo = new("bg-BG");
@@ -2390,15 +2390,29 @@
          $(".btn-time-slot").hide();
 
 
-         let start = @(Model?.WorkingHoursSpan?.FirstOrDefault()?.Start ?? 0)
-         let end = @(Model?.WorkingHoursSpan?.FirstOrDefault()?.End ?? 0)
+
+         let start = 0;
+         let end = 0;
 
          let timeSlots = $(".btn-time-slot").toArray();
 
          for (let i = 0; i < timeSlots.length; i++) {
-             //id looks like this time-slot-4
-             //we need to get the hour from the id (the third element)
-             let idHour = timeSlots[i].id.split('-')[2];
+              let card = timeSlots[i].closest('.card-weather');
+              let date = $(card).find('.card-header-date-text').first().text();
+
+               if(date.toLowerCase().includes("събота") || date.toLowerCase().includes("неделя")){
+                     start = @(Model?.WorkingHoursSpan?.Where(w => w.WorkingTimeType == WorkingTimeType.WeekEnd)?.FirstOrDefault()?.Start ?? 0)
+                     end = @(Model?.WorkingHoursSpan?.Where(w => w.WorkingTimeType == WorkingTimeType.WeekEnd)?.FirstOrDefault()?.End ?? 0)
+               }
+
+               else{
+                    start = @(Model?.WorkingHoursSpan?.Where(w => w.WorkingTimeType == WorkingTimeType.WeekDay)?.FirstOrDefault()?.Start ?? 0)
+                     end = @(Model?.WorkingHoursSpan?.Where(w => w.WorkingTimeType == WorkingTimeType.WeekDay)?.FirstOrDefault()?.End ?? 0)
+               }
+              
+              //id looks like this time-slot-4
+              //we need to get the hour from the id (the third element)
+              let idHour = timeSlots[i].id.split('-')[2];
 
               if(idHour < start || idHour > end){
                   //hide the time slot if it is not in the working hours span
