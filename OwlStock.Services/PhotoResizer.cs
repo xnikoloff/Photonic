@@ -3,7 +3,6 @@ using OwlStock.Services.Interfaces;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Processing.Processors.Transforms;
 
 namespace OwlStock.Services
 {
@@ -11,34 +10,12 @@ namespace OwlStock.Services
     {
         public byte[] Resize(byte[] fileData, PhotoSize photoSize)
         {
-            // memory stream
-            using var memoryStream = new MemoryStream();
-            // file stream
             using var image = Image.Load(fileData);
-            
-            IResampler sampler = KnownResamplers.Lanczos3;
-            bool compand = true;
-            ResizeMode mode = ResizeMode.Stretch;
 
-            var resizeOptions = new ResizeOptions
-            {
-                Size = GetSize(new Size() { Width = image.Width, Height = image.Height }, photoSize),
-                Sampler = sampler,
-                Compand = compand,
-                Mode = mode
-            };
+            image.Mutate(x => x.Resize(GetSize(new Size(image.Width, image.Height), photoSize)));
 
-            image.Mutate(x => x.Resize(resizeOptions));
-
-            //Encode here for quality
-            var encoder = new JpegEncoder()
-            {
-                Quality = 30 //between 5-30
-            };
-
-            //This saves to the memoryStream with encoder
-            image.Save(memoryStream, encoder);
-            memoryStream.Position = 0; // The position needs to be reset.
+            using var memoryStream = new MemoryStream();
+            image.Save(memoryStream, new JpegEncoder());
 
             // prepare result to byte[]
             return memoryStream.ToArray();
