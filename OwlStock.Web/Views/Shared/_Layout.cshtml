@@ -1,6 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+
+    @{
+        if(Context.Request.Host.Host.ToString().Contains("flash-studio"))
+        {
+            <meta name="robots" content="noindex, nofollow" />
+        }
+    }
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Photonic, нашето вдъхновение са вашите спомени</title>

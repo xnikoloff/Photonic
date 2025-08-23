@@ -4,10 +4,10 @@
     ViewData["Title"] = ViewData["categoryDescription"];
 }
 
-<div class="container">
+<div class="container-fluid">
     <div class="portfolio-menu mb-4">
         <ul>
-            <li id="cat-wedding" class="portfolio-menu-item" data-filter=".wedding">Сватба</li>
+            <li id="cat-wedding" class="portfolio-menu-item" data-filter=".wedding">Сватбен портрет</li>
             <li id="cat-prom" class="portfolio-menu-item" data-filter=".prom">Абитуриенти</li>
             <li id="cat-baptism" class="portfolio-menu-item" data-filter=".baptism">Свето кръщене</li>
             <li id="cat-portrait" class="portfolio-menu-item active" data-filter=".portrait">Индивидуална</li>
@@ -17,8 +17,9 @@
             <li id="cat-automotive" class="portfolio-menu-item" data-filter=".automotive">Автомобил</li>
             <li id="cat-events" class="portfolio-menu-item" data-filter=".events">Събитие</li>
             <li id="cat-landscape" class="portfolio-menu-item" data-filter=".landscape">Пейзажи</li>
-            <li id="cat-animals" class="portfolio-menu-item" data-filter=".animals">Животни</li>
-            <li id="cat-architecture" class="portfolio-menu-item" data-filter=".architecture">Архитектура</li>
+            <li id="cat-secret" class="portfolio-menu-item" data-filter=".secret">Тайна фотосесия</li>
+            <li id="cat-architecture" class="portfolio-menu-item" data-filter=".architecture">Имоти</li>
+            <li id="cat-other" class="portfolio-menu-item" data-filter=".other">Други</li>
         </ul>
     </div>
     <div class="portfolio-item row">
@@ -26,7 +27,7 @@
         {
             foreach(GalleryPhoto? photo in categoriesWithPhotos.Value)
             {
-                <div class="item @categoriesWithPhotos.Key.ToString().ToLower() col-lg-3 col-md-4 col-6 col-sm text-center mt-4">
+                <div class="item @categoriesWithPhotos.Key.ToString().ToLower() col-md-4 col-6 text-center mt-5">
                     <a href="~/resources/@photo?.FilePathSmall" class="fancylight popup-btn" data-fancybox-group="light">
                         <img class="img-fluid" src="~/resources/@photo?.FilePathSmall" alt="gallery-item">
                     </a>
@@ -43,6 +44,8 @@
     }
 
     .portfolio-menu {
+        color: #000;
+        margin-top: -100px;
         text-align: center;
     }
 
@@ -61,6 +64,11 @@
 
     .portfolio-menu .active{
         color: #EAA636;
+    }
+
+    .portfolio-item{
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .portfolio-item .item {

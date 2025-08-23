@@ -36,14 +36,7 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            AllDynamicContentsDTO all = await _dynamicContentService.GetAll();
-
-            if(all.DynamicContents == null || all.DynamicContentCategories ==  null)
-            {
-                return View("Error", "Опитайте пак по-късно");
-            }
-
-            return View(all);
+            return View(await _dynamicContentService.GetAll());
         }
 
         [HttpGet]
@@ -51,11 +44,6 @@ namespace OwlStock.Web.Controllers
         {
             ViewData["PageNumber"] = pageNumber;
             var all = await _dynamicContentService.GetAllByPage(pageNumber);
-
-            if(all.DynamicContents == null || all.DynamicContentCategories == null)
-            {
-                return View("Error", "Опитайте пак по-късно");
-            }
 
             return View(nameof(All), all);
         }

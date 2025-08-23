@@ -3,172 +3,242 @@
 }
 
 
-<div class="container-xxl pb-5">
-    <div class="container mt-5">
-        <div class="col-lg-6 wow fadeInUp mx-auto text-center" data-wow-delay="0.5s">
-            <div class="h-100">
-                <p class="text-primary text-uppercase mb-2">Услуги</p>
-                <h1 class="display-6 mb-4">Нашите услуги</h1>
-                <p>Във <span class="text-primary"><b>PHOTONIC</b></span> предлагаме разнообразие от фотографски услуги, създадени да уловят и съхранят най-ценните Ви моменти. Ние съчетаваме креативност и въображение, за да ви предоставим кадри, които вдъхновяват.</p>
-                <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
-            </div>
+
+
+
+<!-- Team Start -->
+<div class="container-xxl px-0 py-5">
+    <div class="col-lg-6 wow fadeInUp mx-auto text-center" data-wow-delay="0.5s">
+        <div class="h-100">
+            <p class="text-primary text-uppercase mb-2">Услуги</p>
+            <h1 class="display-6 mb-4">Нашите услуги</h1>
+            <p>Във <span class="text-primary"><b>PHOTONIC</b></span> предлагаме разнообразие от фотографски услуги, създадени да уловят и съхранят най-ценните Ви моменти. Ние съчетаваме креативност и въображение, за да ви предоставим кадри, които вдъхновяват.</p>
+            <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
         </div>
     </div>
-    <div class="container overflow-hidden">
-        <div class="row row-services row-services-personal">
-            <div class="col-12 col-md-6 mx-auto col-services-info col-services-personal">
-                <div class="text-center">
-                    <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Portrait" class="mb-3 mt-4"> <h1 class="mb-3 mt-4 title-link-portfolio">Индивидуална фотосесия</h1></a>
-                    
-                    <i class="fa-solid fa-user-tie text-primary fa-2xl"></i>
-                    <p class="mt-3">Ще работим с Вас, за да създадем портрети, които отразяват вашата същност и характер. Независимо дали желаете класически портрети или нещо по-креативно, ние ще Ви помогнем да създадете снимки, които ще пазите с гордост.</p>
-                    <!--<div class="mt-5">
-                        <a asp-controller="Photo" asp-action="AllByCategory" asp-route-category="@Category.Portrait" class="btn btn-light btn-cta btn-view-services">Разгледайте</a>
-                        <a asp-controller="PhotoShoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-warning btn-cta btn-book-services">Резервирайте</a>
-                    </div>-->
+    <div class="row g-0">
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+            <div class="row g-0 flex-sm-row">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/wedding.jpg" alt="wedding">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Сватбен портрет</h4>
+                            <span class="text-primary">Цена от 300 лв</span>
+                        </div>
+                        <p>Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Wedding" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Wedding" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-right">
-                <img src="~/resources/images/portrait.jpg" alt="services-photo" />
-            </div>
         </div>
-        <div class="row row-services row-services-wedding">
-            <div class="col-12 col-md-6 mx-auto col-services-info col-services-wedding">
-                <div class="text-center">
-                    <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Family" class="mb-3 mt-4"> <h1 class="mb-3 mt-4 title-link-portfolio">Семейна фотосесия</h1></a>
-                    <i class="fa-solid fa-people-group fa-2x text-primary"></i>
-                    <p class="mt-3">Запечатайте специалните моменти със семеен портрет. Това е прекрасен начин да съхраните спомените заедно с вашите близки, създавайки уникален и вечен подарък.</p>
+        
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+            <div class="row g-0 flex-sm-row-reverse flex-lg-row">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/prom.jpg" alt="prom">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Абитуриентски бал</h4>
+                            <span class="text-primary">Цена от 300 лв</span>
+                        </div>
+                        <p>Абитуриентската вечер е един от най-вълнуващите моменти в живота на всеки ученик или студент. Ще създадем красиви и стилни снимки, които ще Ви напомнят за него.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Prom" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Prom" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-left">
-                <img src="~/resources/images/family.jpg" alt="services-photo" />
-            </div>
         </div>
-        <div class="row row-services row-services-prom">
-            <div class="col-12 col-md-6 mx-auto col-services-info col-services-prom">
-                <div class="text-center">
-                    <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Prom" class="mb-3 mt-4"> <h1 class="mb-3 mt-4 title-link-portfolio">Абитуриентски балове</h1></a>
-                    <i class="fa-solid fa-graduation-cap fa-2x text-primary"></i>
-                    <p class="mt-3">Абитуриентската вечер е един от най-вълнуващите и запомнящи се моменти в живота на всеки ученик или студент. В DreamPix разбираме значението на този специален ден и сме тук, за да го заснемем. Ще създадем красиви и стилни снимки, които ще Ви напомнят за този вълнуващ момент.</p>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+            <div class="row g-0 flex-lg-row-reverse">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/baptism.jpg" alt="baptism">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Свето кръщене</h4>
+                            <span class="text-primary">Цена от 300 лв</span>
+                        </div>
+                        <p>Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение, както и радостта и любовта, които споделяте със семейството и приятелите си.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Baptism" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Baptism" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-right">
-                <img src="~/resources/images/prom.jpg" alt="services-photo" />
-            </div>
         </div>
-        <div class="row row-services row-services-bapsism">
-            <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
-                <div class="text-center">
-                    <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Baptism" class="mb-3 mt-4"> <h1 class="mb-3 mt-4 title-link-portfolio">Свето кръщение</h1></a>
-                    <i class="fa-solid fa-cross fa-2x text-primary"></i>
-                    <p class="mt-3">Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение, както и радостта и любовта, които споделяте със семейството и приятелите си. Ние ще създадем изображения, които ще пазите и цените за поколения напред.</p>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+            <div class="row g-0 flex-lg-row-reverse">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/product.jpg" alt="product">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Продукт</h4>
+                            <span class="text-primary">Цена от 50 лв</span>
+                        </div>
+                        <p>Ще заснемем вашите продукти, така, че те да бъдат представени пълноценно за вашия бизнес.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Product" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Product" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-left">
-                <img src="~/resources/images/baptism.jpg" alt="services-photo" />
-            </div>
         </div>
-        <div class="row row-services row-services-bapsism">
-            <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
-                <div class="text-center">
-                    <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Product" class="mb-3 mt-4"> <h1 class="mb-3 mt-4 title-link-portfolio">Продукт</h1></a>
-                    <i class="fa-solid fa-shirt fa-2x text-primary"></i>
-                    <p class="mt-3">Ще заснемем вашите продукти, за да бъдат представени пълноценно за вашия бизнес. Независимо от вида и размера на продукта, ще се погрижим той да изглежда привлекателно и в търговски вид.</p>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+            <div class="row g-0 flex-sm-row-reverse flex-lg-row">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/family.jpg" alt="familly">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Семейна фотосесия</h4>
+                            <span class="text-primary">Цена от 200 лв</span>
+                        </div>
+                        <p>Запечатайте специалните моменти със семеен портрет. Това е прекрасен начин да съхраните спомените заедно с вашите близки, създавайки уникален и вечен подарък.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Family" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Family" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-right">
-                <img src="~/resources/images/product.jpg" alt="services-photo" />
-            </div>
         </div>
-        <div class="row row-services row-services-bapsism">
-            <div class="col-12 col-md-6 mx-auto col-services-info col-services-event">
-                <div class="text-center">
-                    <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Events" class="mb-3 mt-4"> <h1 class="mb-3 mt-4 title-link-portfolio">Събитие</h1></a>
-                    <i class="fa-solid fa-calendar-days fa-2xl text-primary"></i>
-                    <p class="mt-3">Ще отразим вашето лично или корпоративмо събитие в пълния му блясък. Зарадвайте гостите си, както и Вас самите с кадри, заредени с емоция.</p>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+            <div class="row g-0 flex-sm-row-reverse flex-lg-row">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/event.jpg" alt="event">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Събитие</h4>
+                            <span class="text-primary">Цена по договаряне</span>
+                        </div>
+                        <p>Ще се радваме на бъдем част от вашето събитие. Дали лично или корпоративно, ще заснемем всеки момент от него.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Events" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Events" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-left">
-                <img src="~/resources/images/event.jpg" alt="services-photo" />
-            </div>
         </div>
-        <div class="row row-services row-services-bapsism">
-            <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
-                <div class="text-center">
-                    <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Business" class="mb-3 mt-4"> <h1 class="mb-3 mt-4 title-link-portfolio">Бизнес портрет</h1></a>
-                    <i class="fa-solid fa-briefcase fa-2xl text-primary"></i>
-                    <p class="mt-3">Подкрепете своя професионален имидж с въздействащ бизнес портрет. Това е повече от обикновена снимка — това е стратегически инструмент, който изгражда доверие, демонстрира увереност и укрепва личния Ви бранд.</p>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+            <div class="row g-0 flex-sm-row-reverse">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/portrait.jpg" alt="individual">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Индививуална фотосесия</h4>
+                            <span class="text-primary">Цена от 100 лв</span>
+                        </div>
+                        <p>Ще работим с Вас, за да създадем портрети, които отразяват вашата същност и характер.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Portrait" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Portrait" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-right">
-                <img src="~/resources/images/bussinessPortrait.jpg" alt="services-photo" />
-            </div>
         </div>
-        <div class="row row-services row-services-bapsism">
-            <div class="col-12 col-md-6 mx-auto col-services-info col-services-bapsism">
-                <div class="text-center">
-                    
-                    <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Automotive" class="mb-3 mt-4 title-link-portfolio"><h1>Автомобил</h1></a>
-                    <i class="fa-solid fa-car fa-2x text-primary"></i>
-                    <p class="mt-3">Имате автомобил, който искате да заснемете професионално? Дали стоящ на някой паркинг или в движение по улиците, ще заснемем всеки един детайл от него.</p>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+            <div class="row g-0 flex-sm-row-reverse">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/bussinessPortrait.jpg" alt="bussiness portrait">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Бизнес портрет</h4>
+                            <span class="text-primary">Цена от 200 лв</span>
+                        </div>
+                        <p>Подкрепете своя професионален имидж с въздействащ бизнес портрет. Това е повече от обикновена снимка — това е стратегически инструмент, който изгражда доверие, демонстрира увереност и укрепва личния Ви бранд.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Business" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Business" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 mx-auto text-center col-services-image col-services-image-left">
-                <img src="~/resources/images/automobile.jpg" alt="services-photo" />
+        </div>
+
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+            <div class="row g-0 flex-sm-row-reverse flex-lg-row">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/automobile.jpg" alt="automotive">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Автомобил</h4>
+                            <span class="text-primary">Цена от 100 лв</span>
+                        </div>
+                        <p>Имате автомобил, който искате да заснемете професионално? Дали стоящ на някой паркинг или в движение по улиците, ще заснемем всеки един детайл от него.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+            <div class="row g-0 flex-sm-row-reverse">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/secret.jpg" alt="secret">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <h4>Тайна фотосесия</h4>
+                            <span class="text-primary">Цена от 200 лв</span>
+                        </div>
+                        <p>Искате да направите предложение за брак? Да изненадате приятел? Направете момента още по-изнендващ и специален, като го запечатате без знанието на другия. Непринудените реакции на хората са безценни и винаги изглеждат красиво на снимки.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
-
-<style>
-    .title-link-portfolio {
-        transition: 0.3s;
-    }
-
-    .title-link-portfolio:hover{
-        color: #EAA636;
-        transition: 0.3s;
-    }
-
-    .row-services .btn-cta{
-        font-weight: bold;
-    }
-
-    .col-services-info {
-        z-index: 1;
-        background: #fafafa;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 0px 24px;
-        /*border-radius: 10%;*/
-    }
-
-    .col-services-info p{
-        font-size: 1.1rem;
-    }  
-    
-    .row-services{
-        margin-top: 150px;
-    }
-
-    .row-services .col-services-image img {
-        width: 500px;
-        border: 15px solid #deaa66;
-    }
-
-    .row-services .col-services-image-left img{
-        transform: rotate(-15deg);
-        border-top-right-radius: 40%;
-        border-bottom-left-radius: 40%;
-    }
-
-    .row-services .col-services-image-right img {
-        transform: rotate(15deg);
-        border-top-left-radius: 40%;
-        border-bottom-right-radius: 40%;
-    }
-
-    @@media only screen and (max-width: 768px) {
-        .row-services .col-services-image img {
-            width: 400px;
-        }
-    }
-</style>

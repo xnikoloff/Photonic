@@ -14,6 +14,13 @@
     </div>
     <div class="row g-0">
 
+        @if (Model.DynamicContents != null || !Model.DynamicContents!.Any())
+        {
+            <div class="col-12 text-center">
+                <p class="my-5">Все още няма публикации</p>
+            </div>
+        }
+
         @foreach (DynamicContent dynamicContent in Model?.DynamicContents ?? new List<DynamicContent>())
         {
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
