@@ -117,12 +117,40 @@ namespace OwlStock.Services
                     return false;
                 }
 
-                _context.DynamicContents.Remove(dynamicContent);
+                dynamicContent.IsVisible = false;
+                dynamicContent.DeletedOn = DateTime.Now;
+                
                 await _context.SaveChangesAsync();
                 return true;
             }
 
             catch(Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
+            }
+        }
+
+        public async Task<bool> Recover(Guid id)
+        {
+            if (_context.DynamicContents is null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Recover)}, {nameof(_context.DynamicContents)} is null");
+                return false;
+            }
+            try
+            {
+                DynamicContent? dynamicContent = await _context.DynamicContents.FindAsync(id);
+                if (dynamicContent == null)
+                {
+                    _logger.LogError($"DynamicContent with Id {id} was not found, {DateTime.UtcNow}, {nameof(Recover)}");
+                    return false;
+                }
+                dynamicContent.IsVisible = true;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
                 return false;
@@ -216,6 +244,44 @@ namespace OwlStock.Services
                    .Include(dc => dc.CreatedBy)
                    .Include(dc => dc.DynamicContentCategories)
                    .Where(dc => dc.DynamicContentCategories!.Id == id)
+                   .ToListAsync();
+
+                List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();
+
+                return new AllDynamicContentsDTO()
+                {
+                    DynamicContents = dynamicContents,
+                    DynamicContentCategories = dynamicContentCategories
+                };
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new();
+            }
+        }
+
+        public async Task<AllDynamicContentsDTO> GetAllDeleted()
+        {
+            if (_context.DynamicContents is null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByCategory)}, {nameof(_context.DynamicContents)} was null");
+                return new();
+            }
+
+            if (_context.DynamicContentCategories is null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllByCategory)}, {nameof(_context.DynamicContentCategories)} was null");
+                return new();
+            }
+
+            try
+            {
+                List<DynamicContent>? dynamicContents = await _context.DynamicContents
+                   .Include(dc => dc.CreatedBy)
+                   .Include(dc => dc.DynamicContentCategories)
+                   .Where(dc => dc.IsVisible == false)
                    .ToListAsync();
 
                 List<DynamicContentCategory>? dynamicContentCategories = await _context.DynamicContentCategories.ToListAsync();

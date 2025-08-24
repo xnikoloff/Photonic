@@ -8,13 +8,23 @@
 
 <!-- Team Start -->
 <div class="container-xxl px-0 pb-5">
+
+    @if (User.IsInRole("Administrator"))
+    {
+        <div class="row g-0 mb-5">
+            <div class="col-12 text-center">
+                <a asp-controller="DynamicContent" asp-action="AllDeleted" class="btn btn-danger btn-sm">ИЗТРИТИ</a>
+            </div>
+        </div>
+    }
+
     <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
         <p class="text-primary text-uppercase mb-2">Актуално</p>
         <h1 class="display-6 mb-0">Последните новини и публикации</h1>
     </div>
     <div class="row g-0">
 
-        @if (Model.DynamicContents != null || !Model.DynamicContents!.Any())
+        @if (Model.DynamicContents == null || !Model.DynamicContents!.Any())
         {
             <div class="col-12 text-center">
                 <p class="my-5">Все още няма публикации</p>
@@ -41,6 +51,24 @@
                                 <a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.DynamicContentCategories?.Id" class="me-2"><i class="fa-solid fa-layer-group"></i> @dynamicContent?.DynamicContentCategories?.Name</a>
                                 <p class="me-2"><i class="fa-solid fa-clock"></i> @(dynamicContent?.ReadingTime == 0 ? "< 1 мин" : dynamicContent?.ReadingTime + "мин")</p>
                             </div>
+
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                if (dynamicContent!.IsVisible)
+                                {
+                                    <div class="d-flex">
+                                        <a asp-action="Delete" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id" class="me-2 text-danger"><i class="fa-solid fa-trash fa-2xl"></i></a>
+                                    </div>
+                                }
+
+                                else
+                                {
+                                    <div class="d-flex">
+                                        <a asp-action="Recover" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id" class="me-2 text-info"><i class="fa-solid fa-arrow-up-from-bracket fa-2xl"></i></a>
+                                    </div>
+                                }
+                            }
+
                         </div>
                     </div>
                 </div>

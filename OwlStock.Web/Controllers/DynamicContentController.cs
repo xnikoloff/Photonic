@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OwlStock.Domain.Entities;
 using OwlStock.Services.DTOs.DynamicContents;
 using OwlStock.Services.Facades.Interfaces;
@@ -25,7 +26,7 @@ namespace OwlStock.Web.Controllers
         {
             DynamicContent content = await _dynamicContentService.GetById(id);
 
-            if(content.Id == Guid.Empty)
+            if (content.Id == Guid.Empty)
             {
                 return View("Error", "Не успяхме да намерим съдържанието, която търсите");
             }
@@ -61,10 +62,24 @@ namespace OwlStock.Web.Controllers
             return View(nameof(All), all);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
-        public async Task<IActionResult> Create()   
+        public async Task<IActionResult> AllDeleted(Guid id)
         {
-            List<DynamicContentCategory> categories = 
+            AllDynamicContentsDTO all = await _dynamicContentService.GetAllDeleted();
+
+            if (all.DynamicContents == null || all.DynamicContentCategories == null)
+            {
+                return View("Error", "Опитайте пак по-късно");
+            }
+
+            return View(nameof(All), all);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            List<DynamicContentCategory> categories =
                 (await _dynamicContentService.GetAllDynamicContentCategories()).ToList();
 
             return View(new CreateDynamicContentDTO()
@@ -87,6 +102,32 @@ namespace OwlStock.Web.Controllers
             {
                 return View("Error", "An error occured while creating the dynamic content. See the log for details");
             }
+            return RedirectToAction(nameof(AllByPage));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            bool isSuccessful = await _dynamicContentService.Delete(id);    
+
+            if (!isSuccessful)
+            {
+                return View("Error", "An error occured while deleting the dynamic content. See the log for details");
+            }
+
+            return RedirectToAction(nameof(AllByPage));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Recover(Guid id)
+        {
+            bool isSuccessful = await _dynamicContentService.Recover(id);
+
+            if (!isSuccessful)
+            {
+                return View("Error", "An error occured while recovering the dynamic content. See the log for details");
+            }
+
             return RedirectToAction(nameof(AllByPage));
         }
     }
