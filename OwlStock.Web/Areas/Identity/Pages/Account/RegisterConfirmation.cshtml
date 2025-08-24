@@ -21,7 +21,7 @@
     <div class="row row-account-confirmation row-account-confirmation-text mt-3">
         <div class="col-12 col-account-confirmation-text text-center">
            <p class="account-confirmation-text">Не получихте имейл?</p>
-           <a asp-page="./RegisterConfirmation" asp-route-email="@Model.Email" class="btn btn-dark">Изпрати нов имейл</a>
+           <a asp-page="./RegisterConfirmation" asp-route-email="@Model.Email" class="btn btn-dark btn-resend-email">Изпрати нов имейл</a>
         </div>
     </div>
 </div>
@@ -35,6 +35,10 @@
     .account-confirmation-wrap .row-account-confirmation-text  .col-account-confirmation-text p{
         margin-top: 20px;
         font-size: 1.2rem;
+    }
+
+    .btn-resend-email{
+        border-radius: 0 !important;
     }
 
     @@media only screen and (max-width: 768px){

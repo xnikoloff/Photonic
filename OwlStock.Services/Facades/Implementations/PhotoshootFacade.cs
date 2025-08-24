@@ -207,14 +207,14 @@ namespace OwlStock.Services.Facades.Implementations
                 case PhotoshootStatus.Declined:
                     {
                         emailDTO.EmailTemplate = EmailTemplate.DeclinePhotoShoot;
-                        emailDTO.Topic = "Отхвърлена фотосесия";
+                        emailDTO.Topic = "Отказана фотосесия";
                         break;
                     }
 
                 case PhotoshootStatus.Cancelled:
                     {
                         emailDTO.EmailTemplate = EmailTemplate.CancelPhotoShoot;
-                        emailDTO.Topic = "Отказана фотосесия";
+                        emailDTO.Topic = "Отменена фотосесия";
                         break;
                     }
             }

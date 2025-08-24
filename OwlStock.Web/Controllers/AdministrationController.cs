@@ -205,20 +205,14 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> DeclinePhotoshoot(Guid id)
         {
-            ChangePhotoshootStatusDTO dto =  await _photoShootService.ChangeStatus(id, PhotoshootStatus.Declined);
-
-            if (dto.Id == Guid.Empty)
-            {
-                return View("Error", "Неуспешна промяна на статус");
-            }
-
+            await _photoshootFacade.ChangeStatus(id, PhotoshootStatus.Declined);
             return RedirectToAction(nameof(Photoshoots));
         }
 
         [HttpGet]
         public async Task<IActionResult> CancelPhotoshoot(Guid id)
         {
-            await _photoShootService.ChangeStatus(id, PhotoshootStatus.Cancelled);
+            await _photoshootFacade.ChangeStatus(id, PhotoshootStatus.Cancelled);
             return RedirectToAction(nameof(Photoshoots));
         }
 

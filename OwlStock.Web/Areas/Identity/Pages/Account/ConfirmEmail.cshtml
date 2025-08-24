@@ -3,14 +3,13 @@
 @{
     ViewData["Title"] = "Потвърждение на имейл";
 }
-
-<div class="container container-confirmation-message-wrap">
-    <div class="row">
-        <div class="col-12 text-center">
+<div class="account-confirmation-wrap">
+    <div class="row row-account-confirmation row-account-confirmation-icon">
+        <div class="col-12 col-account-confirmation-icon text-center">
             <h1>
                 @if (Model.IsSuccessful)
                 {
-                    <i class="fa-solid fa-envelope-circle-check fa-2x text-warning"></i>
+                    <i class="fa-solid fa-envelope-circle-check fa-2x text-primary"></i>
                 }
                 else
                 {
@@ -19,17 +18,47 @@
             </h1>
         </div>
     </div>
-    <div class="row mt-4">
-        <div class="col-12 text-center">
+    <div class="row row-account-confirmation row-account-confirmation-text mt-5">
+        <div class="col-12 col-account-confirmation-text text-center">
             <h1 class="status-message @(Model.IsSuccessful ? "text-dark" : "text-danger")">@Model.StatusMessage</h1>
         </div>
     </div>
-    <div class="row row-account-prompt-container mt-5">
-        <div class="col-12 text-center">
-            <p>Влезте от <a asp-page="./Login" class="text-warning"><b>тук</b></a>.</p>
+    <div class="row row-account-confirmation row-account-confirmation-text mt-3">
+        <div class="col-12 col-account-confirmation-text text-center">
+           <p class="account-confirmation-text">Влезте в профила си от тук</p>
+            <a asp-page="./Login" class="btn btn-dark btn-resend-email">ВХОД</a>
         </div>
     </div>
 </div>
+
+<style>
+    .account-confirmation-wrap .row-account-confirmation-icon  .col-account-confirmation-icon h1{
+        font-size: 6rem;
+        transform: rotate(-20deg);
+    }
+
+    .account-confirmation-wrap .row-account-confirmation-text  .col-account-confirmation-text p{
+        margin-top: 20px;
+        font-size: 1.2rem;
+    }
+
+    .btn-resend-email{
+        border-radius: 0 !important;
+    }
+
+    @@media only screen and (max-width: 768px){
+        .account-confirmation-wrap .row-account-confirmation .col-account-confirmation-text .title{
+            font-size: 1.8rem;
+        }
+    }
+</style>
+
+
+
+
+
+
+
 
 
 <style>
