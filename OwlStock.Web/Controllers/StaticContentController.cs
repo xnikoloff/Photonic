@@ -36,6 +36,12 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult FAQ()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public ContentResult Sitemap()
         {
             string sitemapPath = Path.Combine(_webHostEnvironment.WebRootPath, "sitemap.xml");
