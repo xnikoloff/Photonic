@@ -15,6 +15,7 @@ namespace OwlStock.Domain.Entities
         [Key]
         public Guid Id { get; set; }
         public string? PhotoshootNumber { get; set; }
+        public int NumberOfParticipants { get; set; }
         public PhotoshootStatus Status { get; set; }
         public string? PersonFirstName { get; set; }
         public string? PersonLastName { get; set; }

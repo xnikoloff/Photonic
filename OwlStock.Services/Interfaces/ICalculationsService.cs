@@ -10,7 +10,7 @@ namespace OwlStock.Services.Interfaces
         /// <param name="type"></param>
         /// <param name="fuelPrice"></param>
         /// <returns></returns>
-        decimal CalculatePhotoshootPrice(PhotoShootType type, decimal fuelPrice);
+        decimal CalculatePhotoshootPrice(PhotoShootType type, decimal fuelPrice, int numberOfParticipants);
 
         /// <summary>
         /// Calculates the fuel price based on the distance of the provided settlement data

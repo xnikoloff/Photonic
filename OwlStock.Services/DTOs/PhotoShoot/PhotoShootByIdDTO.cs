@@ -7,6 +7,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
     {
         public Guid Id { get; set; }
         public string? PhotoshootNumber { get; set; }
+        public int NumberOfParticipants { get; set; }
         public string? PersonFullName { get; set; }
         public string? PersonPhone { get; set; }
         public PhotoshootStatus? Status { get; set; }

@@ -8,7 +8,7 @@ namespace OwlStock.Services
 {
     public class CalculationsService : ICalculationsService
     {
-        public decimal CalculatePhotoshootPrice(PhotoShootType type, decimal fuelPrice = 0)
+        public decimal CalculatePhotoshootPrice(PhotoShootType type, decimal fuelPrice = 0, int numberOfParticipants = 1)
         {
             switch (type)
             {
@@ -166,10 +166,10 @@ namespace OwlStock.Services
                 {
                     if (fuelPrice == 0)
                     {
-                        return DefaultValue.BusinessPortrait;
+                        return DefaultValue.BusinessPortrait * numberOfParticipants;
                     }
 
-                    return DefaultValue.BusinessPortrait + fuelPrice;
+                    return (DefaultValue.BusinessPortrait * numberOfParticipants) + fuelPrice;
                 }
 
                 case PhotoShootType.Automotive:
@@ -186,20 +186,20 @@ namespace OwlStock.Services
                 {
                     if (fuelPrice == 0)
                     {
-                        return DefaultValue.Product;
+                        return DefaultValue.Product * numberOfParticipants;
                     }
 
-                    return DefaultValue.Product + fuelPrice;
+                    return (DefaultValue.Product * numberOfParticipants) + fuelPrice;
                 }
 
                 case PhotoShootType.ProductPlus:
                     {
                         if (fuelPrice == 0)
                         {
-                            return DefaultValue.ProductPlus;
+                            return DefaultValue.ProductPlus * numberOfParticipants;
                         }
 
-                        return DefaultValue.ProductPlus + fuelPrice;
+                        return (DefaultValue.ProductPlus * numberOfParticipants) + fuelPrice;
                     }
 
                 default: return fuelPrice;

@@ -58,7 +58,7 @@ namespace OwlStock.Services.Facades.Implementations
                 dto!.PlaceId = placeGuid;
             }
 
-            dto.Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, dto.FuelPrice);
+            dto.Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, dto.FuelPrice, dto.NumberOfParticipants);
 
             Guid photoshootGuid = await _photoShootService.Add(dto);
 
@@ -90,7 +90,7 @@ namespace OwlStock.Services.Facades.Implementations
             //otherwise no new place should be created
             
 
-            dto.Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, 0);
+            dto.Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, 0, 1);
 
             Guid photoshootGuid = await _photoShootService.AddSmallProduct(dto);
 

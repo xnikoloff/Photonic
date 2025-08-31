@@ -379,6 +379,11 @@
                                 <div class="small-product-prompt mb-4">
                                     <p>Ако продуктът е малък (от порядъка на дрехи, обувки, бижута и други малки предмети), молим Ви да използвате формата за резервация на <a asp-controller="PhotoShoot" asp-action="ReserveSmallProduct"><b><u>малък продукт</u></b></a>.</p>
                                 </div>
+                                <div class="form-group participants">
+                                                <label asp-for="NumberOfParticipants">Брой на участници</label>
+                                                <input type="number" class="form-control" asp-for="NumberOfParticipants" />
+                                            </div>
+                                <p class="info-text"><i>*въведете брой на участници, когато във фотосесията ще участва повече от едно лице (например при фотосесия на служители на фирма)</i></p>
                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                     <div class="card mx-auto card-packet">
                                         <div class="card-header text-center">
@@ -430,7 +435,7 @@
                                 </div>
                             </div>
                             <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-business-portrait" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                <div class="col-6 mx-auto col-photoshoot-packet">
                                     <div class="card mx-auto card-packet">
                                         <div class="card-header text-center">
                                             <h5>Стандартен</h5>
@@ -439,6 +444,12 @@
                                             <h3>150 лв</h3>
                                             <hr />
                                             <p>Включва обработените сполучливите кадри</p>
+                                            <hr />
+                                            <div class="form-group participants">
+                                                <label asp-for="NumberOfParticipants">Брой на участници</label>
+                                                <input type="number" class="form-control" asp-for="NumberOfParticipants" />
+                                            </div>
+                                            <p class="info-text"><i>*въведете брой на участници, когато във фотосесията ще участва повече от едно лице (например при фотосесия на служители на фирма)</i></p>
                                         </div>
                                         <div class="card-footer text-center">
                                             <button type="button" class="btn btn-primary btn-section-submit" id="business-portrait" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
@@ -944,6 +955,10 @@
         font-size: 1.1rem;
     }
 
+    .booking-container .card .info-text {
+        font-size: .9rem;
+    }
+
     .row-legend{
         margin-left: 13px;
     }
@@ -1152,6 +1167,47 @@
             
             $("#PhotoShootType").val($(this).val());
         });
+
+
+        //recalculate price based on number of participants
+         $("#NumberOfParticipants").change(function(){
+             recalculatePriceWithParticipants($(this).val());
+         });
+
+          function recalculatePriceWithParticipants(numberOfParticipants){
+            let newPrice = 0
+            
+            switch($("#PhotoShootType").val()){
+                //2 is bussiness portrait
+                case "2":{
+                     //150 is hardcoded temporary. Soon it will be refactored
+                     newPrice = 150 * parseInt(numberOfParticipants);
+                     break;
+                }
+
+                //11 is simple product
+                case "11":{
+                      //50 is hardcoded temporary. Soon it will be refactored
+                     newPrice = 50 * parseInt(numberOfParticipants);
+                     break;
+                }
+
+                 //21 is art product
+                 case "21":{
+                       //50 is hardcoded temporary. Soon it will be refactored
+                      newPrice = 50 * parseInt(numberOfParticipants);
+                      break;
+                 }
+
+                 default:{
+                      //50 is hardcoded temporary. Soon it will be refactored
+                      console.log("ivalid photoshoot type");
+                      break;
+                 }
+             }
+             
+             $("#price-summary").text(newPrice + " лв");
+          }
 
         
 
@@ -2238,12 +2294,14 @@
             return;
         }
 
+         let numberOfParticipants = $("#NumberOfParticipants").val();
+
         $.ajax({
             contentType: 'application/json',
             url: "@Url.Action("photoshootPrice", "Calculations")",
             traditional: true,
             method: "GET",
-            data: { 'photoshootType': photoshootType, 'fuelPrice': fuelPrice },
+              data: { 'photoshootType': photoshootType, 'fuelPrice': fuelPrice, 'numberOfParticipants': numberOfParticipants },
             success: function (response) {
                 if ($("#PhotoShootType").find(":selected").val() == 20 || $("#PhotoShootType").find(":selected").val() == 10) {
                     $("#price-summary").html("По договаряне");

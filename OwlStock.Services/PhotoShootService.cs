@@ -158,6 +158,7 @@ namespace OwlStock.Services
                 {
                     Id = photoshoot.Id,
                     PhotoshootNumber = photoshoot.PhotoshootNumber,
+                    NumberOfParticipants = photoshoot.NumberOfParticipants,
                     PersonFullName = photoshoot.PersonFullName,
                     PersonPhone = photoshoot.PersonPhone,
                     Status = photoshoot.Status,
@@ -244,6 +245,7 @@ namespace OwlStock.Services
 
                 PhotoShoot photoShoot = new()
                 {
+                    NumberOfParticipants = dto.NumberOfParticipants,
                     PersonFirstName = dto.PersonFirstName,
                     PersonLastName = dto.PersonLastName,
                     PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
