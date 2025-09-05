@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Индививуална фотосесия";
+}
+
+<!-- Wedding Start -->
+<div class="container-xxl px-0 py-5">
+    <div class="col-lg-6 wow fadeInUp mx-auto text-center" data-wow-delay="0.5s">
+        <div class="h-100">
+            <p class="text-primary text-uppercase mb-2">Услуги</p>
+            <h1 class="display-6 mb-4">Индививуална фотосесия</h1>
+            <p>Във <span class="text-primary"><b>PHOTONIC</b></span> предлагаме разнообразие от фотографски услуги, създадени да уловят и съхранят най-ценните ви моменти.</p>
+            <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+        </div>
+    </div>
+    <div class="row g-0">
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+            <div class="row g-0 flex-sm-row">
+                <div class="col-sm-6">
+                    <div class="team-img position-relative">
+                        <img class="img-fluid" src="~/resources/images/wedding.jpg" alt="wedding">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                        <div class="mb-3">
+                            <a asp-action="Wedding"></a><h4>Сватбен портрет</h4>
+                            <span class="text-primary">Цена от 300 лв</span>
+                        </div>
+                        <p>Нашият фокус е върху сватбения портрет – красиви и емоционални снимки на младоженците и техните близки. Не предлагаме пълно заснемане на сватбения ден, а се концентрираме върху онези спокойни моменти, в които любовта и семейството заемат централно място.</p>
+                        <div class="d-flex">
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Wedding" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Wedding" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Wedding End -->

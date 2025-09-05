@@ -42,6 +42,66 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult Wedding()
+        {
+            return View("PhotoshootTypes/Wedding");
+        }
+
+        [HttpGet]
+        public IActionResult Prom()
+        {
+            return View("PhotoshootTypes/Prom");
+        }
+
+        [HttpGet]
+        public IActionResult Baptism()
+        {
+            return View("PhotoshootTypes/Baptism");
+        }
+
+        [HttpGet]
+        public IActionResult Product()
+        {
+            return View("PhotoshootTypes/Product");
+        }
+
+        [HttpGet]
+        public IActionResult Family()
+        {
+            return View("PhotoshootTypes/Family");
+        }
+
+        [HttpGet]
+        public IActionResult Event()
+        {
+            return View("PhotoshootTypes/Event");
+        }
+
+        [HttpGet]
+        public IActionResult Portrait()
+        {
+            return View("PhotoshootTypes/Portrait");
+        }
+
+        [HttpGet]
+        public IActionResult BusinessPortrait()
+        {
+            return View("PhotoshootTypes/BusinessPortrait");
+        }
+
+        [HttpGet]
+        public IActionResult Automobile()
+        {
+            return View("PhotoshootTypes/Automobile");
+        }
+
+        [HttpGet]
+        public IActionResult SecretPhotoshoot()
+        {
+            return View("PhotoshootTypes/SecretPhotoshoot");
+        }
+
+        [HttpGet]
         public ContentResult Sitemap()
         {
             string sitemapPath = Path.Combine(_webHostEnvironment.WebRootPath, "sitemap.xml");
