@@ -65,6 +65,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row row-number-of-participatns" style="display:none">
+                                <div class="col-md-12">
+                                    <div class="form-group participants">
+                                        <label asp-for="NumberOfParticipants">Брой на участници</label>
+                                        <input type="number" class="form-control" asp-for="NumberOfParticipants" class="NumberOfParticipants" />
+                                    </div>
+                                    <p class="info-text"><i>*въведете брой на участниците, когато във фотосесията ще участва повече от едно лице или продукт (например при заснемане на ресторантско меню или портретни сникми на служители в офис)</i></p>
+                                </div>
+                            </div>
                             <div class="row row-photoshoot-packets row-photoshoot-packets-personal mt-5" style="display:none">
                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                     <div class="card mx-auto card-packet">
@@ -379,11 +388,6 @@
                                 <div class="small-product-prompt mb-4">
                                     <p>Ако продуктът е малък (от порядъка на дрехи, обувки, бижута и други малки предмети), молим Ви да използвате формата за резервация на <a asp-controller="PhotoShoot" asp-action="ReserveSmallProduct"><b><u>малък продукт</u></b></a>.</p>
                                 </div>
-                                <div class="form-group participants">
-                                                <label asp-for="NumberOfParticipants">Брой на участници</label>
-                                                <input type="number" class="form-control" asp-for="NumberOfParticipants" />
-                                            </div>
-                                <p class="info-text"><i>*въведете брой на участници, когато във фотосесията ще участва повече от едно лице (например при фотосесия на служители на фирма)</i></p>
                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                     <div class="card mx-auto card-packet">
                                         <div class="card-header text-center">
@@ -445,11 +449,6 @@
                                             <hr />
                                             <p>Включва обработените сполучливите кадри</p>
                                             <hr />
-                                            <div class="form-group participants">
-                                                <label asp-for="NumberOfParticipants">Брой на участници</label>
-                                                <input type="number" class="form-control" asp-for="NumberOfParticipants" />
-                                            </div>
-                                            <p class="info-text"><i>*въведете брой на участници, когато във фотосесията ще участва повече от едно лице (например при фотосесия на служители на фирма)</i></p>
                                         </div>
                                         <div class="card-footer text-center">
                                             <button type="button" class="btn btn-primary btn-section-submit" id="business-portrait" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
@@ -1077,6 +1076,9 @@
         //calculate price on page load
         calculatePrice($("#PhotoShootType").val());
 
+        //toggle number of participants on page load
+        toggleNumberOfParticipants($("#PhotoShootType").val());
+
         //validate description on page load
         validateDescription($("#PhotoShootType").val());
 
@@ -1159,58 +1161,21 @@
 
         //check if photoshoot type is valid
         $("#PhotoShootType").change(function () {
+            toggleNumberOfParticipants($(this).val());
             isPhotoshootTypeValid();
             setPhotoshootTypeSummary($(this).find("option:selected").text());
             calculatePrice($(this).val());
             togglePhotoshootPacket($(this).val());
-            validateDescription($(this).val());
+            validateDescription($(this).val()); 
             
             $("#PhotoShootType").val($(this).val());
         });
-
-
+        
         //recalculate price based on number of participants
          $("#NumberOfParticipants").change(function(){
              recalculatePriceWithParticipants($(this).val());
          });
-
-          function recalculatePriceWithParticipants(numberOfParticipants){
-            let newPrice = 0
-            
-            switch($("#PhotoShootType").val()){
-                //2 is bussiness portrait
-                case "2":{
-                     //150 is hardcoded temporary. Soon it will be refactored
-                     newPrice = 150 * parseInt(numberOfParticipants);
-                     break;
-                }
-
-                //11 is simple product
-                case "11":{
-                      //50 is hardcoded temporary. Soon it will be refactored
-                     newPrice = 50 * parseInt(numberOfParticipants);
-                     break;
-                }
-
-                 //21 is art product
-                 case "21":{
-                       //50 is hardcoded temporary. Soon it will be refactored
-                      newPrice = 50 * parseInt(numberOfParticipants);
-                      break;
-                 }
-
-                 default:{
-                      //50 is hardcoded temporary. Soon it will be refactored
-                      console.log("ivalid photoshoot type");
-                      break;
-                 }
-             }
-             
-             $("#price-summary").text(newPrice + " лв");
-          }
-
-        
-
+         
         //set value to hidden region input on region option change
         //reset settlement value on each region change
         $("#Region").change(function () {
@@ -2481,5 +2446,50 @@
                   $(timeSlots[i]).show();
               }
          }
+    }
+
+    function recalculatePriceWithParticipants(numberOfParticipants){
+        let newPrice = 0
+
+        switch($("#PhotoShootType").val()){
+            //2 is bussiness portrait
+            case "2":{
+                //150 is hardcoded temporary. Soon it will be refactored
+                newPrice = 150 * parseInt(numberOfParticipants);
+                break;
+            }
+
+            //11 is simple product
+            case "11":{
+                //50 is hardcoded temporary. Soon it will be refactored
+                newPrice = 50 * parseInt(numberOfParticipants);
+                break;
+            }
+
+            //21 is art product
+            case "21":{
+                //50 is hardcoded temporary. Soon it will be refactored
+                newPrice = 50 * parseInt(numberOfParticipants);
+                break;
+            }
+
+            default:{
+                //50 is hardcoded temporary. Soon it will be refactored
+                console.log("ivalid photoshoot type");
+                break;
+            }
+        }
+
+        $("#price-summary").text(newPrice + " лв");
+    }
+
+    function toggleNumberOfParticipants(photoshootTypeId){
+        if(photoshootTypeId == 2 || photoshootTypeId == 11 || photoshootTypeId == 21){
+            $(".row-number-of-participatns").css("display", "block");
+        }
+
+        else{
+            $(".row-number-of-participatns").css("display", "none");
+        }
     }
 </script>
