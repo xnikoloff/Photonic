@@ -50,6 +50,8 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         [MaxLength(ModelConstraints.PhotoDeliveryAddressMxLength)]
         public string? PhotoDeliveryAddress { get; set; }
 
+        public int NumberOfParticipants { get; set; } = 1;
+
         public decimal Price { get; set; }
 
         public string? IdentityUserId { get; set; }

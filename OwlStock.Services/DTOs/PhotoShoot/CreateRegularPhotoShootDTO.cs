@@ -44,8 +44,6 @@ namespace OwlStock.Services.DTOs.PhotoShoot
 
         public decimal FuelPrice { get; set; }
 
-        public int NumberOfParticipants { get; set; } = 1;
-
         public Dictionary<DateOnly, IEnumerable<TimeSlot>>? Calendar { get; set; }
         public List<Region>? ServicedRegions { get; set; }
         public IEnumerable<WorkingTime>? WorkingHoursSpan { get; set; }

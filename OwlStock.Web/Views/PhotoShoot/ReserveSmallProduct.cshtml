@@ -46,6 +46,15 @@
                         <div>
                             <div asp-validation-summary="All" class="text-danger"></div>
                         </div>
+                        <div class="row row-number-of-participatns">
+                            <div class="col-md-12">
+                                <div class="form-group participants">
+                                    <label asp-for="NumberOfParticipants">Брой на участници</label>
+                                    <input type="number" class="form-control" asp-for="NumberOfParticipants" class="NumberOfParticipants" />
+                                </div>
+                                <p class="info-text"><i>*въведете брой на участниците, когато във фотосесията ще участва повече от едно лице или продукт (например при заснемане на ресторантско меню или портретни сникми на служители в офис)</i></p>
+                            </div>
+                        </div>
                         <div class="form-section section-1">
                             <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-product">
                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
@@ -367,7 +376,11 @@
              //the next section the first time, it means form was valid
          });
 
-
+         //recalculate price based on number of participants
+         $("#NumberOfParticipants").change(function(){
+             recalculatePriceWithParticipants($(this).val());
+         });
+         
          //validate personal date on each input change
          $("#PersonEmail").change(function(){
              validatePersonalData();
@@ -746,12 +759,14 @@
              return;
          }
 
+         let numberOfParticipants = $("#NumberOfParticipants").val();
+
          $.ajax({
              contentType: 'application/json',
              url: "@Url.Action("photoshootPrice", "Calculations")",
              traditional: true,
              method: "GET",
-             data: { 'photoshootType': photoshootType, 'fuelPrice': fuelPrice },
+             data: { 'photoshootType': photoshootType, 'fuelPrice': fuelPrice, 'numberOfParticipants': numberOfParticipants },
              success: function (response) {
                  if ($("#PhotoShootType").find(":selected").val() == 20 || $("#PhotoShootType").find(":selected").val() == 10) {
                      $("#price-summary").html("По договаряне");
@@ -768,9 +783,34 @@
      }
 
 
+     //HELPER FUNCTIONS
 
+     function recalculatePriceWithParticipants(numberOfParticipants){
+        let newPrice = 0
 
-     
+        switch($("#PhotoShootType").val()){
+            //11 is simple product
+            case "11":{
+                //50 is hardcoded temporary. Soon it will be refactored
+                newPrice = 50 * parseInt(numberOfParticipants);
+                break;
+            }
+
+            //21 is art product
+            case "21":{
+                //50 is hardcoded temporary. Soon it will be refactored
+                newPrice = 50 * parseInt(numberOfParticipants);
+                break;
+            }
+
+            default:{
+                //50 is hardcoded temporary. Soon it will be refactored
+                console.log("ivalid photoshoot type");
+                break;
+            }
+        }
+    }
+
      function findElementById(array, id) {
          for (let i = 0; i < array.length; i++) {
              if (array[i].id == id) {
