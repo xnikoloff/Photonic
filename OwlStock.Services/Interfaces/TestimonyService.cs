@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OwlStock.Domain.Entities;
 using OwlStock.Infrastructure;
 
@@ -7,10 +8,12 @@ namespace OwlStock.Services.Interfaces
     public class TestimonyService : ITestimonyService
     {
         private readonly OwlStockDbContext _context;
+        private readonly ILogger<TestimonyService> _logger;
 
-        public TestimonyService(OwlStockDbContext context)
+        public TestimonyService(OwlStockDbContext context, ILogger<TestimonyService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<Testimony> Create(Testimony testimony)
@@ -106,11 +109,32 @@ namespace OwlStock.Services.Interfaces
                 throw new NullReferenceException($"{nameof(_context.Testimonies)} is null");
             }
 
-            return await _context.Testimonies
-                .Where(t => t.IsHidden == false && t.IsApproved)
-                .OrderByDescending(t => t.CreatedOn)
-                .Take(4)
-                .ToListAsync();
+            try
+            {
+                int count = await _context.Testimonies.CountAsync();
+
+                //if count is lower than 4 take all
+                if (count < 4)
+                {
+                    return await _context.Testimonies
+                        .Where(t => t.IsHidden == false && t.IsApproved)
+                        .OrderByDescending(t => t.CreatedOn)
+                        .ToListAsync();
+                }
+
+                //if count is bigger than 4, take only 4
+                return await _context.Testimonies
+                        .Where(t => t.IsHidden == false && t.IsApproved)
+                        .OrderByDescending(t => t.CreatedOn)
+                        .Take(4)
+                        .ToListAsync();
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new List<Testimony>();
+            }
         }
 
         public async Task<IEnumerable<Testimony>> GetApproved()

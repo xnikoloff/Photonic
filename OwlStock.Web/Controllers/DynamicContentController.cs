@@ -130,5 +130,34 @@ namespace OwlStock.Web.Controllers
 
             return RedirectToAction(nameof(AllByPage));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AllCategories()
+        {
+            return View(await _dynamicContentService.GetAllDynamicContentCategories());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateCategory()
+        {
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(DynamicContentCategory category)
+        {
+            bool result = await _dynamicContentService.CreateCategory(category);
+
+            if (result)
+            {
+                return RedirectToAction(nameof(AllCategories));
+            }
+
+            else
+            {
+                return View("Error", "Cannot create category");
+            }
+        }
     }
 }

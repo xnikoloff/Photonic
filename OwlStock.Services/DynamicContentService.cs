@@ -364,6 +364,19 @@ namespace OwlStock.Services
 
             try
             {
+                int count = await _context.DynamicContents.CountAsync();
+
+                //if count is lower than 4 take all
+                if(count < 4)
+                {
+                    return await _context.DynamicContents
+                    .Where(dc => dc.ShowInTopPosition && dc.IsVisible)
+                    .Include(dc => dc.DynamicContentCategories)
+                    .OrderBy(dc => dc.Id)
+                    .ToListAsync();
+                }
+
+                //if count is bigger than 4, take only 4
                 return await _context.DynamicContents
                     .Where(dc => dc.ShowInTopPosition && dc.IsVisible)
                     .Include(dc => dc.DynamicContentCategories)
@@ -376,6 +389,29 @@ namespace OwlStock.Services
             {
                 _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
                 return new List<DynamicContent>();
+            }
+        }
+
+        public async Task<bool> CreateCategory(DynamicContentCategory category)
+        {
+            if (_context.DynamicContentCategories is null)
+            {
+                _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(GetAllDynamicContentCategories)}, {nameof(_context.DynamicContentCategories)} was null");
+                return false;
+            }
+
+            try
+            {
+                await _context.DynamicContentCategories.AddAsync(category);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return false;
             }
         }
 

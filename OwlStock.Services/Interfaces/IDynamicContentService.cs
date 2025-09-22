@@ -15,5 +15,6 @@ namespace OwlStock.Services.Interfaces
         Task<bool> Create(CreateDynamicContentDTO dto);
         Task<bool> Delete(Guid id);
         Task<bool> Recover(Guid id);
+        Task<bool> CreateCategory(DynamicContentCategory category);
     }
 }
