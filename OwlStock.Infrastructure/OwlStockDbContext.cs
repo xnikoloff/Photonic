@@ -35,9 +35,9 @@ namespace OwlStock.Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.ApplyConfiguration(new PlaceConfiguration());
+            /*builder.ApplyConfiguration(new PlaceConfiguration());
             builder.ApplyConfiguration(new DynamicContentCateogyConfiguration());
-            builder.ApplyConfiguration(new TestimonyConfiguration());
+            builder.ApplyConfiguration(new TestimonyConfiguration());*/
             builder.Entity<PhotoBase>().UseTptMappingStrategy();
         }
     }

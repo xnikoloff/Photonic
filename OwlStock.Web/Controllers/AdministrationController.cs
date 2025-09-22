@@ -88,7 +88,7 @@ namespace OwlStock.Web.Controllers
         {
             IEnumerable<PhotoShoot> photoShoots = await _photoShootService.GetAll();
 
-            if(photoShoots == null || !photoShoots.Any())
+            if(photoShoots == null)
             {
                 return View("Error", "Нещо се обърка при извличането на Вашите фотосесии");
             }
@@ -502,7 +502,7 @@ namespace OwlStock.Web.Controllers
                 return View("Error", "Новината не е намерена");
             }
 
-            return View();
+            return View(announcement);
         }
 
         [HttpPost]

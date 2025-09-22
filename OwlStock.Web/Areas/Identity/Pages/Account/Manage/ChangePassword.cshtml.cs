@@ -116,7 +116,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Паролата е сменена.";
+            StatusMessage = "Паролата е променена.";
 
             return RedirectToPage();
         }
