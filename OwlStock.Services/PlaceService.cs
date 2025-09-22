@@ -106,6 +106,8 @@ namespace OwlStock.Services
                 return new();
             }
 
+            List<PhotoShootPhoto>? photos = new();
+
             try
             {
                 Place? place = await _context.Places
@@ -121,17 +123,22 @@ namespace OwlStock.Services
                     place!.PhotoBase = new();
                 }
 
-                List<PhotoShootPhoto>? photos = (place?.PhotoShoots ?? new List<PhotoShoot>())
-                    .Where(p => p.PlaceId == place?.Id)
-                    .Select(p => p.PhotoShootPhotos.ToList())
-                    .FirstOrDefault() ?? new List<PhotoShootPhoto>();
-
-
+                //collect all photoshoot photos for this place
+                foreach(PhotoShoot photoshoot in place.PhotoShoots)
+                {
+                    foreach(PhotoShootPhoto photo in photoshoot.PhotoShootPhotos)
+                    {
+                        photos.Add(photo);
+                    }
+                }
+                
                 PlaceByIdDTO dto = new()
                 {
                     Id = place?.Id ?? Guid.Empty,
                     Name = place?.Name,
                     Description = place?.Description,
+                    GoogleMapsURL = place?.GoogleMapsURL,
+                    IsPopular = place.IsPopular,
                     PhotoFileName = place?.PhotoBase?.FileName,
                     Photos = photos,
                     PhotoBase = place?.PhotoBase ?? new()

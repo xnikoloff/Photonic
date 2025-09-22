@@ -105,7 +105,15 @@ namespace OwlStock.Web.Controllers
 
             return View(new PlaceDTO()
             {
-                //Place = dto,
+                Place = new ()
+                {
+                    Name = dto.Name,
+                    Description = dto.Description,
+                    Id = dto.Id,
+                    GoogleMapsURL = dto.GoogleMapsURL,
+                    IsPopular = dto.IsPopular,
+                    
+                },
                 Cities = (await _settlementService.GetCitiesByServicedRegions()).ToList(),
             });
         }

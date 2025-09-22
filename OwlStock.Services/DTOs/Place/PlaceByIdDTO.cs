@@ -7,6 +7,8 @@ namespace OwlStock.Services.DTOs.Place
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
+        public string? GoogleMapsURL { get; set; }
+        public bool IsPopular { get; set; }
         public string? PhotoFileName { get; set; }
         public PhotoBase PhotoBase { get; set; }
         public List<PhotoShootPhoto>? Photos { get; set; }
