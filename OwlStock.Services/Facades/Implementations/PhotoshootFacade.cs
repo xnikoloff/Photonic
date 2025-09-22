@@ -48,7 +48,7 @@ namespace OwlStock.Services.Facades.Implementations
             {
                 Guid placeGuid = await HandlePlace(new CreatePlaceDTO()
                 {
-                    IsPopular = true,
+                    IsPopular = false,
                     Name = dto.UserPlace,
                     GoogleMapsURL = dto.GoogleMapsLink,
                     CreatedById = dto.IdentityUserId,
