@@ -1159,6 +1159,16 @@
             //the next section the first time, it means form was valid
         });
 
+        //last section submits the form
+        $(".btn-submit").click(function () {
+            //final validation of the entire form
+             if (validateExtras()) {
+                $("#reservation-form").submit();
+            }
+
+            return false;
+         });
+
         //check if photoshoot type is valid
         $("#PhotoShootType").change(function () {
             toggleNumberOfParticipants($(this).val());
@@ -1393,11 +1403,11 @@
                 $("#PickUpAddress").val('');
             }
 
-            validateTransportAddress();
+            validateExtras();
         });
 
         $("#PickUpAddress").change(function () {
-            validateTransportAddress();
+             validateExtras();
         });
 
         $("#DoNotUploadPhotos").change(function () {
@@ -1421,7 +1431,7 @@
                 $("#PhotoDeliveryAddress").val("");
             }
 
-            validateDoNotUpload();
+             validateExtras();
         });
 
         $("#PhotoDeliveryMethod").change(function () {
@@ -1435,16 +1445,16 @@
                 $("#PhotoDeliveryAddress").val("");
             }
 
-            validateDoNotUpload();
+             validateExtras();
         });
 
         $("#PhotoDeliveryAddress").change(function () {
-            validateDoNotUpload();
+             validateExtras();;
         });
     });
 
     $("#PhotoShootTypeDescription").change(function () {
-        validateDescription($("#PhotoShootType").val());
+         validateExtras();
     });
 
 
@@ -1780,7 +1790,7 @@
     
     //validate seciton four -> peronal date
     function validatePersonalData(){
-         if(validateEmail() && validateFirstName() && validateLastName() && validatePhone()){
+         if(validateEmail() && validateFirstName() && validateLastName() && validatePhone() && validateUIC()){
             $(".btn-section-submit-seciton-4").prop("disabled", false);
         }
         else{
@@ -1859,10 +1869,9 @@
 
      //validate UIC
      function validateUIC(){
-             console.log('inside');
          if ($("#UIC").val() == '' || $("#UIC").val() == undefined) {
               $(".btn-section-submit-seciton-4").prop("disabled", false);
-             return false;
+             return true;
          }
 
          else {
@@ -1888,24 +1897,32 @@
 
 
 
-    //validate section 5- extras
+    //validate section 5 - extras
+    function validateExtras(){
+        if(validateTransportAddress() && validateDoNotUpload() && validateDescription($("#PhotoShootType").val())){
+             $(".btn-submit").prop("disabled", false);
+            return true;
+        }
+        else{
+             $(".btn-submit").prop("disabled", true);
+            return false;
+        }
+    }
 
     //validate trasport address
     function validateTransportAddress(){
         if ($("#TransportCustomer").is(":checked")){
             if ($("#PickUpAddress").val() == '' || $("#PickUpAddress").val() == undefined){
-                $(".btn-section-submit-seciton-5").prop("disabled", true);
                 return false;
             }
 
             else{
-                $(".btn-section-submit-seciton-5").prop("disabled", false);
                 return true;
             }
         }
 
         else{
-            $(".btn-section-submit-seciton-5").prop("disabled", false);
+            $(".btn-submit").prop("disabled", false);
             return true;
         }
     }
@@ -1916,23 +1933,19 @@
         
         if ($("#DoNotUploadPhotos").is(":checked")) {
             if (selectedOption == '' || selectedOption == undefined) {
-                $(".btn-section-submit-seciton-5").prop("disabled", true);
                 return false;
             }
 
             else if (selectedOption == 1){
-                $(".btn-section-submit-seciton-5").prop("disabled", false);
                 return true;
             }
 
             else if(selectedOption == 2 || selectedOption == 3) {
                 if ($("#PhotoDeliveryAddress").val() == '' || $("#PhotoDeliveryAddress").val() == undefined) {
-                    $(".btn-section-submit-seciton-5").prop("disabled", true);
                     return false;
                 }
 
                 else {
-                    $(".btn-section-submit-seciton-5").prop("disabled", false);
                     return true;
                 }
             }
@@ -1940,7 +1953,7 @@
         }
 
         else{
-            $(".btn-section-submit-seciton-5").prop("disabled", false);
+             $(".btn-submit").prop("disabled", false);
             return true;
         }
     }
@@ -1955,20 +1968,20 @@
             
             //if description is null or empty, disabled the submit button
             if ($("#PhotoShootTypeDescription").val() == "" || $("#PhotoShootTypeDescription").val() == null){
-                $(".btn-submit").prop("disabled", true);
+                return false;
             }
 
             //else, else enable the button
             else {
                 $("#PhotoShootTypeDescription").prop("required", false);
-                $(".btn-submit").prop("disabled", false);
+                return true;
             }
         }
 
         //else, not required
         else{
             $("#PhotoShootTypeDescription").prop("required", false);
-            $(".btn-submit").prop("disabled", false);
+            return true;
         }
     }
 
