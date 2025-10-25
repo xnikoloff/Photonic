@@ -293,15 +293,21 @@
     right: 1rem;
     bottom: 1rem;
     left: 1rem;
-    padding: 1rem;
+    padding: 0.6rem;
     text-align: center;
-    background: #FFFFFF;
+    background: rgba(234, 165, 54, 0.9);
+    color: #FFFFFF;
     transition: .5s;
+    border-radius: 10px;
 }
 
 .project-item:hover .project-title {
-    color: #FFFFFF;
-    background: var(--primary);
+    background: #FFFFFF;
+    color: #000000;
+}
+
+.project-item img {
+    border-radius: 10px;
 }
 
 
