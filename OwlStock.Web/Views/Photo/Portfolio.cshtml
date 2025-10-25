@@ -7,19 +7,19 @@
 <div class="container-fluid">
     <div class="portfolio-menu mb-4">
         <ul>
-            <li id="cat-wedding" class="portfolio-menu-item" data-filter=".wedding">Сватбен портрет</li>
-            <li id="cat-prom" class="portfolio-menu-item" data-filter=".prom">Абитуриенти</li>
-            <li id="cat-baptism" class="portfolio-menu-item" data-filter=".baptism">Свето кръщене</li>
-            <li id="cat-portrait" class="portfolio-menu-item active" data-filter=".portrait">Индивидуална</li>
-            <li id="cat-family" class="portfolio-menu-item" data-filter=".family">Семейна</li>
-            <li id="cat-business" class="portfolio-menu-item" data-filter=".business">Бизнес портрет</li>
-            <li id="cat-product" class="portfolio-menu-item" data-filter=".product">Продукт</li>
-            <li id="cat-automotive" class="portfolio-menu-item" data-filter=".automotive">Автомобил</li>
-            <li id="cat-events" class="portfolio-menu-item" data-filter=".events">Събитие</li>
-            <li id="cat-landscape" class="portfolio-menu-item" data-filter=".landscape">Пейзажи</li>
-            <li id="cat-architecture" class="portfolio-menu-item" data-filter=".architecture">Имоти</li>
-            <li id="cat-secret" class="portfolio-menu-item" data-filter=".secret">Тайна фотосесия</li>
-            <li id="cat-other" class="portfolio-menu-item" data-filter=".other">Други</li>
+            <li id="cat-wedding" class="portfolio-menu-item" data-filter=".wedding"><i class="fa-solid fa-ring"></i><span>Сватба</span></li>
+            <li id="cat-prom" class="portfolio-menu-item" data-filter=".prom"><i class="fa-solid fa-user-graduate"></i><span>Абитуриенти</span></li>
+            <li id="cat-baptism" class="portfolio-menu-item" data-filter=".baptism"><i class="fa-solid fa-cross"></i><span>Свето кръщене</span></li>
+            <li id="cat-portrait" class="portfolio-menu-item active" data-filter=".portrait"><i class="fa-solid fa-person"></i><span>Индивидуална</span></li>
+            <li id="cat-family" class="portfolio-menu-item" data-filter=".family"><i class="fa-solid fa-people-roof"></i><span>Семейна</span></li>
+            <li id="cat-business" class="portfolio-menu-item" data-filter=".business"><i class="fa-solid fa-address-card"></i><span>Бизнес портрет</span></li>
+            <li id="cat-product" class="portfolio-menu-item" data-filter=".product"><i class="fa-solid fa-shirt"></i><span>Продукт</span></li>
+            <li id="cat-automotive" class="portfolio-menu-item" data-filter=".automotive"><i class="fa-solid fa-car-rear"></i><span>Автомобил</span></li>
+            <li id="cat-events" class="portfolio-menu-item" data-filter=".events"><i class="fa-solid fa-champagne-glasses"></i><span>Събитие</span></li>
+            <!--<li id="cat-landscape" class="portfolio-menu-item" data-filter=".landscape"><i class="fa-solid fa-panorama"></i></li>-->
+            <li id="cat-architecture" class="portfolio-menu-item" data-filter=".architecture"><i class="fa-solid fa-house"></i><span>Интериорна</span></li>
+            <!--<li id="cat-secret" class="portfolio-menu-item" data-filter=".secret"><i class="fa-solid fa-user-secret"></i></li>-->
+            <!--<li id="cat-other" class="portfolio-menu-item" data-filter=".other"><i class="fa-solid fa-icons"></i></li>-->
         </ul>
     </div>
     <div class="portfolio-item row">
@@ -39,30 +39,52 @@
 </div>
 
 <style>
-    .portfolio-menu-item {
-        font-weight: bold;
-    }
+    
 
     .portfolio-menu {
-        color: #000;
+        display: flex; /* align items horizontally */
+        justify-content: center;
+        gap: 40px; /* spacing between icons */
         margin-top: -100px;
+        padding: 0;
+        color: #000;
         text-align: center;
+        list-style: none; /* remove default bullets */
+
+    }
+
+    .portfolio-menu li {
+        display: flex; /* align items horizontally */
+        justify-content: center;
+        gap: 40px; /* spacing between icons */
+        padding: 0;
     }
 
     .portfolio-menu ul li {
         display: inline-block;
+        flex-direction: column; /* stack icon and text vertically */
+        align-items: center;
         padding: 5px 0;
         margin: 20px 10px;
-        font-size: 0.8rem;
+        font-size: 1.5rem;
         list-style: none;
-        border-top: 1px solid #b5b5b5;
-        border-bottom: 1px solid #b5b5b5;
         cursor: pointer;
         -webkit-transition: all 05s ease;
         -moz-transition: all 05s ease;
         -ms-transition: all 05s ease;
         -o-transition: all 05s ease;
         transition: all .5s ease;
+    }
+
+    .portfolio-menu ul li i {
+        margin-bottom: 5px;
+    }
+
+    .portfolio-menu ul li span{
+        display: block;
+        color: #333;
+        font-size: 0.7rem !important;
+        transition: 1s;
     }
 
     .portfolio-menu ul li:hover {
@@ -94,6 +116,14 @@
     .portfolio-item .item:hover .item-details-btn {
         display: block;
         transition: .5s;
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .portfolio-menu ul li {
+            font-size: 1.2rem;
+            margin: 10px 5px;
+            border: none;
+        }
     }
 </style>
 
