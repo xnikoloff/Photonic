@@ -17,8 +17,8 @@
             <li id="cat-automotive" class="portfolio-menu-item" data-filter=".automotive">Автомобил</li>
             <li id="cat-events" class="portfolio-menu-item" data-filter=".events">Събитие</li>
             <li id="cat-landscape" class="portfolio-menu-item" data-filter=".landscape">Пейзажи</li>
-            <li id="cat-secret" class="portfolio-menu-item" data-filter=".secret">Тайна фотосесия</li>
             <li id="cat-architecture" class="portfolio-menu-item" data-filter=".architecture">Имоти</li>
+            <li id="cat-secret" class="portfolio-menu-item" data-filter=".secret">Тайна фотосесия</li>
             <li id="cat-other" class="portfolio-menu-item" data-filter=".other">Други</li>
         </ul>
     </div>
@@ -51,9 +51,12 @@
 
     .portfolio-menu ul li {
         display: inline-block;
-        margin: 0;
+        padding: 5px 0;
+        margin: 20px 10px;
+        font-size: 0.8rem;
         list-style: none;
-        padding: 10px 15px;
+        border-top: 1px solid #b5b5b5;
+        border-bottom: 1px solid #b5b5b5;
         cursor: pointer;
         -webkit-transition: all 05s ease;
         -moz-transition: all 05s ease;
@@ -62,8 +65,15 @@
         transition: all .5s ease;
     }
 
-    .portfolio-menu .active{
-        color: #EAA636;
+    .portfolio-menu ul li:hover {
+        border-top: 1px solid #EAA636;
+        border-bottom: 1px solid #EAA636;
+    }
+
+    .portfolio-menu .active, .portfolio-menu .active:hover {
+        border-top: 3px solid #EAA636;
+        border-bottom: 3px solid #EAA636;
+        transition: all .5s ease;
     }
 
     .portfolio-item{
