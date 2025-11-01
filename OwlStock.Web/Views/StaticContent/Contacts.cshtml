@@ -13,7 +13,7 @@
 <!-- Google Map End -->
 
 <!-- Contact Start -->
-<div class="container-xxl py-5">
+<div class="container-xxl pb-5">
     <div class="container">
         <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
             <h1 class="display-2"><i class="fa-solid fa-address-card text-primary mb-3"></i></h1>
@@ -23,14 +23,18 @@
         <div class="row g-3 mt-5">
             <div class="col-lg-4 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="fact-item bg-light text-center h-100 p-5">
-                    <h1 class="display-2 text-primary mb-3"><i class="fa fa-map-marker-alt me-2"></i></h1>
-                    <h4 class="mb-3">гр. Асеновград</h4>
-                    <span>*но обичаме да пътуваме!</span>
+                    <h1 class="text-primary display-2 mb-3">
+                        <a class="rounded-circle px-2 me-2 social-contacts" href="#"><i style="color:#365a99" class="fab fa-facebook-f"></i></a>
+                        <a class="rounded-circle px-2 me-2 social-contacts" href="#"><i style="color:#dd2a7b" class="fab fa-instagram"></i></a>
+                        <a class="rounded-circle px-2 me-2 social-contacts" href="#"><i style="color:#0072B1" class="fab fa-linkedin-in"></i></a>
+                    </h1>
+                    <h4 class="mb-3">Последвайте ни</h4>
+                    <span>Може да ни пишете по всяко време, удобно за вас</span>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="fact-item bg-light text-center h-100 p-5">
-                    <h1 class="display-2 text-primary mb-3"><i class="fa fa-phone-alt me-2"></i></h1>
+                    <h1 class="display-2 text-primary mb-3"><i class="fa fa-map-marker-alt me-2"></i></h1>
                     <h4 class="mb-3">+359 878 131828</h4>
                     <span>Може да се свържете с нас всеки ден от 9:00 до 18:00 ч</span>
                 </div>
@@ -97,6 +101,17 @@
     </div>
 </div>
 <!-- Contact End -->
+
+<style>
+    .social-contacts{
+        font-size: unset;
+        transition: .3s ease-in-out;
+    }
+    .social-contacts:hover{
+        font-size: 3.5rem;
+        transition: .2s ease-in-out;
+    }
+</style>
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script src="~/js/custom//recaptcha.js" data-siteKey="@siteKey"></script>
