@@ -70,10 +70,11 @@
 .navbar.fixed-top {
     display: none;
     transition: .5s;
+    margin-top: 40px;
 }
 
 .navbar .navbar-nav .nav-link {
-    padding: 20px 15px;
+    padding: 10px 15px;
     color: var(--dark);
     font-size: 18px;
     font-weight: 600;
