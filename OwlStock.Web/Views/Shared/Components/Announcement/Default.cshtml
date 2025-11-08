@@ -3,7 +3,7 @@
 <div class="container-fluid container-news fixed-top">
     @foreach(Announcement announcement in Model)
     {
-        <div class="row row-news pt-2 bg-dark text-center">
+        <div class="row row-news pt-2 bg-dark text-center row-news">
             <div class="col-12 col-news">
                 <p class="col-news-text text-white">@(announcement?.Content ?? "")</p>
             </div>

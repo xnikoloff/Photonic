@@ -204,3 +204,19 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+ <script>
+     $(document).ready(function(){
+       if($(".row-news").is(":visible")){
+           //bring the navbar down with 40px, so that the news container is not overlaped
+           $(".navbar").css("margin-top", "40px");
+      }
+      else{
+          //else -> unset the margin
+           $(".navbar").css("margin-top", "-0px");
+      }
+     });
+     
+
+    
+</script>
