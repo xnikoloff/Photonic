@@ -4,141 +4,46 @@
     ViewData["Title"] = "Индивидуална и бизнес фотография";
 }
 
-<!-- Header Start -->
-<div class="container-fluid hero-header bg-light py-5 mb-5">
-    <div class="container py-5">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-                <p class="text-primary text-uppercase mb-2 animated slideInDown"><b>PHOTONIC</b> - @ViewData["Title"]</p>
-                <h1 class="display-4 mb-3 animated slideInDown">Нашето вдъхновение са вашите спомени</h1>
-                <p class="animated slideInDown">От индивидуални фотосесии до продуктова фотография и бизнес портрети ние улавяме моменти, които разказват вашата лична история, и създаваме професионални образи, които изграждат доверието във вашия бизнес.</p>
-                <div class="d-flex align-items-center pt-4 animated slideInDown">
-                    <a asp-controller="Photo" asp-action="Index" class="btn btn-primary py-3 px-4 me-5">Портфолио</a>
-                    <a asp-controller="PhotoShoot" asp-action="Reserve" class="btn-play">
-                        <span></span>
-                    </a>
-                    <h5 class="ms-4 mb-0 d-none d-sm-block">Резервация</h5>
-                </div>
-            </div>
-            <div class="col-lg-6 animated fadeIn">
-                <div class="row g-3">
-                    <div class="col-6 text-end">
-                        <img class="img-fluid bg-white p-3 w-100 mb-3" id="img-fluid-1" src="~/resources/gallery-photos/Small_IMG_3322.jpg" alt="">
-                        <img class="img-fluid bg-white p-3 w-50" id="img-fluid-2" src="~/resources/gallery-photos/Small_IMG_3642.jpg" alt="">
-                    </div>
-                    <div class="col-6">
-                        <img class="img-fluid bg-white p-3 w-50 mb-3" id="img-fluid-3" src="~/resources/gallery-photos/Small_IMG_7076.jpg" alt="">
-                        <img class="img-fluid bg-white p-3 w-100" id="img-fluid-4" src="~/resources/gallery-photos/Small_IMG_7151.jpg" alt="">
+<!-- Carousel Start -->
+<div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="owl-carousel header-carousel position-relative">
+        <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-1.jpg'>">
+            <img class="img-fluid" src="~/img/carousel-1.jpg" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-1 text-white animated slideInDown">Нашето вдъхновение са вашите спомени</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">От индивидуални фотосесии до продуктова фотография и бизнес портрети ние улавяме моменти, които разказват вашата лична история, и създаваме професионални образи, които изграждат доверието във вашия бизнес.</p>
+                            <a asp-controller="Photo" asp-action="Index" class="btn btn-primary py-3 px-5 animated slideInLeft">Портфолио</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- Header End -->
-<!-- Video Modal Start -->
-<div class="modal modal-video fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content rounded-0">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Youtube Video</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- 16:9 aspect ratio -->
-                <div class="ratio ratio-16x9">
-                    <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
-                            allow="autoplay"></iframe>
+        <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-2.jpg'>">
+            <img class="img-fluid" src="img/carousel-2.jpg" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-1 text-white animated slideInDown">Best Architecture And Interior Design Services</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
+                            <a href="" class="btn btn-primary py-3 px-5 animated slideInLeft">Read More</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- Video Modal End -->
-<!-- Project Start -->
-<div class="container-fluid py-5">
-    <div class="container-fluid">
-        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-            <p class="text-primary text-uppercase mb-2">Фотосесии</p>
-            <h1 class="display-6 mb-0">Разгледайте нашите фотосесии</h1>
-        </div>
-        <div class="row g-3">
-            <div class="col-lg-3 col-md-6 wow fadeInUp rounded" data-wow-delay="0.1s">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="project-item">
-                            <img class="img-fluid" src="img/project-5.jpg" alt="">
-                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Wedding" class="project-title h5 mb-0">
-                                Сватба
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="project-item">
-                            <img class="img-fluid" src="img/project-1.jpg" alt="">
-                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Prom" class="project-title h5 mb-0">
-                                Абитуриенти
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="project-item">
-                            <img class="img-fluid" src="img/project-2.jpg" alt="">
-                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Baptism" class="project-title h5 mb-0">
-                                Свето кръщение
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="project-item">
-                            <img class="img-fluid" src="img/project-6.jpg" alt="">
-                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Portrait" class="project-title h5 mb-0">
-                                Идивидуална
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="project-item">
-                            <img class="img-fluid" src="img/project-7.jpg" alt="">
-                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Wedding" class="project-title h5 mb-0">
-                                Семейна
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="project-item">
-                            <img class="img-fluid" src="img/project-3.jpg" alt="">
-                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Events" class="project-title h5 mb-0">
-                                Събитие
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="project-item">
-                            <img class="img-fluid" src="img/project-4.jpg" alt="">
-                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Product" class="project-title h5 mb-0">
-                                Продукт
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="project-item">
-                            <img class="img-fluid" src="img/project-8.jpg" alt="">
-                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Automotive" class="project-title h5 mb-0">
-                                Автомобил
-                            </a>
+        <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-3.jpg'>">
+            <img class="img-fluid" src="img/carousel-3.jpg" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-1 text-white animated slideInDown">Best Architecture And Interior Design Services</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
+                            <a href="" class="btn btn-primary py-3 px-5 animated slideInLeft">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -146,64 +51,111 @@
         </div>
     </div>
 </div>
-<!-- Project End -->
+<!-- Carousel End -->
 <!-- Service Start -->
-<div class="container-fluid bg-light py-5 my-5">
-    <div class="container py-5">
-        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-            <p class="text-primary text-uppercase mb-2">Повече</p>
-            <h1 class="display-6 mb-4">Научете повече</h1>
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h4 class="section-title">Фотосесии</h4>
+            <h1 class="display-5 mb-4">Разгледайте нашите фотосесии</h1>
         </div>
-        <div class="row g-3">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="service-item d-flex flex-column bg-white p-3 pb-0">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="img/service-1.jpg" alt="">
-                        <div class="service-overlay">
-                            <a asp-controller="StaticContent" asp-action="Services" class="btn btn-lg-square btn-outline-light rounded-circle"><i class="fa fa-link text-primary"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h4>Услуги</h4>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item d-flex position-relative text-center h-100">
+                    <img class="bg-img" src="img/service-1.jpg" alt="">
+                    <div class="service-text p-5">
+                        <img class="mb-4" src="~/img/icons/icon-5.png" alt="Icon">
+                        <h3 class="mb-3">Сватба</h3>
+                        <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
+                        <a class="btn" asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Wedding"><i class="fa fa-plus text-primary me-3"></i>Разгледай</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="service-item d-flex flex-column bg-white p-3 pb-0">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="img/service-2.jpg" alt="">
-                        <div class="service-overlay">
-                            <a asp-controller="StaticContent" asp-action="Pricing" class="btn btn-lg-square btn-outline-light rounded-circle"><i class="fa fa-link text-primary"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h4>Цени</h4>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item d-flex position-relative text-center h-100">
+                    <img class="bg-img" src="~/img/service-2.jpg" alt="">
+                    <div class="service-text p-5">
+                        <img class="mb-4" src="img/icons/icon-6.png" alt="Icon">
+                        <h3 class="mb-3">Абитуриенти</h3>
+                        <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
+                        <a class="btn" asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Prom"><i class="fa fa-plus text-primary me-3"></i>Разгледай</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="service-item d-flex flex-column bg-white p-3 pb-0">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="img/service-3.jpg" alt="">
-                        <div class="service-overlay">
-                            <a asp-controller="StaticContent" asp-action="Contacts" class="btn btn-lg-square btn-outline-light rounded-circle"><i class="fa fa-link text-primary"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h4>Контакти</h4>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item d-flex position-relative text-center h-100">
+                    <img class="bg-img" src="~/img/service-3.jpg" alt="">
+                    <div class="service-text p-5">
+                        <img class="mb-4" src="img/icons/icon-7.png" alt="Icon">
+                        <h3 class="mb-3">Свето кръщене</h3>
+                        <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
+                        <a class="btn" asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Baptism"><i class="fa fa-plus text-primary me-3"></i>Разгледай</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="service-item d-flex flex-column bg-white p-3 pb-0">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="img/service-4.jpg" alt="">
-                        <div class="service-overlay">
-                            <a asp-controller="DynamicContent" asp-action="AllByPage" class="btn btn-lg-square btn-outline-light rounded-circle"><i class="fa fa-link text-primary"></i></a>
-                        </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item d-flex position-relative text-center h-100">
+                    <img class="bg-img" src="~/img/service-4.jpg" alt="">
+                    <div class="service-text p-5">
+                        <img class="mb-4" src="img/icons/icon-8.png" alt="Icon">
+                        <h3 class="mb-3">Индивидуална</h3>
+                        <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
+                        <a class="btn" asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Portrait"><i class="fa fa-plus text-primary me-3"></i>Разгледай</a>
                     </div>
-                    <div class="text-center p-4">
-                        <h4>Блог</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item d-flex position-relative text-center h-100">
+                    <img class="bg-img" src="~/img/service-5.jpg" alt="">
+                    <div class="service-text p-5">
+                        <img class="mb-4" src="~/img/icons/icon-9.png" alt="Icon">
+                        <h3 class="mb-3">Семейна</h3>
+                        <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
+                        <a class="btn" asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Wedding"><i class="fa fa-plus text-primary me-3"></i>Разгледай</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item d-flex position-relative text-center h-100">
+                    <img class="bg-img" src="img/service-6.jpg" alt="">
+                    <div class="service-text p-5">
+                        <img class="mb-4" src="~/img/icons/icon-10.png" alt="Icon">
+                        <h3 class="mb-3">Събитие</h3>
+                        <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
+                        <a class="btn" asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Events"><i class="fa fa-plus text-primary me-3"></i>Разгледай</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item d-flex position-relative text-center h-100">
+                    <img class="bg-img" src="img/service-6.jpg" alt="">
+                    <div class="service-text p-5">
+                        <img class="mb-4" src="~/img/icons/icon-10.png" alt="Icon">
+                        <h3 class="mb-3">Продукт</h3>
+                        <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
+                        <a class="btn" asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Product"><i class="fa fa-plus text-primary me-3"></i>Разгледай</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item d-flex position-relative text-center h-100">
+                    <img class="bg-img" src="img/service-6.jpg" alt="">
+                    <div class="service-text p-5">
+                        <img class="mb-4" src="~/img/icons/icon-10.png" alt="Icon">
+                        <h3 class="mb-3">Автомобил</h3>
+                        <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
+                        <a class="btn" asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Automotive"><i class="fa fa-plus text-primary me-3"></i>Разгледай</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item d-flex position-relative text-center h-100">
+                    <img class="bg-img" src="~/img/service-6.jpg" alt="">
+                    <div class="service-text p-5">
+                        <img class="mb-4" src="img/icons/icon-10.png" alt="Icon">
+                        <h3 class="mb-3">Тайна фотосесия</h3>
+                        <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
+                        <a class="btn" asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Automotive"><i class="fa fa-plus text-primary me-3"></i>Разгледай</a>
                     </div>
                 </div>
             </div>
@@ -215,119 +167,107 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-5">
-            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="row g-3 img-twice position-relative h-100">
-                    <div class="col-6">
-                        <img class="img-fluid bg-light p-3" src="img/about-1.jpg" alt="">
-                    </div>
-                    <div class="col-6 align-self-end">
-                        <img class="img-fluid bg-light p-3" src="img/about-2.jpg" alt="">
-                    </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="about-img">
+                    <img class="img-fluid" src="img/about-1.jpg" alt="">
+                    <img class="img-fluid" src="img/about-2.jpg" alt="">
                 </div>
             </div>
-            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="h-100">
-                    <p class="text-primary text-uppercase mb-2">За нас</p>  
-                    <h1 class="display-6 mb-4">Повече за нас и нашата дейност</h1>
-                    <p>Целта на Фотоник е да превърнем вашите спомени в изкуство. Независимо дали става дума за сватба, индивидуална фотосесия или корпоративно събитие, ние се стремим да уловим емоцията и красотата във всеки кадър.</p>
-                    <p>Фотоник се роди с идеята да улесни максимално своите клиентите. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията Ви, а тя да се окаже повредена. Никой не е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайта на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
-                    <!--<div class="row g-2 mb-4">
-                        <div class="col-sm-6">
-                            <i class="fa fa-check text-primary me-3"></i>Quality Products
-                        </div>
-                        <div class="col-sm-6">
-                            <i class="fa fa-check text-primary me-3"></i>Custom Products
-                        </div>
-                        <div class="col-sm-6">
-                            <i class="fa fa-check text-primary me-3"></i>Online Order
-                        </div>
-                        <div class="col-sm-6">
-                            <i class="fa fa-check text-primary me-3"></i>Home Delivery
-                        </div>
-                    </div>-->
-                    <a asp-controller ="StaticContent" asp-action="About" class="btn btn-primary py-3 px-5">Научете повече</a>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <h4 class="section-title">За нас</h4>
+                <h1 class="display-5 mb-4">Повече за нас и нашата дейност</h1>
+                <p>Целта на Фотоник е да превърнем вашите спомени в изкуство. Независимо дали става дума за сватба, индивидуална фотосесия или корпоративно събитие, ние се стремим да уловим емоцията и красотата във всеки кадър.</p>
+                <p class="mb-4">Фотоник се роди с идеята да улесни максимално своите клиентите. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията Ви, а тя да се окаже повредена. Никой не е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайта на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
+                <div class="d-flex align-items-center mb-5">
+                    <div class="d-flex flex-shrink-0 align-items-center justify-content-center border border-5 border-primary" style="width: 120px; height: 120px;">
+                        <h1 class="display-1 mb-n2" data-toggle="counter-up">25</h1>
+                    </div>
+                    <div class="ps-4">
+                        <h3>Years</h3>
+                        <h3>Working</h3>
+                        <h3 class="mb-0">Experience</h3>
+                    </div>
                 </div>
+                <a class="btn btn-primary py-3 px-5" asp-controller="StaticContent" asp-action="About">Научете повече</a>
             </div>
         </div>
     </div>
 </div>
 <!-- About End -->
-
 <!-- Team Start -->
-<div class="container-xxl px-0 py-5">
-    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-        <p class="text-primary text-uppercase mb-2">Актуално</p>
-        <h1 class="display-6 mb-0">Последните новини и публикации</h1>
-    </div>
-    <div class="row g-0">
-
-        @foreach (DynamicContent dynamicContent in Model?.DynamicContents ?? new List<DynamicContent>())
-        {
-            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                <div class="row g-0 flex-sm-row">
-                    <div class="col-sm-6">
-                        <div class="team-img position-relative">
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h4 class="section-title">Актуално</h4>
+            <h1 class="display-5 mb-4">Последните новини и публикации</h1>
+        </div>
+        <div class="row g-0 team-items">
+            @foreach (DynamicContent dynamicContent in Model?.DynamicContents ?? new List<DynamicContent>())
+            {
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item position-relative">
+                        <div class="position-relative">
                             <img class="img-fluid" src="~/resources/images/@(dynamicContent.ImageName)" alt="">
+                            <!--<div class="team-social text-center">
+                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                            </div>-->
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="h-100 p-5 d-flex flex-column justify-content-between">
-                            <div class="mb-3">
-                                <a asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id"><h4>@(dynamicContent?.Title ?? "")</h4></a>
-                                <span><a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.DynamicContentCategories?.Id">@(dynamicContent?.DynamicContentCategories?.Name ?? "")</a> | @(dynamicContent?.CreatedOn.ToString("dd.MM.yyyy") ?? "") г.</span>
-                            </div>
-                            <p>@(dynamicContent?.Description ?? "")</p>
+                        <div class="bg-light text-center p-4 dynamic-content-title-wrap">
+                            <h3 class="mt-2"><a class="text-dark" asp-action="Content" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.Id">@(dynamicContent?.Title ?? "")</a></h3>
+                        </div>
+                        <div class="bg-primary text-center p-4">
+                            <span class="text-light"><a asp-action="AllByCategory" asp-controller="DynamicContent" asp-route-id="@dynamicContent?.DynamicContentCategories?.Id" class="text-light">@(dynamicContent?.DynamicContentCategories?.Name ?? "")</a> | @(dynamicContent?.CreatedOn.ToString("dd.MM.yyyy") ?? "") г.</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-
+            }
+        </div>
     </div>
 </div>
 <!-- Team End -->
+
 <!-- Testimonial Start -->
-<div class="container-fluid py-5">
-    <div class="container mb-5">
-        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-            <p class="text-primary text-uppercase mb-2">Оценки</p>
-            <h1 class="display-6 mb-0">Какво споделят нашите клиенти</h1>
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h4 class="section-title">Оценки</h4>
+            <h1 class="display-5 mb-4">Какво споделят нашите клиенти</h1>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-
-            @foreach(Testimony testimony in Model?.Testimonies ?? new List<Testimony>())
+            @foreach (Testimony testimony in Model?.Testimonies ?? new List<Testimony>())
             {
-                <div class="testimonial-item bg-white p-4">
-                    <div class="d-flex align-items-center mb-4">
-                        <img class="flex-shrink-0 rounded-circle border p-1" src="~/img/user-testimony.png" alt="">
-                        <div class="ms-4">
-                            <h5 class="mb-1">@((testimony.PersonFirstName ?? "") + " " + (testimony.PersonLastName ?? ""))</h5>
-                            <div class="star">
-                                @for (int i = 0; i < testimony.Stars; i++)
-                                {
-                                    <i class="fa fa-star text-warning"></i>
-                                }
-                                @for (int i = testimony.Stars + 1; i <= 5; i++)
-                                {
-                                    <i class="fa fa-star"></i>
-                                }
-                            </div>
-                        </div>
+                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-1.jpg' alt=''>">
+                    <p class="fs-5">@testimony.Content</p>
+                    <h3>@((testimony.PersonFirstName ?? "") + " " + (testimony.PersonLastName ?? ""))</h3>
+                    <span class="text-primary">Profession</span>
+                    <div class="star">
+                        @for (int i = 0; i < testimony.Stars; i++)
+                        {
+                            <i class="fa fa-star text-warning"></i>
+                        }
+                        @for (int i = testimony.Stars + 1; i <= 5; i++)
+                        {
+                            <i class="fa fa-star"></i>
+                        }
                     </div>
-                    <p class="mb-0">@testimony.Content</p>
                 </div>
             }
-
         </div>
     </div>
-     <partial name="_CreateTestimony" model="new CreateTestimonyDTO()"></partial>
 </div>
 <!-- Testimonial End -->
+<partial name="_CreateTestimony" model="new CreateTestimonyDTO()"></partial>
 
 <style>
     .wrap-create-testimony {
         margin-top: 200px;
         padding-bottom: 50px;
         background: #f9f9ff;
+    }
+
+    .dynamic-content-title-wrap {
+        min-height: 200px !important;
     }
 </style>

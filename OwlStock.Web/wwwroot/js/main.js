@@ -1,6 +1,31 @@
 (function ($) {
     "use strict";
 
+    //testimony star rating
+    $(document).ready(function () {
+        getCurrentCategory();
+        //porfolio filter
+        $('.portfolio-menu ul li').removeClass('active');
+        $("#cat-" + getCurrentCategory()).addClass('active');
+        filter($("#cat-" + getCurrentCategory()));
+
+        $('.portfolio-menu ul li').click(function () {
+            console.log('click');
+            $('.portfolio-menu ul li').removeClass('active');
+            $(this).addClass('active');
+
+            filter($(this));
+        });
+
+        var popup_btn = $('.popup-btn');
+        popup_btn.magnificPopup({
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
@@ -10,36 +35,22 @@
         }, 1);
     };
     spinner();
-
-
+    
+    
     // Initiate the wowjs
     new WOW().init();
 
 
-    // Navbar on scrolling
+    // Sticky Navbar
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
-            $('.navbar').fadeIn('slow').css('display', 'flex');
+            $('.sticky-top').addClass('shadow-sm').css('top', '0px');
         } else {
-            $('.navbar').fadeOut('slow').css('display', 'none');
+            $('.sticky-top').removeClass('shadow-sm').css('top', '-100px');
         }
     });
-
-
-    // Modal Video
-    var $videoSrc;
-    $('.btn-play').click(function () {
-        $videoSrc = $(this).data("src");
-    });
-    console.log($videoSrc);
-    $('#videoModal').on('shown.bs.modal', function (e) {
-        $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
-    })
-    $('#videoModal').on('hide.bs.modal', function (e) {
-        $("#video").attr('src', $videoSrc);
-    })
-
-
+    
+    
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
@@ -49,7 +60,7 @@
         }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
+        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
         return false;
     });
 
@@ -61,32 +72,59 @@
     });
 
 
-    // Testimonials carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: false,
-        smartSpeed: 1000,
-        margin: 25,
-        loop: true,
-        center: true,
-        dots: false,
-        nav: true,
-        navText: [
-            '<i class="bi bi-chevron-left"></i>',
-            '<i class="bi bi-chevron-right"></i>'
-        ],
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 2
-            },
-            992: {
-                items: 3
-            }
-        }
+    // Date and time picker
+    $('.date').datetimepicker({
+        format: 'L'
+    });
+    $('.time').datetimepicker({
+        format: 'LT'
     });
 
 
+    // Header carousel
+    $(".header-carousel").owlCarousel({
+        autoplay: true,
+        smartSpeed: 1500,
+        loop: true,
+        nav: false,
+        dots: true,
+        items: 1,
+        dotsData: true,
+    });
+
+
+    // Testimonials carousel
+    $('.testimonial-carousel').owlCarousel({
+        autoplay: true,
+        smartSpeed: 1000,
+        loop: true,
+        nav: false,
+        dots: true,
+        items: 1,
+        dotsData: true,
+    });
+
+    
 })(jQuery);
 
+// Set Stars Rating for Testimony
+function setStarsRating(rating) {
+    $("#Stars").val(parseInt(rating));
+}
+
+
+//portfolio filter
+function filter(element) {
+    var selector = element.attr('data-filter');
+    console.log('selectr: ' + selector);
+    $('.portfolio-item').isotope({
+        filter: selector
+    });
+    return false;
+}
+
+function getCurrentCategory() {
+    let category = $("#portfolioCategoryDescription").val();
+    console.log("cat: " + category);
+    return category.toLowerCase();
+}

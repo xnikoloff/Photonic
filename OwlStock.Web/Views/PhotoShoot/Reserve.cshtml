@@ -5,7 +5,11 @@
     ViewData["Title"] = "Резервация";
     Dictionary<DateOnly, IEnumerable<TimeSlot>> calendar = Model.Calendar ?? new();
 }
-    
+
+
+
+
+<!-- Project Start -->
 <form asp-action="Reserve" method="post" id="booking-form">
     @Html.AntiForgeryToken()
     <div asp-validation-summary="All" class="text-danger"></div>
@@ -22,788 +26,833 @@
     <input type="hidden" asp-for="FuelPrice" />
     <input type="hidden" asp-for="IsDecidedByUs" />
     <input type="hidden" id="RegionId" />
-    <!-- #endregion -->
-    
-    <div class="container-xxl pb-5 booking-container">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-8 col-booking mx-auto">
-                    <div class="row row-progress-bar">
-                        <div class="col-2 mx-auto text-center py-1 col-progress-bar col-progress-bar-section-1 progress-bar-current">
-                            <span class="progress-bar-section-1"><i class="fa-solid fa-camera fa-lg"></i></span>
-                        </div>
-                        <div class="col-2 text-center mx-auto py-1 col-progress-bar col-progress-bar-section-2 progress-bar-pristine">
-                            <span class="progress-bar-section-2"><i class="fa-solid fa-location-dot fa-lg"></i></span>
-                        </div>
-                        <div class="col-2 text-center mx-auto py-1 col-progress-bar col-progress-bar-section-3 progress-bar-pristine">
-                            <span class="progress-bar-section-3"><i class="fa-solid fa-calendar-days fa-lg"></i></span>
-                        </div>
-                        <div class="col-2 text-center mx-auto py-1 col-progress-bar col-progress-bar-section-4 progress-bar-pristine">
-                            <span class="progress-bar-section-4"><i class="fa-solid fa-user fa-lg"></i></span>
-                        </div>
-                        <div class="col-2 text-center mx-auto py-1 col-progress-bar col-progress-bar-section-5 progress-bar-pristine">
-                            <span class="progress-bar-section-5"><i class="fa-solid fa-flag-checkered fa-lg"></i></span>
-                        </div>
+    <!-- #end hidden inputs-->
+
+
+    <div class="container-fluid project py-5 booking-container">
+        <div class="container-fluid">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <!--<h4 class="section-title">Резервация</h4>-->
+                <h1 class="display-5 mb-4">РЕЗЕРВАЦИЯ НА ФОТОСЕСИЯ</h1>
+            </div>
+            <div class="row g-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-lg-2">
+                    <div class="nav nav-pills d-flex justify-content-between w-100 h-100 me-4">
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4 active" data-bs-toggle="pill" data-bs-target="#tab-pane-1" type="button">
+                            <h5 class="m-0 text-white">ФОТОСЕСИЯ</h5>
+                        </button>
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-2" type="button">
+                            <h5 class="m-0">ЛОКАЦИЯ</h5>
+                        </button>
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-3" type="button">
+                            <h5 class="m-0">ДАТА И ЧАС</h5>
+                        </button>
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button">
+                            <h5 class="m-0">ЛИЧНИ ДАННИ</h5>
+                        </button>
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-5" type="button">
+                            <h5 class="m-0">ДОПЪЛНИТЕЛНИ</h5>
+                        </button>
                     </div>
-                    <div class="boking_table mx-auto mt-5">
-                        <div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="tab-content w-100">
+                        <div class="tab-pane fade show active" id="tab-pane-1">
                             <div asp-validation-summary="All" class="text-danger"></div>
-                        </div>
-                        <div class="form-section section-1">
-                            <div class="row row-section-title row-section-title-1">
-                                <div class="col-12 mx-auto">
-                                    <h2 class="section-title">Изберете тип фотосесия</h2>
-                                </div>
-                            </div>
-                            <div class="row row-section-1 mt-3">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating">
-                                        <select asp-for="PhotoShootType" asp-items="@(Html.GetEnumSelectList<PhotoShootType>().OrderBy(ph => ph.Text))" class="form-control photoshoot-types-list">
-                                            <option value="">Фотосесия</option>
-                                        </select>
-                                        <label asp-for="PhotoShootType">Тип фотосесия</label>
+                            <div class="row g-4">
+                                <div class="col-md-12" style="min-height: 350px;">
+                                    <div class="position-relative h-100">
+                                        <div class="form-section section-1">
+                                            <div class="row row-section-title row-section-title-1">
+                                                <div class="col-12 mx-auto">
+                                                    <h2 class="section-title">Изберете фотосесия</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-1 mt-3">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating">
+                                                        <select asp-for="PhotoShootType" asp-items="@(Html.GetEnumSelectList<PhotoShootType>().OrderBy(ph => ph.Text))" class="form-control photoshoot-types-list">
+                                                            <option value="">Фотосесия</option>
+                                                        </select>
+                                                        <label asp-for="PhotoShootType">Тип фотосесия</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-number-of-participatns" style="display:none">
+                                                <div class="col-md-12">
+                                                    <div class="form-group participants">
+                                                        <label asp-for="NumberOfParticipants">Брой на участници</label>
+                                                        <input type="number" class="form-control" asp-for="NumberOfParticipants" class="NumberOfParticipants" />
+                                                    </div>
+                                                    <p class="info-text"><i>*въведете брой на участниците, когато във фотосесията ще участва повече от едно лице или продукт (например при заснемане на ресторантско меню или портретни сникми на служители в офис)</i></p>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets row-photoshoot-packets-personal mt-5" style="display:none">
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Стандартен</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>150 лв</h3>
+                                                            <hr />
+                                                            <p>Включва обработените сполучливи кадри</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="personal" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Плюс</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>200 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Стандартен + албум с хартиени разпечатки</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="personalPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Екстра</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>250 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Плюс + 3 кадръра в рамка</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="personalExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Друго</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3 class="negotiation">По договаряне</h3>
+                                                            <hr />
+                                                            <p>Ще изчислим цената спрямо вашите нужди</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets row-photoshoot-packets-family mt-5" style="display:none">
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Стандартен</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>200 лв</h3>
+                                                            <hr />
+                                                            <p>Включва обработените сполучливи кадри</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="family" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Плюс</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>250 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Стандартен + албум с хартиени разпечатки</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="familyPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Екстра</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>300 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Плюс + 3 кадръра в рамка</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="familyExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Друго</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3 class="negotiation">По договаряне</h3>
+                                                            <hr />
+                                                            <p>Ще изчислим цената спрямо вашите нужди</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-wedding" style="display:none">
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Стандартен</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>400 лв</h3>
+                                                            <hr />
+                                                            <p>Включва отразяване на цялото събитие + снимки с гостите</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="wedding" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Плюс</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>700 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Стандартен + индивидуална фотосесия на младоженците</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="weddingPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Екстра</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>900 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Плюс + луксоцен сватбен албум с индивидуалната фотосесия</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="weddingExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Друго</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3 class="negotiation">По договаряне</h3>
+                                                            <hr />
+                                                            <p>Ще изчислим цената спрямо вашите нужди</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-prom" style="display:none">
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Стандартен</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>300 лв</h3>
+                                                            <hr />
+                                                            <p>Включва индивидуална фотосесия на абитуриента/абитуриентката</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="prom" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Плюс</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>500 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Стандартен + отразяване на цялото събитие + снимки с гостите</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="promPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Екстра</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>700 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Плюс + луксоцен албум с индивидуалната фотосесия</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="promExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Друго</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3 class="negotiation">По договаряне</h3>
+                                                            <hr />
+                                                            <p>Ще изчислим цената спрямо вашите нужди</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-baptism" style="display:none">
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Стандартен</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>300 лв</h3>
+                                                            <hr />
+                                                            <p>Включва отразяване на цялото събитие + снимки с гостите</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="baptism" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Плюс</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>500 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Стандартен + индивидуална фотосесия на родителите и бебето</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="baptismPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Екстра</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>700 лв</h3>
+                                                            <hr />
+                                                            <p>Пакет Плюс + албум на индивидуалната фотосесия</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="baptismExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Друго</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3 class="negotiation">По договаряне</h3>
+                                                            <hr />
+                                                            <p>Ще изчислим цената спрямо вашите нужди</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-product" style="display:none">
+                                                <div class="small-product-prompt mb-4">
+                                                    <p>Ако продуктът е малък (от порядъка на дрехи, обувки, бижута и други малки предмети), молим Ви да използвате формата за резервация на <a asp-controller="PhotoShoot" asp-action="ReserveSmallProduct"><b><u>малък продукт</u></b></a>.</p>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Стандартен</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>50 лв</h3>
+                                                            <hr />
+                                                            <h6>/Цена за един продукт/</h6>
+                                                            <hr />
+                                                            <p>Кадри на продукта на бял фон (например за електронни магазини)</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="product" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Артистичен</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>100 лв</h3>
+                                                            <hr />
+                                                            <h6>/Цена за един продукт/</h6>
+                                                            <hr />
+                                                            <p>Кадри на продукта с артистични елементи (например за реклами, блогове и др.)</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="productArt" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Друго</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3 class="negotiation">По договаряне</h3>
+                                                            <hr />
+                                                            <p>Ще изчислим цената спрямо вашите нужди</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-business-portrait" style="display:none">
+                                                <div class="col-6 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Стандартен</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>150 лв</h3>
+                                                            <hr />
+                                                            <p>Включва обработените сполучливите кадри</p>
+                                                            <hr />
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="business-portrait" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-automotive" style="display:none">
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Стандартен</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>100 лв</h3>
+                                                            <hr />
+                                                            <p>Включва обработените сполучливите кадри</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="automotive" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-other" style="display:none">
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Друго</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>По договаряне</h3>
+                                                            <hr />
+                                                            <p>Ще изчислим цената спрямо вашите нужди</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-event" style="display:none">
+                                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
+                                                    <div class="card mx-auto card-packet">
+                                                        <div class="card-header text-center">
+                                                            <h5>Събитие</h5>
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h3>По договаряне</h3>
+                                                            <hr />
+                                                            <p>Ще изчислим цената спрямо вашите нужди</p>
+                                                        </div>
+                                                        <div class="card-footer text-center">
+                                                            <button type="button" class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--<div class="row mt-3">
+                                                <div class="col-12 mx-auto">
+                                                    <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-1">ЗАПАЗИ</button>
+                                                </div>
+                                            </div>-->
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row row-number-of-participatns" style="display:none">
-                                <div class="col-md-12">
-                                    <div class="form-group participants">
-                                        <label asp-for="NumberOfParticipants">Брой на участници</label>
-                                        <input type="number" class="form-control" asp-for="NumberOfParticipants" class="NumberOfParticipants" />
-                                    </div>
-                                    <p class="info-text"><i>*въведете брой на участниците, когато във фотосесията ще участва повече от едно лице или продукт (например при заснемане на ресторантско меню или портретни сникми на служители в офис)</i></p>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets row-photoshoot-packets-personal mt-5" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Стандартен</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>150 лв</h3>
-                                            <hr />
-                                            <p>Включва обработените сполучливи кадри</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="personal" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Плюс</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>200 лв</h3>
-                                            <hr />
-                                            <p>Пакет Стандартен + албум с хартиени разпечатки</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="personalPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Екстра</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>250 лв</h3>
-                                            <hr />
-                                            <p>Пакет Плюс + 3 кадръра в рамка</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="personalExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Друго</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3 class="negotiation">По договаряне</h3>
-                                            <hr />
-                                            <p>Ще изчислим цената спрямо вашите нужди</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets row-photoshoot-packets-family mt-5" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Стандартен</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>200 лв</h3>
-                                            <hr />
-                                            <p>Включва обработените сполучливи кадри</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="family" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Плюс</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>250 лв</h3>
-                                            <hr />
-                                            <p>Пакет Стандартен + албум с хартиени разпечатки</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="familyPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Екстра</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>300 лв</h3>
-                                            <hr />
-                                            <p>Пакет Плюс + 3 кадръра в рамка</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="familyExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Друго</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3 class="negotiation">По договаряне</h3>
-                                            <hr />
-                                            <p>Ще изчислим цената спрямо вашите нужди</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-wedding" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Стандартен</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>400 лв</h3>
-                                            <hr />
-                                            <p>Включва отразяване на цялото събитие + снимки с гостите</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="wedding" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Плюс</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>700 лв</h3>
-                                            <hr />
-                                            <p>Пакет Стандартен + индивидуална фотосесия на младоженците</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="weddingPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Екстра</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>900 лв</h3>
-                                            <hr />
-                                            <p>Пакет Плюс + луксоцен сватбен албум с индивидуалната фотосесия</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="weddingExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Друго</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3 class="negotiation">По договаряне</h3>
-                                            <hr />
-                                            <p>Ще изчислим цената спрямо вашите нужди</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-prom" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Стандартен</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>300 лв</h3>
-                                            <hr />
-                                            <p>Включва индивидуална фотосесия на абитуриента/абитуриентката</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="prom" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Плюс</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>500 лв</h3>
-                                            <hr />
-                                            <p>Пакет Стандартен + отразяване на цялото събитие + снимки с гостите</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="promPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Екстра</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>700 лв</h3>
-                                            <hr />
-                                            <p>Пакет Плюс + луксоцен албум с индивидуалната фотосесия</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="promExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Друго</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3 class="negotiation">По договаряне</h3>
-                                            <hr />
-                                            <p>Ще изчислим цената спрямо вашите нужди</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-baptism" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Стандартен</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>300 лв</h3>
-                                            <hr />
-                                            <p>Включва отразяване на цялото събитие + снимки с гостите</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="baptism" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Плюс</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>500 лв</h3>
-                                            <hr />
-                                            <p>Пакет Стандартен + индивидуална фотосесия на родителите и бебето</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="baptismPlus" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Екстра</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>700 лв</h3>
-                                            <hr />
-                                            <p>Пакет Плюс + албум на индивидуалната фотосесия</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="baptismExtra" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Друго</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3 class="negotiation">По договаряне</h3>
-                                            <hr />
-                                            <p>Ще изчислим цената спрямо вашите нужди</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-product" style="display:none">
-                                <div class="small-product-prompt mb-4">
-                                    <p>Ако продуктът е малък (от порядъка на дрехи, обувки, бижута и други малки предмети), молим Ви да използвате формата за резервация на <a asp-controller="PhotoShoot" asp-action="ReserveSmallProduct"><b><u>малък продукт</u></b></a>.</p>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Стандартен</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>50 лв</h3>
-                                            <hr />
-                                            <h6>/Цена за един продукт/</h6>
-                                            <hr />
-                                            <p>Кадри на продукта на бял фон (например за електронни магазини)</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="product" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Артистичен</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>100 лв</h3>
-                                            <hr />
-                                            <h6>/Цена за един продукт/</h6>
-                                            <hr />
-                                            <p>Кадри на продукта с артистични елементи (например за реклами, блогове и др.)</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="productArt" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Друго</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3 class="negotiation">По договаряне</h3>
-                                            <hr />
-                                            <p>Ще изчислим цената спрямо вашите нужди</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-business-portrait" style="display:none">
-                                <div class="col-6 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Стандартен</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>150 лв</h3>
-                                            <hr />
-                                            <p>Включва обработените сполучливите кадри</p>
-                                            <hr />
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="business-portrait" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-automotive" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Стандартен</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>100 лв</h3>
-                                            <hr />
-                                            <p>Включва обработените сполучливите кадри</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="automotive" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-other" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Друго</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>По договаряне</h3>
-                                            <hr />
-                                            <p>Ще изчислим цената спрямо вашите нужди</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-event" style="display:none">
-                                <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
-                                    <div class="card mx-auto card-packet">
-                                        <div class="card-header text-center">
-                                            <h5>Събитие</h5>
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h3>По договаряне</h3>
-                                            <hr />
-                                            <p>Ще изчислим цената спрямо вашите нужди</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--<div class="row mt-3">
-                                <div class="col-12 mx-auto">
-                                    <button type="button" class="bg-warning text-white btn-section-submit btn-section-submit-seciton-1">ЗАПАЗИ</button>
-                                </div>
-                            </div>-->
-                        </div>
-                        <div class="form-section section-2" style="display: none">
-                            <div class="row row-section-title row-section-title-2">
-                                <div class="col-12 mx-auto">
-                                    <h2 class="section-title">Локация</h2>
-                                </div>
-                            </div>
-                            <div class="row row-section-1 mt-3">
-                                <div class="col-4 mx-auto">
-                                    <button type="button" class="btn btn-primary btn-location-type btn-location-type-popular btn-location-type-active">Популярни локации</button>
-                                </div>
-                                <div class="col-4 mx-auto">
-                                    <button type="button" class="btn btn-primary btn-location-type btn-location-type-custom btn-location-type-inactive">Избор на клиента</button>
-                                </div>
-                                <div class="col-4 mx-auto">
-                                    <button type="button" class="btn btn-primary btn-location-type btn-location-type-decided-by-us btn-location-type-inactive">Избор на фотографа</button>
-                                </div>
-                            </div>
-                            <div class="row row-popular-locations-description mt-5 px-3">
-                                <div class="col-popular-locations-description">
-                                    <a asp-controller="Place" asp-action="All" target="_blank"><p>Списък с всички популярни локации</p></a>
-                                </div>
-                            </div>
-                            <div class="row row-decided-by-us-description mt-5 px-3" style="display:none">
-                                <div class="col-decided-by-us-description">
-                                    <p>Ще изберем подходяща локация в околността на населеното място, което сте избрали</p>
-                                </div>
-                            </div>
-                            <div class="row row-section-2 mt-4">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating">
-                                        <select id="Region" asp-items="@(new SelectList(Model.ServicedRegions, "Id", "Name"))" class="form-control">
-                                            <option value="">Област</option>
-                                        </select>
-                                        <label>Област</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-2 mt-1 row-location-type-popular">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating popular-places-wrap">
-                                        <select id="PopularPlaces" class="form-control">
-                                            <option value="">Локация</option>
-                                        </select>
-                                        <label>Локация</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-2 mt-1 row-location-settlement" style="display:none">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating settlements-wrap">
-                                        <select id="Settlement" class="form-control">
-                                            <option value="">Населено място</option>
-                                            <label for="Settlement">Населено място</label>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-2 mt-3 row-location-user-place" style="display:none">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating user-place-wrap">
-                                        <input asp-for="UserPlace" class="form-control" placeholder="Локация" />
-                                        <label asp-for="UserPlace"></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-2 mt-3 row-location-google-maps-link" style="display:none">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating google-maps-link-wrap">
-                                        <input asp-for="GoogleMapsLink" class="form-control" placeholder="Линк към Google Maps" />
-                                        <label asp-for="GoogleMapsLink"></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12 mx-auto">
-                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-2">НАЗАД</button>
-                                    <button type="button" class="btn btn-primary text-white btn-section-submit btn-section-submit-seciton-2">ЗАПАЗИ</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-section section-3" style="display: none">
-                            <div class="row row-section-title row-section-title-3">
-                                <div class="col-12 mx-auto">
-                                    <h2 class="section-title">Дата и час</h2>
+                        <div class="tab-pane fade" id="tab-pane-2">
+                            <div class="row g-4">
+                                <div class="col-md-12" style="min-height: 350px;">
+                                    <div class="position-relative h-100">
+                                        <div class="form-section section-2">
+                                            <div class="row row-section-title row-section-title-2">
+                                                <div class="col-12 mx-auto">
+                                                    <h2 class="section-title">Локация</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-1 mt-3">
+                                                <div class="col-4 mx-auto">
+                                                    <button type="button" class="btn btn-primary btn-location-type btn-location-type-popular btn-location-type-active">Популярни локации</button>
+                                                </div>
+                                                <div class="col-4 mx-auto">
+                                                    <button type="button" class="btn btn-primary btn-location-type btn-location-type-custom btn-location-type-inactive">Избор на клиента</button>
+                                                </div>
+                                                <div class="col-4 mx-auto">
+                                                    <button type="button" class="btn btn-primary btn-location-type btn-location-type-decided-by-us btn-location-type-inactive">Избор на фотографа</button>
+                                                </div>
+                                            </div>
+                                            <div class="row row-popular-locations-description mt-5 px-3">
+                                                <div class="col-popular-locations-description">
+                                                    <a asp-controller="Place" asp-action="All" target="_blank"><p>Списък с всички популярни локации</p></a>
+                                                </div>
+                                            </div>
+                                            <div class="row row-decided-by-us-description mt-5 px-3" style="display:none">
+                                                <div class="col-decided-by-us-description">
+                                                    <p>Ще изберем подходяща локация в околността на населеното място, което сте избрали</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-2 mt-4">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating">
+                                                        <select id="Region" asp-items="@(new SelectList(Model.ServicedRegions, "Id", "Name"))" class="form-control">
+                                                            <option value="">Област</option>
+                                                        </select>
+                                                        <label>Област</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-2 mt-1 row-location-type-popular">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating popular-places-wrap">
+                                                        <select id="PopularPlaces" class="form-control">
+                                                            <option value="">Локация</option>
+                                                        </select>
+                                                        <label>Локация</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-2 mt-1 row-location-settlement" style="display:none">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating settlements-wrap">
+                                                        <select id="Settlement" class="form-control">
+                                                            <option value="">Населено място</option>
+                                                            <label for="Settlement">Населено място</label>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-2 mt-3 row-location-user-place" style="display:none">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating user-place-wrap">
+                                                        <input asp-for="UserPlace" class="form-control" placeholder="Локация" />
+                                                        <label asp-for="UserPlace"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-2 mt-3 row-location-google-maps-link" style="display:none">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating google-maps-link-wrap">
+                                                        <input asp-for="GoogleMapsLink" class="form-control" placeholder="Линк към Google Maps" />
+                                                        <label asp-for="GoogleMapsLink"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-12 mx-auto">
+                                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-2">НАЗАД</button>
+                                                    <button type="button" class="btn btn-primary text-white btn-section-submit btn-section-submit-seciton-2">ЗАПАЗИ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row mt-3 ml-2 row-legend">
-                                <button type="button" class="btn btn-secondary btn-sm btn-legend btn-legend-busy">Заети</button>
-                                <button type="button" class="btn btn-primary text-white btn-sm btn-legend btn-legend-free">Свободни</button>
-                            </div>
-                            <div class="row mt-2" id="row-dates-weather">
-                                <div class="col-12 scrollmenu" id="dates-list">
-                                    <div id="date-buttons-slider">
-                                        @foreach (KeyValuePair<DateOnly, IEnumerable<TimeSlot>> calendarKVP in calendar)
-                                        {
-                                            var firstSlot = calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false);
-                                            var isAvailable = firstSlot.IsAvailable;
-                                            var backgroundColor = isAvailable ? "#b8ab6a" : "#51565c";
-                                            var iconHtml = isAvailable ? "<i class=\"fa-solid fa-check fa-lg\"></i>" : "<i class=\"fa-solid fa-xmark fa-lg\"></i>";
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-3">
+                            <div class="row g-4">
+                                <div class="col-md-12" style="min-height: 350px;">
+                                    <div class="position-relative h-100">
+                                        <div class="form-section section-3">
+                                            <div class="row row-section-title row-section-title-3">
+                                                <div class="col-12 mx-auto">
+                                                    <h2 class="section-title">Дата и час</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3 ml-2 row-legend">
+                                                <button type="button" class="btn btn-secondary btn-sm btn-legend btn-legend-busy">Заети</button>
+                                                <button type="button" class="btn btn-primary text-white btn-sm btn-legend btn-legend-free">Свободни</button>
+                                            </div>
+                                            <div class="row mt-2" id="row-dates-weather">
+                                                <div class="col-12 scrollmenu" id="dates-list">
+                                                    <div id="date-buttons-slider">
+                                                        @foreach (KeyValuePair<DateOnly, IEnumerable<TimeSlot>> calendarKVP in calendar)
+                                                        {
+                                                            var firstSlot = calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false);
+                                                            var isAvailable = firstSlot.IsAvailable;
+                                                            var backgroundColor = isAvailable ? "#b8ab6a" : "#51565c";
+                                                            var iconHtml = isAvailable ? "<i class=\"fa-solid fa-check fa-lg\"></i>" : "<i class=\"fa-solid fa-xmark fa-lg\"></i>";
 
-                                            <div class="card card-weather text-center btn-date btn-date-simple text-white @(isAvailable ? "bg-primary card-available" : "bg-secondary card-unavailable")" id="date-button-simple">
-                                                <div class="card-header card-header-date">
-                                                    <p class="card-header-date-text">
-                                                        @{
-                                                            DayOfWeek dayOfWeek = calendarKVP.Key.DayOfWeek;
-                                                            CultureInfo cultureInfo = new("bg-BG");
-                                                            string dayName = DateTimeFormatInfo.GetInstance(cultureInfo).GetDayName(dayOfWeek);
+                                                            <div class="card card-weather text-center btn-date btn-date-simple text-white @(isAvailable ? "bg-primary card-available" : "bg-secondary card-unavailable")" id="date-button-simple">
+                                                                <div class="card-header card-header-date">
+                                                                    <p class="card-header-date-text">
+                                                                        @{
+                                                                            DayOfWeek dayOfWeek = calendarKVP.Key.DayOfWeek;
+                                                                            CultureInfo cultureInfo = new("bg-BG");
+                                                                            string dayName = DateTimeFormatInfo.GetInstance(cultureInfo).GetDayName(dayOfWeek);
+                                                                        }
+                                                                        @dayName
+                                                                    </p>
+
+                                                                    @if (calendarKVP.Key.Year > DateTime.Now.Year)
+                                                                    {
+                                                                        <p class="card-header-date-num">@calendarKVP.Key.ToString("dd.MM.yyyy")</p>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <p class="card-header-date-num">@calendarKVP.Key.ToString("dd.MM")</p>
+                                                                    }
+
+                                                                </div>
+                                                                <div class="card-body card-body-weather text-center @(isAvailable ? "card-body-available" : "card-body-unavailable")" style="background: @Html.Raw(backgroundColor)">
+                                                                    @foreach (TimeSlot slot in calendarKVP.Value)
+                                                                    {
+                                                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-primary time-slot-available" : "btn-secondary time-slot-unavailable") text-white btn-sm my-1 btn-time-slot" id="time-slot-@(slot.Time.Hour)">
+                                                                            @(slot.Time.Hour < 10 ? $"0{slot.Time.Hour}" : slot.Time.Hour):@(slot.Time.Minute == 0 ? "00" : "30")
+                                                                        </button>
+                                                                    }
+                                                                    <hr />
+                                                                    <p class="temperatureCurrent weather-info-text"></p>
+                                                                    <p class="icon weather-info-text"></p>
+                                                                    <p class="forecastText">Нямаме информация за времето</p>
+                                                                    <p class="precipitation weather-info-text"></p>
+                                                                </div>
+                                                                <div class="card-footer">
+                                                                    @Html.Raw(iconHtml)
+                                                                </div>
+                                                            </div>
                                                         }
-                                                        @dayName
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-12 mx-auto">
+                                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-3">НАЗАД</button>
+                                                    <button type="button" class="btn btn-primary text-white btn-section-submit btn-section-submit-seciton-3">ЗАПАЗИ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-4">
+                            <div class="row g-4">
+                                <div class="col-md-12" style="min-height: 350px;">
+                                    <div class="position-relative h-100">
+                                        <div class="form-section section-4">
+                                            <div class="row row-section-title row-section-title-4">
+                                                <div class="col-12 mx-auto">
+                                                    <h2 class="section-title">Лични данни</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-4 mt-2 row-email">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating email-wrap">
+
+                                                        @if (User?.Identity?.IsAuthenticated == true)
+                                                        {
+                                                            <input asp-for="PersonEmail" value="@User.FindFirstValue(ClaimTypes.Email)" class="form-control text-muted" readonly />
+                                                        }
+
+                                                        else
+                                                        {
+                                                            <input asp-for="PersonEmail" class="form-control" />
+                                                        }
+
+                                                        <label asp-for="PersonEmail">Имейл</label>
+                                                        <span class="text-danger" id="email-error-message" style="display:none">Въведете валиден имейл</span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-4 mt-3 row-first-name">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating first-name-wrap">
+                                                        <input asp-for="PersonFirstName" class="form-control" />
+                                                        <label asp-for="PersonFirstName">Име</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-4 mt-3  row-last-name">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating last-name-wrap">
+                                                        <input asp-for="PersonLastName" class="form-control" />
+                                                        <label asp-for="PersonLastName">Фамилия</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-4 mt-3 row-phone">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating phone-wrap">
+                                                        <input asp-for="PersonPhone" class="form-control" />
+                                                        <label asp-for="PersonPhone">Телефон</label>
+                                                        <span class="text-danger" id="phone-error-message" style="display:none">Въведете валиден номер</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-4 my-5 row-invoice">
+                                                <h6>Фактура за бизнес клиенти</h6>
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating invoice-wrap mt-3">
+                                                        <input asp-for="UIC" class="form-control" />
+                                                        <label asp-for="UIC"></label>
+                                                        <span class="text-danger" id="uic-error-message" style="display:none">Въведете валиден ЕИК номер</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-12 mx-auto">
+                                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-4">НАЗАД</button>
+                                                    <button type="button" class="btn btn-primary text-white btn-section-submit btn-section-submit-seciton-4">ЗАПАЗИ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-5">
+                            <div class="row g-4">
+                                <div class="col-md-12" style="min-height: 350px;">
+                                    <div class="position-relative h-100">
+                                        <div class="form-section section-5">
+                                            <div class="row row-section-title row-section-title-5">
+                                                <div class="col-12 mx-auto">
+                                                    <h2 class="section-title">Допълнителни</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-5 mt-1 pt-5 row-transport-customer">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating transport-customer-wrap">
+                                                        <input class="text-primary" asp-for="TransportCustomer" />
+                                                        <span class="checkbox-label checkbox-photos-label">Желая превоз до локацията</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-5 mt-3 mb-5 row-transport-customer-address" style="display:none">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating pickup-address-wrap">
+                                                        <input asp-for="PickUpAddress" class="form-control" placeholder="Адрес, откойто да Ви вземем" />
+                                                        <label asp-for=PickUpAddress>Адрес, откойто да Ви вземем</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row row-section-5 mt-3 row-do-not-upload">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="form-floating do-not-upload-photos-wrap">
+                                                        <input class="text-primary" asp-for="DoNotUploadPhotos" />
+                                                        <span class="checkbox-label checkbox-photos-label">Не желая снимките ми да се качват на сайта на Photonic</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="photo-delivery-wrap" style="display:none">
+                                                <div class="row row-section-5 mt-3 row-photo-delivery">
+                                                    <div class="col-md-12 mx-auto">
+                                                        <div class="form-floating photo-delivery-method-wrap">
+                                                            <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="form-control">
+                                                                <option value="">Начин на получаване на снимките</option>
+                                                            </select>
+                                                            <label asp-for=PhotoDeliveryMethod>Начин на получаване на снимките</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row row-section-5 mt-3 row-photo-delivery-address" style="display:none">
+                                                    <div class="col-md-12 mx-auto">
+                                                        <div class="book_tabel_item">
+                                                            <div class="form-floating photo-delivery-address-wrap">
+                                                                <input asp-for="PhotoDeliveryAddress" class="form-control" placeholder="Адрес или офис на Еконт" />
+                                                                <label asp-for=PhotoDeliveryAddress>Адрес или офис на Еконт</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-5">
+                                                <div class="col-12 text-dark text-center">
+                                                    <p>
+                                                        Ако желаете, тук може да опишете всякакви съображения, които имате за фотосесията.
                                                     </p>
-                                                    
-                                                    @if (calendarKVP.Key.Year > DateTime.Now.Year)
-                                                    {
-                                                        <p class="card-header-date-num">@calendarKVP.Key.ToString("dd.MM.yyyy")</p>
-                                                    }
-                                                    else
-                                                    {
-                                                        <p class="card-header-date-num">@calendarKVP.Key.ToString("dd.MM")</p>
-                                                    }
-                                                   
-                                                </div>
-                                                <div class="card-body card-body-weather text-center @(isAvailable ? "card-body-available" : "card-body-unavailable")" style="background: @Html.Raw(backgroundColor)">
-                                                    @foreach (TimeSlot slot in calendarKVP.Value)
-                                                    {
-                                                        <button type="button" class="btn @(slot.IsAvailable ? "btn-primary time-slot-available" : "btn-secondary time-slot-unavailable") text-white btn-sm my-1 btn-time-slot" id="time-slot-@(slot.Time.Hour)">
-                                                            @(slot.Time.Hour < 10 ? $"0{slot.Time.Hour}" : slot.Time.Hour):@(slot.Time.Minute == 0 ? "00" : "30")
-                                                        </button>
-                                                    }
-                                                    <hr />
-                                                    <p class="temperatureCurrent weather-info-text"></p>
-                                                    <p class="icon weather-info-text"></p>
-                                                    <p class="forecastText">Нямаме информация за времето</p>
-                                                    <p class="precipitation weather-info-text"></p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    @Html.Raw(iconHtml)
+                                                    <textarea asp-for="PhotoShootTypeDescription" cols="100" rows="6" class="form-control mt-3"></textarea>
                                                 </div>
                                             </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12 mx-auto">
-                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-3">НАЗАД</button>
-                                    <button type="button" class="btn btn-primary text-white btn-section-submit btn-section-submit-seciton-3">ЗАПАЗИ</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-section section-4" style="display: none">
-                            <div class="row row-section-title row-section-title-4">
-                                <div class="col-12 mx-auto">
-                                    <h2 class="section-title">Лични данни</h2>
-                                </div>
-                            </div>
-                            <div class="row row-section-4 mt-2 row-email">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating email-wrap">
-
-                                        @if (User?.Identity?.IsAuthenticated == true)
-                                        {
-                                            <input asp-for="PersonEmail" value="@User.FindFirstValue(ClaimTypes.Email)" class="form-control text-muted" readonly />
-                                        }
-
-                                        else
-                                        {
-                                            <input asp-for="PersonEmail" class="form-control" />
-                                        }
-
-                                        <label asp-for="PersonEmail">Имейл</label>
-                                        <span class="text-danger" id="email-error-message" style="display:none">Въведете валиден имейл</span>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-4 mt-3 row-first-name">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating first-name-wrap">
-                                        <input asp-for="PersonFirstName" class="form-control" />
-                                        <label asp-for="PersonFirstName">Име</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-4 mt-3  row-last-name">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating last-name-wrap">
-                                        <input asp-for="PersonLastName" class="form-control" />
-                                        <label asp-for="PersonLastName">Фамилия</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-4 mt-3 row-phone">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating phone-wrap">
-                                        <input asp-for="PersonPhone" class="form-control" />
-                                        <label asp-for="PersonPhone">Телефон</label>
-                                        <span class="text-danger" id="phone-error-message" style="display:none">Въведете валиден номер</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-4 my-5 row-invoice">
-                                <h6>Фактура за бизнес клиенти</h6>
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating invoice-wrap mt-3">
-                                        <input asp-for="UIC" class="form-control" />
-                                        <label asp-for="UIC"></label>
-                                        <span class="text-danger" id="uic-error-message" style="display:none">Въведете валиден ЕИК номер</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12 mx-auto">
-                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-4">НАЗАД</button>
-                                    <button type="button" class="btn btn-primary text-white btn-section-submit btn-section-submit-seciton-4">ЗАПАЗИ</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-section section-5" style="display: none">
-                            <div class="row row-section-title row-section-title-5">
-                                <div class="col-12 mx-auto">
-                                    <h2 class="section-title">Допълнителни</h2>
-                                </div>
-                            </div>
-                            <div class="row row-section-5 mt-1 pt-5 row-transport-customer">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating transport-customer-wrap">
-                                        <input class="text-primary" asp-for="TransportCustomer" />
-                                        <span class="checkbox-label checkbox-photos-label">Желая превоз до локацията</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-5 mt-3 mb-5 row-transport-customer-address" style="display:none">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating pickup-address-wrap">
-                                        <input asp-for="PickUpAddress" class="form-control" placeholder="Адрес, откойто да Ви вземем" />
-                                        <label asp-for=PickUpAddress>Адрес, откойто да Ви вземем</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-section-5 mt-3 row-do-not-upload">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="form-floating do-not-upload-photos-wrap">
-                                        <input class="text-primary" asp-for="DoNotUploadPhotos" />
-                                        <span class="checkbox-label checkbox-photos-label">Не желая снимките ми да се качват на сайта на Photonic</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="photo-delivery-wrap" style="display:none">
-                                <div class="row row-section-5 mt-3 row-photo-delivery">
-                                    <div class="col-md-12 mx-auto">
-                                        <div class="form-floating photo-delivery-method-wrap">
-                                            <select asp-for="PhotoDeliveryMethod" asp-items="@(Html.GetEnumSelectList<PhotoDeliveryMethod>())" class="form-control">
-                                                <option value="">Начин на получаване на снимките</option>
-                                            </select>
-                                            <label asp-for=PhotoDeliveryMethod>Начин на получаване на снимките</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row row-section-5 mt-3 row-photo-delivery-address" style="display:none">
-                                    <div class="col-md-12 mx-auto">
-                                        <div class="book_tabel_item">
-                                            <div class="form-floating photo-delivery-address-wrap">
-                                                <input asp-for="PhotoDeliveryAddress" class="form-control" placeholder="Адрес или офис на Еконт" />
-                                                <label asp-for=PhotoDeliveryAddress>Адрес или офис на Еконт</label>
+                                            <div class="row mt-5">
+                                                <div class="col-12 mx-auto text-center">
+                                                    <button type="submit" class="btn btn-primary btn-lg text-white btn-submit">РЕЗЕРВИРАЙ</button>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-5">
+                                                <div class="col-12 mx-auto">
+                                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-5">НАЗАД</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row mt-5">
-                                <div class="col-12 text-dark text-center">
-                                    <p>
-                                        Ако желаете, тук може да опишете всякакви съображения, които имате за фотосесията.
-                                    </p>
-                                    <textarea asp-for="PhotoShootTypeDescription" cols="100" rows="6" class="form-control mt-3"></textarea>
-                                </div>
-                            </div>
-                            <div class="row mt-5">
-                                <div class="col-12 mx-auto text-center">
-                                    <button type="submit" class="btn btn-primary btn-lg text-white btn-submit">РЕЗЕРВИРАЙ</button>
-                                </div>
-                            </div>
-                            <div class="row mt-5">
-                                <div class="col-12 mx-auto">
-                                    <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-5">НАЗАД</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-3 col-summary-section mx-auto mt-5 mt-md-0 p-5">
+                <div class="col-lg-2">
                     <div class="summary-section-photoshoot-type">
                         <p class="summary-section-icon text-primary"><i class="fa-solid fa-camera fa-lg"></i><span class="summary-data" id="summary-photoshoot-type">Абитуриентски бал Extra</span></p>
                     </div>
@@ -850,10 +899,10 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </form>
+<!-- Project End -->
 
 <style>
     input[type="checkbox"]{
@@ -947,7 +996,7 @@
     }
 
     .booking-container .card-packet {
-        min-height: 450px;
+        min-height: 400px;
     }
 
     .booking-container .card .negotiation {
@@ -1090,10 +1139,11 @@
 
         //show section one /services/ and hide section two /location/
         $(".btn-section-back-seciton-2").click(function () {
-            $(".section-1").css("display", "block");
-            $(".section-2").css("display", "none");
+            $(".tab-pane-1").addClass("show active");
+            $(".tab-pane-2").removeClass("show");
+            $(".tab-pane-2").removeClass("active");
 
-            backwardProgress(1, false);
+            //backwardProgress(1, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -1101,20 +1151,22 @@
 
         //hide section two /location/ and show section three /date/
         $(".btn-section-submit-seciton-2").click(function () {
-            $(".section-2").css("display", "none");
-            $(".section-3").css("display", "block");
+            $("#tab-pane-2").removeClass("show");
+            $("#tab-pane-2").removeClass("active");
+            $("#tab-pane-3").addClass("show active");
 
-            forwardProgress(2, false);
+            //forwardProgress(2, false);
 
             validateDateAndTime();
         });
 
         //show section two /location/ and hide section three /date and time/
         $(".btn-section-back-seciton-3").click(function () {
-            $(".section-2").css("display", "block");
-            $(".section-3").css("display", "none");
+            $("#tab-pane-2").addClass("show active");
+            $("#tab-pane-3").removeClass("show");
+            $("#tab-pane-3").removeClass("active");
 
-            backwardProgress(2, false);
+            //backwardProgress(2, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -1122,20 +1174,22 @@
 
         //hide section three /date and time/ and show section four /personal data/
         $(".btn-section-submit-seciton-3").click(function () {
-            $(".section-3").css("display", "none");
-            $(".section-4").css("display", "block");
+            $("#tab-pane-4").addClass("show active");
+            $("#tab-pane-3").removeClass("show");
+            $("#tab-pane-3").removeClass("active");
 
-            forwardProgress(3, false);
+            //forwardProgress(3, false);
 
             validatePersonalData();
         });
 
         //show section three /date and time/ and hide section four /personal data/
         $(".btn-section-back-seciton-4").click(function () {
-            $(".section-3").css("display", "block");
-            $(".section-4").css("display", "none");
+             $("#tab-pane-3").addClass("show active");
+             $("#tab-pane-4").removeClass("show");
+             $("#tab-pane-4").removeClass("active");
 
-            backwardProgress(3, false);
+            //backwardProgress(3, false);
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -1143,17 +1197,19 @@
 
         //hide section four /summary/ and show  section five /personal data/
         $(".btn-section-submit-seciton-4").click(function () {
-            $(".section-4").css("display", "none");
-            $(".section-5").css("display", "block");
+            $(".tab-pane-4").removeClass("show");
+            $(".tab-pane-4").removeClass("active");
+            $(".tab-pane-5").addClass("show active");
 
-            forwardProgress(4, false);
+            //forwardProgress(4, false);
 
             validatePersonalData();
         });
 
         $(".btn-section-back-seciton-5").click(function () {
-            $(".section-4").css("display", "block");
-            $(".section-5").css("display", "none");
+             $("#tab-pane-4").addClass("show active");
+             $("#tab-pane-5").removeClass("show");
+             $("#tab-pane-5").removeClass("active");
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -1622,11 +1678,12 @@
         $("#PhotoShootType").val(photoshootEnum);
 
         //hide section one /services/ and show section two /location/
-        $(".section-1").css("display", "none");
-        $(".section-2").css("display", "block");
+        $("#tab-pane-1").removeClass("show");
+        $("#tab-pane-1").removeClass("active");
+        $("#tab-pane-2").addClass("show active");
 
         //forward progreess in the progress bar
-        forwardProgress(1, false);
+        //forwardProgress(1, false);
 
         //validate location section on load
         isLocationValid();
@@ -1870,8 +1927,11 @@
 
      //validate UIC
      function validateUIC(){
+         console.log('val uic');
          if ($("#UIC").val() == '' || $("#UIC").val() == undefined) {
               $(".btn-section-submit-seciton-4").prop("disabled", false);
+               console.log('uic empty');
+
              return true;
          }
 
@@ -1882,12 +1942,14 @@
              if (!uicRegex.test(uic)) {
                  $('#uic-error-message').css("display", "block");
                  $(".btn-section-submit-seciton-4").prop("disabled", true);
+                 console.log('uic invalid');
                  return false;
              }
 
              else {
                  $('#uic-error-message').css("display", "none");
                  $(".btn-section-submit-seciton-4").prop("disabled", false);
+                 console.log('uic valid');
                  return true;
 
              }

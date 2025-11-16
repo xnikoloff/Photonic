@@ -1,12 +1,22 @@
 ﻿@model IEnumerable<Announcement>
 
-<div class="container-fluid container-news fixed-top">
-    @foreach(Announcement announcement in Model)
-    {
-        <div class="row row-news pt-2 bg-dark text-center row-news">
-            <div class="col-12 col-news">
-                <p class="col-news-text text-white">@(announcement?.Content ?? "")</p>
+<!-- Topbar Start -->
+<div class="container-fluid bg-dark p-0 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row gx-0 d-none d-lg-flex">
+        <div class="col-lg-7 px-5 text-start">
+            @foreach(Announcement announcement in Model)
+            {
+                <p class="text-light pt-3">@(announcement?.Content ?? "")</p>
+            }
+        </div>
+        <div class="col-lg-5 px-5 text-end">
+            <div class="h-100 d-inline-flex align-items-center">
+                <a class="btn btn-sm-square btn-outline-body me-1" href=""><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-sm-square btn-outline-body me-1" href=""><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-sm-square btn-outline-body me-1" href=""><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-sm-square btn-outline-body me-0" href=""><i class="fab fa-instagram"></i></a>
             </div>
         </div>
-    }
+    </div>
 </div>
+<!-- Topbar End --> 

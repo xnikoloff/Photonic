@@ -5,67 +5,105 @@
     string siteKey = configuration["ReCaptcha:SiteKey"] ?? "";
 }
 
-<!-- Create Testimony Start -->
-<div class="container-fluid bg-light py-5">
-    <div class="container-fluid">
-        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-            <p class="text-primary text-uppercase mb-2">Вашето мнение</p>
-            <h1 class="display-6 mb-5">Ще се радваме да чуем Вашето мнение</h1>
-        </div>
-        <div class="row g-0 justify-content-center">
-            <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
-                <p class="text-center mb-4">Ценим всеки един отздив, който оставяте, независимо дали добър или градивна критика.</p>
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <form asp-action="Create" asp-controller="Testimony" method="post" id="testimony-form">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />
-                    <div class="row g-3">
-                        <div class="col-12 my-5 text-center">
-                            <div class="form-floating">
-                                <input type="hidden" asp-for="Testimony.Stars" class="text-danger"/>
-                                <span asp-validation-for="Testimony.Stars" class="text-danger"></span>
-                                <div class="stars">
-                                    <span class="star-rating" id="1" onclick="setStarsRating(1);"><i class="fa fa-star fa-2xl"></i></span>
-                                    <span class="star-rating" id="2" onclick="setStarsRating(2);"><i class="fa fa-star fa-2xl"></i></span>
-                                    <span class="star-rating" id="3" onclick="setStarsRating(3);"><i class="fa fa-star fa-2xl"></i></span>
-                                    <span class="star-rating" id="4" onclick="setStarsRating(4);"><i class="fa fa-star fa-2xl"></i></span>
-                                    <span class="star-rating" id="5" onclick="setStarsRating(5);"><i class="fa fa-star fa-2xl"></i></span>
+<!-- Appointment Start -->
+<form asp-action="Create" asp-controller="Testimony" method="post" id="testimony-form">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <h4 class="section-title">Вашето мнение</h4>
+                    <h1 class="display-5 mb-4">Ще се радваме да чуем вашето мнение</h1>
+                    <p class="mb-4">Ценим всеки един отзив, който оставяте, независимо дали добър или градивна критика. Това ни помага да открием грешките си, които сами не можем да видим, както и ни ми мотивира да не спираме да се усъвършенстваме.</p>
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="d-flex">
+                                <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-light" style="width: 65px; height: 65px;">
+                                    <i class="fa fa-2x fa-phone-alt text-primary"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-2">Обадете ни се</p>
+                                    <h3 class="mb-0">+359878131828</h3>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" asp-for="Testimony.PersonFirstName" placeholder="Име">
-                                <label asp-for="Testimony.PersonFirstName">Име</label>
+                        <div class="col-12">
+                            <div class="d-flex">
+                                <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-light" style="width: 65px; height: 65px;">
+                                    <i class="fa fa-2x fa-envelope-open text-primary"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-2">Пишете ни</p>
+                                    <h3 class="mb-0">photonic@gmail.com</h3>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" asp-for="Testimony.PersonLastName" placeholder="Фамилия">
-                                <label asp-for="Testimony.PersonLastName">Фамилия</label>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-4">
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Вашето мнение за нас" asp-for="Testimony.Content" style="height: 200px"></textarea>
-                                <label asp-for="Testimony.Content">Вашето мнение за нас</label>
-                            </div>
-                        </div>
-                        <div class="col-6 text-center">
-                            <div class="form-floating text-center">
-                                <div class="text-center" id="recaptcha-container" data-callback="onSubmit"></div>
-                            </div>
-                        </div>
-                        <div class="col-12 text-center">
-                            <button class="btn btn-primary py-3 px-5 btn-submit" type="submit">Изпрати</button>
                         </div>
                     </div>
-                </form>
+                </div>
+            
+                @Html.AntiForgeryToken()
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <input type="hidden" asp-for="Testimony.Stars" class="text-danger" />
+                            <span asp-validation-for="Testimony.Stars" class="text-danger"></span>
+                            <div class="stars">
+                                <h3 class="star-rating d-inline" id="1" onclick="setStarsRating(1);"><i class="fa fa-star fa-2xl"></i></h3>
+                                <h3 class="star-rating d-inline" id="2" onclick="setStarsRating(2);"><i class="fa fa-star fa-2xl"></i></h3>
+                                <h3 class="star-rating d-inline" id="3" onclick="setStarsRating(3);"><i class="fa fa-star fa-2xl"></i></h3>
+                                <h3 class="star-rating d-inline" id="4" onclick="setStarsRating(4);"><i class="fa fa-star fa-2xl"></i></h3>
+                                <h3 class="star-rating d-inline" id="5" onclick="setStarsRating(5);"><i class="fa fa-star fa-2xl"></i></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-3">
+                        <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />
+                        <div class="col-12 col-sm-6">
+                            <input type="text" asp-for="Testimony.PersonFirstName" class="form-control" placeholder="Име" style="height: 55px;">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <input type="text" class="form-control" asp-for="Testimony.PersonLastName" placeholder="Фамилия" style="height: 55px;">
+                        </div>
+                        <!--<div class="col-12 col-sm-6">
+                            <select class="form-select" style="height: 55px;">
+                                <option selected>Choose Service</option>
+                                <option value="1">Service 1</option>
+                                <option value="2">Service 2</option>
+                                <option value="3">Service 3</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="date" id="date" data-target-input="nearest">
+                                <input type="text"
+                                        class="form-control datetimepicker-input"
+                                        placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="time" id="time" data-target-input="nearest">
+                                <input type="text"
+                                        class="form-control datetimepicker-input"
+                                        placeholder="Choose Date" data-target="#time" data-toggle="datetimepicker" style="height: 55px;">
+                            </div>
+                        </div>-->
+                        <div class="col-12">
+                            <textarea asp-for="Testimony.Content" class="form-control" rows="5" placeholder="Вашето мнение за нас"></textarea>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="text-center" id="recaptcha-container" data-callback="onSubmit"></div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3 btn-submit-testimony" type="submit">Изпрати</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Create Testimony End -->
+</form>
+<!-- Appointment End -->
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script src="~/js/custom//recaptcha.js" data-siteKey="@siteKey"></script>
@@ -74,61 +112,59 @@
 <script>
     $(document).ready(function () {
         $(".star-rating").click(function () {
-            let id = $(this).attr('id');
-            let starsCount = 5;
-            //set color to all the that stand before the clicked one (inluding the clicked one)
-            for(let i = 1; i <= parseInt(id); i++){
-                $("#" + i).addClass("text-warning");
-            }
+                let id = $(this).attr('id');
+                let starsCount = 5;
+                //set color to all the that stand before the clicked one (inluding the clicked one)
+                for (let i = 1; i <= parseInt(id); i++) {
+                    $("#" + i).addClass("text-warning");
+                }
 
-            let staringStar = parseInt(id) + parseInt(1);   
-            $("#Testimony_Stars").val(parseInt(id));
+                let staringStar = parseInt(id) + parseInt(1);
+                $("#Testimony_Stars").val(parseInt(id));
 
-            //remove the color of the rest stars
-            for (let i = staringStar; i <= starsCount; i++) {
-                $("#" + i).removeClass("text-warning");
-            }
-            
+                //remove the color of the rest stars
+                for (let i = staringStar; i <= starsCount; i++) {
+                    $("#" + i).removeClass("text-warning");
+                }
+
+            });
+
+            //testimony form submission
+            $(".btn-submit-testimony").click(function (event) {
+                event.preventDefault();
+
+                //validate on each submit
+                validateFirstName();
+                validateLastName();
+                validateStars();
+                validateContent();
+
+                //submit the form if all of the form inputs are valid
+                if (validateFirstName() && validateLastName() && validateStars() && validateContent()) {
+                    $("#testimony-form").submit();
+                }
+            });
+
+
+            //check for changes in inputs
+            $("#Testimony_PersonFirstName").change(function () {
+                validateFirstName();
+            });
+
+            $("#Testimony_PersonLastName").change(function () {
+                validateLastName();
+            });
+
+            $("#Testimony_Stars").change(function () {
+                validateStars();
+            });
+
+            $("#Testimony_Content").change(function () {
+                validateContent();
+            });
         });
 
-        $(".btn-submit").click(function (event) {
-            event.preventDefault();
-
-            //validate on each submit
-            validateFirstName();
-            validateLastName();
-            validateStars();
-            validateContent();
-
-            //submit the form if all of the form inputs are valid
-            if (validateFirstName() && validateLastName() && validateStars() && validateContent()) {
-                $("#testimony-form").submit();
-            }
-        });
-
-
-        //check for changes in inputs
-        $("#Testimony_PersonFirstName").change(function () {
-            validateFirstName();
-        });
-
-        $("#Testimony_PersonLastName").change(function () {
-            validateLastName();
-        });
-
-        $("#Testimony_Stars").change(function () {
-            validateStars();
-        });
-
-        $("#Testimony_Content").change(function () {
-            validateContent();
-        });
-    });
-
-    function setStarsRating(rating){
-        $("#Stars").val(parseInt(rating));
-    }
-
+        //Testimony
     //validate inputs
     function validateFirstName() {
         if ($("#Testimony_PersonFirstName").val() == "" || $("#Testimony_PersonFirstName").val() == null) {

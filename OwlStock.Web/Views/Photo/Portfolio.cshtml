@@ -4,20 +4,22 @@
     ViewData["Title"] = ViewData["categoryDescription"];
 }
 
-<div class="container-fluid">
+<input type="hidden" value="@ViewData["categoryDescription"]" id="portfolioCategoryDescription" />
+
+<div class="container-fluid mt-5 pt-5">
     <div class="portfolio-menu mb-4">
         <ul>
-            <li id="cat-wedding" class="portfolio-menu-item" data-filter=".wedding"><i class="fa-solid fa-ring"></i><span>Сватба</span></li>
-            <li id="cat-prom" class="portfolio-menu-item" data-filter=".prom"><i class="fa-solid fa-user-graduate"></i><span>Абитуриенти</span></li>
-            <li id="cat-baptism" class="portfolio-menu-item" data-filter=".baptism"><i class="fa-solid fa-cross"></i><span>Свето кръщене</span></li>
-            <li id="cat-portrait" class="portfolio-menu-item active" data-filter=".portrait"><i class="fa-solid fa-person"></i><span>Индивидуална</span></li>
-            <li id="cat-family" class="portfolio-menu-item" data-filter=".family"><i class="fa-solid fa-people-roof"></i><span>Семейна</span></li>
-            <li id="cat-business" class="portfolio-menu-item" data-filter=".business"><i class="fa-solid fa-address-card"></i><span>Бизнес портрет</span></li>
-            <li id="cat-product" class="portfolio-menu-item" data-filter=".product"><i class="fa-solid fa-shirt"></i><span>Продукт</span></li>
-            <li id="cat-automotive" class="portfolio-menu-item" data-filter=".automotive"><i class="fa-solid fa-car-rear"></i><span>Автомобил</span></li>
-            <li id="cat-events" class="portfolio-menu-item" data-filter=".events"><i class="fa-solid fa-champagne-glasses"></i><span>Събитие</span></li>
+            <li id="cat-wedding" class="portfolio-menu-item" data-filter=".wedding"><i class="fa-solid fa-ring text-primary"></i><span>Сватба</span></li>
+            <li id="cat-prom" class="portfolio-menu-item" data-filter=".prom"><i class="fa-solid fa-user-graduate text-primary"></i><span>Абитуриенти</span></li>
+            <li id="cat-baptism" class="portfolio-menu-item" data-filter=".baptism"><i class="fa-solid fa-cross text-primary"></i><span>Свето кръщене</span></li>
+            <li id="cat-portrait" class="portfolio-menu-item active" data-filter=".portrait"><i class="fa-solid fa-person text-primary"></i><span>Индивидуална</span></li>
+            <li id="cat-family" class="portfolio-menu-item" data-filter=".family"><i class="fa-solid fa-people-roof text-primary"></i><span>Семейна</span></li>
+            <li id="cat-business" class="portfolio-menu-item" data-filter=".business"><i class="fa-solid fa-address-card text-primary"></i><span>Бизнес портрет</span></li>
+            <li id="cat-product" class="portfolio-menu-item" data-filter=".product"><i class="fa-solid fa-shirt text-primary"></i><span>Продукт</span></li>
+            <li id="cat-automotive" class="portfolio-menu-item" data-filter=".automotive"><i class="fa-solid fa-car-rear text-primary"></i><span>Автомобил</span></li>
+            <li id="cat-events" class="portfolio-menu-item" data-filter=".events"><i class="fa-solid fa-champagne-glasses text-primary"></i><span>Събитие</span></li>
             <!--<li id="cat-landscape" class="portfolio-menu-item" data-filter=".landscape"><i class="fa-solid fa-panorama"></i></li>-->
-            <li id="cat-architecture" class="portfolio-menu-item" data-filter=".architecture"><i class="fa-solid fa-house"></i><span>Интериорна</span></li>
+            <li id="cat-architecture" class="portfolio-menu-item" data-filter=".architecture"><i class="fa-solid fa-house text-primary"></i><span>Интериорна</span></li>
             <!--<li id="cat-secret" class="portfolio-menu-item" data-filter=".secret"><i class="fa-solid fa-user-secret"></i></li>-->
             <!--<li id="cat-other" class="portfolio-menu-item" data-filter=".other"><i class="fa-solid fa-icons"></i></li>-->
         </ul>
@@ -88,13 +90,13 @@
     }
 
     .portfolio-menu ul li:hover {
-        border-top: 1px solid #EAA636;
-        border-bottom: 1px solid #EAA636;
+                border-top: 1px solid #B78D65;
+                border-bottom: 1px solid #B78D65;
     }
 
     .portfolio-menu .active, .portfolio-menu .active:hover {
-        border-top: 3px solid #EAA636;
-        border-bottom: 3px solid #EAA636;
+            border-top: 3px solid #B78D65;
+            border-bottom: 3px solid #B78D65;
         transition: all .5s ease;
     }
 
@@ -126,40 +128,3 @@
         }
     }
 </style>
-
-<script>
-    $(document).ready(function () {
-        $('.portfolio-menu ul li').removeClass('active');
-        $("#cat-" + getCurrentCategory()).addClass('active');
-        filter($("#cat-" + getCurrentCategory()));
-
-        $('.portfolio-menu ul li').click(function () {
-            $('.portfolio-menu ul li').removeClass('active');
-            $(this).addClass('active');
-
-            filter($(this));
-        });
-
-        var popup_btn = $('.popup-btn');
-        popup_btn.magnificPopup({
-            type: 'image',
-            gallery: {
-                enabled: true
-            }
-        });
-    });
-
-    function filter(element){
-        var selector = element.attr('data-filter');
-            console.log('selectr: ' + selector);
-            $('.portfolio-item').isotope({
-                filter: selector
-            });
-            return false;
-    }
-
-    function getCurrentCategory() {
-        let category = "@(ViewData["categoryDescription"])";
-        return category.toLowerCase();
-    }
-</script>
