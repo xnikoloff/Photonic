@@ -321,21 +321,26 @@ h6,
     z-index: -1;
 }
 
+.service-item h3 {
+    color: #FFFFFF;
+}
+
 .service-item .service-text {
+    background: rgba(0, 0, 0, .7);
+    color: #FFFFFF;
+}
+
+.service-item:hover .service-text:hover {
     background: var(--light);
     transition: .5s;
 }
 
-.service-item:hover .service-text {
-    background: rgba(0, 0, 0, .7);
-}
-
 .service-item * {
-    transition: .5;
+    transition: .5s;
 }
 
 .service-item:hover * {
-    color: #FFFFFF;
+    color: #000;
 }
 
 .service-item .btn {

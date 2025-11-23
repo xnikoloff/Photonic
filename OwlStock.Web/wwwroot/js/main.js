@@ -83,11 +83,11 @@
 
     // Header carousel
     $(".header-carousel").owlCarousel({
-        autoplay: true,
+        autoplay: false,
         smartSpeed: 1500,
-        loop: true,
+        loop: false,
         nav: false,
-        dots: true,
+        dots: false,
         items: 1,
         dotsData: true,
     });
@@ -95,9 +95,9 @@
 
     // Testimonials carousel
     $('.testimonial-carousel').owlCarousel({
-        autoplay: true,
+        autoplay: false,
         smartSpeed: 1000,
-        loop: true,
+        loop: false,
         nav: false,
         dots: true,
         items: 1,
