@@ -33,29 +33,29 @@
         <div class="container-fluid">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <!--<h4 class="section-title">Резервация</h4>-->
-                <h1 class="display-5 mb-4">РЕЗЕРВАЦИЯ НА ФОТОСЕСИЯ</h1>
+                <h1 class="text-primary mb-5">РЕЗЕРВАЦИЯ</h1>
             </div>
             <div class="row g-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <div class="nav nav-pills d-flex justify-content-between w-100 h-100 me-4">
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4 active" data-bs-toggle="pill" data-bs-target="#tab-pane-1" type="button">
-                            <h5 class="m-0 text-white">ФОТОСЕСИЯ</h5>
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4 active" data-bs-toggle="pill" data-bs-target="#tab-pane-1" type="button" id="btn-tab-pane-1">
+                            <h5 class="m-0 text-white" id="tab-pane-1-text-initial">ФОТОСЕСИЯ</h5>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-2" type="button">
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-2" type="button" id="btn-tab-pane-2">
                             <h5 class="m-0">ЛОКАЦИЯ</h5>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-3" type="button">
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-3" type="button" id="btn-tab-pane-3">
                             <h5 class="m-0">ДАТА И ЧАС</h5>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button">
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button" id="btn-tab-pane-4">
                             <h5 class="m-0">ЛИЧНИ ДАННИ</h5>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-5" type="button">
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-5" type="button" id="btn-tab-pane-5">
                             <h5 class="m-0">ДОПЪЛНИТЕЛНИ</h5>
                         </button>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <div class="tab-content w-100">
                         <div class="tab-pane fade show active" id="tab-pane-1">
                             <div asp-validation-summary="All" class="text-danger"></div>
@@ -852,22 +852,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <div class="summary-section-photoshoot-type">
-                        <p class="summary-section-icon text-primary"><i class="fa-solid fa-camera fa-lg"></i><span class="summary-data" id="summary-photoshoot-type">Абитуриентски бал Extra</span></p>
+                        <p class="summary-section-icon text-primary"><i class="fa-solid fa-camera fa-lg"></i> <span class="summary-data" id="summary-photoshoot-type">Абитуриентски бал Extra</span></p>
                     </div>
                     <hr />
                     <div class="summary-section-location">
-                        <p id="location-settlement-summary">
-                            <i class="fa-solid fa-location-dot fa-lg"></i>
-                            <span class="summary-data" id="summary-location-settlement"></span>
-                            <span id="summary-location-region">Населено място</span>
-                        </p>
-                        <p><i class="fa-solid fa-location-crosshairs fa-lg"></i><span class="summary-data" id="summary-location-place">Локация</span></p>
+                        <p id="location-settlement-summary"><i class="fa-solid fa-location-dot fa-lg"></i> <span class="summary-data" id="summary-location-settlement"></span> <span id="summary-location-region">Населено място</span></p>
+                        <p><i class="fa-solid fa-location-crosshairs fa-lg"></i> <span class="summary-data" id="summary-location-place">Локация</span></p>
                     </div>
                     <hr />
                     <div class="summary-section-datetime">
-                        <p id="datetime-summary"><i class="fa-solid fa-calendar-days fa-lg"></i><span class="summary-data" id="summary-date">Дата и час</span><span class="summary-time" id="summary-time"></span></p>
+                        <p id="datetime-summary"><i class="fa-solid fa-calendar-days fa-lg"></i> <span class="summary-data" id="summary-date">Дата и час</span><span class="summary-time" id="summary-time"></span></p>
                     </div>
                     <hr />
                     <div class="summary-section-personal-data">
@@ -885,11 +881,7 @@
                             }
 
                         </p>
-                        <p>
-                            <i class="fa-solid fa-user fa-lg"></i>
-                            <span class="summary-data" id="summary-first-name">Име</span>
-                            <span id="summary-last-name"></span>
-                        </p>
+                        <p><i class="fa-solid fa-user fa-lg"></i> <span class="summary-data" id="summary-first-name">Име</span><span id="summary-last-name"></span></p>
                         <p><i class="fa-solid fa-phone fa-lg"></i><span class="summary-data" id="summary-telephone">Телефон</span></p>
                         <p id="uic-summary-wrap" style="display:none"><i class="fa-solid fa-file-invoice fa-lg"></i><span class="summary-data" id="summary-uic">ЕИК</span></p>
                     </div>
@@ -1139,9 +1131,14 @@
 
         //show section one /services/ and hide section two /location/
         $(".btn-section-back-seciton-2").click(function () {
-            $(".tab-pane-1").addClass("show active");
-            $(".tab-pane-2").removeClass("show");
-            $(".tab-pane-2").removeClass("active");
+            $("#tab-pane-1").addClass("show active");
+            $("#tab-pane-2").removeClass("show");
+            $("#tab-pane-2").removeClass("active");
+
+            $("#btn-tab-pane-1").addClass("active");
+            $("#btn-tab-pane-2").removeClass("show");
+            $("#btn-tab-pane-2").removeClass("active");
+            $("#tab-pane-1-text-initial").removeClass("text-white");
 
             //backwardProgress(1, false);
 
@@ -1155,6 +1152,11 @@
             $("#tab-pane-2").removeClass("active");
             $("#tab-pane-3").addClass("show active");
 
+            $("#btn-tab-pane-2").removeClass("show");
+            $("#btn-tab-pane-2").removeClass("active");
+            $("#btn-tab-pane-3").addClass("show active");
+            $("#tab-pane-1-text-initial").removeClass("text-white");
+
             //forwardProgress(2, false);
 
             validateDateAndTime();
@@ -1165,6 +1167,11 @@
             $("#tab-pane-2").addClass("show active");
             $("#tab-pane-3").removeClass("show");
             $("#tab-pane-3").removeClass("active");
+            
+            $("#btn-tab-pane-2").addClass("show active");
+            $("#btn-tab-pane-3").removeClass("show");
+            $("#btn-tab-pane-3").removeClass("active");
+            $("#tab-pane-1-text-initial").removeClass("text-white");
 
             //backwardProgress(2, false);
 
@@ -1177,6 +1184,11 @@
             $("#tab-pane-4").addClass("show active");
             $("#tab-pane-3").removeClass("show");
             $("#tab-pane-3").removeClass("active");
+            
+            $("#btn-tab-pane-4").addClass("show active");
+            $("#btn-tab-pane-3").removeClass("show");
+            $("#btn-tab-pane-3").removeClass("active");
+            $("#tab-pane-1-text-initial").removeClass("text-white");
 
             //forwardProgress(3, false);
 
@@ -1188,6 +1200,11 @@
              $("#tab-pane-3").addClass("show active");
              $("#tab-pane-4").removeClass("show");
              $("#tab-pane-4").removeClass("active");
+             
+             $("#btn-tab-pane-3").addClass("show active");
+             $("#btn-tab-pane-4").removeClass("show");
+             $("#btn-tab-pane-4").removeClass("active");
+             $("#tab-pane-1-text-initial").removeClass("text-white");
 
             //backwardProgress(3, false);
 
@@ -1197,9 +1214,14 @@
 
         //hide section four /summary/ and show  section five /personal data/
         $(".btn-section-submit-seciton-4").click(function () {
-            $(".tab-pane-4").removeClass("show");
-            $(".tab-pane-4").removeClass("active");
-            $(".tab-pane-5").addClass("show active");
+            $("#tab-pane-4").removeClass("show");
+            $("#tab-pane-4").removeClass("active");
+            $("#tab-pane-5").addClass("show active");
+            
+            $("#btn-tab-pane-4").removeClass("show");
+            $("#btn-tab-pane-4").removeClass("active");
+            $("#btn-tab-pane-5").addClass("show active");
+            $("#tab-pane-1-text-initial").removeClass("text-white");
 
             //forwardProgress(4, false);
 
@@ -1210,6 +1232,11 @@
              $("#tab-pane-4").addClass("show active");
              $("#tab-pane-5").removeClass("show");
              $("#tab-pane-5").removeClass("active");
+             
+             $("#btn-tab-pane-4").addClass("show active");
+             $("#btn-tab-pane-5").removeClass("show");
+             $("#btn-tab-pane-5").removeClass("active");
+             $("#tab-pane-1-text-initial").removeClass("text-white");
 
             //No validation on back buttons, because if you have passed to
             //the next section the first time, it means form was valid
@@ -1678,9 +1705,14 @@
         $("#PhotoShootType").val(photoshootEnum);
 
         //hide section one /services/ and show section two /location/
-        $("#tab-pane-1").removeClass("show");
-        $("#tab-pane-1").removeClass("active");
-        $("#tab-pane-2").addClass("show active");
+         $("#tab-pane-1").removeClass("show");
+         $("#tab-pane-1").removeClass("active");
+         $("#tab-pane-2").addClass("show active");
+         
+         $("#btn-tab-pane-1").removeClass("show");
+         $("#btn-tab-pane-1").removeClass("active");
+         $("#btn-tab-pane-2").addClass("show active");
+         $("#tab-pane-1-text-initial").removeClass("text-white");
 
         //forward progreess in the progress bar
         //forwardProgress(1, false);
