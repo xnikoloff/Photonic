@@ -1,7 +1,7 @@
 (function ($) {
     "use strict";
 
-    //testimony star rating
+    
     $(document).ready(function () {
         getCurrentCategory();
         //porfolio filter
@@ -126,5 +126,10 @@ function filter(element) {
 function getCurrentCategory() {
     let category = $("#portfolioCategoryDescription").val();
     console.log("cat: " + category);
-    return category.toLowerCase();
+
+    if (category) {
+        return category.toLowerCase();
+    }
+
+    return "";
 }
