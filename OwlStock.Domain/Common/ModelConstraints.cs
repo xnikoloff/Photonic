@@ -34,6 +34,8 @@
         //Testimony
         public const int TestimonyNameMinLength = 2;
         public const int TestimonyNameMaxLength = 30;
+        public const int TestimonyJobMinLength = 5;
+        public const int TestimonyJobMaxLength = 200;
         public const int TestimonyStarsMinCount = 1;
         public const int TestimonyStarsMaxCount = 5;
         public const int TestimonyContentMinLength = 5;

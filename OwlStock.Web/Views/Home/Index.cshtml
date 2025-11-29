@@ -178,15 +178,15 @@
                 <h1 class="display-5 mb-4">Повече за нас и нашата дейност</h1>
                 <p>Целта на Фотоник е да превърнем вашите спомени в изкуство. Независимо дали става дума за сватба, индивидуална фотосесия или корпоративно събитие, ние се стремим да уловим емоцията и красотата във всеки кадър.</p>
                 <p class="mb-4">Фотоник се роди с идеята да улесни максимално своите клиентите. Всички знаем колко е неприятно да очаквате с нетърпение „флашката“, на която фотографът е записал снимките от фотосесията Ви, а тя да се окаже повредена. Никой не е виновен за това - просто се случва. И именно защото знаем, че се случва, създадохме сайта на нашата агенция, където споделяме снимките Ви без размяна на физически копия.</p>
-                <div class="d-flex align-items-center mb-5">
-                    <div class="d-flex flex-shrink-0 align-items-center justify-content-center border border-5 border-primary" style="width: 120px; height: 120px;">
+                <div class="d-flex align-items-center mb-3">
+                    <!--<div class="d-flex flex-shrink-0 align-items-center justify-content-center border border-5 border-primary" style="width: 120px; height: 120px;">
                         <h1 class="display-1 mb-n2" data-toggle="counter-up">25</h1>
-                    </div>
-                    <div class="ps-4">
+                    </div>-->
+                    <!--<div class="ps-4">
                         <h3>Years</h3>
                         <h3>Working</h3>
                         <h3 class="mb-0">Experience</h3>
-                    </div>
+                    </div>-->
                 </div>
                 <a class="btn btn-primary py-3 px-5" asp-controller="StaticContent" asp-action="About">Научете повече</a>
             </div>
@@ -241,10 +241,15 @@
                 <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-1.jpg' alt=''>">
                     <p class="fs-5">@testimony.Content</p>
                     <h3>@((testimony.PersonFirstName ?? "") + " " + (testimony.PersonLastName ?? ""))</h3>
-                    <span class="text-primary">Profession</span>
+                    <span class="text-primary">
+                        @(
+                            testimony.PersonJob == string.Empty  || testimony.PersonJob == null ? "Няма професия" : testimony.PersonJob
+                        )
+                    </span>
                     <div class="star">
                         @for (int i = 0; i < testimony.Stars; i++)
                         {
+                            string foo = testimony.PersonJob ?? "";
                             <i class="fa fa-star text-warning"></i>
                         }
                         @for (int i = testimony.Stars + 1; i <= 5; i++)

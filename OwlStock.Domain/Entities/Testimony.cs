@@ -22,6 +22,9 @@ namespace OwlStock.Domain.Entities
         [Display(Name = "Фамилия")]
         public string? PersonLastName { get; set; }
 
+        [Required(ErrorMessage = "Професия е задължително поле")]
+        public string? PersonJob { get; set; }
+
         [Required(ErrorMessage = "Оценката със звезди е задължителна")]
         [Range(ModelConstraints.TestimonyStarsMinCount, ModelConstraints.TestimonyStarsMaxCount, ErrorMessage = ModelConstraints.TestimonyDescriptionStarsErrorMessage)]
         [Display(Name = "Оценка")]
