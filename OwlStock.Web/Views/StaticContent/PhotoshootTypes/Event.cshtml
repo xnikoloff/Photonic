@@ -2,7 +2,7 @@
     ViewData["Title"] = "Събитие";
 }
 
-<!-- Wedding Start -->
+<!-- Event Start -->
 <div class="container-xxl px-0 py-5">
     <div class="col-lg-6 wow fadeInUp mx-auto text-center" data-wow-delay="0.5s">
         <div class="h-100">
@@ -16,22 +16,21 @@
         <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
             <div class="row g-0 flex-sm-row">
                 <div class="col-sm-6">
-                    <div class="team-img position-relative">
+                    <div class="team-img-single position-relative">
                         <img class="img-fluid" src="~/resources/images/event.jpg" alt="event">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="h-100 p-5 d-flex flex-column justify-content-between">
                         <div class="mb-3">
-                            <h4><i>„...Ценим тишината между големите събития, усмивките, които не са режисирани, и докосванията, които говорят повече от думите...“</i></h4>
+                            <h4><i>„...всяко събитие си има своята неповторима атмосфера, своя история и енергия...“</i></h4>
                             <span class="text-primary">Цена от 300 лв</span>
                         </div>
-                        <p>Сватбените фотографи са един малко по-различен вид животни, които ние не сме. За заснемането на сватбено събитие се изисква изключително добре познаване на традиците, поне четири очи и най-вече страст към този вид фотография. Ние я оставаме на специалистите в това. Нашият най-искрен съвет към вас е, когато търсите фотограф за вашата сватба, да потърсите „сватбен фотограф“. Не просто фотограф за сватбата ви, а сватбен! Повярвайте ни, има разлика.</p>
-                        <p>Нашият основен фокус е сватбеният портрет – изкуството да уловим красотата, нежността и неподправените емоции между младоженците и техните най-близки хора. За нас снимката не е просто документ от сватбения ден, а спомен, който остава жив и топъл завинаги. Вместо да следваме всяка минута от програмата, ние избираме да се съсредоточим върху онези ценни и интимни мигове, в които любовта, близостта и семейните връзки заемат главната роля.</p>
-                        <p>Не предлагаме пълно заснемане на сватбения ден – нашата философия е различна. Ценим тишината между големите събития, усмивките, които не са режисирани, и докосванията, които говорят повече от думите. Именно в тези моменти се крие истинската магия – там, където младоженците могат да бъдат себе си, далеч от напрежението и динамиката на целия ден. Нашата задача е да ги уловим по най-естествения начин и да създадем кадри, които ще се превърнат в лични, съкровени истории.</p>
+                        <p>Независимо дали става дума за фирмено събиране, личен празник, публично мероприятие, детски рожден ден или какъвто и да е друг специален момент — задачата ни е да уловим динамиката, емоцията и значимите детайли, за да останат живи завинаги. Всяко събитие си има своята неповторима атмосфера, своя история и енергия.</p>
+                        <p>Докато снимаме събития, винаги се опитваме да се „слеем с тълпата“ и да не правим впечатление с цел да не нарушаваме естесвения ритъм на събитията. Въпреки това се стараем да запечатаме възможно повече от всеки един момент.</p>
                         <div class="d-flex">
-                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Wedding" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
-                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Wedding" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Events" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Events" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
                         </div>
                     </div>
                 </div>
@@ -39,4 +38,4 @@
         </div>
     </div>
 </div>
-<!-- Wedding End -->
+<!-- Event End -->
