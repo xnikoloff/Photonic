@@ -170,7 +170,7 @@
                         <div class="card-body text-center">
                             <h1>300 лв</h1>
                             <hr />
-                            <h5>Включва портретни снимки на младоженците със сватбена тематика</h5>
+                            <h5>Включва индивидуална фотосесия на младоженците със сватбена тематика + снимки със семейството и гостите</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -185,7 +185,7 @@
                         <div class="card-body text-center">
                             <h1>400 лв</h1>
                             <hr />
-                            <h5>Пакет Стандартен + снимки със семейството и гостите</h5>
+                            <h5>Пакет Стандартен + снимки от подготовката</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -200,7 +200,7 @@
                         <div class="card-body text-center">
                             <h1>600 лв</h1>
                             <hr />
-                            <h5>Пакет Плюс + луксозна сватбена фотокнига с кадри от фотосесията на младоженците</h5>
+                            <h5>Пакет Плюс + луксозна сватбена фотокнига с кадри от индивидуалната фотосесия на младоженците</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -533,7 +533,7 @@
     }
 
     .card-packet{
-        min-height: 350px;
+        min-height: 380px;
     }
 
     .card .negotiation{
@@ -542,7 +542,7 @@
 
     @@media only screen and (max-width: 768px) {
         .card{
-            min-height: 250px;
+            min-height: 280px;
             margin-bottom: 25px;
         }
 
