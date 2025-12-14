@@ -629,8 +629,8 @@
                                                 </div>
                                             </div>
                                             <div class="row mt-3 ml-2 row-legend">
-                                                <button type="button" class="btn btn-secondary btn-sm btn-legend btn-legend-busy">Заети</button>
                                                 <button type="button" class="btn btn-primary text-white btn-sm btn-legend btn-legend-free">Свободни</button>
+                                                <button type="button" class="btn btn-secondary btn-sm btn-legend btn-legend-busy">Заети</button>
                                             </div>
                                             <div class="row mt-2" id="row-dates-weather">
                                                 <div class="col-12 scrollmenu" id="dates-list">
@@ -639,7 +639,7 @@
                                                         {
                                                             var firstSlot = calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false);
                                                             var isAvailable = firstSlot.IsAvailable;
-                                                            var backgroundColor = isAvailable ? "#b8ab6a" : "#51565c";
+                                                            var backgroundColor = isAvailable ? "#bfa791" : "#51565c";
                                                             var iconHtml = isAvailable ? "<i class=\"fa-solid fa-check fa-lg\"></i>" : "<i class=\"fa-solid fa-xmark fa-lg\"></i>";
 
                                                             <div class="card card-weather text-center btn-date btn-date-simple text-white @(isAvailable ? "bg-primary card-available" : "bg-secondary card-unavailable")" id="date-button-simple">

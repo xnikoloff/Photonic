@@ -42,6 +42,12 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult TermsAndConditions()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult Wedding()
         {
             return View("PhotoshootTypes/Wedding");

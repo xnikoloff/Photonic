@@ -7,7 +7,7 @@
 <div class="container container-place">
     <div class="row row-place">
         <div class="col-12 col-md-6 col-lg-8 text-center col-place">
-            <img src="~/resources/places/@Model.PhotoFileName" style="width:600px" alt="place image" />
+            <img src="~/resources/places/@Model.PhotoFileName" alt="place image" class="place-img"/>
         </div>
         <div class="col-12 col-md-6 col-lg-4 col-place-title">
             <h2>@Model.Name</h2>
@@ -30,6 +30,10 @@
 </div>
 
 <style>
+    .place-img {
+        width: 768px !important;
+    }
+
     .container-place{
         margin-top: 150px;
         margin-bottom: 200px;
@@ -46,11 +50,11 @@
         font-weight: bold;
     }
 
-    .container-place .row-place-photos img {
-        width: 100% !important;
-    }
-
     @@media only screen and (max-width: 768px){
+        .place-img {
+            width: 350px !important;
+        }
+
         .container-place {
             margin-top: 50px;
             margin-bottom: 20px;
@@ -58,10 +62,6 @@
 
         .container-place .row-place .col-place-title{
             margin-top: 20px;
-        }
-
-        .container-place .row-place-photos img{
-            width: 350px !important;
         }
 
         .container-place .row-place-photos-title{

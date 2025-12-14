@@ -28,9 +28,55 @@ namespace OwlStock.Tests
                 {
                     Id = "1",
                     Email = "test@test.test",
-                    EmailConfirmed = false,
+                    EmailConfirmed = true,
                     PasswordHash = "hash",
-                    PhoneNumber = "0123456789"
+                }
+            };
+
+            List<Gear> gears = new()
+            {
+                new Gear
+                {
+                    Id = new Guid("d4f1c4e2-3c5b-4f6a-9f7e-2b8c9d0e1f2a"),
+                    CameraBrand = "Canon",
+                    CameraModel = "EOS 1100D",
+                    CameraLens = "EF-S 18-55mm IS II",
+                    AdditionalInformation = ""
+                },
+
+                new Gear                 {
+                    Id = new Guid("a1b2c3d4-e5f6-4789-0abc-def123456789"),
+                    CameraBrand = "Nikon",
+                    CameraModel = "D3500",
+                    CameraLens = "AF-P DX NIKKOR 18-55mm f/3.5-5.6G VR",
+                    AdditionalInformation = ""
+                }
+            };
+
+            List<Place> places = new()
+            {
+                new Place
+                {
+                    Id = new Guid("f1e2d3c4-b5a6-4789-0abc-def123456789"),
+                    Name = "Central Park",
+                    Description = "A large public park in New York City.",
+                    GoogleMapsURL = "https://maps.google.com/?q=Central+Park",
+                    ImagePath = "central_park.jpg",
+                    IsPopular = true,
+                    CreatedOn = DateTime.Now,
+                    CreatedById = "1"
+                },
+
+                new Place
+                {
+                    Id = new Guid("0a1b2c3d-4e5f-6789-0abc-def123456789"),
+                    Name = "Eiffel Tower",
+                    Description = "An iconic landmark in Paris, France.",
+                    GoogleMapsURL = "https://maps.google.com/?q=Eiffel+Tower",
+                    ImagePath = "eiffel_tower.jpg",
+                    IsPopular = true,
+                    CreatedOn = DateTime.Now,
+                    CreatedById = "1"
                 }
             };
 
@@ -40,8 +86,13 @@ namespace OwlStock.Tests
                 {
                     Id = new Guid("e7ebb634-4b17-4c64-98a7-1dc08d0b120b"),
                     Name = "Test Photo 1",
-                    Description = null
-                }
+                    Description = null,
+                    CreatedById = "1",
+                    CreatedOn = DateTime.Now,
+                    FileName = "testphoto1.jpg",
+                    GearId = new Guid("d4f1c4e2-3c5b-4f6a-9f7e-2b8c9d0e1f2a"),
+                    
+                }   
             };
 
             List<PhotoShoot> photoShoots = new()
