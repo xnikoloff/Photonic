@@ -8,7 +8,6 @@ using OwlStock.Infrastructure.Common.EmailTemplates;
 using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Infrastructure.Common.EmailTemplates.Inquiry;
 using Microsoft.Extensions.Logging;
-using OwlStock.Services.DTOs.PhotoShoot;
 
 namespace OwlStock.Services
 {
@@ -17,6 +16,7 @@ namespace OwlStock.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger<EmailService> _logger;
 
+        private readonly string _smtpEmail;
         private readonly string _smtpHost;
         private readonly int _smtpPort;
         private readonly string _smtpUser;
@@ -25,6 +25,7 @@ namespace OwlStock.Services
         public EmailService(IConfiguration configuration, ILogger<EmailService> logger)
         {
             _configuration = configuration;
+            _smtpEmail = _configuration.GetValue<string>("Smpt:Email") ?? throw new NullReferenceException("[Email] email address is null");
             _smtpHost = _configuration.GetValue<string>("Smpt:Host") ?? throw new NullReferenceException("Host is null");
             _smtpPort = _configuration.GetValue<int>("Smpt:Port");
             _smtpUser = _configuration.GetValue<string>("Smpt:Login") ?? throw new NullReferenceException("Smtp:Login is null");
@@ -60,17 +61,17 @@ namespace OwlStock.Services
                     {
                     new
                     (
-                        "hristiyan.at.nikoloff@gmail.com",
+                        _smtpEmail,
                         dto?.Recipient ?? throw new NullReferenceException($"{nameof(dto.Recipient)} is null"),
-                        dto.Topic,
+                        dto.Topic,  
                         GetTemplate(dto)
                     ),
 
                     //second email is always sent to Photonic
                     new
                     (
-                        "hristiyan.at.nikoloff@gmail.com",
-                        "hristiyan.at.nikoloff@gmail.com",
+                        _smtpEmail,
+                        _smtpEmail,
                         dto.Topic,
                         GetTemplatePhoton(dto)
                     ),
@@ -86,10 +87,10 @@ namespace OwlStock.Services
                     {
                     new
                     (
-                        dto.From,
-                        dto.Recipient ?? throw new NullReferenceException($"{nameof(dto.Recipient)} is null"),
-                        dto.Topic,
-                        GetTemplate(dto)
+                        _smtpEmail,
+                        _smtpEmail,
+                        dto?.Topic,
+                        GetTemplate(dto!)
                     )
 
                     };
