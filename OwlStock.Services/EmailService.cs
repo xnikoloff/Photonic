@@ -17,6 +17,7 @@ namespace OwlStock.Services
         private readonly ILogger<EmailService> _logger;
 
         private readonly string _smtpEmail;
+        private readonly string _smtpDisplayName;
         private readonly string _smtpHost;
         private readonly int _smtpPort;
         private readonly string _smtpUser;
@@ -26,6 +27,7 @@ namespace OwlStock.Services
         {
             _configuration = configuration;
             _smtpEmail = _configuration.GetValue<string>("Smpt:Email") ?? throw new NullReferenceException("[Email] email address is null");
+            _smtpDisplayName = _configuration.GetValue<string>("Smpt:DisplayName") ?? throw new NullReferenceException("[DisplayName] email address is null");
             _smtpHost = _configuration.GetValue<string>("Smpt:Host") ?? throw new NullReferenceException("Host is null");
             _smtpPort = _configuration.GetValue<int>("Smpt:Port");
             _smtpUser = _configuration.GetValue<string>("Smpt:Login") ?? throw new NullReferenceException("Smtp:Login is null");
@@ -57,43 +59,36 @@ namespace OwlStock.Services
                 {
                     //if email template is for created photoshoot
                     //send template to user and to Photonic
-                    messages = new MailMessage[]
-                    {
-                    new
-                    (
-                        _smtpEmail,
-                        dto?.Recipient ?? throw new NullReferenceException($"{nameof(dto.Recipient)} is null"),
-                        dto.Topic,  
-                        GetTemplate(dto)
-                    ),
+                    MailMessage messageUser = new();
+                    MailMessage messagePhotonic = new();
+
+                    messageUser.From = new MailAddress(_smtpEmail,  _smtpDisplayName);
+                    messageUser.To.Add(dto.Recipient ?? "");
+                    messageUser.Subject = dto.Topic ?? "";
+                    messageUser.Body = GetTemplate(dto);
 
                     //second email is always sent to Photonic
-                    new
-                    (
-                        _smtpEmail,
-                        _smtpEmail,
-                        dto.Topic,
-                        GetTemplatePhoton(dto)
-                    ),
 
-                    };
+                    messagePhotonic.From = new MailAddress(_smtpEmail,  _smtpDisplayName);
+                    messagePhotonic.To.Add(_smtpEmail);
+                    messagePhotonic.Subject = dto.Topic ?? "";
+                    messagePhotonic.Body = GetTemplatePhoton(dto);
+
+                    messages = new MailMessage[] { messageUser, messagePhotonic };
                 }
 
                 else
                 {
                     //if email template is not for created photoshoot
                     //send template to user only
-                    messages = new MailMessage[]
-                    {
-                    new
-                    (
-                        _smtpEmail,
-                        _smtpEmail,
-                        dto?.Topic,
-                        GetTemplate(dto!)
-                    )
 
-                    };
+                    MailMessage messageUser = new();
+                    messageUser.From = new MailAddress(_smtpEmail,  _smtpDisplayName);
+                    messageUser.To.Add(dto.Recipient ?? "");
+                    messageUser.Subject = dto.Topic ?? "";
+                    messageUser.Body = GetTemplate(dto);
+
+                    messages = new MailMessage[] { messageUser };
                 }
             }
 
@@ -107,6 +102,7 @@ namespace OwlStock.Services
             {
                 try
                 {
+                    messages[i].IsBodyHtml = true;
                     await client.SendMailAsync(messages[i]);
                 }
                 catch (Exception ex)
