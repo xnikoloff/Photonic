@@ -36,7 +36,7 @@
                 <h1 class="text-primary mb-5">РЕЗЕРВАЦИЯ</h1>
             </div>
             <div class="row g-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="nav nav-pills d-flex justify-content-between w-100 h-100 me-4">
                         <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4 active" data-bs-toggle="pill" data-bs-target="#tab-pane-1" type="button" id="btn-tab-pane-1">
                             <h5 class="m-0 text-white" id="tab-pane-1-text-initial">ФОТОСЕСИЯ</h5>
@@ -55,7 +55,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-7">
                     <div class="tab-content w-100">
                         <div class="tab-pane fade show active" id="tab-pane-1">
                             <div asp-validation-summary="All" class="text-danger"></div>
@@ -94,7 +94,7 @@
                                                             <h5>Стандартен</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>150 лв</h3>
+                                                            <h3>@DefaultValue.PortrairPhotoShoot лв</h3>
                                                             <hr />
                                                             <p>Включва обработените сполучливи кадри</p>
                                                         </div>
@@ -109,7 +109,7 @@
                                                             <h5>Плюс</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>200 лв</h3>
+                                                            <h3>@DefaultValue.PortrairPlusPhotoShoot лв</h3>
                                                             <hr />
                                                             <p>Пакет Стандартен + албум с хартиени разпечатки</p>
                                                         </div>
@@ -124,7 +124,7 @@
                                                             <h5>Екстра</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>250 лв</h3>
+                                                            <h3>@DefaultValue.PortrairExtraPhotoShoot лв</h3>
                                                             <hr />
                                                             <p>Пакет Плюс + 3 кадръра в рамка</p>
                                                         </div>
@@ -136,7 +136,7 @@
                                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                                     <div class="card mx-auto card-packet">
                                                         <div class="card-header text-center">
-                                                            <h5>Друго</h5>
+                                                            <h5>@DefaultValue.NegotiablePriceText</h5>
                                                         </div>
                                                         <div class="card-body text-center">
                                                             <h3 class="negotiation">По договаряне</h3>
@@ -156,7 +156,7 @@
                                                             <h5>Стандартен</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>200 лв</h3>
+                                                            <h3>@DefaultValue.FamilyPhotoShoot лв</h3>
                                                             <hr />
                                                             <p>Включва обработените сполучливи кадри</p>
                                                         </div>
@@ -171,7 +171,7 @@
                                                             <h5>Плюс</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>250 лв</h3>
+                                                            <h3>@DefaultValue.FamilyPlusPhotoShoot лв</h3>
                                                             <hr />
                                                             <p>Пакет Стандартен + албум с хартиени разпечатки</p>
                                                         </div>
@@ -186,7 +186,7 @@
                                                             <h5>Екстра</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>300 лв</h3>
+                                                            <h3>@DefaultValue.FamilyExtraPhotoShoot лв</h3>
                                                             <hr />
                                                             <p>Пакет Плюс + 3 кадръра в рамка</p>
                                                         </div>
@@ -198,7 +198,7 @@
                                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                                     <div class="card mx-auto card-packet">
                                                         <div class="card-header text-center">
-                                                            <h5>Друго</h5>
+                                                            <h5>@DefaultValue.NegotiablePriceText</h5>
                                                         </div>
                                                         <div class="card-body text-center">
                                                             <h3 class="negotiation">По договаряне</h3>
@@ -218,7 +218,7 @@
                                                             <h5>Стандартен</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>400 лв</h3>
+                                                            <h3>@DefaultValue.WeddingPhotoshoot лв</h3>
                                                             <hr />
                                                             <p>Включва отразяване на цялото събитие + снимки с гостите</p>
                                                         </div>
@@ -233,7 +233,7 @@
                                                             <h5>Плюс</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>700 лв</h3>
+                                                            <h3>@DefaultValue.WeddingPlusPhotoshoot лв</h3>
                                                             <hr />
                                                             <p>Пакет Стандартен + индивидуална фотосесия на младоженците</p>
                                                         </div>
@@ -248,7 +248,7 @@
                                                             <h5>Екстра</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>900 лв</h3>
+                                                            <h3>@DefaultValue.WeddingExtraPhotoshoot лв</h3>
                                                             <hr />
                                                             <p>Пакет Плюс + луксоцен сватбен албум с индивидуалната фотосесия</p>
                                                         </div>
@@ -260,7 +260,7 @@
                                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                                     <div class="card mx-auto card-packet">
                                                         <div class="card-header text-center">
-                                                            <h5>Друго</h5>
+                                                            <h5>@DefaultValue.NegotiablePriceText</h5>
                                                         </div>
                                                         <div class="card-body text-center">
                                                             <h3 class="negotiation">По договаряне</h3>
@@ -280,7 +280,7 @@
                                                             <h5>Стандартен</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>300 лв</h3>
+                                                            <h3>@DefaultValue.PromPhotoshoot лв</h3>
                                                             <hr />
                                                             <p>Включва индивидуална фотосесия на абитуриента/абитуриентката</p>
                                                         </div>
@@ -295,7 +295,7 @@
                                                             <h5>Плюс</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>500 лв</h3>
+                                                            <h3>@DefaultValue.PromPlusPhotoshoot лв</h3>
                                                             <hr />
                                                             <p>Пакет Стандартен + отразяване на цялото събитие + снимки с гостите</p>
                                                         </div>
@@ -310,7 +310,7 @@
                                                             <h5>Екстра</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>700 лв</h3>
+                                                            <h3>@DefaultValue.PromExtraPhotoshoot лв</h3>
                                                             <hr />
                                                             <p>Пакет Плюс + луксоцен албум с индивидуалната фотосесия</p>
                                                         </div>
@@ -322,7 +322,7 @@
                                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                                     <div class="card mx-auto card-packet">
                                                         <div class="card-header text-center">
-                                                            <h5>Друго</h5>
+                                                            <h5>@DefaultValue.NegotiablePriceText</h5>
                                                         </div>
                                                         <div class="card-body text-center">
                                                             <h3 class="negotiation">По договаряне</h3>
@@ -342,7 +342,7 @@
                                                             <h5>Стандартен</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>300 лв</h3>
+                                                            <h3>@DefaultValue.Baptism лв</h3>
                                                             <hr />
                                                             <p>Включва отразяване на цялото събитие + снимки с гостите</p>
                                                         </div>
@@ -357,7 +357,7 @@
                                                             <h5>Плюс</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>500 лв</h3>
+                                                            <h3>@DefaultValue.BaptismPlus лв</h3>
                                                             <hr />
                                                             <p>Пакет Стандартен + индивидуална фотосесия на родителите и бебето</p>
                                                         </div>
@@ -372,7 +372,7 @@
                                                             <h5>Екстра</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>700 лв</h3>
+                                                            <h3>@DefaultValue.BaptismExtra лв</h3>
                                                             <hr />
                                                             <p>Пакет Плюс + албум на индивидуалната фотосесия</p>
                                                         </div>
@@ -384,7 +384,7 @@
                                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                                     <div class="card mx-auto card-packet">
                                                         <div class="card-header text-center">
-                                                            <h5>Друго</h5>
+                                                            <h5>@DefaultValue.NegotiablePriceText</h5>
                                                         </div>
                                                         <div class="card-body text-center">
                                                             <h3 class="negotiation">По договаряне</h3>
@@ -407,7 +407,7 @@
                                                             <h5>Стандартен</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>50 лв</h3>
+                                                            <h3>@DefaultValue.Product лв</h3>
                                                             <hr />
                                                             <h6>/Цена за един продукт/</h6>
                                                             <hr />
@@ -424,7 +424,7 @@
                                                             <h5>Артистичен</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>100 лв</h3>
+                                                            <h3>@DefaultValue.ProductPlus лв</h3>
                                                             <hr />
                                                             <h6>/Цена за един продукт/</h6>
                                                             <hr />
@@ -438,7 +438,7 @@
                                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                                     <div class="card mx-auto card-packet">
                                                         <div class="card-header text-center">
-                                                            <h5>Друго</h5>
+                                                            <h5>@DefaultValue.NegotiablePriceText</h5>
                                                         </div>
                                                         <div class="card-body text-center">
                                                             <h3 class="negotiation">По договаряне</h3>
@@ -458,7 +458,7 @@
                                                             <h5>Стандартен</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>150 лв</h3>
+                                                            <h3>@DefaultValue.BusinessPortrait лв</h3>
                                                             <hr />
                                                             <p>Включва обработените сполучливите кадри</p>
                                                             <hr />
@@ -476,7 +476,7 @@
                                                             <h5>Стандартен</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>100 лв</h3>
+                                                            <h3>@DefaultValue.Automotive лв</h3>
                                                             <hr />
                                                             <p>Включва обработените сполучливите кадри</p>
                                                         </div>
@@ -490,7 +490,7 @@
                                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                                     <div class="card mx-auto card-packet">
                                                         <div class="card-header text-center">
-                                                            <h5>Друго</h5>
+                                                            <h5>@DefaultValue.NegotiablePriceText</h5>
                                                         </div>
                                                         <div class="card-body text-center">
                                                             <h3>По договаряне</h3>
@@ -510,7 +510,7 @@
                                                             <h5>Събитие</h5>
                                                         </div>
                                                         <div class="card-body text-center">
-                                                            <h3>По договаряне</h3>
+                                                            <h3>@DefaultValue.NegotiablePriceText</h3>
                                                             <hr />
                                                             <p>Ще изчислим цената спрямо вашите нужди</p>
                                                         </div>

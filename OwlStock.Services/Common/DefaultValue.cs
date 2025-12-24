@@ -3,25 +3,26 @@
     public static class DefaultValue
     {
         //Photoshoots
-        internal const decimal PortrairPhotoShoot = 150m;
-        internal const decimal PortrairPlusPhotoShoot = 200m;
-        internal const decimal PortrairExtraPhotoShoot = 250m;
-        internal const decimal FamilyPhotoShoot = 200m;
-        internal const decimal FamilyPlusPhotoShoot = 250m;
-        internal const decimal FamilyExtraPhotoShoot = 300m;
-        internal const decimal BusinessPortrait = 150m;
-        internal const decimal WeddingPhotoshoot = 400m;
-        internal const decimal WeddingPlusPhotoshoot = 700m;
-        internal const decimal WeddingExtraPhotoshoot = 900m;
-        internal const decimal PromPhotoshoot = 300m;
-        internal const decimal PromPlusPhotoshoot = 500m;
-        internal const decimal PromExtraPhotoshoot = 700m;
-        internal const decimal Baptism = 300m;
-        internal const decimal BaptismPlus = 500m;
-        internal const decimal BaptismExtra = 700;
-        internal const decimal Automotive = 100m;
-        internal const decimal Product = 50m;
-        internal const decimal ProductPlus = 100m;
+        public const decimal PortrairPhotoShoot = 150m;
+        public const decimal PortrairPlusPhotoShoot = 300m;
+        public const decimal PortrairExtraPhotoShoot = 350m;
+        public const decimal FamilyPhotoShoot = 200m;
+        public const decimal FamilyPlusPhotoShoot = 350m;
+        public const decimal FamilyExtraPhotoShoot = 400m;
+        public const decimal BusinessPortrait = 150m;
+        public const decimal WeddingPhotoshoot = 300m;
+        public const decimal WeddingPlusPhotoshoot = 400m;
+        public const decimal WeddingExtraPhotoshoot = 600m;
+        public const decimal PromPhotoshoot = 200m;
+        public const decimal PromPlusPhotoshoot = 300m;
+        public const decimal PromExtraPhotoshoot = 450m;
+        public const decimal Baptism = 150m;
+        public const decimal BaptismPlus = 200m;
+        public const decimal BaptismExtra = 350m;
+        public const decimal Automotive = 100m;
+        public const decimal Product = 50m;
+        public const decimal ProductPlus = 100m;
+        public const string NegotiablePriceText = "По договаряне";
 
         //Fuel
         public const decimal FuelPriceByKilometer = 0.18m;
