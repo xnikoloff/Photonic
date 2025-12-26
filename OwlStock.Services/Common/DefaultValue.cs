@@ -8,13 +8,13 @@
         public const string IndividualExtraPhotoshootDescription = "Пакет Плюс + 3 кадръра в рамка";
         public const string WeddingPhotoshootDescription = "Включва индивидуална фотосесия на младоженците със сватбена тематика + снимки със семейството и гостите";
         public const string WeddingPlusPhotoshootDescription = "Пакет Стандартен + снимки от подготовката";
-        public const string WeddingExtraPhotoshootDescription = "Пакет Плюс + луксозна сватбена фотокнига с кадри от индивидуалната фотосесия на младоженците";
+        public const string WeddingExtraPhotoshootDescription = "Пакет Плюс + луксозна сватбена фотокнига";
         public const string PromPhotoshootDescription = "Включва индивидуална фотосесия на абитуриента/абитуриентката + снимки със семейството и гостите";
         public const string PromPlusPhotoshootDescription = "Пакет Стандартен + снимки от подготовката";
-        public const string PromExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига с индивидуалната фотосесия";
+        public const string PromExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига";
         public const string BaptismPhotoshootDescription = "Включва отразяване на цялото събитие + снимки с гостите";
         public const string BaptismPlusPhotoshootDescription = "Пакет Стандартен + индивидуална фотосесия на родителите и бебето";
-        public const string BaptismExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига на индивидуалната фотосесия";
+        public const string BaptismExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига";
         public const string ProductPhotoshootDescription = "Кадри на бял фон (например за електронни магазини)";
         public const string ProductPlusPhotoshootDescription = "Кадри с артистични елементи (например за реклами, блогове и др.)";
         public const string BusinessPortraitPhotoshootDescription = "Включва всички сполучливи кадри от фотосесията";
