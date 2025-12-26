@@ -2,6 +2,27 @@
 {
     public static class DefaultValue
     {
+        /* PRICE PACKET DESCRIPTIONS */
+        public const string IndividualPhotoshootDescription = "Включва обработените сполучливи кадри";
+        public const string IndividualPlusPhotoshootDescription = "Пакет Стандартен + лукосозна фотокнига";
+        public const string IndividualExtraPhotoshootDescription = "Пакет Плюс + 3 кадръра в рамка";
+        public const string WeddingPhotoshootDescription = "Включва индивидуална фотосесия на младоженците със сватбена тематика + снимки със семейството и гостите";
+        public const string WeddingPlusPhotoshootDescription = "Пакет Стандартен + снимки от подготовката";
+        public const string WeddingExtraPhotoshootDescription = "Пакет Плюс + луксозна сватбена фотокнига с кадри от индивидуалната фотосесия на младоженците";
+        public const string PromPhotoshootDescription = "Включва индивидуална фотосесия на абитуриента/абитуриентката + снимки със семейството и гостите";
+        public const string PromPlusPhotoshootDescription = "Пакет Стандартен + снимки от подготовката";
+        public const string PromExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига с индивидуалната фотосесия";
+        public const string BaptismPhotoshootDescription = "Включва отразяване на цялото събитие + снимки с гостите";
+        public const string BaptismPlusPhotoshootDescription = "Пакет Стандартен + индивидуална фотосесия на родителите и бебето";
+        public const string BaptismExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига на индивидуалната фотосесия";
+        public const string ProductPhotoshootDescription = "Кадри на бял фон (например за електронни магазини)";
+        public const string ProductPlusPhotoshootDescription = "Кадри с артистични елементи (например за реклами, блогове и др.)";
+        public const string BusinessPortraitPhotoshootDescription = "Включва всички сполучливи кадри от фотосесията";
+        public const string AutomotiveDescription = "Включва всички сполучливи кадри от фотосесията";
+        public const string NegotiablePhotoshootDescription = "Ще изчислим цената спрямо вашите нужди";
+        
+        /* PRICE PACKETS */
+
         //Photoshoots
         public const decimal PortrairPhotoShoot = 150m;
         public const decimal PortrairPlusPhotoShoot = 300m;

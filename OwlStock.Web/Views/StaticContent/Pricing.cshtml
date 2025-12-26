@@ -30,7 +30,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.PortrairPhotoShoot лв</h1>
                             <hr />
-                            <h5>Включва обработените сполучливи кадри</h5>
+                            <h5>@DefaultValue.IndividualPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -45,7 +45,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.PortrairPlusPhotoShoot лв</h1>
                             <hr />
-                            <h5>Пакет Стандартен + лукосозна фотокнига</h5>
+                            <h5>@DefaultValue.IndividualPlusPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -60,7 +60,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.PortrairExtraPhotoShoot лв</h1>
                             <hr />
-                            <h5>Пакет Плюс + 3 кадръра в рамка</h5>
+                            <h5>@DefaultValue.IndividualExtraPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -75,7 +75,7 @@
                         <div class="card-body text-center">
                             <h1 class="negotiation">@DefaultValue.NegotiablePriceText</h1>
                             <hr />
-                            <h5>Ще изчислим цената спрямо вашите нужди</h5>
+                            <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -100,7 +100,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.FamilyPhotoShoot лв</h1>
                             <hr />
-                            <h5>Включва обработените сполучливи кадри</h5>
+                            <h5>@DefaultValue.IndividualPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -115,7 +115,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.FamilyPlusPhotoShoot лв</h1>
                             <hr />
-                            <h5>Пакет Стандартен + луксозна фотокнига</h5>
+                            <h5>@DefaultValue.IndividualPlusPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -130,7 +130,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.FamilyExtraPhotoShoot лв</h1>
                             <hr />
-                            <h5>Пакет Плюс + 3 кадръра в рамка</h5>
+                            <h5>@DefaultValue.IndividualExtraPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Personal" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -145,7 +145,7 @@
                         <div class="card-body text-center">
                             <h1 class="negotiation">@DefaultValue.NegotiablePriceText</h1>
                             <hr />
-                            <h5>Ще изчислим цената спрямо вашите нужди</h5>
+                            <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -170,7 +170,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.WeddingPhotoshoot лв</h1>
                             <hr />
-                            <h5>Включва индивидуална фотосесия на младоженците със сватбена тематика + снимки със семейството и гостите</h5>
+                            <h5>@DefaultValue.WeddingPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -185,7 +185,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.WeddingPlusPhotoshoot лв</h1>
                             <hr />
-                            <h5>Пакет Стандартен + снимки от подготовката</h5>
+                            <h5>@DefaultValue.WeddingPlusPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -200,7 +200,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.WeddingExtraPhotoshoot лв</h1>
                             <hr />
-                            <h5>Пакет Плюс + луксозна сватбена фотокнига с кадри от индивидуалната фотосесия на младоженците</h5>
+                            <h5>@DefaultValue.WeddingExtraPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Wedding" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -215,7 +215,7 @@
                         <div class="card-body text-center">
                             <h1 class="negotiation">@DefaultValue.NegotiablePriceText</h1>
                             <hr />
-                            <h5>Ще изчислим цената спрямо вашите нужди</h5>
+                            <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -240,7 +240,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.PromPhotoshoot лв</h1>
                             <hr />
-                            <h5>Включва индивидуална фотосесия на абитуриента/абитуриентката + снимки със семейството и гостите</h5>
+                            <h5>@DefaultValue.PromPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -255,7 +255,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.PromPlusPhotoshoot лв</h1>
                             <hr />
-                            <h5>Пакет Стандартен + снимки от подготовката </h5>
+                            <h5>@DefaultValue.PromPlusPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -270,7 +270,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.PromExtraPhotoshoot лв</h1>
                             <hr />
-                            <h5>Пакет Плюс + луксозна фотокнига с индивидуалната фотосесия</h5>
+                            <h5>@DefaultValue.PromExtraPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Prom" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -285,7 +285,7 @@
                         <div class="card-body text-center">
                             <h1 class="negotiation">@DefaultValue.NegotiablePriceText</h1>
                             <hr />
-                            <h5>Ще изчислим цената спрямо вашите нужди</h5>
+                            <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -310,7 +310,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.Baptism лв</h1>
                             <hr />
-                            <h5>Включва отразяване на цялото събитие + снимки с гостите</h5>
+                            <h5>@DefaultValue.BaptismPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -325,7 +325,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.BaptismPlus лв</h1>
                             <hr />
-                            <h5>Пакет Стандартен + индивидуална фотосесия на родителите и бебето</h5>
+                            <h5>@DefaultValue.BaptismPlusPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -340,7 +340,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.BaptismExtra лв</h1>
                             <hr />
-                            <h5>Пакет Плюс + луксозна фотокнига на индивидуалната фотосесия</h5>
+                            <h5>@DefaultValue.BaptismExtraPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -355,7 +355,7 @@
                         <div class="card-body text-center">
                             <h1 class="negotiation">@DefaultValue.NegotiablePriceText</h1>
                             <hr />
-                            <h5>Ще изчислим цената спрямо вашите нужди</h5>
+                            <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -380,7 +380,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.Product лв</h1>
                             <hr />
-                            <h5>Кадри на бял фон (например за електронни магазини)</h5>
+                            <h5>@DefaultValue.ProductPhotoshootDescription</h5>
                             <hr />
                             <p>Цената е за един продукт</p>
                         </div>
@@ -397,7 +397,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.ProductPlus лв</h1>
                             <hr />
-                            <h5>Кадри с артистични елементи (например за реклами, блогове и др.)</h5>
+                            <h5>@DefaultValue.ProductPlusPhotoshootDescription</h5>
                             <hr />
                             <p>Цената е за един продукт</p>
                         </div>
@@ -414,7 +414,7 @@
                         <div class="card-body text-center">
                             <h1 class="negotiation">@DefaultValue.NegotiablePriceText</h1>
                             <hr />
-                            <h5>Ще изчислим цената спрямо вашите нужди</h5>
+                            <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -452,7 +452,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.BusinessPortrait лв</h1>
                             <hr />
-                            <h5>Включва всички сполучливи кадри от фотосесията</h5>
+                            <h5>@DefaultValue.BusinessPortraitPhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.BusinessPortrait" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -467,7 +467,7 @@
                         <div class="card-body text-center">
                             <h1>@DefaultValue.Automotive лв</h1>
                             <hr />
-                            <h5>Включва всички сполучливи кадри от фотосесията</h5>
+                            <h5>@DefaultValue.AutomotiveDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Automotive" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -494,6 +494,8 @@
                         </div>
                         <div class="card-body text-center">
                             <h1 class="negotiation">@DefaultValue.NegotiablePriceText</h1>
+                            <hr />
+                            <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
@@ -507,6 +509,8 @@
                         </div>
                         <div class="card-body text-center">
                             <h1 class="negotiation">@DefaultValue.NegotiablePriceText</h1>
+                            <hr />
+                            <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
                         </div>
                         <div class="card-footer text-center">
                             <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
