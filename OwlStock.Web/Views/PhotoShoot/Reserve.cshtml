@@ -399,7 +399,7 @@
                                             </div>
                                             <div class="row row-photoshoot-packets mt-5 row-photoshoot-packets-product" style="display:none">
                                                 <div class="small-product-prompt mb-4">
-                                                    <p>Ако продуктът е малък (от порядъка на дрехи, обувки, бижута и други малки предмети), молим Ви да използвате формата за резервация на <a asp-controller="PhotoShoot" asp-action="ReserveSmallProduct"><b><u>малък продукт</u></b></a>.</p>
+                                                    <p>Ако продуктът е малък (от порядъка на дрехи, обувки, бижута и други малки предмети), предоставяме ви възможност да ни го изпратите до адрес. За целта използвайте формата за резервация на <a asp-controller="PhotoShoot" asp-action="ReserveSmallProduct"><b><u>малък продукт</u></b></a>. В противен случай използвайте тази форма, като изберете точен ден и час, в който желаете да ви посетим за фотосесия на продукта.</p>
                                                 </div>
                                                 <div class="col-6 col-md-3 mx-auto col-photoshoot-packet">
                                                     <div class="card mx-auto card-packet">
@@ -2492,8 +2492,10 @@
     //format selected date (the date comes in format [dd.mm])
     //the function formats it to format [yyyy-MM-dd]
     function formatSelectedDate(selectedDate) {
+        console.log("selectedDate: " + selectedDate);
         let selectedDateSplit = selectedDate.split('.');
-        return `${new Date().getUTCFullYear()}-${selectedDateSplit[1]}-${selectedDateSplit[0]}`;
+        console.log("selectedDateSplit: " + selectedDateSplit[2]);
+        return `${selectedDateSplit[2]}-${selectedDateSplit[1]}-${selectedDateSplit[0]}`;
     }
 
 
@@ -2501,7 +2503,7 @@
     //the function formats it to format [dd.MM.yyyy]
     function formatSelectedDateInBulgarianFormat(selectedDate) {
         let selectedDateSplit = selectedDate.split('.');
-        return `${selectedDateSplit[0]}.${selectedDateSplit[1]}.${new Date().getUTCFullYear()}`;
+        return `${selectedDateSplit[0]}.${selectedDateSplit[1]}.${selectedDateSplit[2]}`;
     }
 
     function mapPhotoshootToPacket(photoshootId) {

@@ -90,7 +90,7 @@ namespace OwlStock.Services.Facades.Implementations
             //otherwise no new place should be created
             
 
-            dto.Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, 0, 1);
+            dto.Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, 0, dto.NumberOfParticipants);
 
             Guid photoshootGuid = await _photoShootService.AddSmallProduct(dto);
 
