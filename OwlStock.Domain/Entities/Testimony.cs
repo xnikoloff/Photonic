@@ -16,13 +16,11 @@ namespace OwlStock.Domain.Entities
         [Display(Name = "Име")]
         public string? PersonFirstName { get; set; }
 
-        [Required(ErrorMessage = "Фамилия е задължително поле")]
         [MinLength(ModelConstraints.TestimonyNameMinLength, ErrorMessage = ModelConstraints.TestimonyLastNameNameMinLengthErrorMessage)]
         [MaxLength(ModelConstraints.TestimonyNameMaxLength, ErrorMessage = ModelConstraints.TestimonyLastNameNameMaxLengthErrorMessage)]
         [Display(Name = "Фамилия")]
         public string? PersonLastName { get; set; }
 
-        [Required(ErrorMessage = "Професия е задължително поле")]
         public string? PersonJob { get; set; }
 
         [Required(ErrorMessage = "Оценката със звезди е задължителна")]

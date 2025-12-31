@@ -138,12 +138,11 @@
 
                 //validate on each submit
                 validateFirstName();
-                validateLastName();
                 validateStars();
                 validateContent();
 
                 //submit the form if all of the form inputs are valid
-                if (validateFirstName() && validateLastName() && validateStars() && validateContent()) {
+                if (validateFirstName() && validateStars() && validateContent()) {
                     $("#testimony-form").submit();
                 }
             });
@@ -152,10 +151,6 @@
             //check for changes in inputs
             $("#Testimony_PersonFirstName").change(function () {
                 validateFirstName();
-            });
-
-            $("#Testimony_PersonLastName").change(function () {
-                validateLastName();
             });
 
             $("#Testimony_Stars").change(function () {
@@ -178,20 +173,6 @@
 
         else {
             $("#Testimony_FirstName").removeClass("border border-danger");
-            $(".btn-submit").prop('disabled', false);
-            return true;
-        }
-    }
-
-    function validateLastName() {
-        if ($("#Testimony_PersonLastName").val() == "" || $("#Testimony_PersonLastName").val() == null) {
-            $("#Testimony_PersonLastName").addClass("border border-danger");
-            console.log($("#Testimony_PersonLastName").val());
-            return false;
-        }
-
-        else {
-            $("#Testimony_LastName").removeClass("border border-danger");
             $(".btn-submit").prop('disabled', false);
             return true;
         }
