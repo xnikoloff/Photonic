@@ -181,3 +181,23 @@
         min-height: 200px !important;
     }
 </style>
+
+<script>
+    $(document).ready(function() {
+        swapBanner();
+    });
+
+    function swapBanner() {
+        let height = window.screen.availHeight;
+        let width = window.screen.availWidth;
+        
+        let banner = document.querySelectorAll('.owl-carousel-item img');
+        
+        if(height > width){
+            banner.src = 'carousel-1-vertical.jpg';
+        }
+        else{
+            banner.src = 'carousel-1.jpg';
+        }
+    }
+</script>                            
