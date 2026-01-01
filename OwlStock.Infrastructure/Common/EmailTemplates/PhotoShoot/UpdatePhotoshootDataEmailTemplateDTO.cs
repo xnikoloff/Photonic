@@ -6,6 +6,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
     {
         public PhotoShootType PhotoShootType { get; set; }
         public string? PhotoshootNumber { get; set; }
+        public decimal Price { get; set; }
         public DateTime ReservationDate { get; set; }
     }
 }

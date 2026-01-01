@@ -136,6 +136,7 @@ namespace OwlStock.Services.Facades.Implementations
                 Topic = "Актуализация на фотосесия",
                 PhotoshootNumber = photoShoot?.PhotoshootNumber ?? "-",
                 ReservationDate = dto.ReservationDate,
+                Price = dto.Price,
                 PhotoShootType = photoShoot?.PhotoShootType ?? 0
 
            };

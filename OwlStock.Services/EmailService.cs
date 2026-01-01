@@ -146,7 +146,8 @@ namespace OwlStock.Services
                             ((UpdatePhotoshootDataEmailTemplateDTO)dto).PhotoShootId,
                             ((UpdatePhotoshootDataEmailTemplateDTO)dto).PhotoShootType,
                             ((UpdatePhotoshootDataEmailTemplateDTO)dto).PhotoshootNumber ?? "-",
-                            ((UpdatePhotoshootDataEmailTemplateDTO)dto).ReservationDate
+                            ((UpdatePhotoshootDataEmailTemplateDTO)dto).ReservationDate,
+                            ((UpdatePhotoshootDataEmailTemplateDTO)dto).Price
                         );
                 }
 
