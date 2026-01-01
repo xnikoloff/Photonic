@@ -212,6 +212,12 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
             string dateString = date == default ? "-" : date.ToString();
             decimal priceEuro = Math.Round(price / 1.95583M, 2);
             string euroString = "";
+            //make sure the decimal separator is a dot
+
+            if (priceEuro.ToString().Contains(','))
+            {
+                euroString = priceEuro.ToString().Replace(',', '.');
+            }
 
             return @$"<!DOCTYPE html>
                     <html lang=""en"">
