@@ -300,6 +300,7 @@ namespace OwlStock.Services.Facades.Implementations
                 Type = dto.PhotoShootType,
                 PersonFullName = dto.PersonFirstName + " " + dto.PersonLastName,
                 EmailTemplate = EmailTemplate.CreatePhotoShoot,
+                Price = dto.Price,
                 PhotoShootId = photoshootGuid
             };
 

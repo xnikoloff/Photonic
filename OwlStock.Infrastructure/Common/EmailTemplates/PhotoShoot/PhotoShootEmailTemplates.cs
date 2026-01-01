@@ -5,9 +5,18 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
 {
     public static class PhotoShootEmailTemplates
     {
-        public static string CreatePhotoShootTemplate(DateTime date, PhotoShootType photoshootType, Guid photoshootId)
+        public static string CreatePhotoShootTemplate(DateTime date, PhotoShootType photoshootType, decimal price, Guid photoshootId)
         {
             string dateString = date == default ? "-" : date.ToString();
+            decimal priceEuro = Math.Round(price / 1.95583M, 2);
+            string euroString = "";
+
+            //make sure the decimal separator is a dot
+            if (priceEuro.ToString().Contains(','))
+            {
+                euroString = priceEuro.ToString().Replace(',', '.');
+            }
+
             return @$"<!DOCTYPE html>
                 <html lang=""en"">
                 <head>
@@ -54,7 +63,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                               <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""margin:24px 0; border-collapse:collapse;"">
                                 <tr>
                                   <td style=""padding:12px; background-color:#f9fafb; border:1px solid #e5e7eb;"">
-                                    <strong>Кога?</strong>
+                                    <strong>Дата</strong>
                                   </td>
                                   <td style=""padding:12px; border:1px solid #e5e7eb;"">
                                     {dateString}
@@ -62,18 +71,18 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                 </tr>
                                 <tr>
                                   <td style=""padding:12px; background-color:#f9fafb; border:1px solid #e5e7eb;"">
-                                    <strong>Къде?</strong>
+                                    <strong>Фотосесия</strong>
                                   </td>
                                   <td style=""padding:12px; border:1px solid #e5e7eb;"">
-                                    {{Location}}
+                                    {photoshootType}
                                   </td>
                                 </tr>
                                 <tr>
                                   <td style=""padding:12px; background-color:#f9fafb; border:1px solid #e5e7eb;"">
-                                    <strong>Какво?</strong>
+                                    <strong>Цена</strong>
                                   </td>
                                   <td style=""padding:12px; border:1px solid #e5e7eb;"">
-                                    {photoshootType}
+                                    {euroString} € / {price}.00 лв.
                                   </td>
                                 </tr>
                               </table>
@@ -103,7 +112,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                           <!-- Footer -->
                           <tr>
                             <td style=""background-color:#f9fafb; padding:20px; text-align:center; font-size:13px; color:#6b7280;"">
-                              © {DateTime.Now.ToString("dd.MM.yyyy")} Photonic. Всички права запазени!<br>
+                              © {DateTime.Now.Year} Photonic. Всички права запазени!<br>
                               <a href=""http://www.photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
                             </td>
                           </tr>

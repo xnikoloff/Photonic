@@ -126,6 +126,7 @@ namespace OwlStock.Services
                     (
                         ((PhotoShootEmailTemplateDTO)dto).Date ?? new DateTime(),
                         ((PhotoShootEmailTemplateDTO)dto).Type,
+                        ((PhotoShootEmailTemplateDTO)dto).Price,
                         ((PhotoShootEmailTemplateDTO)dto).PhotoShootId
                     );
                 }
