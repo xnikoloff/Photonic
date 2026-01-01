@@ -103,7 +103,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                           <!-- Footer -->
                           <tr>
                             <td style=""background-color:#f9fafb; padding:20px; text-align:center; font-size:13px; color:#6b7280;"">
-                              © {DateTime.Now} Photonic. Всички права запазени!<br>
+                              © {DateTime.Now.ToString("dd.MM.yyyy")} Photonic. Всички права запазени!<br>
                               <a href=""http://www.photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
                             </td>
                           </tr>

@@ -2494,8 +2494,17 @@
     function formatSelectedDate(selectedDate) {
         console.log("selectedDate: " + selectedDate);
         let selectedDateSplit = selectedDate.split('.');
+        let year = '';
+        if(selectedDateSplit[2] == undefined || selectedDate[2] == null){
+             let currentDate = new Date();
+             year = currentDate.getFullYear();
+        }
+        else{
+            year = selectedDateSplit[2];
+         }
+
         console.log("selectedDateSplit: " + selectedDateSplit[2]);
-        return `${selectedDateSplit[2]}-${selectedDateSplit[1]}-${selectedDateSplit[0]}`;
+        return `${year}-${selectedDateSplit[1]}-${selectedDateSplit[0]}`;
     }
 
 
@@ -2503,7 +2512,15 @@
     //the function formats it to format [dd.MM.yyyy]
     function formatSelectedDateInBulgarianFormat(selectedDate) {
         let selectedDateSplit = selectedDate.split('.');
-        return `${selectedDateSplit[0]}.${selectedDateSplit[1]}.${selectedDateSplit[2]}`;
+         let year = '';
+        if(selectedDateSplit[2] == undefined || selectedDateSplit[2] == null){
+             let currentDate = new Date();
+             year = currentDate.getFullYear();
+        }
+        else{
+            year = selectedDateSplit[2];
+        }
+        return `${selectedDateSplit[0]}.${selectedDateSplit[1]}.${year}`;
     }
 
     function mapPhotoshootToPacket(photoshootId) {
