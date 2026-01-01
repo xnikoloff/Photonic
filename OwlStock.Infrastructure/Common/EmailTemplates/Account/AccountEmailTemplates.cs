@@ -4,22 +4,328 @@
     {
         public static string CreateAccountTemplate(string password)
         {
-            return $"<!doctypehtml><html lang=en><meta charset=UTF-8><meta content=\"width=device-width,initial-scale=1\"name=viewport><title>Създадохме вашия профил</title><body style=font-family:Verdana,Geneva,Tahoma,sans-serif><div id=container style=width:100%><div style=\"width:100%;margin:0 auto\"class=container-main><div id=container-main-header><div id=container-main-header-logo style=width:100%;text-align:center><img src=https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic_UPPER_dark.png style=width:50%></div></div><div id=container-main-title style=width:100%;margin-top:100px><h2 style=text-align:center;color:#000>Създадохме Вашия профил</h2></div><div id=container-main-text style=margin-top:60px><p style=color:#000>Създадохме личен профил за Вас и сега можете да се възползвате от всички функционалости, налични на нашия сайт.<p style=color:#000>Благодарим Ви, че изплозвате нашите услуги!<p style=margin-top:50px;font-weight:700;color:#000>Вашата парола: <span style=text-decoration:none;color:#eaa636>{password}</span><p style=color:#000;margin-top:60px>Поздрави,<p style=color:#000>Екипът на PHOTONIC</div><div id=container-main-footer style=margin-top:40px><div id=container-main-footer-text style=\"margin:0 auto;background-color:#eaa636;padding:5px 0\"><h4 style=text-align:center;color:#000><a href=http://www.flash-studio.co style=text-decoration:none;color:#000>PHOTONIC</a> © {DateTime.Now.Year}</h4></div></div></div></div>";
+            return @$"<!DOCTYPE html>
+                    <html lang=""en"">
+                    <head>
+                      <meta charset=""UTF-8"">
+                      <title>Booking Confirmation</title>
+                    </head>
+                    <body style=""margin:0; padding:0; background-color:#f4f6f8; font-family: Arial, Helvetica, sans-serif;"">
+
+                      <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#f4f6f8; padding:24px 0;"">
+                        <tr>
+                          <td align=""center"">
+
+                            <!-- Container -->
+                            <table width=""600"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.08);"">
+
+                              <!-- Header -->
+                              <tr>
+                                <td style=""background-color:#f9fafb; padding:24px; text-align:center;"">
+                                  <div style=""margin:0;"">
+                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
+                                  </div>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                </td>
+                              </tr>
+
+                              <!-- Body -->
+                              <tr>
+                                <td style=""padding:32px; color:#111827;"">
+
+                                  <h2 style=""margin-top:0; font-size:22px;"">
+                                    Създадохме Вашия профил
+                                  </h2>
+
+                                  <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                                    Здравейте,
+                                  </p>
+
+                                  <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                                    Създадохме личен профил за Вас и сега можете да се възползвате от всички функционалости, налични на нашия сайт.
+                                  </p>
+
+                                  <!-- CTA -->
+                                  <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                                    <span style=""color:#B78D65""><b>Вашата парола</b></span>: {password}
+                                  </p>
+
+	                         <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                                    Вашият профил може да достъпите от тук:
+                                  </p>
+
+                                  <div style=""text-align:center; margin:32px 0;"">
+                                    <a href=""http://test-photonic.tryasp.net/PhotoShoot/MyPhotoShoots""
+                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                      ПРОФИЛ
+                                    </a>
+                                  </div>
+
+                                  <p style=""font-size:15px; margin-top:24px;"">
+                                    Поздрави,<br>
+                                    <strong>Екипът на Фотоник</strong><br>
+                                  </p>
+
+                                </td>
+                              </tr>
+
+                              <!-- Footer -->
+                              <tr>
+                                <td style=""background-color:#f9fafb; padding:20px; text-align:center; font-size:13px; color:#6b7280;"">
+                                  © {DateTime.Now.Year} Photonic. Всички права запазени!<br>
+                                  <a href=""http://www.photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
+                                </td>
+                              </tr>
+
+                            </table>
+
+                          </td>
+                        </tr>
+                      </table>
+
+                    </body>
+                    </html>";
         }
 
         public static string CreateConfirmedAccountTemplate()
         {
-            return $"<!doctypehtml><html lang=en><meta charset=UTF-8><meta content=\"width=device-width,initial-scale=1\"name=viewport><title>Резервацията беше направена успешно!</title><body style=font-family:Verdana,Geneva,Tahoma,sans-serif><div id=container style=width:100%><div style=\"width:50%;margin:0 auto\"class=container-main><div id=container-main-header><div id=container-main-header-logo style=width:100%;text-align:center><img src=https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic_UPPER_dark.png style=width:50%></div></div><div id=container-main-title style=width:100%;margin-top:100px><h2 style=text-align:center;color:#000>Профилът Ви беше потвърден <span style=color:#eaa636>успешно</span>!</h2></div><div id=container-main-text style=margin-top:60px><p style=color:#000>Вие успешно потвърдихте профила си и сега може да се възползвате от всички функционалости, налични на нашия сайт.<p style=color:#000;margin-top:40px>Благодарим Ви, че изплозвате нашите услуги!<p style=margin-top:40px;font-weight:700;color:#000>Влезте в профила си от <a href=http://flash-studio.co/Identity/Account/Login style=text-decoration:none;color:#eaa636>тук</a><p style=color:#000;margin-top:40px>Поздрави,<p style=color:#000>Екипът на PHOTONIC</div><div id=container-main-footer style=margin-top:50px><div id=container-main-footer-text style=\"margin:0 auto;background-color:#eaa636;padding:5px 0\"><h4 style=text-align:center;color:#000><a href=http://www.flash-studio.co style=text-decoration:none;color:#000>PHOTONIC</a> © {DateTime.Now.Year}</h4></div></div></div></div>";
+            return @$"<!DOCTYPE html>
+                    <html lang=""en"">
+                    <head>
+                      <meta charset=""UTF-8"">
+                      <title>Booking Confirmation</title>
+                    </head>
+                    <body style=""margin:0; padding:0; background-color:#f4f6f8; font-family: Arial, Helvetica, sans-serif;"">
+
+                      <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#f4f6f8; padding:24px 0;"">
+                        <tr>
+                          <td align=""center"">
+
+                            <!-- Container -->
+                            <table width=""600"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.08);"">
+
+                              <!-- Header -->
+                              <tr>
+                                <td style=""background-color:#f9fafb; padding:24px; text-align:center;"">
+                                  <div style=""margin:0;"">
+                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
+                                  </div>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                </td>
+                              </tr>
+
+                              <!-- Body -->
+                              <tr>
+                                <td style=""padding:32px; color:#111827;"">
+
+                                  <h2 style=""margin-top:0; font-size:22px;"">
+                                    Профилът Ви беше потвърден успешно!
+                                  </h2>
+
+                                  <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                                    Здравейте,
+                                  </p>
+
+                                  <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                                    Вие успешно потвърдихте профила си и сега може да се възползвате от всички функционалости, налични на нашия сайт.
+                                  </p>
+
+
+                                  <div style=""text-align:center; margin:32px 0;"">
+                                    <a href=""http://test-photonic.tryasp.net/PhotoShoot/MyPhotoShoots""
+                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                      ВАШИЯТ ПРОФИЛ
+                                    </a>
+                                  </div>
+
+
+                                  <p style=""font-size:15px; margin-top:24px;"">
+                                    Поздрави,<br>
+                                    <strong>Екипът на Фотоник</strong><br>
+                                  </p>
+
+                                </td>
+                              </tr>
+
+                              <!-- Footer -->
+                              <tr>
+                                <td style=""background-color:#f9fafb; padding:20px; text-align:center; font-size:13px; color:#6b7280;"">
+                                  © {DateTime.Now.Year} Photonic. Всички права запазени!<br>
+                                  <a href=""http://www.photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
+                                </td>
+                              </tr>
+
+                            </table>
+
+                          </td>
+                        </tr>
+                      </table>
+
+                    </body>
+                    </html>";
         }
 
         public static string ConfirmAccountTemplate(string confirmationLink)
         {
-            return $"<!doctypehtml><html lang=en><meta charset=UTF-8><meta content=\"width=device-width,initial-scale=1\"name=viewport><title>Създадохме вашия профил</title><body style=font-family:Verdana,Geneva,Tahoma,sans-serif><div id=container style=width:100%><div style=\"width:50%;margin:0 auto\"class=container-main><div id=container-main-header><div id=container-main-header-logo style=width:100%;text-align:center><img src=https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic_UPPER_dark.png style=width:50%></div></div><div id=container-main-title style=width:100%;margin-top:100px><h2 style=text-align:center;color:#000>Благодарим Ви за регистрацията!</h2></div><div id=container-main-text style=margin-top:60px><p style=color:#000>Остава единствено да активирате Вашия профил и ще може да се възползвате от всички функционалности, налични на <a href=http://www.flash-studio.co style=text-decoration:none;color:#eaa636><b>PHOTONIC</b></a><p style=color:#000;margin-top:30px>За да активирате профила си, кликнете върху бутона отдолу:<p style=margin-top:30px;margin-bottom:30px><a href={confirmationLink} style=\"text-decoration:none;padding:10px 20px;color:#000;background:#eaa636\"><b>АКТИВИРАЙ</b></a><p style=color:#000;margin-top:60px>Благодарим Ви, че изплозвате нашите услуги!<p style=color:#000;margin-top:60px>Поздрави,<p style=color:#000>Екипът на PHOTONIC</div><div id=container-main-footer style=margin-top:50px><div id=container-main-footer-text style=\"margin:0 auto;background-color:#eaa636;padding:5px 0\"><h4 style=text-align:center;color:#000><a href=http://www.flash-studio.co style=text-decoration:none;color:#000>PHOTONIC</a> © {DateTime.Now.Year}</h4></div></div></div></div>";
+            return @$"<!DOCTYPE html>
+                    <html lang=""en"">
+                    <head>
+                      <meta charset=""UTF-8"">
+                      <title>Booking Confirmation</title>
+                    </head>
+                    <body style=""margin:0; padding:0; background-color:#f4f6f8; font-family: Arial, Helvetica, sans-serif;"">
+
+                      <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#f4f6f8; padding:24px 0;"">
+                        <tr>
+                          <td align=""center"">
+
+                            <!-- Container -->
+                            <table width=""600"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.08);"">
+
+                              <!-- Header -->
+                              <tr>
+                                <td style=""background-color:#f9fafb; padding:24px; text-align:center;"">
+                                  <div style=""margin:0;"">
+                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
+                                  </div>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                </td>
+                              </tr>
+
+                              <!-- Body -->
+                              <tr>
+                                <td style=""padding:32px; color:#111827;"">
+
+                                  <h2 style=""margin-top:0; font-size:22px;"">
+                                    Благодарим Ви за регистрацията!
+                                  </h2>
+
+                                  <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                                    Здравейте,
+                                  </p>
+
+                                  <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                                    Благодарим Ви, че се регистрирахте! Остава единствено да активирате Вашия профил и ще може да се възползвате от всички функционалности, налични на <a href=""http://www.flash-studio.co"" style=""text-decoration: none; color:#B78D65""><b>PHOTONIC</b></a>
+                                  </p>
+
+
+
+	                         <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                                    За да активирате профила си, кликнете върху бутона отдолу:
+                                  </p>
+
+                                  <div style=""text-align:center; margin:32px 0;"">
+                                    <a href=""{confirmationLink}""
+                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                      АКТИВИРАЙ
+                                    </a>
+                                  </div>
+
+                                  <p style=""font-size:15px; margin-top:24px;"">
+                                    Поздрави,<br>
+                                    <strong>Екипът на Фотоник</strong><br>
+                                  </p>
+
+                                </td>
+                              </tr>
+
+                              <!-- Footer -->
+                              <tr>
+                                <td style=""background-color:#f9fafb; padding:20px; text-align:center; font-size:13px; color:#6b7280;"">
+                                  © {DateTime.Now.Year} Photonic. Всички права запазени!<br>
+                                  <a href=""http://www.photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
+                                </td>
+                              </tr>
+
+                            </table>
+
+                          </td>
+                        </tr>
+                      </table>
+
+                    </body>
+                    </html>";
         }
 
         public static string ResetPasswordTemplate(string callbackURL)
         {
-            return $"<!doctypehtml><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta content=\"width=device-width,initial-scale=1\"name=\"viewport\"><title>Възстановяване на парола</title></head><body style=\"font-family:Verdana,Geneva,Tahoma,sans-serif\"><div id=\"container\"style=\"width:100%\"><div style=\"width:100%;margin:0 auto\"class=\"container-main\"><div id=\"container-main-header\"><div id=\"container-main-header-logo\"style=\"width:100%;text-align:center\"><img src=\"https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic_UPPER_dark.png\"style=\"width:50%\"></div></div><div id=\"container-main-title\"style=\"width:100%;margin-top:100px\"><h2 style=\"text-align:center;color:#000\">Възстановяване на парола</h2></div><div id=\"container-main-text\"style=\"margin-top:60px\"><p style=\"color:#000\">Здравейте,</p><p style=\"color:#000\">Получихме заявка от Вас за възстановяване на парола.</p><p style=\"color:#000;margin-top:40px\">За да възстановите паролата, кликнете върху бутона отдолу:</p><p style=\"margin-top:40px\"><a href=\"{callbackURL}\"style=\"text-decoration:none;padding:10px 15px;color:#000;background:#eaa636\"><b>ВЪЗСТАНОВИ ПАРОЛА</b></a></p><p style=\"color:#000;margin-top:40px\">Ако не Вие сте изпратили тази заявка, може да игнорирате този имейл. Акаунтът Ви е защитен.</p><p style=\"color:#000;margin-top:40px\">Благодарим Ви, че изплозвате нашите услуги!</p><p style=\"color:#000;margin-top:40px\">Поздрави,</p><p style=\"color:#000\">Екипът на PHOTONIC</p></div><div id=\"container-main-footer\"style=\"margin-top:50px\"><div id=\"container-main-footer-text\"style=\"margin:0 auto;background-color:#eaa636;padding:5px 0\"><h4 style=\"text-align:center;color:#000\"><a href=\"http://www.flash-studio.co\"style=\"text-decoration:none;color:#000\">PHOTONIC</a> © {DateTime.Now.Year}</h4></div></div></div></div></body></html>";
+            return @$"<!DOCTYPE html>
+            <html lang=""en"">
+            <head>
+              <meta charset=""UTF-8"">
+              <title>Booking Confirmation</title>
+            </head>
+            <body style=""margin:0; padding:0; background-color:#f4f6f8; font-family: Arial, Helvetica, sans-serif;"">
+
+              <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#f4f6f8; padding:24px 0;"">
+                <tr>
+                  <td align=""center"">
+
+                    <!-- Container -->
+                    <table width=""600"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.08);"">
+
+                      <!-- Header -->
+                      <tr>
+                        <td style=""background-color:#f9fafb; padding:24px; text-align:center;"">
+                          <div style=""margin:0;"">
+                            <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
+                          </div>
+                          <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                        </td>
+                      </tr>
+
+                      <!-- Body -->
+                      <tr>
+                        <td style=""padding:32px; color:#111827;"">
+
+                          <h2 style=""margin-top:0; font-size:22px;"">
+                            Възстановяване на парола
+                          </h2>
+
+                          <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                            Здравейте,
+                          </p>
+
+                          <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                            Получихме заявка от Вас за възстановяване на парола*. За да възстановите паролата, кликнете върху бутона отдолу:
+                          </p>
+
+
+                          <div style=""text-align:center; margin:32px 0;"">
+                            <a href=""{callbackURL}""
+                               style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                              ВЪЗСТАНОВИ ПАРОЛА
+                            </a>
+                          </div>
+
+            <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
+                            <i>*Ако не Вие сте изпратили тази заявка, може да игнорирате този имей. Акаунтът ви е защитен.
+                          </p></i>
+
+                          <p style=""font-size:15px; margin-top:24px;"">
+                            Поздрави,<br>
+                            <strong>Екипът на Фотоник</strong><br>
+                          </p>
+
+                        </td>
+                      </tr>
+
+                      <!-- Footer -->
+                      <tr>
+                        <td style=""background-color:#f9fafb; padding:20px; text-align:center; font-size:13px; color:#6b7280;"">
+                          © {DateTime.Now.Year} Photonic. Всички права запазени!<br>
+                          <a href=""http://www.photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
+                        </td>
+                      </tr>
+
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+
+            </body>
+            </html>";
         }
     }    
 }
