@@ -200,5 +200,27 @@
     <script src="~/lib/RichText-master/src/jquery.richtext.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(document).ready(function(){
+            addEuroPrice();
+        });
+
+        function addEuroPrice() {
+            const exchangeRate = 1.95583;
+
+            let priceElement = $(".service-price");
+
+            console.log(priceElement[0].innerHTML);
+
+            for (let i = 0; i < priceElement.length; i++) {
+                let bgnText = priceElement[i].innerHTML;
+                let bgnValue = parseFloat(bgnText.replace(" лв", ""));
+                //August 2026 -> let eurValue = Math.ceil((bgnValue / exchangeRate) / 10) * 10;
+                let eurValue = (bgnValue / exchangeRate).toFixed(2);
+                priceElement[i].innerText = bgnText + " / " + eurValue + " €";
+            }
+        }
+    </script>
 </body>
 </html>

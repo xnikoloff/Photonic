@@ -13,7 +13,7 @@
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
                         <a asp-controller="StaticContent" asp-action="Wedding"><h4>Сватбен портрет</h4></a>
-                        <span class="text-primary price">Цена от 300 лв</span>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.WeddingPhotoshoot лв</span>
                     </div>
                     <p>Нашият фокус е върху сватбения портрет – красиви и емоционални снимки на младоженците и техните близки.</p>
                     <div class="d-flex">
@@ -36,7 +36,7 @@
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
                         <a asp-controller="StaticContent" asp-action="Prom"><h4>Абитуриентски бал</h4></a>
-                        <span class="text-primary price">Цена от 300 лв</span>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.PromPhotoshoot лв</span>
                     </div>
                     <p>Абитуриентската вечер е един от най-вълнуващите моменти в живота на всеки ученик или студент. Ще създадем красиви и стилни снимки, които ще Ви напомнят за него.</p>
                     <div class="d-flex">
@@ -58,7 +58,7 @@
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
                         <a asp-controller="StaticContent" asp-action="Baptism"><h4>Свето кръщене</h4></a>
-                        <span class="text-primary price">Цена от 300 лв</span>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Baptism лв</span>
                     </div>
                     <p>Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение, както и радостта и любовта, които споделяте със семейството и приятелите си.</p>
                     <div class="d-flex">
@@ -80,8 +80,7 @@
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
                         <a asp-controller="StaticContent" asp-action="Product"><h4>Продукт</h4></a>
-                        <h4></h4>
-                        <span class="text-primary price">Цена от 50 лв</span>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Product лв</span>
                     </div>
                     <p>Вашите продукти заслужават да бъдат представени пред клиентите така, че да говорят сами за себе си. Нашите кадри ще покажат всички силни страни и функционалности на продуктите ви.</p>
                     <div class="d-flex">
@@ -103,7 +102,7 @@
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
                         <a asp-controller="StaticContent" asp-action="Family"><h4>Семейна фотосесия</h4></a>
-                        <span class="text-primary price">Цена от 200 лв</span>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.FamilyPhotoShoot лв</span>
                     </div>
                     <p>Запечатайте специалните моменти със семеен портрет. Това е прекрасен начин да съхраните спомените заедно с вашите близки, създавайки уникален и вечен подарък.</p>
                     <div class="d-flex">
@@ -147,7 +146,7 @@
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
                         <a asp-controller="StaticContent" asp-action="Portrait"><h4>Индививуална фотосесия</h4></a>
-                        <span class="text-primary price">Цена от 100 лв</span>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.PortrairPhotoShoot лв</span>
                     </div>
                     <p>Ще работим с Вас, за да създадем портрети, които отразяват вашата същност и характер.</p>
                     <div class="d-flex">
@@ -169,7 +168,7 @@
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
                         <a asp-controller="StaticContent" asp-action="BusinessPortrait"><h4>Бизнес портрет</h4></a>
-                        <span class="text-primary price">Цена от 200 лв</span>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.BusinessPortrait лв</span>
                     </div>
                     <p>Подкрепете своя професионален имидж с въздействащ бизнес портрет. Това е повече от обикновена снимка — това е стратегически инструмент, който изгражда доверие, демонстрира увереност и укрепва личния Ви бранд.</p>
                     <div class="d-flex">
@@ -192,7 +191,7 @@
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
                         <a asp-controller="StaticContent" asp-action="Automobile"><h4>Автомобил</h4></a>
-                        <span class="text-primary price">Цена от 100 лв</span>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Automotive лв</span>
                     </div>
                     <p>Интериор, екстериор, на паркинг, в движение по улиците - ще получите кадри, отразяващи характера на автомобила ви.</p>
                     <div class="d-flex">
@@ -214,7 +213,7 @@
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
                         <a asp-controller="StaticContent" asp-action="SecretPhotoshoot"><h4>Тайна фотосесия</h4></a>
-                        <span class="text-primary price">Цена от 200 лв</span>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.SecretPhotoshoot лв</span>
                     </div>
                     <p>Искате да направите предложение за брак? Да изненадате приятел? Направете момента още по-изнендващ и специален, като го запечатате без знанието на другия. Непринудените реакции на хората са безценни и винаги изглеждат красиво на снимки.</p>
                     <div class="d-flex">

@@ -43,6 +43,7 @@
         public const decimal Automotive = 100m;
         public const decimal Product = 50m;
         public const decimal ProductPlus = 100m;
+        public const decimal SecretPhotoshoot = 200m;
         public const string NegotiablePriceText = "По договаряне";
 
         //Fuel
