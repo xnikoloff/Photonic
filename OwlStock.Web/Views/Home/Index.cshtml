@@ -7,73 +7,61 @@
 <!-- Carousel Start -->
 <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="owl-carousel header-carousel position-relative">
-        <div class="owl-carousel-item position-relative" id="img-fluid-banner-wrap" data-dot="<img src='img/carousel-1.jpg'>" >
-            <img class="img-fluid" id="img-fluid-banner" src="~/img/carousel-1.jpg" alt="">
+        <div class="owl-carousel-item position-relative img-fluid-banner-wrap" data-dot="<img src='img/carousel-1.jpg'>">
+            <img class="img-fluid" src="~/img/carousel-1.jpg" alt="">
             <div class="owl-carousel-inner">
-                <div class="container-xxl">
+                <div class="container-fluid carousel-inner-container removeOnMobileFlag">
                     <div class="row justify-content-end text-end">
-                        <div class="col-10 col-lg-6">
-                            <h4 class="text-white animated slideInDown">Нашето вдъхновение са вашите спомени</h4>
-                            <h1 class="display-2 text-white animated slideInDown">Индивидуални фотосесии</h1>
-                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Подарете си време за себе си и преживяване, което улавя най-доброто от вас — момент, превърнат в изкуство</p>
-                            <a asp-controller="Photo" asp-action="Index" class="btn btn-primary py-3 px-5 animated slideInLeft">Портфолио</a>
+                        <div class="col-12 col-lg-6 banner-wrap-texts">
+                            <h4 class="text-white animated slideInDown banner-subheading">Нашето вдъхновение са вашите спомени</h4>
+                            <h1 class="display-2 text-white animated slideInDown banner-heading">Индивидуални фотосесии</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3 banner-text">Подарете си време за себе си и преживяване, което улавя най-доброто от вас — момент, превърнат в изкуство</p>
+                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Portrait" class="btn btn-primary py-3 px-5 animated slideInLeft">Портфолио</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="owl-carousel-item position-relative" id="img-fluid-banner-wrap" data-dot="<img src='img/carousel-2.jpg'>">
-            <img class="img-fluid" id="img-fluid-banner" src="~/img/carousel-2.jpg" alt="">
+        <div class="owl-carousel-item position-relative img-fluid-banner-wrap" data-dot="<img <img src='img/carousel-2.jpg'>">
+            <img class="img-fluid" src="~/img/carousel-2.jpg" alt="">
             <div class="owl-carousel-inner">
-                <div class="container">
+                <div class="container-fluid carousel-inner-container removeOnMobileFlag">
                     <div class="row justify-content-end text-end">
-                        <div class="col-10 col-lg-8">
-                            <h4 class="text-white animated slideInDown">Нашето вдъхновение са вашите спомени</h4>
-                            <h1 class="display-2 text-white animated slideInDown">Абитуриентски бал</h1>
-                            <p class="fs-5 fw-medium text-white mb-4 pb-3">От индивидуални фотосесии до продуктова фотография и бизнес портрети ние улавяме моменти, които разказват вашата лична история, и създаваме професионални образи, които изграждат доверието във вашия бизнес.</p>
-                            <a asp-controller="Photo" asp-action="Index" class="btn btn-primary py-3 px-5 animated slideInLeft">Портфолио</a>
+                        <div class="col-12 col-lg-6 banner-wrap-texts">
+                            <h4 class="text-white animated slideInDown banner-subheading">Нашето вдъхновение са вашите спомени</h4>
+                            <h1 class="display-1 text-white animated slideInDown banner-heading">Сватбени портрети</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3 banner-text">Ценим тишината между големите събития, усмивките, които не са режисирани, и докосванията, които говорят повече от думите...</p>
+                            <a asp-controller ="Photo" asp-action="Portfolio" asp-route-category="@Category.Wedding" class="btn btn-primary py-3 px-5 animated slideInLeft">Портфолио</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="owl-carousel-item position-relative" id="img-fluid-banner-wrap" data-dot="<img <img src='img/carousel-3.jpg'>">
-            <img class="img-fluid" id="img-fluid-banner" src="~/img/carousel-3.jpg" alt="">
+        <div class="owl-carousel-item position-relative img-fluid-banner-wrap" data-dot="<img src='img/carousel-3.jpg'>">
+            <img class="img-fluid" src="~/img/carousel-3.jpg" alt="">
             <div class="owl-carousel-inner">
-                <div class="container">
-                    <div class="row justify-content-start">
-                        <div class="col-10 col-lg-8">
-                            <h1 class="display-1 text-white animated slideInDown">Нашето вдъхновение са вашите спомени</h1>
-                            <p class="fs-5 fw-medium text-white mb-4 pb-3">От индивидуални фотосесии до продуктова фотография и бизнес портрети ние улавяме моменти, които разказват вашата лична история, и създаваме професионални образи, които изграждат доверието във вашия бизнес.</p>
-                            <a asp-controller="Photo" asp-action="Index" class="btn btn-primary py-3 px-5 animated slideInLeft">Портфолио</a>
+                <div class="container-fluid carousel-inner-container removeOnMobileFlag">
+                    <div class="row justify-content-end text-end">
+                        <div class="col-12 col-lg-6 banner-wrap-texts">
+                            <h4 class="text-white animated slideInDown banner-subheading">Нашето вдъхновение са вашите спомени</h4>
+                            <h1 class="display-2 text-white animated slideInDown banner-heading">Абитуриентски бал</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3 banner-text">Това е вечерта, в която празнувате края на едно важно приключение и началото на следващата голяма стъпка.</p>
+                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Prom" class="btn btn-primary py-3 px-5 animated slideInLeft">Портфолио</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-2.jpg'>" style="display:none">
-            <img class="img-fluid" src="img/carousel-2.jpg" alt="" style="display:none">
+        <div class="owl-carousel-item position-relative img-fluid-banner-wrap" data-dot="<img src='img/carousel-4.jpg'>">
+            <img class="img-fluid" id="img-fluid-banner-replace" src="img/carousel-4.jpg" alt="">
             <div class="owl-carousel-inner">
-                <div class="container">
-                    <div class="row justify-content-start">
-                        <div class="col-10 col-lg-8">
-                            <h1 class="display-1 text-white animated slideInDown">Best Architecture And Interior Design Services</h1>
-                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                            <a href="" class="btn btn-primary py-3 px-5 animated slideInLeft">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-3.jpg'>" style="display:none">
-            <img class="img-fluid" src="img/carousel-3.jpg" alt="" style="display:none">
-            <div class="owl-carousel-inner">
-                <div class="container">
-                    <div class="row justify-content-start">
-                        <div class="col-10 col-lg-8">
-                            <h1 class="display-1 text-white animated slideInDown">Best Architecture And Interior Design Services</h1>
-                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                            <a href="" class="btn btn-primary py-3 px-5 animated slideInLeft">Read More</a>
+                <div class="container-fluid carousel-inner-container removeOnMobileFlag">
+                    <div class="row justify-content-end text-end">
+                        <div class="col-12 col-lg-6 banner-wrap-texts">
+                            <h4 class="text-white animated slideInDown banner-subheading">Нашето вдъхновение са вашите спомени</h4>
+                            <h1 class="display-1 text-white animated slideInDown banner-heading">Автомобилна фотография</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3 banner-text">Ще подберем правилните ъгли и светлина, за да покажем колата по начин, който отговаря на нейния характер – динамична и елегантна или просто практична и надеждна</p>
+                            <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Automotive" class="btn btn-primary py-3 px-5 animated slideInLeft">Портфолио</a>
                         </div>
                     </div>
                 </div>
@@ -211,11 +199,23 @@
         min-height: 200px !important;
     }
 
-   @@media (max-width: 768px) {
-        #img-fluid-banner-wrap{
-            min-height: 800px;
-        }
+    .carousel-inner-container {
+        padding: 0 200px !important;
     }
+
+   @@media (max-width: 768px) {
+        .img-fluid-banner-wrap{
+            min-height: 800px !important;
+        }
+
+        .carousel-inner-container .banner-wrap-texts{
+            width: 400px !important;
+        }
+
+        .carousel-inner-container {
+            padding: 0 20px !important;
+        }
+   }
 </style>
 
 <script>
@@ -226,15 +226,13 @@
     function swapBanner() {
         let height = window.screen.availHeight;
         let width = window.screen.availWidth;
-        console.log(height);
-        console.log(width);
-        let banner = document.getElementById('img-fluid-banner');
+        let banner = document.getElementById('img-fluid-banner-replace');
         
         if(height > width){
-            banner.src = 'img/carousel-1-vertical.jpg';
+            banner.src = 'img/carousel-4-mobile.jpg';
         }
         else{
-            banner.src = 'img/carousel-1.jpg';
+            banner.src = 'img/carousel-4.jpg';
         }
     }
 </script>                            
