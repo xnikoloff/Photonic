@@ -47,24 +47,24 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-        <div class="row g-0 flex-lg-row-reverse">
-            <div class="col-sm-6">
-                <div class="team-img position-relative">
-                    <img class="img-fluid" src="~/img/service-10.jpg" alt="baptism">
-                </div>
-            </div>
+    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+        <div class="row g-0 flex-sm-row-reverse flex-lg-row">
             <div class="col-sm-6">
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="Baptism"><h4>Свето кръщене</h4></a>
-                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Baptism лв</span>
+                        <a asp-controller="StaticContent" asp-action="Automobile"><h4>Автомобил</h4></a>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Automotive лв</span>
                     </div>
-                    <p>Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение, както и радостта и любовта, които споделяте със семейството и приятелите си.</p>
+                    <p>Интериор, екстериор, на паркинг, в движение по улиците - ще получите кадри, отразяващи характера на автомобила ви.</p>
                     <div class="d-flex">
-                        <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Baptism" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
-                        <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Baptism" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                        <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
                     </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="team-img position-relative">
+                    <img class="img-fluid" src="~/img/service-8.jpg" alt="automotive">
                 </div>
             </div>
         </div>
@@ -179,35 +179,30 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
-        <div class="row g-0 flex-sm-row-reverse flex-lg-row">
-            <div class="col-sm-6">
-                <div class="team-img position-relative">
-                    <img class="img-fluid" src="~/img/service-8.jpg" alt="automotive">
-                </div>
-            </div>
+    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+        <div class="row g-0 flex-lg-row-reverse">
             <div class="col-sm-6">
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="Automobile"><h4>Автомобил</h4></a>
-                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Automotive лв</span>
+                        <a asp-controller="StaticContent" asp-action="Baptism"><h4>Свето кръщене</h4></a>
+                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Baptism лв</span>
                     </div>
-                    <p>Интериор, екстериор, на паркинг, в движение по улиците - ще получите кадри, отразяващи характера на автомобила ви.</p>
+                    <p>Ще уловим красивите и емоционални моменти от церемонията по Светото кръщение, както и радостта и любовта, които споделяте със семейството и приятелите си.</p>
                     <div class="d-flex">
-                        <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
-                        <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                        <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Baptism" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                        <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Baptism" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
                     </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="team-img position-relative">
+                    <img class="img-fluid" src="~/img/service-10.jpg" alt="baptism">
                 </div>
             </div>
         </div>
     </div>
     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
         <div class="row g-0 flex-sm-row-reverse">
-            <div class="col-sm-6">
-                <div class="team-img position-relative">
-                    <img class="img-fluid" src="~/resources/images/secret.jpg" alt="secret">
-                </div>
-            </div>
             <div class="col-sm-6">
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
@@ -219,6 +214,11 @@
                         <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa fa-calendar-days"></i></a>
                         <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
                     </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="team-img position-relative">
+                    <img class="img-fluid" src="~/resources/images/secret.jpg" alt="secret">
                 </div>
             </div>
         </div>
