@@ -5,6 +5,10 @@
     --dark: #252525;
 }
 
+p{
+    color: #000;
+}
+
 h1,
 h2,
 .h1,
@@ -170,7 +174,7 @@ h6,
     left: 0;
     display: flex;
     align-items: center;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.15);
 }
 
 .container-testimonials .owl-item {

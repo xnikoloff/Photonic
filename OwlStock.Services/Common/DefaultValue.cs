@@ -43,7 +43,7 @@
         public const decimal Baptism = 150m;
         public const decimal BaptismPlus = 200m;
         public const decimal BaptismExtra = 350m;
-        public const decimal Automotive = 30m;
+        public const decimal Automotive = 50m;
         public const decimal AutomotivePlus = 100m;
         public const decimal AutomotiveExtra = 180m;
         public const decimal Product = 50m;
