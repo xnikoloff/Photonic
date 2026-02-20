@@ -15,6 +15,9 @@
         public const string BaptismPhotoshootDescription = "Включва отразяване на цялото събитие + снимки с гостите";
         public const string BaptismPlusPhotoshootDescription = "Пакет Стандартен + индивидуална фотосесия на родителите и бебето";
         public const string BaptismExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига";
+        public const string AutomotivePhotoshootDescription = "Включва стандартни снимки на автомобила (например за каталози на автокъщи или обяви от частни лица)";
+        public const string AutomotivePlusPhotoshootDescription = "Включва кадри на автомобила, заснети на специфична локация и с артистична обработка";
+        public const string AutomotiveExtraPhotoshootDescription = "Включва всичко от пакет Артистичен плюс Rolling Shost (кадри в движение)";
         public const string ProductPhotoshootDescription = "Кадри на бял фон (например за електронни магазини)";
         public const string ProductPlusPhotoshootDescription = "Кадри с артистични елементи (например за реклами, блогове и др.)";
         public const string BusinessPortraitPhotoshootDescription = "Включва всички сполучливи кадри от фотосесията";
@@ -40,7 +43,9 @@
         public const decimal Baptism = 150m;
         public const decimal BaptismPlus = 200m;
         public const decimal BaptismExtra = 350m;
-        public const decimal Automotive = 100m;
+        public const decimal Automotive = 30m;
+        public const decimal AutomotivePlus = 100m;
+        public const decimal AutomotiveExtra = 180m;
         public const decimal Product = 50m;
         public const decimal ProductPlus = 100m;
         public const decimal SecretPhotoshoot = 200m;

@@ -182,6 +182,26 @@ namespace OwlStock.Services
                     return DefaultValue.Automotive + fuelPrice;
                 }
 
+                case PhotoShootType.AutomotivePlus:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.AutomotivePlus;
+                    }
+
+                    return DefaultValue.AutomotivePlus + fuelPrice;
+                }
+
+                case PhotoShootType.AutomotiveExtra:
+                {
+                    if (fuelPrice == 0)
+                    {
+                        return DefaultValue.AutomotiveExtra;
+                    }
+
+                    return DefaultValue.AutomotiveExtra + fuelPrice;
+                }
+
                 case PhotoShootType.Product:
                 {
                     if (fuelPrice == 0)

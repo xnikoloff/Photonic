@@ -67,5 +67,11 @@ namespace OwlStock.Domain.Enumerations
 
         [Display(Name = "Продукт Plus")]
         ProductPlus = 21,
+
+        [Display(Name = "Автомобил Артистичен")]
+        AutomotivePlus = 22,
+
+        [Display(Name = "Автомобил Rollin'")]
+        AutomotiveExtra = 23,
     }
 }
