@@ -6,8 +6,8 @@
         public const string IndividualPhotoshootDescription = "Включва обработените сполучливи кадри";
         public const string IndividualPlusPhotoshootDescription = "Пакет Стандартен + лукосозна фотокнига";
         public const string IndividualExtraPhotoshootDescription = "Пакет Плюс + 3 кадръра в рамка";
-        public const string WeddingPhotoshootDescription = "Включва индивидуална фотосесия на младоженците със сватбена тематика + снимки със семейството и гостите";
-        public const string WeddingPlusPhotoshootDescription = "Пакет Стандартен + снимки от подготовката";
+        public const string WeddingPhotoshootDescription = "Включва индивидуална фотосесия на младоженците със сватбена тематика";
+        public const string WeddingPlusPhotoshootDescription = "Пакет Стандартен + снимки със семейството и гостите";
         public const string WeddingExtraPhotoshootDescription = "Пакет Плюс + луксозна сватбена фотокнига";
         public const string PromPhotoshootDescription = "Включва индивидуална фотосесия на абитуриента/абитуриентката + снимки със семейството и гостите";
         public const string PromPlusPhotoshootDescription = "Пакет Стандартен + снимки от подготовката";
@@ -17,7 +17,7 @@
         public const string BaptismExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига";
         public const string AutomotivePhotoshootDescription = "Включва стандартни снимки на автомобила (например за каталози на автокъщи или обяви от частни лица)";
         public const string AutomotivePlusPhotoshootDescription = "Включва кадри на автомобила, заснети на специфична локация и с артистична обработка";
-        public const string AutomotiveExtraPhotoshootDescription = "Включва всичко от пакет Артистичен плюс Rolling Shost (кадри в движение)";
+        public const string AutomotiveExtraPhotoshootDescription = "Включва пакет Артистичен + Rolling Shost (кадри в движение)";
         public const string ProductPhotoshootDescription = "Кадри на бял фон (например за електронни магазини)";
         public const string ProductPlusPhotoshootDescription = "Кадри с артистични елементи (например за реклами, блогове и др.)";
         public const string BusinessPortraitPhotoshootDescription = "Включва всички сполучливи кадри от фотосесията";
