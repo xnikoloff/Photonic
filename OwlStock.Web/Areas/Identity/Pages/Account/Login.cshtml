@@ -60,13 +60,13 @@
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-6 mx-auto text-end">
+                        <div class="col-12 mx-auto text-center">
                             <div class="form-floating">
-                                <a id="forgot-password" asp-page="./ForgotPassword" class="btn btn-sm btn-dark account-prompt">Забравена парола?</a>
+                                <a id="forgot-password" asp-page="./ForgotPassword" class="btn text-primary account-prompt">Забравена парола?</a>
                             </div>
                         </div>
-                        <div class="col-6 mx-auto text-left">
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-sm btn-secondary account-prompt">Нямате акаунт?</a>
+                        <div class="col-12 mx-auto text-center">
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn text-dark account-prompt">Нямате акаунт?</a>
                         </div>
                     </div>
                 </form>
