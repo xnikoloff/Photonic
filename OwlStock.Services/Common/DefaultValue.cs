@@ -41,7 +41,7 @@
         public const decimal PromPlusPhotoshoot = 300m;
         public const decimal PromExtraPhotoshoot = 450m;
         public const decimal Baptism = 150m;
-        public const decimal BaptismPlus = 200m;
+        public const decimal BaptismPlus = 250m;
         public const decimal BaptismExtra = 350m;
         public const decimal Automotive = 50m;
         public const decimal AutomotivePlus = 100m;
