@@ -21,6 +21,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-8 col-booking mx-auto">
+                    <div class="row my-2">
+                        <div class="col-8 mx-auto text-center">
+                            <h1 class="text-primary mb-2">ОНЛАЙН РЕЗЕРВАЦИЯ</h1>
+                            <hr />
+                        </div>
+                    </div>
                     <div class="row row-small-product-title mb-5">
                         <div class="col-12">
                             <h1>Малък продукт</h1>
@@ -70,7 +76,7 @@
                                             <p>Кадри на продукта на бял фон (например за електронни магазини)</p>
                                         </div>
                                         <div class="card-footer text-center">
-                                            <button type="button" class="btn btn-primary btn-section-submit" id="product" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
+                                            <button type="button" class="btn btn-primary btn-section-submit btn-section-submit-seciton-1" id="product" onclick="setPhotoshootPacket($(this));">ИЗБЕРИ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +93,7 @@
                                             <p>Кадри на продукта с артистични елементи (например за реклами, блогове и др.)</p>
                                         </div>
                                         <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="productArt" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                            <a class="btn btn-primary btn-section-submit btn-section-submit-seciton-1" id="productArt" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +108,7 @@
                                             <p>Ще изчислим цената спрямо вашите нужди</p>
                                         </div>
                                         <div class="card-footer text-center">
-                                            <a class="btn btn-primary btn-section-submit" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
+                                            <a class="btn btn-primary btn-section-submit btn-section-submit-seciton-1" id="other" onclick="setPhotoshootPacket($(this))">ИЗБЕРИ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -340,9 +346,15 @@
 </style>
 
 <script>
-    //global variable, keeps the location type on location type change
-     var locationType = '';
      $(document).ready(function () {
+
+         $(".btn-submit").click(function(event){
+             event.preventDefault();
+
+             if(validateDoNotUpload() && validatePersonalData() && validateUIC() && validateProductsCount()){
+                 $("#booking-form").submit();
+             }
+         });
          
          //set photoshoot type on page load
          setPhotoshootTypeSummary($("#PhotoShootType").find("option:selected").text());
@@ -350,7 +362,17 @@
          //calculate price on page load
          calculatePrice($("#PhotoShootType").val());
 
-         //show section one /services/ and hide section two /location/
+         $(".btn-section-submit-seciton-1").click(function(){
+             console.log("submit section 1");
+             $(".section-1").css("display", "none");
+             $(".section-2").css("display", "block");
+
+             validatePersonalData();
+             validateUIC();
+             validateProductsCount();
+             forwardProgress(2, false);
+         });
+
          $(".btn-section-back-seciton-2").click(function () {
              $(".section-1").css("display", "block");
              $(".section-2").css("display", "none");
@@ -384,7 +406,7 @@
 
          //recalculate price based on number of participants
          $("#NumberOfParticipants").change(function(){
-             recalculatePriceWithParticipants($(this).val());
+             calculatePrice($("#PhotoShootType").val());
          });
          
          //validate personal date on each input change
@@ -466,9 +488,11 @@
      function validatePersonalData(){
          if(validateEmail() && validateFirstName() && validateLastName() && validatePhone()){
              $(".btn-section-submit-seciton-2").prop("disabled", false);
+             return true;
          }
          else{
              $(".btn-section-submit-seciton-2").prop("disabled", true);
+             return false;
          }
      }
 
@@ -533,15 +557,17 @@
 
      //validate UIC
      function validateUIC(){
-             console.log('inside');
          if ($("#UIC").val() == '' || $("#UIC").val() == undefined) {
               $(".btn-section-submit-seciton-4").prop("disabled", false);
-             return false;
+             console.log('UIC empty');
+              return true;
          }
 
          else {
              const uic = $('#UIC').val();
              const uicRegex = /^(\d{9}|\d{13})$/;
+
+             console.log('UIC invalid');
 
              if (!uicRegex.test(uic)) {
                  $('#uic-error-message').css("display", "block");
@@ -552,9 +578,22 @@
              else {
                  $('#uic-error-message').css("display", "none");
                  $(".btn-section-submit-seciton-2").prop("disabled", false);
+                 console.log("UIC valid");
                  return true;
 
              }
+         }
+     }
+
+     //validate products count
+     function validateProductsCount(){
+         if ($("#NumberOfParticipants").val() == '' || $("#NumberOfParticipants").val() == undefined || $("#NumberOfParticipants").val() < 1) {
+             $("#NumberOfParticipants").css("border", "1px solid red");
+             return false;
+         }
+         else {
+             $("#NumberOfParticipants").css("border", "unset");
+             return true;
          }
      }
 
@@ -790,32 +829,6 @@
 
 
      //HELPER FUNCTIONS
-
-     function recalculatePriceWithParticipants(numberOfParticipants){
-        let newPrice = 0
-
-        switch($("#PhotoShootType").val()){
-            //11 is simple product
-            case "11":{
-                //50 is hardcoded temporary. Soon it will be refactored
-                newPrice = 50 * parseInt(numberOfParticipants);
-                break;
-            }
-
-            //21 is art product
-            case "21":{
-                //50 is hardcoded temporary. Soon it will be refactored
-                newPrice = 50 * parseInt(numberOfParticipants);
-                break;
-            }
-
-            default:{
-                //50 is hardcoded temporary. Soon it will be refactored
-                console.log("ivalid photoshoot type");
-                break;
-            }
-        }
-    }
 
      function findElementById(array, id) {
          for (let i = 0; i < array.length; i++) {
