@@ -37,7 +37,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                               <div style=""margin:0;"">
                                 <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;""/>
                               </div>
-	                      <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+	                      <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#"">PHOTONIC</h1>
 
                             </td>
                           </tr>
@@ -94,7 +94,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
 
                               <div style=""text-align:center; margin:32px 0;"">
                                 <a href=""http://www.photonic.bg/Photoshoot/PhotoshootById/{photoshootId}""
-                                   style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                   style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                   ПРЕГЛЕД НА РЕЗЕРВАЦИЯТА
                                 </a>
                               </div>
@@ -154,7 +154,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                   <div style=""margin:0;"">
                                     <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                                 </td>
                               </tr>
 
@@ -163,7 +163,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                 <td style=""padding:32px; color:#111827;"">
 
                                   <h2 style=""margin-top:0; font-size:22px;"">
-                                    Снимките от Вашата фотосесия са <span style=""color:#B78D65"">готови</span>!
+                                    Снимките от Вашата фотосесия са <span style=""color:#627582"">готови</span>!
                                   </h2>
 
 	                          <p>Всички снимки от Вашата фотосесия са налични в профила Ви. Може да ги прегледате  или изтеглите от Вашата лична галерия.</p>
@@ -176,7 +176,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
 
                                   <div style=""text-align:center; margin:32px 0;"">
                                     <a href=""http://www.photonic.bg/Photoshoot/PhotoshootById/{photoshootId}""
-                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                       style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       ПРЕГЛЕД НА ГАЛЕРИЯТА
                                     </a>
                                   </div>
@@ -240,7 +240,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                   <div style=""margin:0;"">
                                     <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                                 </td>
                               </tr>
 
@@ -287,7 +287,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
 
                                   <div style=""text-align:center; margin:32px 0;"">
                                     <a href=""http://www.photonic.bg/Photoshoot/PhotoshootById/{photoshootId}""
-                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                       style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       ПРЕГЛЕД НА РЕЗЕРВАЦИЯТА
                                     </a>
                                   </div>
@@ -341,7 +341,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                   <div style=""margin:0;"">
                                     <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                                 </td>
                               </tr>
 
@@ -370,7 +370,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
 
                                   <div style=""text-align:center; margin:32px 0;"">
                                     <a href=""http://www.photonic.bg/Photoshoot/PhotoshootById/{photoshootId}""
-                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                       style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       ПРЕГЛЕД НА РЕЗЕРВАЦИЯТА
                                     </a>
                                   </div>
@@ -424,7 +424,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                   <div style=""margin:0;"">
                                     <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                                 </td>
                               </tr>
 
@@ -456,7 +456,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
 
                                   <div style=""text-align:center; margin:32px 0;"">
                                     <a href=""http://www.photonic.bg/Photoshoot/Reserve/""
-                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                       style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       НОВА РЕЗЕРВАЦИЯТА
                                     </a>
                                   </div>

@@ -25,7 +25,7 @@
                                   <div style=""margin:0;"">
                                     <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                                 </td>
                               </tr>
 
@@ -47,7 +47,7 @@
 
                                   <!-- CTA -->
                                   <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
-                                    <span style=""color:#B78D65""><b>Вашата парола</b></span>: {password}
+                                    <span style=""color:#627582""><b>Вашата парола</b></span>: {password}
                                   </p>
 
 	                         <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
@@ -56,7 +56,7 @@
 
                                   <div style=""text-align:center; margin:32px 0;"">
                                     <a href=""http://test-photonic.tryasp.net/PhotoShoot/MyPhotoShoots""
-                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                       style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       ПРОФИЛ
                                     </a>
                                   </div>
@@ -110,7 +110,7 @@
                                   <div style=""margin:0;"">
                                     <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                                 </td>
                               </tr>
 
@@ -133,7 +133,7 @@
 
                                   <div style=""text-align:center; margin:32px 0;"">
                                     <a href=""http://test-photonic.tryasp.net/PhotoShoot/MyPhotoShoots""
-                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                       style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       ВАШИЯТ ПРОФИЛ
                                     </a>
                                   </div>
@@ -188,7 +188,7 @@
                                   <div style=""margin:0;"">
                                     <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                                 </td>
                               </tr>
 
@@ -205,7 +205,7 @@
                                   </p>
 
                                   <p style=""font-size:15px; line-height:1.6; margin:16px 0;"">
-                                    Благодарим Ви, че се регистрирахте! Остава единствено да активирате Вашия профил и ще може да се възползвате от всички функционалности, налични на <a href=""http://www.flash-studio.co"" style=""text-decoration: none; color:#B78D65""><b>PHOTONIC</b></a>
+                                    Благодарим Ви, че се регистрирахте! Остава единствено да активирате Вашия профил и ще може да се възползвате от всички функционалности, налични на <a href=""http://www.flash-studio.co"" style=""text-decoration: none; color:#627582""><b>PHOTONIC</b></a>
                                   </p>
 
 
@@ -216,7 +216,7 @@
 
                                   <div style=""text-align:center; margin:32px 0;"">
                                     <a href=""{confirmationLink}""
-                                       style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                                       style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       АКТИВИРАЙ
                                     </a>
                                   </div>
@@ -270,7 +270,7 @@
                           <div style=""margin:0;"">
                             <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
                           </div>
-                          <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#B78D65"">PHOTONIC</h1>
+                          <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                         </td>
                       </tr>
 
@@ -293,7 +293,7 @@
 
                           <div style=""text-align:center; margin:32px 0;"">
                             <a href=""{callbackURL}""
-                               style=""display:inline-block; padding:14px 28px; background-color:#B78D65; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
+                               style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                               ВЪЗСТАНОВИ ПАРОЛА
                             </a>
                           </div>
