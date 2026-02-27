@@ -12,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Load configuration
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true)
+    .AddJsonFile("appsettings.Production.json", optional: false, reloadOnChange: true)
     .Build();
 
 // Add services to the container.
@@ -20,10 +22,13 @@ columnOptions.Store.Remove(StandardColumn.Properties);
 columnOptions.Store.Add(StandardColumn.LogEvent);
 columnOptions.LogEvent.DataType = SqlDbType.NVarChar;
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(configuration) // Read config from appsettings.json
     .WriteTo.MSSqlServer(
-        connectionString: configuration.GetConnectionString("DefaultConnection"),
+        connectionString: (connectionString ??
+        throw new NullReferenceException($"{connectionString} is null")),
         sinkOptions: new MSSqlServerSinkOptions
         {
             TableName = "Logs",
@@ -36,7 +41,7 @@ Log.Logger = new LoggerConfiguration()
 // Add Serilog to ASP.NET Core
 builder.Host.UseSerilog();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<OwlStockDbContext>(options =>
     options.UseSqlServer(connectionString ?? 
         throw new NullReferenceException($"{connectionString} is null")));
