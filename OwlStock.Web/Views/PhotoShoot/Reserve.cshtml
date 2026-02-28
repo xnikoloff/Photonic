@@ -619,7 +619,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row row-section-2 mt-1 row-location-type-popular">
+                                            <div class="row row-section-2 mt-1 row-location-type-popular" style="display:none">
                                                 <div class="col-md-12 mx-auto">
                                                     <div class="form-floating popular-places-wrap">
                                                         <select id="PopularPlaces" class="form-control">
@@ -629,7 +629,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row row-section-2 mt-1 row-location-settlement" style="display:none">
+                                            <div class="row row-section-2 mt-1 row-location-settlement" style="display:block">
                                                 <div class="col-md-12 mx-auto">
                                                     <div class="form-floating settlements-wrap">
                                                         <select id="Settlement" class="form-control">
@@ -1822,7 +1822,9 @@
             //if location type is not defined, 
             // it must mean that this is the first to time to open section two
             //so, set location type to popular (popular location tab is selected by default)
-            locationType = 'popular';
+
+            //temporary set to "custom", shoud be set to "popular" again once the feature is ready to use
+            locationType = 'custom';
         }
 
         switch (locationType) {
