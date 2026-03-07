@@ -16,6 +16,11 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                 euroString = priceEuro.ToString().Replace(',', '.');
             }
 
+            else
+            {
+                euroString = priceEuro.ToString();
+            }
+
             return @$"<!DOCTYPE html>
                 <html lang=""en"">
                 <head>

@@ -935,7 +935,8 @@
                     </div>
                     <hr />
                     <div class="summary-section-price">
-                        <p class="text-primary text-price"><b>ЦЕНА</b> <span class="text-dark" id="price-summary">-</span></p>
+                        <p class="text-primary text-price"><b>ЦЕНА</b></p>
+                        <p class="text-price"><span class="text-dark" id="price-summary">-</span> / <span class="text-dark" id="price-summary-euro">-</span></p>
                     </div>
                 </div>
             </div>
@@ -2457,9 +2458,11 @@
             success: function (response) {
                 if ($("#PhotoShootType").find(":selected").val() == 20 || $("#PhotoShootType").find(":selected").val() == 10) {
                     $("#price-summary").html("По договаряне");
+                    $("#price-summary-euro").html("-");
                 }
                 else {
                     $("#price-summary").html(response + ' лв');
+                    $("#price-summary-euro").html('€ ' + convertBgnToEuro(response));
                 }
             },
             error: function (response) {
@@ -2704,6 +2707,7 @@
         }
 
         $("#price-summary").text(newPrice + " лв");
+        $("#price-summary-euro").text("€ " + convertBgnToEuro(newPrice));
     }
 
     function toggleNumberOfParticipants(photoshootTypeId){
@@ -2715,4 +2719,8 @@
             $(".row-number-of-participatns").css("display", "none");
         }
     }
+
+     function convertBgnToEuro(bgn){
+          return (parseFloat(bgn) / 1.95583).toFixed(2);
+     }
 </script>
