@@ -40,11 +40,9 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                           <tr>
                             <td style=""background-color:#f9fafb; padding:24px; text-align:center;"">
                               <div style=""margin:0;"">
-                                <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;""/>
+                                <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png""/>
                               </div>
-	                      <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#"">PHOTONIC</h1>
-
-                            </td>
+	                        </td>
                           </tr>
 
                           <!-- Body -->
@@ -157,9 +155,8 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                               <tr>
                                 <td style=""background-color:#f9fafb; padding:24px; text-align:center;"">
                                   <div style=""margin:0;"">
-                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
+                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                                 </td>
                               </tr>
 
@@ -243,9 +240,8 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                               <tr>
                                 <td style=""background-color:#f9fafb; padding:24px; text-align:center;"">
                                   <div style=""margin:0;"">
-                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
+                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
                                 </td>
                               </tr>
 
@@ -344,10 +340,9 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                               <tr>
                                 <td style=""background-color:#f9fafb; padding:24px; text-align:center;"">
                                   <div style=""margin:0;"">
-                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
+                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
-                                </td>
+                                 </td>
                               </tr>
 
                               <!-- Body -->
@@ -427,10 +422,9 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                               <tr>
                                 <td style=""background-color:#f9fafb; padding:24px; text-align:center;"">
                                   <div style=""margin:0;"">
-                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" style=""width: 20%;"" />
+                                    <img src=""https://raw.githubusercontent.com/xnikoloff/OwlStock/refs/heads/develop/OwlStock.Web/wwwroot/photonic-logo.png"" />
                                   </div>
-                                  <h1 style=""margin-top:5px;font-family:fantasy;letter-spacing:5px;color:#627582"">PHOTONIC</h1>
-                                </td>
+                                 </td>
                               </tr>
 
                               <!-- Body -->
