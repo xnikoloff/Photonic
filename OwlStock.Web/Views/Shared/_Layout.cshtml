@@ -216,7 +216,7 @@
                 let bgnValue = parseFloat(bgnText.replace(" лв", ""));
                 //August 2026 -> let eurValue = Math.ceil((bgnValue / exchangeRate) / 10) * 10;
                 let eurValue = (bgnValue / exchangeRate).toFixed(2);
-                priceElement[i].innerText = bgnText + " / " + eurValue + " €";
+                priceElement[i].innerText = bgnText + " / " + "€ " + eurValue;
             }
         }
     </script>
