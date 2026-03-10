@@ -10,7 +10,6 @@
         filter($("#cat-" + getCurrentCategory()));
 
         $('.portfolio-menu ul li').click(function () {
-            console.log('click');
             $('.portfolio-menu ul li').removeClass('active');
             $(this).addClass('active');
 
@@ -117,7 +116,6 @@ function setStarsRating(rating) {
 //portfolio filter
 function filter(element) {
     var selector = element.attr('data-filter');
-    console.log('selectr: ' + selector);
     $('.portfolio-item').isotope({
         filter: selector
     });
@@ -126,8 +124,7 @@ function filter(element) {
 
 function getCurrentCategory() {
     let category = $("#portfolioCategoryDescription").val();
-    console.log("cat: " + category);
-
+    
     if (category) {
         return category.toLowerCase();
     }

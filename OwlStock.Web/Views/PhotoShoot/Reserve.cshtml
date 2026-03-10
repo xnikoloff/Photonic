@@ -39,19 +39,19 @@
             <div class="row g-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="col-lg-2">
                     <div class="nav nav-pills d-flex justify-content-between w-100 h-100 me-4">
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4 active" data-bs-toggle="pill" data-bs-target="#tab-pane-1" type="button" id="btn-tab-pane-1">
+                        <button class="nav-link nav-pane-button w-100 d-flex align-items-center text-start p-4 mb-4 active" data-bs-toggle="pill" data-bs-target="#tab-pane-1" type="button" id="btn-tab-pane-1">
                             <h5 class="m-0 text-white" id="tab-pane-1-text-initial">ФОТОСЕСИЯ</h5>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-2" type="button" id="btn-tab-pane-2">
+                        <button class="nav-link nav-pane-button w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-2" type="button" id="btn-tab-pane-2">
                             <h5 class="m-0">ЛОКАЦИЯ</h5>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-3" type="button" id="btn-tab-pane-3">
+                        <button class="nav-link nav-pane-button w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-3" type="button" id="btn-tab-pane-3">
                             <h5 class="m-0">ДАТА И ЧАС</h5>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button" id="btn-tab-pane-4">
+                        <button class="nav-link nav-pane-button w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button" id="btn-tab-pane-4">
                             <h5 class="m-0">ЛИЧНИ ДАННИ</h5>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-5" type="button" id="btn-tab-pane-5">
+                        <button class="nav-link nav-pane-button w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-5" type="button" id="btn-tab-pane-5">
                             <h5 class="m-0">ДОПЪЛНИТЕЛНИ</h5>
                         </button>
                     </div>
@@ -619,7 +619,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row row-section-2 mt-1 row-location-type-popular">
+                                            <div class="row row-section-2 mt-1 row-location-type-popular" style="display:none">
                                                 <div class="col-md-12 mx-auto">
                                                     <div class="form-floating popular-places-wrap">
                                                         <select id="PopularPlaces" class="form-control">
@@ -629,7 +629,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row row-section-2 mt-1 row-location-settlement" style="display:none">
+                                            <div class="row row-section-2 mt-1 row-location-settlement" style="display:block">
                                                 <div class="col-md-12 mx-auto">
                                                     <div class="form-floating settlements-wrap">
                                                         <select id="Settlement" class="form-control">
@@ -1160,7 +1160,7 @@
 <script src="~/js/custom/helpers.js"></script>
 <script>
    //global variable, keeps the location type on location type change
-    var locationType = '';
+    var locationType = 'custom'; //set to custom by default
     $(document).ready(function () {
         //show photoshoot sub categories on page load
         //if a photoshoot is pre-selected 
@@ -1186,6 +1186,11 @@
 
         //reset the value of reservation date on page load
         $("#ReservationDate").val("");
+
+        //validate entire form on nav button click
+         $(".nav-pane-button").click(function(){
+             validateForm();
+         })
 
         //show section one /services/ and hide section two /location/
         $(".btn-section-back-seciton-2").click(function () {
@@ -1794,9 +1799,6 @@
     }
 
     
-    
-    
-    
     //VALIDATIONS
 
     //validate section one -> photoshoot type
@@ -1811,38 +1813,32 @@
             return true;
         }
     }
-
-
-
-
-
+    
     //validate section 2 -> location
     function isLocationValid() {
         if (locationType == '' || locationType == undefined) {
             //if location type is not defined, 
             // it must mean that this is the first to time to open section two
             //so, set location type to popular (popular location tab is selected by default)
-            locationType = 'popular';
+            locationType = 'custom'; //temporary set to custom. SHOULD BE POPULAR!!!! ONCE THE FEATURE IS COMPLETED
         }
 
         switch (locationType) {
             case "popular": {
-                isPopularLocationValid();
-                break;
+                return isPopularLocationValid();
             }
 
             case "custom": {
-                isCustomLocationValid();
-                break;
-            }
+                return isCustomLocationValid();
+           }
 
             case "decidedByUs": {
-                isLocationDecidedByUsValid();
-                break;
+                return isLocationDecidedByUsValid();
             }
 
             default: {
                 console.log('location type: ' + locationType + ' is invalid');
+                return false;
             }
         }
     }
@@ -1857,7 +1853,7 @@
         }
         else {
             $(".btn-section-submit-seciton-2").prop("disabled", true);
-            return false;
+             return false;
         }
     }
 
@@ -1941,10 +1937,12 @@
         if(($("#ReservationTime").val() != "" && $("#ReservationTime").val() != "0:00" && $("#ReservationTime").val() != undefined) &&
                 ($("#ReservationDate").val() != "" && $("#ReservationDate").val() != undefined)){
             $(".btn-section-submit-seciton-3").prop("disabled", false);
+            return true;
         }
 
         else{
             $(".btn-section-submit-seciton-3").prop("disabled", true);
+            return false;
         }
     }
 
@@ -1955,9 +1953,11 @@
     function validatePersonalData(){
          if(validateEmail() && validateFirstName() && validateLastName() && validatePhone() && validateUIC()){
             $(".btn-section-submit-seciton-4").prop("disabled", false);
+             return true;
         }
         else{
             $(".btn-section-submit-seciton-4").prop("disabled", true);
+            return false;
         }
     }
 
@@ -2031,12 +2031,9 @@
 
      //validate UIC
      function validateUIC(){
-         console.log('val uic');
          if ($("#UIC").val() == '' || $("#UIC").val() == undefined) {
               $(".btn-section-submit-seciton-4").prop("disabled", false);
-               console.log('uic empty');
-
-             return true;
+              return true;
          }
 
          else {
@@ -2046,14 +2043,12 @@
              if (!uicRegex.test(uic)) {
                  $('#uic-error-message').css("display", "block");
                  $(".btn-section-submit-seciton-4").prop("disabled", true);
-                 console.log('uic invalid');
                  return false;
              }
 
              else {
                  $('#uic-error-message').css("display", "none");
                  $(".btn-section-submit-seciton-4").prop("disabled", false);
-                 console.log('uic valid');
                  return true;
 
              }
@@ -2082,7 +2077,6 @@
             if ($("#PickUpAddress").val() == '' || $("#PickUpAddress").val() == undefined){
                 return false;
             }
-
             else{
                 return true;
             }
@@ -2097,7 +2091,6 @@
     //validate delivery method
     function validateDoNotUpload(){
         let selectedOption =  $("#PhotoDeliveryMethod").find("option:selected").val();
-        
         if ($("#DoNotUploadPhotos").is(":checked")) {
             if (selectedOption == '' || selectedOption == undefined) {
                 return false;
@@ -2157,7 +2150,18 @@
         }
     }
 
-    
+    //validate entire form
+     function validateForm(){
+        if(validateExtras() && isPhotoshootTypeValid() && isLocationValid() && validateDateAndTime() && validatePersonalData()){
+            $(".btn-submit").prop("disabled", false);
+            return false;
+        }
+
+        else {
+            $(".btn-submit").prop("disabled", true);
+            return true;
+        }
+     }
 
 
     
@@ -2561,7 +2565,6 @@
     //format selected date (the date comes in format [dd.mm])
     //the function formats it to format [yyyy-MM-dd]
     function formatSelectedDate(selectedDate) {
-        console.log("selectedDate: " + selectedDate);
         let selectedDateSplit = selectedDate.split('.');
         let year = '';
         if(selectedDateSplit[2] == undefined || selectedDate[2] == null){
@@ -2572,7 +2575,6 @@
             year = selectedDateSplit[2];
          }
 
-        console.log("selectedDateSplit: " + selectedDateSplit[2]);
         return `${year}-${selectedDateSplit[1]}-${selectedDateSplit[0]}`;
     }
 
@@ -2605,7 +2607,7 @@
             case "15": return "wedding";
 
             case "5": 
-            case "15": 
+            case "16": 
             case "17": return "prom";
 
             case "6": 
