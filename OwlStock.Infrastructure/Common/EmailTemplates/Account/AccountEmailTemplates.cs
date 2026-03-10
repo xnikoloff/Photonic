@@ -151,7 +151,7 @@
                               <tr>
                                 <td style=""background-color:#f9fafb; padding:20px; text-align:center; font-size:13px; color:#6b7280;"">
                                   © {DateTime.Now.Year} Photonic. Всички права запазени!<br>
-                                  <a href=""http://www.photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
+                                  <a href=""http://photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
                                 </td>
                               </tr>
 
@@ -233,7 +233,7 @@
                               <tr>
                                 <td style=""background-color:#f9fafb; padding:20px; text-align:center; font-size:13px; color:#6b7280;"">
                                   © {DateTime.Now.Year} Photonic. Всички права запазени!<br>
-                                  <a href=""http://www.photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
+                                  <a href=""http://photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
                                 </td>
                               </tr>
 
@@ -314,7 +314,7 @@
                       <tr>
                         <td style=""background-color:#f9fafb; padding:20px; text-align:center; font-size:13px; color:#6b7280;"">
                           © {DateTime.Now.Year} Photonic. Всички права запазени!<br>
-                          <a href=""http://www.photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
+                          <a href=""http://photonic.bg"" style=""color:#111827; text-decoration:none;"">photonic.bg</a>
                         </td>
                       </tr>
 
