@@ -677,7 +677,7 @@
                                                 </div>
                                             </div>
                                             <div class="row mt-3 ml-2 row-legend">
-                                                <button type="button" class="btn btn-primary text-white btn-sm btn-legend btn-legend-free">Свободни</button>
+                                                <button type="button" class="btn text-white btn-sm btn-legend btn-legend-free" style="background:#a2bab3">Свободни</button>
                                                 <button type="button" class="btn btn-secondary btn-sm btn-legend btn-legend-busy">Заети</button>
                                             </div>
                                             <div class="row mt-2" id="row-dates-weather">
@@ -687,8 +687,8 @@
                                                         {
                                                             var firstSlot = calendarKVP.Value.FirstOrDefault() ?? new TimeSlot(new TimeOnly(), false);
                                                             var isAvailable = firstSlot.IsAvailable;
-                                                            var backgroundColor = isAvailable ? "#bfa791" : "#51565c";
-                                                            var iconHtml = isAvailable ? "<i class=\"fa-solid fa-check fa-lg\"></i>" : "<i class=\"fa-solid fa-xmark fa-lg\"></i>";
+                                                            var backgroundColor = isAvailable ? "#a2bab3" : "#51565c";
+                                                            var iconHtml = isAvailable ? "<i class=\"fa-solid fa-check fa-lg\" style=\"color:#a2bab3\"></i>" : "<i class=\"fa-solid fa-xmark fa-lg\" style=\"color:#874d4d\"></i>";
 
                                                             <div class="card card-weather text-center btn-date btn-date-simple text-white @(isAvailable ? "bg-primary card-available" : "bg-secondary card-unavailable")" id="date-button-simple">
                                                                 <div class="card-header card-header-date">
@@ -798,7 +798,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row row-section-4 my-5 row-invoice">
+                                            <!--<div class="row row-section-4 my-5 row-invoice">
                                                 <h6>Фактура за бизнес клиенти</h6>
                                                 <div class="col-md-12 mx-auto">
                                                     <div class="form-floating invoice-wrap mt-3">
@@ -807,7 +807,7 @@
                                                         <span class="text-danger" id="uic-error-message" style="display:none">Въведете валиден ЕИК номер</span>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                             <div class="row mt-3">
                                                 <div class="col-12 mx-auto">
                                                     <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-4">НАЗАД</button>
@@ -884,11 +884,6 @@
                                                 </div>
                                             </div>
                                             <div class="row mt-5">
-                                                <div class="col-12 mx-auto text-center">
-                                                    <button type="submit" class="btn btn-primary btn-lg text-white btn-submit">РЕЗЕРВИРАЙ</button>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-5">
                                                 <div class="col-12 mx-auto">
                                                     <button type="button" class="btn btn-secondary text-white btn-section-back btn-section-back-seciton-5">НАЗАД</button>
                                                 </div>
@@ -938,6 +933,9 @@
                         <p class="text-primary text-price"><b>ЦЕНА</b></p>
                         <p class="text-price"><span class="text-dark" id="price-summary">-</span> / <span class="text-dark" id="price-summary-euro">-</span></p>
                     </div>
+                    <div class="summary-section-submit-button mt-5">
+                        <button type="submit" class="btn btn-primary btn-lg text-white btn-submit" style="width: 100%">РЕЗЕРВИРАЙ</button>
+                     </div>
                 </div>
             </div>
         </div>
@@ -1223,7 +1221,7 @@
 
             //forwardProgress(2, false);
 
-            validateDateAndTime();
+            validateForm();
         });
 
         //show section two /location/ and hide section three /date and time/
@@ -1256,7 +1254,7 @@
 
             //forwardProgress(3, false);
 
-            validatePersonalData();
+             validateForm();
         });
 
         //show section three /date and time/ and hide section four /personal data/
@@ -1289,7 +1287,7 @@
 
             //forwardProgress(4, false);
 
-            validatePersonalData();
+             validateForm();
         });
 
         $(".btn-section-back-seciton-5").click(function () {
@@ -1325,7 +1323,6 @@
             setPhotoshootTypeSummary($(this).find("option:selected").text());
             calculatePrice($(this).val());
             togglePhotoshootPacket($(this).val());
-            validateDescription($(this).val()); 
             
             $("#PhotoShootType").val($(this).val());
         });
@@ -1519,29 +1516,29 @@
 
         //validate personal date on each input change
         $("#PersonEmail").change(function(){
-            validatePersonalData();
+            validateForm();
             setEmailSummary($(this).val());
         });
 
         $("#PersonFirstName").change(function(){
-            validatePersonalData();
+            validateForm();
             setFirstNameSummary($(this).val());
         });
 
         $("#PersonLastName").change(function(){
-            validatePersonalData();
+            validateForm();
             setLastNameSummary($(this).val());
         });
 
         $("#PersonPhone").change(function(){
-            validatePersonalData();
+            validateForm();
             setPhoneSummary($(this).val());
         });
         
-        $("#UIC").change(function(){
+        /*$("#UIC").change(function(){
             validateUIC();
             setUICSummary($(this).val());
-        });
+        });*/
 
         $("#TransportCustomer").change(function () {
             if($(this).is(":checked")){
@@ -1552,11 +1549,11 @@
                 $("#PickUpAddress").val('');
             }
 
-            validateExtras();
+             validateForm();
         });
 
         $("#PickUpAddress").change(function () {
-             validateExtras();
+             validateForm();
         });
 
         $("#DoNotUploadPhotos").change(function () {
@@ -1580,7 +1577,7 @@
                 $("#PhotoDeliveryAddress").val("");
             }
 
-             validateExtras();
+              validateForm();
         });
 
         $("#PhotoDeliveryMethod").change(function () {
@@ -1594,17 +1591,23 @@
                 $("#PhotoDeliveryAddress").val("");
             }
 
-             validateExtras();
+              validateForm();
         });
 
         $("#PhotoDeliveryAddress").change(function () {
-             validateExtras();;
+              validateForm();
         });
+
+        $("#PhotoShootTypeDescription").change(function () {
+           validateForm();
+        });
+
+         //validate the form on page load
+         validateForm();
+
     });
 
-    $("#PhotoShootTypeDescription").change(function () {
-         validateExtras();
-    });
+    
 
 
 
@@ -1952,7 +1955,7 @@
     
     //validate seciton four -> peronal date
     function validatePersonalData(){
-         if(validateEmail() && validateFirstName() && validateLastName() && validatePhone() && validateUIC()){
+          if(validateEmail() && validateFirstName() && validateLastName() && validatePhone() /*&& validateUIC()*/){
             $(".btn-section-submit-seciton-4").prop("disabled", false);
              return true;
         }
@@ -2031,7 +2034,7 @@
     }
 
      //validate UIC
-     function validateUIC(){
+     /*function validateUIC(){
          if ($("#UIC").val() == '' || $("#UIC").val() == undefined) {
               $(".btn-section-submit-seciton-4").prop("disabled", false);
               return true;
@@ -2054,7 +2057,7 @@
 
              }
          }
-     }
+     }*/
 
 
 
@@ -2553,8 +2556,8 @@
             $(this).find(".card-body").css("background", "#000");
         }
 
-        //validate date and time on each date and time card click
-        validateDateAndTime();
+        //validate the form on each date and time card click
+         validateForm();
     }
 
     function findElementById(array, id) {
