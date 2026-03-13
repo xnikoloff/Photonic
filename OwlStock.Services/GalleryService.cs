@@ -96,7 +96,7 @@ namespace OwlStock.Services
                 {
                     //get all photos for the current category
                     List<GalleryPhoto?> photos = await _context.PhotosCategories
-                        .Where(pc => pc.Category == category)
+                        .Where(pc => pc.Category == category && pc.GalleryPhoto.IsDeleted == false)
                         .Select(pc => pc.GalleryPhoto)
                         .ToListAsync() ?? new();
 
@@ -131,7 +131,7 @@ namespace OwlStock.Services
             List<GalleryPhoto> galleryPhotos = await All();
 
             return galleryPhotos
-                .Where(gp => gp.PhotoCategories.Select(gp => gp.Category).Contains(category))
+                .Where(gp => gp.PhotoCategories.Select(gp => gp.Category).Contains(category) && gp.IsDeleted == false)
                 .ToList();
         }
 
