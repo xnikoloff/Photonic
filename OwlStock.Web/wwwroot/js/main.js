@@ -116,6 +116,9 @@ function setStarsRating(rating) {
 //portfolio filter
 function filter(element) {
     var selector = element.attr('data-filter');
+    if(selector === "*") {
+        selector = "";
+    }
     $('.portfolio-item').isotope({
         filter: selector
     });
