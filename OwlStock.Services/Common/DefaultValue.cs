@@ -4,7 +4,7 @@
     {
         /* PRICE PACKET DESCRIPTIONS */
         public const string IndividualPhotoshootDescription = "Включва обработените сполучливи кадри";
-        public const string IndividualPlusPhotoshootDescription = "Пакет Стандартен + лукосозна фотокнига";
+        public const string IndividualPlusPhotoshootDescription = "Пакет Стандартен + луксозна фотокнига";
         public const string IndividualExtraPhotoshootDescription = "Пакет Плюс + 3 кадръра в рамка";
         public const string WeddingPhotoshootDescription = "Включва индивидуална фотосесия на младоженците със сватбена тематика";
         public const string WeddingPlusPhotoshootDescription = "Пакет Стандартен + снимки със семейството и гостите";

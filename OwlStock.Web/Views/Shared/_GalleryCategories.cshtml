@@ -58,10 +58,10 @@
             <div class="col-sm-6">
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="Portrait"><h4>Индививуална фотосесия</h4></a>
+                        <a asp-controller="StaticContent" asp-action="Portrait"><h4>Индивидуална фотосесия</h4></a>
                         <span>Цена от </span><span class="text-primary service-price">@DefaultValue.PortrairPhotoShoot лв</span>
                     </div>
-                    <p>Ще работим с Вас, за да създадем портрети, които отразяват вашата същност и характер.</p>
+                    <p>Ще работим с вас, за да създадем портрети, които отразяват вашата същност и характер.</p>
                     <div class="d-flex">
                         <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Portrait" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
                         <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Portrait" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
@@ -211,7 +211,7 @@
                         <a asp-controller="StaticContent" asp-action="SecretPhotoshoot"><h4>Тайна фотосесия</h4></a>
                         <span>Цена от </span><span class="text-primary service-price">@DefaultValue.SecretPhotoshoot лв</span>
                     </div>
-                    <p>Искате да направите предложение за брак? Да изненадате приятел? Направете момента още по-изнендващ и специален, като го запечатате без знанието на другия. Непринудените реакции на хората са безценни и винаги изглеждат красиво на снимки.</p>
+                    <p>Искате да направите предложение за брак? Да изненадате приятел? Направете момента още по-изненадващ и специален, като го запечатате без знанието на другия. Непринудените реакции на хората са безценни и винаги изглеждат красиво на снимки.</p>
                     <div class="d-flex">
                         <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa fa-calendar-days"></i></a>
                         <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Automotive" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
