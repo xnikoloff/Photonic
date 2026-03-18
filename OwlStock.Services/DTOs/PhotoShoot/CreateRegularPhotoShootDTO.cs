@@ -34,7 +34,7 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         [MaxLength(ModelConstraints.UserPlace)]
         public string? UserPlace { get; set; }
 
-        [Display(Name = "Линк към Google Maps")]
+        [Display(Name = "Линк към Google Maps (по избор)")]
         [MaxLength(ModelConstraints.GoogleMapsLinkDescriptionMxLength)]
         public string? GoogleMapsLink { get; set; }
 
