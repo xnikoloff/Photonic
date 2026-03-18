@@ -143,14 +143,14 @@
                     @foreach (PhotoShootPhoto photo in Model?.PhotoShootPhotos ?? new List<PhotoShootPhoto>())
                     {
                         <div class="item col-lg-3 col-md-4 col-6 col-sm text-center mt-5">
-                            <a href="~/resources/@(photo?.FilePath + '/' + photo.FileName)" class="fancylight popup-btn" data-fancybox-group="light">
+                            <a href="~/resources/@(photo?.FilePath + '/' + photo?.FileName)" class="fancylight popup-btn" data-fancybox-group="light">
                                 <img class="img-fluid" src="~/resources/@(photo.FilePath + '/' + photo.FileName)" alt="gallery-item">
                             </a>
                             <form asp-action="DownloadPhotoShootPhoto" asp-controller="Download">
                                 @Html.AntiForgeryToken()
-                                <input type="hidden" asp-for="@photo.FileName">
-                                <input type="hidden" asp-for="@photo.FileType">
-                                <input type="hidden" asp-for="@photo.FilePath">
+                                <input type="hidden" asp-for="@photo!.FileName">
+                                <input type="hidden" asp-for="@photo!.FileType">
+                                <input type="hidden" asp-for="@photo!.FilePath">
 
                                 <button type="submit" class="btn btn-primary download-photo-btn" style="border-radius:0"><i class="fa-solid fa-download fa-lg"></i> <span class="font-weight-bold">Изтегли</span></button>
                             </form>

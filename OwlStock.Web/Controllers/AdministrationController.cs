@@ -121,7 +121,7 @@ namespace OwlStock.Web.Controllers
         public async Task<IActionResult> ManagePhotoshoot(Guid id)
         {
             PhotoShoot? photoshoot = await _photoShootService.PhotoShootById(id);
-
+            
             if(photoshoot.Id == Guid.Empty)
             {
                 return View("Error", "Фотосесията не е намерена");
@@ -146,7 +146,8 @@ namespace OwlStock.Web.Controllers
                 Region = photoshoot?.Place?.City?.Region?.Name,
                 Transport = photoshoot!.TransportCustomer,
                 PickUpAddress = photoshoot?.PickUpAddress,
-                Status = photoshoot?.Status
+                Status = photoshoot?.Status,
+                PhotoShootPhotos = photoshoot?.PhotoShootPhotos.ToList() ?? new()
 
             };
             return View(dto);

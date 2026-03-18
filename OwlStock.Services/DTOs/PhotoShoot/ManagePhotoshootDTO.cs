@@ -1,4 +1,5 @@
-﻿using OwlStock.Domain.Enumerations;
+﻿using OwlStock.Domain.Entities;
+using OwlStock.Domain.Enumerations;
 
 namespace OwlStock.Services.DTOs.PhotoShoot
 {
@@ -22,5 +23,6 @@ namespace OwlStock.Services.DTOs.PhotoShoot
         public bool Transport { get; set; }
         public string? PickUpAddress { get; set; }
         public PhotoshootStatus? Status { get; set; }
+        public List<PhotoShootPhoto>? PhotoShootPhotos { get; set; }
     }
 }
