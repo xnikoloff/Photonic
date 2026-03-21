@@ -245,6 +245,21 @@ h6,
     background-size: cover;
 }
 
+.page-header-wedding {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/about-wedding-header.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.page-header-automotive {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/carousel-4.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.page-header-prom {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/carousel-3.jpg) center center no-repeat;
+    background-size: cover;
+}
+
 .breadcrumb-item+.breadcrumb-item::before {
     color: var(--light);
 }

@@ -12,7 +12,7 @@
             <div class="col-sm-6">
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="Wedding"><h4>Сватбен портрет</h4></a>
+                        <a asp-controller="StaticContent" asp-action="Wedding"><h4>Сватбена фотография</h4></a>
                         <span>Цена от </span><span class="text-primary service-price">@DefaultValue.WeddingPhotoshoot лв</span>
                     </div>
                     <p>Нашият фокус е върху сватбения портрет – красиви и емоционални снимки на младоженците и техните близки.</p>
@@ -35,7 +35,7 @@
             <div class="col-sm-6">
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="Prom"><h4>Абитуриентски бал</h4></a>
+                        <a asp-controller="StaticContent" asp-action="Prom"><h4>Фотосесия за абитуриенти</h4></a>
                         <span>Цена от </span><span class="text-primary service-price">@DefaultValue.PromPhotoshoot лв</span>
                     </div>
                     <p>Абитуриентският бал е един от най-вълнуващите моменти в живота на всеки ученик или студент. Ще създадем красиви и стилни снимки, които ще Ви напомнят за него.</p>
@@ -52,7 +52,7 @@
         <div class="row g-0 flex-sm-row-reverse">
             <div class="col-sm-6">
                 <div class="team-img position-relative">
-                    <img class="img-fluid" src="~/img/about-4.jpg" alt="individual">
+                    <img class="img-fluid" src="~/img/about-2.jpg" alt="individual">
                 </div>
             </div>
             <div class="col-sm-6">
@@ -74,16 +74,16 @@
         <div class="row g-0 flex-sm-row-reverse">
             <div class="col-sm-6">
                 <div class="team-img position-relative">
-                    <img class="img-fluid" src="~/img/service-9.jpg" alt="bussiness portrait">
+                    <img class="img-fluid" src="~/img/services-business.jpg" alt="bussiness portrait">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="BusinessPortrait"><h4>Бизнес портрет</h4></a>
+                        <a asp-controller="StaticContent" asp-action="Business"><h4>Фотография за бизнеса</h4></a>
                         <span>Цена от </span><span class="text-primary service-price">@DefaultValue.BusinessPortrait лв</span>
                     </div>
-                    <p>Подкрепете своя професионален имидж с въздействащ бизнес портрет. Това е повече от обикновена снимка — това е стратегически инструмент, който изгражда доверие, демонстрира увереност и укрепва личния Ви бранд.</p>
+                    <p>Подкрепете своя професионален имидж с въздействащи кадри. Това са повече от обикновена снимки — това е стратегически инструмент, който изгражда доверие, демонстрира увереност и укрепва личния Ви бранд.</p>
                     <div class="d-flex">
                         <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Business" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
                         <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Business" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
@@ -96,13 +96,13 @@
         <div class="row g-0 flex-sm-row-reverse flex-lg-row">
             <div class="col-sm-6">
                 <div class="team-img position-relative">
-                    <img class="img-fluid" src="~/img/service-8.jpg" alt="automotive">
+                    <img class="img-fluid" src="~/img/about-8.jpg" alt="automotive">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
                     <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="Automobile"><h4>Автомобил</h4></a>
+                        <a asp-controller="StaticContent" asp-action="Automotive"><h4>Автомобилна фотография</h4></a>
                         <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Automotive лв</span>
                     </div>
                     <p>Интериор, екстериор, на паркинг, в движение по улиците - ще получите кадри, отразяващи характера на автомобила ви.</p>
@@ -113,72 +113,6 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-        <div class="row g-0 flex-lg-row-reverse">
-            <div class="col-sm-6">
-                <div class="h-100 p-5 d-flex flex-column justify-content-between">
-                    <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="Product"><h4>Продукт</h4></a>
-                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Product лв</span>
-                    </div>
-                    <p>Вашите продукти заслужават да бъдат представени пред клиентите така, че да говорят сами за себе си. Нашите кадри ще покажат всички силни страни и функционалности на продуктите ви.</p>
-                    <div class="d-flex">
-                        <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Product" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
-                        <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Product" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="team-img position-relative">
-                    <img class="img-fluid" src="~/img/service-3.jpg" alt="product">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
-        <div class="row g-0 flex-sm-row-reverse flex-lg-row">
-            <div class="col-sm-6">
-                <div class="h-100 p-5 d-flex flex-column justify-content-between">
-                    <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="Family"><h4>Семейна фотосесия</h4></a>
-                        <span>Цена от </span><span class="text-primary service-price">@DefaultValue.FamilyPhotoShoot лв</span>
-                    </div>
-                    <p>Запечатайте специалните моменти със семеен портрет. Това е прекрасен начин да съхраните спомените заедно с вашите близки, създавайки уникален и вечен подарък.</p>
-                    <div class="d-flex">
-                        <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Family" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
-                        <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Family" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="team-img position-relative">
-                    <img class="img-fluid" src="~/img/service-5.jpg" alt="familly">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
-        <div class="row g-0 flex-sm-row-reverse flex-lg-row">
-            <div class="col-sm-6">
-                <div class="h-100 p-5 d-flex flex-column justify-content-between">
-                    <div class="mb-3">
-                        <a asp-controller="StaticContent" asp-action="Event"><h4>Събитие</h4></a>
-                        <span class="text-primary price">Цена по договаряне</span>
-                    </div>
-                    <p>Ще се радваме да разкажем вашето събитие с нашите кадри.</p>
-                    <div class="d-flex">
-                        <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Events" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
-                        <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Events" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="team-img position-relative">
-                    <img class="img-fluid" src="~/img/service-6.jpg" alt="event">
-                </div>
-            </div>
         </div>
     </div>
     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
@@ -203,7 +137,29 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+    <!--<div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+        <div class="row g-0 flex-sm-row-reverse flex-lg-row">
+            <div class="col-sm-6">
+                <div class="h-100 p-5 d-flex flex-column justify-content-between">
+                    <div class="mb-3">
+                        <a asp-controller="StaticContent" asp-action="Event"><h4>Събитие</h4></a>
+                        <span class="text-primary price">Цена по договаряне</span>
+                    </div>
+                    <p>Ще се радваме да разкажем вашето събитие с нашите кадри.</p>
+                    <div class="d-flex">
+                        <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Events" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
+                        <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Events" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="team-img position-relative">
+                    <img class="img-fluid" src="~/img/service-6.jpg" alt="event">
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!--<div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
         <div class="row g-0 flex-sm-row-reverse">
             <div class="col-sm-6">
                 <div class="h-100 p-5 d-flex flex-column justify-content-between">
@@ -224,8 +180,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div>-->
 </div>
 
 <script>

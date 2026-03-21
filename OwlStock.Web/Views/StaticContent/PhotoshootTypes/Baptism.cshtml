@@ -1,36 +1,41 @@
 ﻿@{
-    ViewData["Title"] = "Свето кръщене";
+    ViewData["Title"] = "Свето кръщене | Заснемане на Свето кръщене в Пловдив";
 }
 
-<!-- Baptism Start -->
-<div class="container-xxl px-0 py-5">
-    <div class="col-lg-6 wow fadeInUp mx-auto text-center" data-wow-delay="0.5s">
-        <div class="h-100">
-            <p class="text-primary text-uppercase mb-2">Услуги</p>
-            <h1 class="display-6 mb-4">СВЕТО КРЪЩЕНЕ</h1>
-            <p>Във <span class="text-primary"><b>PHOTONIC</b></span> предлагаме разнообразие от фотографски услуги, създадени да уловят и съхранят най-ценните ви моменти.</p>
-            <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
-        </div>
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <h1 class="display-1 text-white animated slideInDown">Свето кръщене</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb text-uppercase mb-0">
+                <li class="breadcrumb-item"><a class="text-white" asp-controller="Home" asp-action="Index">Начало</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Свето кръщене</li>
+            </ol>
+        </nav>
     </div>
-    <div class="row g-0">
-        <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
-            <div class="row g-0 flex-sm-row">
-                <div class="col-sm-6">
-                    <div class="team-img-single position-relative">
-                        <img class="img-fluid" src="~/img/service-10.jpg" alt="wedding">
-                    </div>
+</div>
+<!-- Page Header End -->
+<!-- Feature Business Photography Start -->
+<div class="container-xxl py-5 mt-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="feature-img">
+                    <img class="img-fluid" src="~/img/service-10.jpg" alt="about3" style="max-height:650px">
+                    <!--<img class="img-fluid" src="~/img/about-6.jpg" alt="about3" style="max-height:650px">-->
                 </div>
-                <div class="col-sm-6">
-                    <div class="h-100 p-5 d-flex flex-column justify-content-between">
-                        <div class="mb-3">
-                            <h4><i>„...запазете светлината на първия празник — нежна, чиста и неподправена...“</i></h4>
-                            <span>Цена от </span><span class="text-primary service-price">@DefaultValue.Baptism лв</span>
-                        </div>
-                        <p>Светото кръщене е един от най-светлите и емоционални моменти в живота на едно семейство — първият празник, изпълнен с вяра, символика и надежда. Нашата задача е да уловим тези мигове така, че да останат живи завинаги, да се усеща трепетът, нежността и чистата любов във всяка снимка.</p>
-                        <p>С професионален подход и дискретно присъствие по време на ритуала ще запечатаме най-важните детайли — от малките усмивки до благословенията в храма. Позволете историята на вашето семейство да бъде разказана с внимание и стил и запазете светлината на първия празник — нежна, чиста и неподправена. Подарете си красив спомен, който ще пазите с години — емоция, превърната в изкуство.</p>
-                        <div class="d-flex">
-                            <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Baptism" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
-                            <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Baptism" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <h2 class="section-title">Заснемане на Свето кръщене</h2>
+                <div class="row mt-5 g-4">
+                    <div class="col-12">
+                        <div class="d-flex align-items-start">
+                            <h1><i class="fa-solid fa-cross text-primary"></i></h1>
+                            <div class="ms-4">
+                                <h3>Заснемане на церемонията на Светото кръщене</h3>
+                                <p class="mb-3">Светото кръщене е един от най-светлите и емоционални моменти в живота на едно семейство — първият празник, изпълнен с вяра, символика и надежда. С професионален подход и дискретно присъствие по време на ритуала ще запечатаме най-важните детайли — от малките усмивки до благословенията в храма. Позволете историята на вашето семейство да бъде разказана с внимание и стил и запазете светлината на първия празник.</p>
+                                <p class="mb-0">Предлагаме професионална заснемане на Свето кръщене в град Пловдив и в цялата страна. Ще получите красив и скъп спомен, който всеки път ще поглеждате с удоволствие.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,4 +43,4 @@
         </div>
     </div>
 </div>
-<!-- Baptism End -->
+<!-- Feature Business Photography End -->

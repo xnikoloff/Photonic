@@ -89,18 +89,6 @@ namespace OwlStock.Web.Controllers
             return View("PhotoshootTypes/Portrait");
         }
 
-        [HttpGet]
-        public IActionResult BusinessPortrait()
-        {
-            return View("PhotoshootTypes/BusinessPortrait");
-        }
-
-        [HttpGet]
-        public IActionResult Automobile()
-        {
-            return View("PhotoshootTypes/Automobile");
-        }
-
 
 
 
