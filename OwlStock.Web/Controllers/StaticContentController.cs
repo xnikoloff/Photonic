@@ -101,6 +101,30 @@ namespace OwlStock.Web.Controllers
             return View("PhotoshootTypes/Automobile");
         }
 
+
+
+
+
+
+
+        [HttpGet]
+        public IActionResult Individual()
+        {
+            return View("PhotoshootTypes/Individual");
+        }
+
+        [HttpGet]
+        public IActionResult Business()
+        {
+            return View("PhotoshootTypes/Business");
+        }
+
+        [HttpGet]
+        public IActionResult Automotive()
+        {
+            return View("PhotoshootTypes/Automotive");
+        }
+
         [HttpGet]
         public IActionResult SecretPhotoshoot()
         {
