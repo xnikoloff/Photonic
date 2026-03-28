@@ -495,7 +495,7 @@ h6,
 .testimonial-carousel {
     display: flex !important;
     flex-direction: column-reverse;
-    max-width: 700px;
+    width: 100%;
     margin: 0 auto;
 }
 
