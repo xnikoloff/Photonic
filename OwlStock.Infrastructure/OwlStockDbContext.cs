@@ -30,8 +30,7 @@ namespace OwlStock.Infrastructure
         public DbSet<Testimony>? Testimonies { get; set; }
         public DbSet<Announcement>? Announcements { get; set; }
         public DbSet<WorkingTime>? WorkingTime { get; set; }
-        public DbSet<Valentine>? Valentines { get; set; }
-
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

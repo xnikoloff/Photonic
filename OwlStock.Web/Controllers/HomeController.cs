@@ -30,5 +30,41 @@ namespace OwlStock.Web.Controllers
             
             return View(homePageDTO);
         }
+
+        [HttpGet("za-nas")]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        [HttpGet("chesto-zadavani-vaprosi")]
+        public IActionResult FAQ()
+        {
+            return View();
+        }
+
+        [HttpGet("usloviya")]
+        public IActionResult TermsAndConditions()
+        {
+            return View();
+        }
+
+        [HttpGet("kontakti")]
+        public IActionResult Contacts()
+        {
+            return View();
+        }
+
+        [HttpGet("uslugi")]
+        public IActionResult Services()
+        {
+            return View();
+        }
+        
+        [HttpGet("tseni")]
+        public IActionResult Pricing()
+        {
+            return View();
+        }
     }
 }

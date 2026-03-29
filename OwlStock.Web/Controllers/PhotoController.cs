@@ -10,6 +10,7 @@ using OwlStock.Services.Facades.Interfaces;
 
 namespace OwlStock.Web.Controllers
 {
+    [Route("portfolio")] 
     public class PhotoController : Controller
     {
         private readonly IPhotoService _photoService;
@@ -26,41 +27,35 @@ namespace OwlStock.Web.Controllers
             _galleryService = galleryService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            return View(await _galleryService.All());
-        }
-
         [Authorize(Roles = "Administrator")]
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> All(List<GalleryPhoto>? photos = null)
         {
             return View(await _galleryService.All());
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Portfolio(Category category)
+        [HttpGet("")]
+        public async Task<IActionResult> Portfolio(Category category = Category.All)
         {
             ViewData["categoryDescription"] = category.ToString();
             return View(await _galleryService.BuildCategoriesGallery());
         }
 
-        [HttpGet]
+        [HttpGet("rezultati")]
         public async Task<IActionResult> AllByTag(string tag)
         {
             ViewData["Title"] = "Търсене | " + tag;
             return View(nameof(All), await _galleryService.AllByTags(tag));
         }
 
-        [HttpGet]
+        [HttpGet("snimka")]
         public async Task<IActionResult> PhotoById(Guid id)
         {
             return View(await _photoService.GetById(id));
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpGet]
+        [HttpGet("create")]
         public async Task<IActionResult> Create()
         {
             CreateGalleryPhotoDTO dto = new()
@@ -71,7 +66,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpPost]
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateGalleryPhotoDTO? dto)
         {
@@ -128,7 +123,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpPost]
+        [HttpPost("delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(PhotoByIdDTO dto)
         {
@@ -152,7 +147,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpPost]
+        [HttpPost("changeDownloadPermissions")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeDownloadPermissions(PhotoByIdDTO dto)
         {

@@ -77,12 +77,12 @@
                 {
                     <a asp-controller="Administration" asp-action="Index" class="nav-item nav-link text-info">ADMIN</a>
                 }
-                <a asp-controller="StaticContent" asp-action="About" class="nav-item nav-link">За нас</a>
-                <a asp-controller="StaticContent" asp-action="Services" class="nav-item nav-link">Услуги</a>
-                <a asp-controller="StaticContent" asp-action="Pricing" class="nav-item nav-link">Цени</a>
+                <a asp-controller="Home" asp-action="About" class="nav-item nav-link">За нас</a>
+                <a asp-controller="Home" asp-action="Services" class="nav-item nav-link">Услуги</a>
+                <a asp-controller="Home" asp-action="Pricing" class="nav-item nav-link">Цени</a>
                 
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Портфолио</a>
+                <div class="nav-item dropdown" id="portfolio-dropdown">
+                    <a id="portfolio-index" asp-action="Portfolio" asp-controller="Photo" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Портфолио</a>
                     <div class="dropdown-menu border-0 m-0">
                         <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Wedding" class="dropdown-item">Сватба</a>
                         <a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Prom" class="dropdown-item">Абитуриетски бал</a>
@@ -95,9 +95,9 @@
                         <!--<a asp-controller="Photo" asp-action="Portfolio" asp-route-category="@Category.Events" class="dropdown-item">Събитие</a>-->
                     </div>
                 </div>
-                <a asp-controller="StaticContent" asp-action="Contacts" class="nav-item nav-link">Контакти</a>
-                <a asp-controller="DynamicContent" asp-action="All" class="nav-item nav-link">Блог</a>
-                <a asp-controller="PhotoShoot" asp-action="Reserve" class="nav-item nav-link btn btn-primary text-white px-4" style="vertical-align:central">РЕЗЕРВИРАЙ</a>
+                <a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link">Контакти</a>
+                <a asp-controller="DynamicContent" asp-action="Index" class="nav-item nav-link">Блог</a>
+                <a asp-controller="PhotoShoot" asp-action="Index" class="nav-item nav-link btn btn-primary text-white px-4" style="vertical-align:central">РЕЗЕРВИРАЙ</a>
                 <partial name="_LoginPartial" />
             </div>
         </div>
@@ -127,17 +127,17 @@
                 <div class="col-lg-3 col-md-6">
                     <h3 class="text-light mb-4">Услуги</h3>
                     <a class="btn btn-link" asp-controller="Photo" asp-action="Index">Портфолио</a>
-                    <a class="btn btn-link" asp-controller="StaticContent" asp-action="Pricing">Цени</a>
+                    <a class="btn btn-link" asp-controller="Home" asp-action="Pricing">Цени</a>
                     <a class="btn btn-link" asp-controller="DynamicContent" asp-action="AllByPage">Блог</a>
                     <!--<a class="btn btn-link" asp-controller="Place" asp-action="All">Локации</a>-->
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h3 class="text-light mb-4">PHOTONIC</h3>
-                    <a class="btn btn-link" asp-controller="StaticContent" asp-action="About">За нас</a>
-                    <a class="btn btn-link" asp-controller="StaticContent" asp-action="Contacts">Контакти</a>
-                    <a class="btn btn-link" asp-controller="StaticContent" asp-action="Services">Услуги</a>
-                    <a class="btn btn-link" asp-controller="StaticContent" asp-action="FAQ">Често задавани въпроси</a>
-                    <a class="btn btn-link" asp-controller="StaticContent" asp-action="TermsAndConditions">Условия за ползване</a>
+                    <a class="btn btn-link" asp-controller="Home" asp-action="About">За нас</a>
+                    <a class="btn btn-link" asp-controller="Home" asp-action="Contacts">Контакти</a>
+                    <a class="btn btn-link" asp-controller="Home" asp-action="Services">Услуги</a>
+                    <a class="btn btn-link" asp-controller="Home" asp-action="FAQ">Често задавани въпроси</a>
+                    <a class="btn btn-link" asp-controller="Home" asp-action="TermsAndConditions">Условия за ползване</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h3 class="text-light mb-4">Търсене</h3>
@@ -206,6 +206,12 @@
     <script>
         $(document).ready(function(){
             addEuroPrice();
+
+            //make the dropdown parent clickable
+            $("#portfolio-dropdown").click(function(){
+                console.log('click portfolio')
+                location.href = $("#portfolio-index").attr("href");
+            });
         });
 
         function addEuroPrice() {

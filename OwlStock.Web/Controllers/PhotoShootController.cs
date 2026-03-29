@@ -9,6 +9,7 @@ using System.Security.Claims;
 
 namespace OwlStock.Web.Controllers
 {
+    [Route("fotosesiya")]
     public class PhotoShootController : Controller
     {
         private readonly IPhotoShootService _photoShootService;
@@ -22,14 +23,8 @@ namespace OwlStock.Web.Controllers
             _photoshootFacade = photoshootFacade;
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Reserve()  
+        [HttpGet("")]
+        public async Task<IActionResult> Index()  
         {
             CreateRegularPhotoShootDTO dto = new()
             {
@@ -41,23 +36,7 @@ namespace OwlStock.Web.Controllers
             return View(dto);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> QuickReserve(PhotoShootType photoshootType, string firstName, string lastName, string phone)
-        {
-            CreateRegularPhotoShootDTO dto = new()
-            {
-                PhotoShootType = photoshootType,
-                PersonFirstName = firstName,
-                PersonLastName = lastName,
-                PersonPhone = phone,
-                Calendar = await _photoshootFacade.GetPhotoShootsCalendar(),
-                ServicedRegions = (await _settlementService.GetServicedRegion()).ToList()
-            };
-
-            return View(nameof(Reserve), dto);
-        }
-
-        [HttpGet]
+        [HttpGet("rezervatsiya-po-tip")]
         public async Task<IActionResult> ReserveByType(PhotoShootType photoShootType)
         {
             CreateRegularPhotoShootDTO dto = new()
@@ -68,18 +47,18 @@ namespace OwlStock.Web.Controllers
                 ServicedRegions = (await _settlementService.GetServicedRegion()).ToList(),
             };
 
-            return View("Reserve", dto);
+            return View("Index", dto);
         }
 
-        [HttpGet]
+        [HttpGet("rezervatsiq-malak-produkt")]
         public IActionResult ReserveSmallProduct()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reserve(CreateRegularPhotoShootDTO dto)
+        public async Task<IActionResult> Index(CreateRegularPhotoShootDTO dto)
         {
             //When photoshoot's place is decided by the studio or a popular place is selected
             //UserPlace (the name of the place that is created by the user) is no longer required
@@ -133,7 +112,7 @@ namespace OwlStock.Web.Controllers
             return RedirectToAction(nameof(SuccessfulReservation));
         }
 
-        [HttpPost]
+        [HttpPost("reserveSmallProduct")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ReserveSmallProduct(CreateSmallProductPhotoshootDTO dto)
         {
@@ -159,14 +138,14 @@ namespace OwlStock.Web.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet("moite-fotosesii")]
         public async Task<IActionResult> MyPhotoShoots()
         {
             return View(await _photoShootService.MyPhotoShoots(GetUserId()));
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet("detaili")]
         public async Task<IActionResult> PhotoShootById(Guid id)
         {
             PhotoShootByIdDTO? dto = await _photoShootService.PhotoShootById(id, GetUserId());
@@ -184,7 +163,7 @@ namespace OwlStock.Web.Controllers
             return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
         }
 
-        [HttpGet]
+        [HttpGet("uspeshna-rezervatsiya")]
         public IActionResult SuccessfulReservation()
         {
             return View("_SucessfulReservation");

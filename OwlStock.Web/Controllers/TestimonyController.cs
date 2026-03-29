@@ -6,6 +6,7 @@ using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Controllers
 {
+    [Route("otzivi")]
     public class TestimonyController : Controller
     {
         private readonly ITestimonyService _testimonyService;
@@ -15,13 +16,13 @@ namespace OwlStock.Web.Controllers
             _testimonyService = testimonyService;
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateTestimonyDTO dto)
         {
@@ -40,7 +41,7 @@ namespace OwlStock.Web.Controllers
             return RedirectToAction(nameof(SuccessfulTestimony));
         }
 
-        [HttpGet]
+        [HttpGet("blagodarim-za-otziva")]
         public IActionResult SuccessfulTestimony()
         {
             return View("_SuccessfulTestimony");

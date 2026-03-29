@@ -28,7 +28,7 @@ namespace OwlStock.Web.Controllers
             if (dto.ReCaptchaToken.IsNullOrEmpty())
             {
                 ModelState.AddModelError(string.Empty, $"Липсва проверка за робот");
-                return View("../StaticContent/Contacts", dto);
+                return View("../Home/Contacts", dto);
             }
 
             if (dto.Name.IsNullOrEmpty() || dto.From.IsNullOrEmpty() || dto.Topic.IsNullOrEmpty() || dto.Content.IsNullOrEmpty())
@@ -37,16 +37,11 @@ namespace OwlStock.Web.Controllers
                 ModelState.Remove("From");
 
                 ModelState.AddModelError("", "Попълнете всички полета");
-                return View("../StaticContent/Contacts", dto);
+                return View("../Home/Contacts", dto);
             }
 
             dto.EmailTemplate = EmailTemplate.SendInquiry;
-            bool result = await _emailService.Send(dto);
-
-            if(!result)
-            {
-                return View("Error", "Получи се грешка при изпращането на запитването Ви. Моля опитайте отново.");
-            }
+            await _emailService.SendInquiry(dto);
 
             return RedirectToAction(nameof(SuccessfulInquiry));
         }

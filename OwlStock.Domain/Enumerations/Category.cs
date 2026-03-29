@@ -86,6 +86,9 @@ namespace OwlStock.Domain.Enumerations
         Other = 28,
 
         [Display(Name = "Семейна")]
-        Family = 29
+        Family = 29,
+            
+        [Display(Name = "Всичко")]
+        All = 30
     }
 }

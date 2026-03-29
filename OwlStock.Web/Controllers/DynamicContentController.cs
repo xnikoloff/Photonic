@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace OwlStock.Web.Controllers
 {
+    [Route("blog")]
     public class DynamicContentController : Controller
     {
         private readonly IDynamicContentService _dynamicContentService;
@@ -21,7 +22,7 @@ namespace OwlStock.Web.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        [HttpGet]
+        [HttpGet("statiya")]
         public async Task<IActionResult> Content(Guid id)
         {
             DynamicContent content = await _dynamicContentService.GetById(id);
@@ -34,22 +35,22 @@ namespace OwlStock.Web.Controllers
             return View(content);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> All()
+        [HttpGet("")]
+        public async Task<IActionResult> Index()
         {
             return View(await _dynamicContentService.GetAll());
         }
 
-        [HttpGet]
+        [HttpGet("allByPage")]
         public async Task<IActionResult> AllByPage(int pageNumber = 1)
         {
             ViewData["PageNumber"] = pageNumber;
             var all = await _dynamicContentService.GetAllByPage(pageNumber);
 
-            return View(nameof(All), all);
+            return View(nameof(Index), all);
         }
 
-        [HttpGet]
+        [HttpGet("allByCategory")]
         public async Task<IActionResult> AllByCategory(Guid id)
         {
             AllDynamicContentsDTO all = await _dynamicContentService.GetAllByCategory(id);
@@ -59,11 +60,11 @@ namespace OwlStock.Web.Controllers
                 return View("Error", "Опитайте пак по-късно");
             }
 
-            return View(nameof(All), all);
+            return View(nameof(Index), all);
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpGet]
+        [HttpGet("allDeleted")]
         public async Task<IActionResult> AllDeleted(Guid id)
         {
             AllDynamicContentsDTO all = await _dynamicContentService.GetAllDeleted();
@@ -73,10 +74,10 @@ namespace OwlStock.Web.Controllers
                 return View("Error", "Опитайте пак по-късно");
             }
 
-            return View(nameof(All), all);
+            return View(nameof(Index), all);
         }
 
-        [HttpGet]
+        [HttpGet("create")]
         public async Task<IActionResult> Create()
         {
             List<DynamicContentCategory> categories =
@@ -88,7 +89,7 @@ namespace OwlStock.Web.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateDynamicContentDTO dto)
         {
@@ -105,7 +106,7 @@ namespace OwlStock.Web.Controllers
             return RedirectToAction(nameof(AllByPage));
         }
 
-        [HttpGet]
+        [HttpGet("delete")]
         public async Task<IActionResult> Delete(Guid id)
         {
             bool isSuccessful = await _dynamicContentService.Delete(id);    
@@ -118,7 +119,7 @@ namespace OwlStock.Web.Controllers
             return RedirectToAction(nameof(AllByPage));
         }
 
-        [HttpGet]
+        [HttpGet("recover")]
         public async Task<IActionResult> Recover(Guid id)
         {
             bool isSuccessful = await _dynamicContentService.Recover(id);
@@ -131,20 +132,20 @@ namespace OwlStock.Web.Controllers
             return RedirectToAction(nameof(AllByPage));
         }
 
-        [HttpGet]
+        [HttpGet("allCategories")]
         public async Task<IActionResult> AllCategories()
         {
             return View(await _dynamicContentService.GetAllDynamicContentCategories());
         }
 
-        [HttpGet]
+        [HttpGet("createCategory")]
         public async Task<IActionResult> CreateCategory()
         {
             return View();
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost]
+        [HttpPost("createCategory")]
         public async Task<IActionResult> CreateCategory(DynamicContentCategory category)
         {
             bool result = await _dynamicContentService.CreateCategory(category);
