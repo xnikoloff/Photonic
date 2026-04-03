@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\img\SamplePhotos\Wedding\" />
     <Folder Include="wwwroot\resources\gallery-photos\" />
   </ItemGroup>
 

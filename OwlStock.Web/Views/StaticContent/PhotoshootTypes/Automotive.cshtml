@@ -58,4 +58,118 @@
         </div>
     </div>
 </div>
+<div class="container container-automotive-prices packet mt-5 pt-5">
+    <div class="packet mt-5 pt-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="section-title"><span class="text-dark">Пакети</span> Автомобил</h1>
+                <hr />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Стандартен</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1 class="service-price">@DefaultValue.Automotive лв</h1>
+                        <hr />
+                        <h5>@DefaultValue.AutomotivePhotoshootDescription</h5>
+                        <hr />
+                        <p>Цената е за един автомобил</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Automotive" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Атртистичен</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1 class="service-price">@DefaultValue.AutomotivePlus лв</h1>
+                        <hr />
+                        <h5>@DefaultValue.AutomotivePlusPhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.AutomotivePlus" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Rollin'</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1 class="service-price">@DefaultValue.AutomotiveExtra лв</h1>
+                        <hr />
+                        <h5>@DefaultValue.AutomotiveExtraPhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.AutomotiveExtra" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Друго</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1 class="negotiation">@DefaultValue.NegotiablePriceText</h1>
+                        <hr />
+                        <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container container-wedding-portfolio mt-5 pt-5">
+    <div class="portfolio-item row">
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Automotive/avtomobilna-forografiya-bmw-e61-1.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Automotive/avtomobilna-forografiya-bmw-e61-1.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Automotive/avtomobilna-forografiya-bmw-e61-2.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Automotive/avtomobilna-forografiya-bmw-e61-2.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Automotive/avtomobilna-fotografiya-audi-q7-1.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Automotive/avtomobilna-fotografiya-audi-q7-1.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Automotive/avtomobilna-fotografiya-audi-q7-2.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Automotive/avtomobilna-fotografiya-audi-q7-2.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Automotive/avtomobilna-fotografiya-audi-s3-1.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Automotive/avtomobilna-fotografiya-audi-s3-1.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Automotive/avtomobilna-fotografiya-audi-s3-2.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Automotive/avtomobilna-fotografiya-audi-s3-2.jpg" alt="gallery-item">
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-packet {
+        min-height: 400px;
+    }
+</style>
 <!-- Feature Automotive Photography End -->
