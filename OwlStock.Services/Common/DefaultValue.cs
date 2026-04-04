@@ -13,7 +13,7 @@
         public const string PromPlusPhotoshootDescription = "Пакет Стандартен + снимки от подготовката";
         public const string PromExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига";
         public const string BaptismPhotoshootDescription = "Включва отразяване на цялото събитие + снимки с гостите";
-        public const string BaptismPlusPhotoshootDescription = "Пакет Стандартен + индивидуална фотосесия на родителите и бебето";
+        public const string BaptismPlusPhotoshootDescription = "Пакет Стандартен + индивидуална фотосесия на родителите и детето";
         public const string BaptismExtraPhotoshootDescription = "Пакет Плюс + луксозна фотокнига";
         public const string AutomotivePhotoshootDescription = "Включва стандартни снимки на автомобила (например за каталози на автокъщи или обяви от частни лица)";
         public const string AutomotivePlusPhotoshootDescription = "Включва кадри на автомобила, заснети на специфична локация и с артистична обработка";
