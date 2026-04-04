@@ -1,8 +1,8 @@
 (function ($) {
     "use strict";
 
-    
-    $(document).ready(function () {
+
+    $(window).on('load', function () {
         getCurrentCategory();
         //porfolio filter
         $('.portfolio-menu ul li').removeClass('active');
@@ -120,7 +120,11 @@ function filter(element) {
         selector = "";
     }
     $('.portfolio-item').isotope({
-        filter: selector
+        filter: selector,
+        percentPosition: true,
+        masonry: {
+            columnWidth: '.grid-sizer'
+        }
     });
     return false;
 }
