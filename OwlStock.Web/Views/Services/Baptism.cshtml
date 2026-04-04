@@ -15,7 +15,7 @@
     </div>
 </div>
 <!-- Page Header End -->
-<!-- Feature Business Photography Start -->
+<!-- Feature Baptism Photography Start -->
 <div class="container-xxl py-5 mt-5">
     <div class="container">
         <div class="row g-5">
@@ -43,4 +43,76 @@
         </div>
     </div>
 </div>
-<!-- Feature Business Photography End -->
+<div class="container container-prom-prices packet mt-5 pt-5">
+    <div class="packet mt-5 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="section-title"><span class="text-dark">Пакети</span> Свето кръщене</h1>
+                <hr />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Стандартен</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="service-price">@DefaultValue.Baptism лв</h2>
+                        <hr />
+                        <h5>@DefaultValue.BaptismPhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Baptism" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Плюс</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="service-price">@DefaultValue.BaptismPlus лв</h2>
+                        <hr />
+                        <h5>@DefaultValue.BaptismPlusPhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.BaptismPlus" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Екстра</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="service-price">@DefaultValue.BaptismExtra лв</h2>
+                        <hr />
+                        <h5>@DefaultValue.BaptismExtraPhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.BaptismExtra" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Друго</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="negotiation">@DefaultValue.NegotiablePriceText</h2>
+                        <hr />
+                        <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature Baptism Photography End -->

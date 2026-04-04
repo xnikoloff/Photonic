@@ -63,4 +63,145 @@
         </div>
     </div>
 </div>
+<div class="container container-wedding-prices packet mt-5 pt-5">
+    <div class="packet mt-5 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="section-title"><span class="text-dark">Пакети</span> Бизнес портрет</h1>
+                <hr />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6 col-md-3">
+                <div class="card card-packet other-types">
+                    <div class="card-header text-center">
+                        <h3>Стандартен</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="service-price">@DefaultValue.BusinessPortrait лв</h2>
+                        <hr />
+                        <h5>@DefaultValue.BusinessPortraitPhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.BusinessPortrait" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Друго</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="negotiation">@DefaultValue.NegotiablePriceText</h2>
+                        <hr />
+                        <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="packet mt-5 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="section-title"><span class="text-dark">Пакети</span> Продукт</h1>
+                <hr />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Стандартен</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="service-price">@DefaultValue.Product лв</h2>
+                        <hr />
+                        <h5>@DefaultValue.ProductPhotoshootDescription</h5>
+                        <hr />
+                        <p>Цената е за един продукт</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Product" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Атртистичен</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="service-price">@DefaultValue.ProductPlus лв</h2>
+                        <hr />
+                        <h5>@DefaultValue.ProductPlusPhotoshootDescription</h5>
+                        <hr />
+                        <p>Цената е за един продукт</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.ProductPlus" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-packet">
+                    <div class="card-header text-center">
+                        <h3>Друго</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h2 class="negotiation">@DefaultValue.NegotiablePriceText</h2>
+                        <hr />
+                        <h5>@DefaultValue.NegotiablePhotoshootDescription</h5>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Photoshoot" asp-action="ReserveByType" asp-route-photoshootType="@PhotoShootType.Other" class="btn btn-primary">РЕЗЕРВИРАЙ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container container-wedding-portfolio mt-5 pt-5">
+    <div class="portfolio-item row">
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Business/biznes-fotosesiya-zahariev-detailing-1.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Business/biznes-fotosesiya-zahariev-detailing-1.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Business/biznes-fotosesiya-zahariev-detailing-2.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Business/biznes-fotosesiya-zahariev-detailing-2.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Business/biznes-fotosesiya-zahariev-detailing-3.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Business/biznes-fotosesiya-zahariev-detailing-3.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Business/produktova-fotografiya-villa-yambol-1.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Business/produktova-fotografiya-villa-yambol-1.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Business/produktova-fotografiya-villa-yambol-2.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Business/produktova-fotografiya-villa-yambol-2.jpg" alt="gallery-item">
+            </a>
+        </div>
+        <div class="item col-md-4 col-6 text-center mt-5">
+            <a href="~/img/SamplePhotos/Business/produktova-fotografiya-villa-yambol-3.jpg" class="fancylight popup-btn" data-fancybox-group="light">
+                <img class="img-fluid" src="~/img/SamplePhotos/Business/produktova-fotografiya-villa-yambol-3.jpg" alt="gallery-item">
+            </a>
+        </div>
+    </div>
+</div>
 <!-- Feature Business Photography End -->
+
+<style>
+    .card-packet {
+        min-height: 400px;
+    }
+</style>
