@@ -26,14 +26,13 @@
         </ul>
     </div>
     <div class="portfolio-item row">
-        <div class="grid-sizer"></div>
         @foreach (KeyValuePair<Category, List<GalleryPhoto?>> categoriesWithPhotos in Model)
         {
             foreach(GalleryPhoto? photo in categoriesWithPhotos.Value)
             {
                 <div class="item @categoriesWithPhotos.Key.ToString().ToLower() col-md-4 col-6 text-center mt-5">
                     <a href="~/resources/@photo?.FilePathSmall" class="fancylight popup-btn" data-fancybox-group="light">
-                        <img class="img-fluid" src="~/resources/@photo?.FilePathSmall" alt="gallery-item" loading="lazy">
+                        <img class="img-fluid" src="~/resources/@photo?.FilePathSmall" alt="gallery-item">
                     </a>
                     <a asp-controller="Photo" asp-action="PhotoById" asp-route-id="@photo?.Id" class="item-details-btn"><b>ДЕТАЙЛИ</b></a>
                 </div>

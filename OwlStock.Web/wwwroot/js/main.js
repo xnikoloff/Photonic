@@ -2,7 +2,7 @@
     "use strict";
 
 
-    $(window).on('load', function () {
+    $(document).ready(function () {
         getCurrentCategory();
         //porfolio filter
         $('.portfolio-menu ul li').removeClass('active');
@@ -121,10 +121,6 @@ function filter(element) {
     }
     $('.portfolio-item').isotope({
         filter: selector,
-        percentPosition: true,
-        masonry: {
-            columnWidth: '.grid-sizer'
-        }
     });
     return false;
 }
