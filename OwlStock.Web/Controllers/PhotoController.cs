@@ -38,7 +38,7 @@ namespace OwlStock.Web.Controllers
         public async Task<IActionResult> Portfolio(Category category = Category.All)
         {
             ViewData["categoryDescription"] = category.ToString();
-            return View(await _galleryService.BuildCategoriesGallery());
+            return View(await _galleryService.BuildCategoriesGallery());    
         }
 
         [HttpGet("rezultati")]

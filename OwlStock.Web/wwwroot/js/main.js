@@ -3,18 +3,7 @@
 
     
     $(document).ready(function () {
-        getCurrentCategory();
-        //porfolio filter
-        $('.portfolio-menu ul li').removeClass('active');
-        $("#cat-" + getCurrentCategory()).addClass('active');
-        filter($("#cat-" + getCurrentCategory()));
-
-        $('.portfolio-menu ul li').click(function () {
-            $('.portfolio-menu ul li').removeClass('active');
-            $(this).addClass('active');
-
-            filter($(this));
-        });
+       
 
         var popup_btn = $('.popup-btn');
         popup_btn.magnificPopup({
@@ -113,24 +102,6 @@ function setStarsRating(rating) {
 }
 
 
-//portfolio filter
-function filter(element) {
-    var selector = element.attr('data-filter');
-    if(selector === "*") {
-        selector = "";
-    }
-    $('.portfolio-item').isotope({
-        filter: selector
-    });
-    return false;
-}
 
-function getCurrentCategory() {
-    let category = $("#portfolioCategoryDescription").val();
-    
-    if (category) {
-        return category.toLowerCase();
-    }
 
-    return "";
-}
+

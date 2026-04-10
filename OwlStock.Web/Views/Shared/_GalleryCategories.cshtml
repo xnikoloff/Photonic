@@ -15,7 +15,7 @@
                         <a asp-controller="Services" asp-action="Wedding"><h4>Сватбена фотография</h4></a>
                         <span>Цена от </span><span class="text-primary service-price">@DefaultValue.WeddingPhotoshoot лв</span>
                     </div>
-                    <p>Нашият фокус е върху сватбения портрет – красиви и емоционални снимки на младоженците и техните близки.</p>
+                        <p>Погледът преди церемонията, ръцете, които се стискат малко по-силно, сълзите на близките, смехът с приятели – това са истинските спомени, които остават. Нашата цел е да уловим красотата на сватбения ден така, че когато разглеждате снимките след години, да усещате същата емоция.</p>
                     <div class="d-flex">
                         <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Wedding" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
                         <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Wedding" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>
@@ -38,7 +38,7 @@
                         <a asp-controller="Services" asp-action="Prom"><h4>Фотосесия за абитуриенти</h4></a>
                         <span>Цена от </span><span class="text-primary service-price">@DefaultValue.PromPhotoshoot лв</span>
                     </div>
-                    <p>Абитуриентският бал е един от най-вълнуващите моменти в живота на всеки ученик или студент. Ще създадем красиви и стилни снимки, които ще Ви напомнят за него.</p>
+                        <p>Абитуриентската вечер е един от най-вълнуващите моменти в живота на всеки ученик. Това е вечерта, в която празнувате края на едно важно приключение и началото на следващата голяма стъпка. Ще се погрижим да създадем красиви и стилни снимки, които ще Ви напомнят за него.</p>
                     <div class="d-flex">
                         <a target="_blank" asp-action="ReserveByType" asp-controller="PhotoShoot" asp-route-photoShootType="@Category.Prom" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-calendar-days"></i></a>
                         <a target="_blank" asp-action="Portfolio" asp-controller="Photo" asp-route-category="@Category.Prom" class="btn btn-square btn-outline-primary rounded-circle me-2"><i class="fa-solid fa-images"></i></a>

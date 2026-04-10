@@ -129,3 +129,48 @@
         }
     }
 </style>
+
+<script>
+    window.onload = function () {
+        console.log("All images loaded");
+
+        initGallery();
+    };
+
+    function initGallery(){
+            getCurrentCategory();
+        //porfolio filter
+        $('.portfolio-menu ul li').removeClass('active');
+        $("#cat-" + getCurrentCategory()).addClass('active');
+        filter($("#cat-" + getCurrentCategory()));
+
+        $('.portfolio-menu ul li').click(function () {
+            $('.portfolio-menu ul li').removeClass('active');
+            $(this).addClass('active');
+
+            filter($(this));
+        });
+    }
+
+        //portfolio filter
+        function filter(element) {
+            var selector = element.attr('data-filter');
+            if(selector === "*") {
+                selector = "";
+            }
+            $('.portfolio-item').isotope({
+                filter: selector
+            });
+            return false;
+        }
+
+    function getCurrentCategory() {
+        let category = $("#portfolioCategoryDescription").val();
+    
+        if (category) {
+            return category.toLowerCase();
+        }
+
+        return "";
+    }
+</script>
