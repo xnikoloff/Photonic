@@ -95,6 +95,34 @@
     <partial name="_GalleryCategories" model="false"></partial>
 </div>
 <!-- Service End -->
+<!-- Partners Start -->
+<div class="container-fluid container-partners py-5">
+    <div class="container-fluid py-5">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h4 class="section-title">КЛИЕНТИ</h4>
+            <h1 class="display-5 mb-2">НАШИТЕ КЛИЕНТИ</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+            <div class="testimonial-item text-center" data-dot="">
+                <a target="_blank" href="https://www.facebook.com/zhrvDetailing"><img src="~/img/partners/zahariev-detailing.jpg" class="text-center mx-auto pb-4" style="width:180px"/></a>
+                <h3>Zahariev Detailing</h3>
+            </div>
+            <div class="testimonial-item text-center" data-dot="">
+                <a target="_blank" href="https://vitas.bg/"><img src="~/img/partners/vitas.png" class="text-center mx-auto pb-4" style="width:180px"/></a>
+                <h3>Матраци VITAS</h3>
+            </div>
+            <div class="testimonial-item text-center" data-dot="">
+                <a target="_blank" href="https://wesleep.bg/"><img src="~/img/partners/wesleep.png" class="text-center mx-auto pb-4" style="width:180px" /></a>
+                <h3>Матраци WeSleep</h3>
+            </div>
+            <div class="testimonial-item text-center" data-dot="">
+                <a target="_blank" href="https://ecomatrak.com/"><img src="~/img/partners/ekomatrak.png" class="text-center mx-auto pb-4" style="width:180px"/></a>
+                <h3>Еко Матрак</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Partners End -->
 <!-- About Start -->
 <div class="container-xxl py-5">
     <div class="container py-5">
@@ -165,7 +193,7 @@
     <div class="container-fluid py-5">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h4 class="section-title">Оценки</h4>
-            <h1 class="display-5 mb-4">НАШИТЕ КЛИЕНТИ</h1>
+            <h1 class="display-5 mb-4">МНЕНИЯ ОТ КЛИЕНТИ</h1>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
             @foreach (Testimony testimony in Model?.Testimonies ?? new List<Testimony>())
@@ -213,6 +241,10 @@
 
     .carousel-inner-container {
         padding: 0 200px !important;
+    }
+
+    .container-partners .owl-dot{
+        display: none;
     }
 
    @@media (max-width: 768px) {

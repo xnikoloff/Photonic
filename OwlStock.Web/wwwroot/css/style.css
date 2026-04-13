@@ -177,7 +177,7 @@ h6,
     background: rgba(0, 0, 0, 0.15);
 }
 
-.container-testimonials .owl-item {
+.container-testimonials .owl-item, .container-partners .owl-item {
     width: 350px !important;
     margin: 0 auto;
 }
