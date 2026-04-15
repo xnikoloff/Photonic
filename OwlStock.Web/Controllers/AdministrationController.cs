@@ -86,7 +86,7 @@ namespace OwlStock.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Photoshoots()
         {
-            IEnumerable<PhotoShoot> photoShoots = await _photoShootService.GetAll();
+            IEnumerable<PhotoShoot> photoShoots = await _photoShootService.GetAll();    
 
             if(photoShoots == null)
             {
