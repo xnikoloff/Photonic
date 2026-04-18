@@ -6,7 +6,21 @@
     ViewData["Title"] = "Нов ваучер";
 }
 <div class="container py-5">
+    <div class="row py-5">
+        <div class="col-12 text-center mx-auto">
+            <h1>ПОДАРЪЧЕН ВАУЧЕР</h1>
+        </div>
+    </div>
     <div class="row">
+        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="d-flex flex-column justify-content-between h-100">
+                <div class="d-flex align-items-center w-100 p-4 mb-4">
+                   <div class="ms-4">
+                        <img src="~/img/подаръчен-ваучер.jpg" style="width:300px"/>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
             <!--<h4 class="mb-4">Опитваме се да отговаряме на всички Ваши запитвания в най-кратък срок</h4>-->
             <form asp-action="Create" asp-controller="GiftCard" method="post">
@@ -14,9 +28,17 @@
                 <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <div class="form-floating">
+                            <div class="form-floating"> 
                                 <input type="text" class="form-control" asp-for="GiftCard.Receiver" placeholder="Име">
                                 <label for="name">Име на получател</label>
+                            </div>
+                         </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <select asp-for="GiftCard.PhotoShootType" asp-items="Html.GetEnumSelectList<PhotoShootType>()" class="form-control">
+                                    <option selected="selected" value="">Фотосесия</option>
+                                </select>
+                                <label for="name">Избор на фотосесия</label>
                             </div>
                          </div>
                         <div class="col-12">
@@ -24,8 +46,8 @@
                                 <div class="text-center" id="recaptcha-container" data-callback="onSubmit"></div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <button class="btn btn-primary w-100 py-3" type="submit">Изпрати</button>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Генерирай</button>
                         </div>
                 </div>
             </form>
