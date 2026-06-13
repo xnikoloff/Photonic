@@ -31,6 +31,8 @@ namespace OwlStock.Services
                 return false;
             }
 
+            giftCard.CreatedOn = DateTime.Now;
+
             try
             {
                 await _context.AddAsync(giftCard);
