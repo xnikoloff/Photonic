@@ -96,7 +96,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                               </p>
 
                               <div style=""text-align:center; margin:32px 0;"">
-                                <a href=""http://photonic.bg/Photoshoot/PhotoshootById/{photoshootId}""
+                                <a href=""https://photonic.bg/fotosesiya/detaili?id={photoshootId}""
                                    style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                   ПРЕГЛЕД НА РЕЗЕРВАЦИЯТА
                                 </a>
@@ -177,7 +177,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                   </p>
 
                                   <div style=""text-align:center; margin:32px 0;"">
-                                    <a href=""http://photonic.bg/Photoshoot/PhotoshootById/{photoshootId}""
+                                    <a href=""https://photonic.bg/fotosesiya/detaili?id={photoshootId}""
                                        style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       ПРЕГЛЕД НА ГАЛЕРИЯТА
                                     </a>
@@ -287,7 +287,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                   </p>
 
                                   <div style=""text-align:center; margin:32px 0;"">
-                                    <a href=""http://photonic.bg/Photoshoot/PhotoshootById/{photoshootId}""
+                                    <a href=""https://photonic.bg/fotosesiya/detaili?id={photoshootId}""
                                        style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       ПРЕГЛЕД НА РЕЗЕРВАЦИЯТА
                                     </a>
@@ -369,7 +369,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                   </p>
 
                                   <div style=""text-align:center; margin:32px 0;"">
-                                    <a href=""http://photonic.bg/Photoshoot/PhotoshootById/{photoshootId}""
+                                    <a href=""https://photonic.bg/fotosesiya/detaili?id={photoshootId}""
                                        style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       ПРЕГЛЕД НА РЕЗЕРВАЦИЯТА
                                     </a>
@@ -454,7 +454,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                   </p>
 
                                   <div style=""text-align:center; margin:32px 0;"">
-                                    <a href=""http://photonic.bg/Photoshoot/Reserve/""
+                                    <a href=""https://photonic.bg/fotosesiya""
                                        style=""display:inline-block; padding:14px 28px; background-color:#627582; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px;"">
                                       НОВА РЕЗЕРВАЦИЯТА
                                     </a>
