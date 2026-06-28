@@ -19,7 +19,7 @@
             <div class="details">
                 <div class="item">
                     <span class="label">Фотосесия</span>
-                    <span class="value">@Model.PhotoShootType</span>
+                    <span class="value">@(Model.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</span>
                 </div>
                 <div class="item">
                     <span class="label">Валиден до</span>
