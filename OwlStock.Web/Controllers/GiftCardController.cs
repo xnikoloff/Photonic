@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwlStock.Domain.Entities;
+using OwlStock.Services.DTOs;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Web.Controllers
@@ -28,19 +29,25 @@ namespace OwlStock.Web.Controllers
 
         [HttpPost("nov-vaucher")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(GiftCard giftCard)
+        public async Task<IActionResult> Create(CreateGiftCardDTO dto)
         {
-            bool result = await _giftCardService.Create(giftCard);
+            bool result = await _giftCardService.Create(dto.GiftCard ?? new());
 
             if (result)
             {
-                return View();
+                return View(nameof(Template), dto.GiftCard ?? new());
             }
 
             else
             {
                 return View("Error", "Неуспешно създаване на ваучер");
             }
+        }
+
+        [HttpGet("template")]
+        public IActionResult Template(GiftCard giftCard)
+        {
+            return View(giftCard);
         }
     }
 }

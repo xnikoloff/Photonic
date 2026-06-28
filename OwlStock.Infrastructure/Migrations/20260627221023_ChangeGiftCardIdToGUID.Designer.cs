@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OwlStock.Infrastructure;
 
@@ -11,9 +12,11 @@ using OwlStock.Infrastructure;
 namespace OwlStock.Infrastructure.Migrations
 {
     [DbContext(typeof(OwlStockDbContext))]
-    partial class OwlStockDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260627221023_ChangeGiftCardIdToGUID")]
+    partial class ChangeGiftCardIdToGUID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -427,7 +430,7 @@ namespace OwlStock.Infrastructure.Migrations
 
             modelBuilder.Entity("OwlStock.Domain.Entities.GiftCard", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("GiftCardId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -448,7 +451,7 @@ namespace OwlStock.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("Id");
+                    b.HasKey("GiftCardId");
 
                     b.HasIndex("IdentityUserId");
 
