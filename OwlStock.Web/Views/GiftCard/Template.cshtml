@@ -36,9 +36,9 @@
                 
 
                 <button type="submit" form="gift-card-template-form" class="btn btn-primary py-3 px-5"><i class="fa-solid fa-file-arrow-down fa-xl"></i>&nbsp;&nbsp;ИЗТЕГЛИ PDF</button>
-                <div class="certificate-wrap" style="background:#ececec;font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:40px;box-sizing:border-box;margin:0;">
+                <div class="certificate-wrap" style="background:#ececec;font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 40px;box-sizing:border-box;margin:0;">
     
-                    <div class="certificate" style="width:1000px;max-width:100%;box-shadow:0 15px 40px rgba(0,0,0,.12);padding:90px 100px;position:relative;background:#dae0e3;box-sizing:border-box;">
+                    <div class="certificate" style="width:1000px;max-width:100%;box-shadow:0 15px 40px rgba(0,0,0,.12);padding:90px 100px 40px 100px;position:relative;background:#dae0e3;box-sizing:border-box;">
 
                         <div class="header" style="text-align:center;margin-bottom:60px;position:relative;z-index:2;">
                             <span class="small-title" style="text-transform:uppercase;letter-spacing:6px;color:#627582;font-size:13px;">
@@ -60,10 +60,10 @@
                                 <input asp-for="GiftCard.Receiver" class="form-control" style="background:#d0d5d9;font-weight:bold;text-align:center;color:#222;border:none;border-radius:5px" />
                             </div>
 
-                            <div class="details" style="display:flex;justify-content:space-between;gap:40px;margin-bottom:70px;">
+                            <div class="details">
 
-                                <div class="item" style="flex:1;text-align:center;border:1px solid #627582;border-radius:8px;padding:30px;box-sizing:border-box;">
-                                    <span class="label" style="display:block;color:#999;text-transform:uppercase;letter-spacing:2px;font-size:13px;margin-bottom:12px;">
+                                <div class="item">
+                                    <span class="label" style="display:block;color:#627582;text-transform:uppercase;letter-spacing:1px;font-size:11px;margin-bottom:12px;">
                                         Фотосесия
                                     </span>
                                     <span class="value" style="font-size:22px;color:#222;font-weight:500;">
@@ -73,8 +73,8 @@
                                     </span>
                                 </div>
 
-                                <div class="item" style="flex:1;text-align:center;border:1px solid #627582;border-radius:8px;padding:30px;box-sizing:border-box;">
-                                    <span class="label" style="display:block;color:#999;text-transform:uppercase;letter-spacing:2px;font-size:13px;margin-bottom:12px;">
+                                <div class="item mt-5">
+                                    <span class="label" style="display:block;color:#627582;text-transform:uppercase;letter-spacing:1px;font-size:11px;margin-bottom:12px;">
                                         Валиден до
                                     </span>
                                     <span class="value" style="font-size:22px;color:#222;font-weight:500;">
@@ -82,21 +82,21 @@
                                     </span>
                                     <h6 class="remove remove-valid-until-description" style="font-style:italic">/попълва се автоматично след изтегляне/</h6>
                                 </div>
+                                <div class="item mt-5">
+                                    <div class="certificate-number" style="font-size:13px;color:#888;letter-spacing:2px;">
+                                        #CERTIFICATE NUMBER
+                                    </div>
+                                </div>
 
                             </div>
                         </div>  
 
-                        <div class="footer" style="display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;">
+                        <div class="footer" style="display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;text-center">
 
-                            <div class="signature" style="width:240px;">
-                                <div class="line" style="height:1px;background:#222;margin-bottom:8px;"></div>
-                                <span class="contacts" style="font-size:14px;color:#555;">
-                                    <b>PHOTONIC.bg | +359 878 131828</b>
+                            <div class="signature" style="width:240px;margin:0 auto">
+                                <span class="contacts" style="font-size:14px;color:#627582;">
+                                    <b>PHOTONIC.bg</b>| +359 878 131828
                                 </span>
-                            </div>
-
-                            <div class="certificate-number" style="font-size:13px;color:#888;letter-spacing:2px;">
-                                #CERTIFICATE NUMBER
                             </div>
 
                         </div>

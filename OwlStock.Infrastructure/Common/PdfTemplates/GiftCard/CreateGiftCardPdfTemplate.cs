@@ -66,11 +66,15 @@
                 .customer {{
                     text-align: center;
                     font-size: 48px;
-                    font-family: Brush Script MT;
-                    font-style: italic;
+                    font-family: Corbel;
                     color: #404040;
                     margin-top: 15px;
                     margin-bottom: 5px;
+                }}
+
+                .customer-text {{
+                    font-family:'Cormorant Garamond',serif;
+                    font-style: italic;
                 }}
 
                 .photoshoot-label {{
@@ -91,7 +95,6 @@
                 }}
 
                 .validity-container{{
-                    display: inline-block;
                     width: 100%;
                     text-align: center;
                     margin-top: 40px;
@@ -103,10 +106,12 @@
                 }}
 
                 .valid-until {{
-                    font-size: 18px;
+                    text-align: center;
+                    font-size: 30px;
                     font-weight: bold;
-                    letter-spacing: 2px;
-                    margin-top: 8px;
+                    color: #627582;
+                    margin-top: 5px;
+                    margin-bottom: 25px;
                 }}
 
                 .footer {{
@@ -159,7 +164,7 @@
                             </div>
                             
                             <div class=""customer"">
-                                {dto.Receiver}
+                                <span class=""customer-text"">{dto.Receiver}</span>
                             </div>
                             <div class=""separator""></div>
 

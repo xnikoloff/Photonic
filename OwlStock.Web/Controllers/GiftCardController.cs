@@ -18,12 +18,6 @@ namespace OwlStock.Web.Controllers
             _pdfService = pdfService;
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet("vaucher")]
         public async Task<IActionResult> GiftCardById(Guid id)
         {
