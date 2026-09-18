@@ -27,28 +27,28 @@
         /* PRICE PACKETS */
 
         //Photoshoots
-        public const decimal PortrairPhotoShoot = 150m;
-        public const decimal PortrairPlusPhotoShoot = 300m;
-        public const decimal PortrairExtraPhotoShoot = 350m;
-        public const decimal FamilyPhotoShoot = 200m;
-        public const decimal FamilyPlusPhotoShoot = 350m;
-        public const decimal FamilyExtraPhotoShoot = 400m;
-        public const decimal BusinessPortrait = 150m;
-        public const decimal WeddingPhotoshoot = 300m;
-        public const decimal WeddingPlusPhotoshoot = 400m;
-        public const decimal WeddingExtraPhotoshoot = 600m;
-        public const decimal PromPhotoshoot = 200m;
-        public const decimal PromPlusPhotoshoot = 300m;
-        public const decimal PromExtraPhotoshoot = 450m;
-        public const decimal Baptism = 150m;
-        public const decimal BaptismPlus = 250m;
-        public const decimal BaptismExtra = 350m;
-        public const decimal Automotive = 50m;
+        public const decimal PortrairPhotoShoot = 80m;
+        public const decimal PortrairPlusPhotoShoot = 160m;
+        public const decimal PortrairExtraPhotoShoot = 200m;
+        public const decimal FamilyPhotoShoot = 110m;
+        public const decimal FamilyPlusPhotoShoot = 200m;
+        public const decimal FamilyExtraPhotoShoot = 250m;
+        public const decimal BusinessPortrait = 80m;
+        public const decimal WeddingPhotoshoot = 160m;
+        public const decimal WeddingPlusPhotoshoot = 220m;
+        public const decimal WeddingExtraPhotoshoot = 320m;
+        public const decimal PromPhotoshoot = 120m;
+        public const decimal PromPlusPhotoshoot = 160m;
+        public const decimal PromExtraPhotoshoot = 250m;
+        public const decimal Baptism = 100m;
+        public const decimal BaptismPlus = 150m;
+        public const decimal BaptismExtra = 250m;
+        public const decimal Automotive = 40m;
         public const decimal AutomotivePlus = 100m;
-        public const decimal AutomotiveExtra = 180m;
-        public const decimal Product = 50m;
+        public const decimal AutomotiveExtra = 150m;
+        public const decimal Product = 40m;
         public const decimal ProductPlus = 100m;
-        public const decimal SecretPhotoshoot = 200m;
+        public const decimal SecretPhotoshoot = 120m;
         public const string NegotiablePriceText = "По договаряне";
 
         //Fuel

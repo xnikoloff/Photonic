@@ -210,7 +210,7 @@
 
     <script>
         $(document).ready(function(){
-            addEuroPrice();
+            //addEuroPrice();
 
             //make the dropdown parent clickable
             $("#portfolio-dropdown").click(function(){
@@ -219,7 +219,9 @@
             });
         });
 
-        function addEuroPrice() {
+
+        //legacy function
+        /*function addEuroPrice() {
             const exchangeRate = 1.95583;
 
             let priceElement = $(".service-price");
@@ -231,7 +233,7 @@
                 let eurValue = (bgnValue / exchangeRate).toFixed(2);
                 priceElement[i].innerText = bgnText + " / " + "€ " + eurValue;
             }
-        }
+        }*/
     </script>
 </body>
 </html>
