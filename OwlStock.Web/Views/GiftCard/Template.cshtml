@@ -29,14 +29,16 @@
         </div>
     </div>
 </div>-->
-<div class="container-fluid" style="background:#ececec;">
+<div class="container-fluid" style="background:#f7f7f7;">
     <div class="row">
-        <div class="col-12 mx-auto text-center">
+        <dvi class="col-12">
+            <h2></h2>
+        </dvi>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-sm-12 mx-auto text-center mt-3">x
             <form asp-action="Create" method="post" id="gift-card-template-form">
-                
-
-                <button type="submit" form="gift-card-template-form" class="btn btn-primary py-3 px-5"><i class="fa-solid fa-file-arrow-down fa-xl"></i>&nbsp;&nbsp;ИЗТЕГЛИ PDF</button>
-                <div class="certificate-wrap" style="background:#ececec;font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 40px;box-sizing:border-box;margin:0;">
+                <div class="certificate-wrap" style="background:#f7f7f7;font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 40px;box-sizing:border-box;margin:0;">
     
                     <div class="certificate" style="width:1000px;max-width:100%;box-shadow:0 15px 40px rgba(0,0,0,.12);padding:90px 100px 40px 100px;position:relative;background:#dae0e3;box-sizing:border-box;">
 
@@ -102,12 +104,41 @@
                         </div>
                     </div>
                 </div>
-                </form>
+            </form>
+        </div>
+        <div class="col-lg-4 col-sm-12 col-summary-section mt-5">
+            <div class="summary-section-photoshoot-type">
+                <p class="summary-section-icon text-primary"><i class="fa-solid fa-camera fa-lg"></i> <b>Фотосесия</b>: <span class="summary-data text-dark" id="summary-photoshoot-type">Абитуриентски бал Extra</span></p>
+            </div>
+            <hr />
+            <div class="summary-section-location">
+                <p class="text-primary" id="name-summary"><i class="fa-solid fa-user fa-lg"></i> <b>Получател</b>: <span class="text-dark" id="name-summary-text"></span></p>
+            </div>
+            <hr />
+            <div class="summary-section-datetime">
+                <p class="text-primary" id="datetime-summary"><i class="fa-solid fa-calendar-days fa-lg"></i> <b>Валиден до</b>: <span class="summary-data text-dark" id="summary-date">@DateTime.Now.AddYears(1).ToString("dd.MM.yyyy") г</span><span class="summary-time" id="summary-time"></span></p>
+            </div>
+            <hr />
+            <div class="summary-section-price">
+                <p class="text-primary text-price"><b><span style="font-size:1.6rem">€</span> ЦЕНА</b></p>
+                <p class="text-price"><span class="text-dark" id="price-summary">-</span> / <span class="text-dark" id="price-summary-euro">-</span></p>
+            </div>
+            <div class="summary-section-submit-button mt-5">
+                <button type="submit" class="btn btn-primary btn-lg text-white btn-submit" style="width: 100%">ПОРЪЧАЙ</button>
+                </div>
         </div>
     </div>
 </div>
 
 <style>
+    .col-summary-section{
+        background: #fff;
+        padding: 0 40px;
+        padding-top: 35px;
+        border-radius: 10px;
+        max-height: 460px;
+    }
+
     .info-text{
         font-size: 1.2rem
     }
@@ -151,3 +182,10 @@
         }
     }
 </style>
+
+<script>
+    $("#GiftCard_Receiver").change(function(){
+        console.log($(this).text())
+        $("#name-summary-text").html($(this).val());
+    })
+</script>
