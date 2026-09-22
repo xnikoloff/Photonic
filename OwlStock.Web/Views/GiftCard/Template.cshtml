@@ -36,7 +36,7 @@
         </dvi>
     </div>
     <div class="row">
-        <div class="col-lg-8 col-sm-12 mx-auto text-center mt-3">x
+        <div class="col-lg-8 col-sm-12 mx-auto text-center mt-3">
             <form asp-action="Create" method="post" id="gift-card-template-form">
                 <div class="certificate-wrap" style="background:#f7f7f7;font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 40px;box-sizing:border-box;margin:0;">
     
@@ -69,7 +69,20 @@
                                         Фотосесия
                                     </span>
                                     <span class="value" style="font-size:22px;color:#222;font-weight:500;">
-                                        <select asp-for="GiftCard.PhotoShootType" asp-items="Html.GetEnumSelectList<PhotoShootType>()" class="form-control" style="background:#d0d5d9;font-weight:bold;text-align:center;color:#222;border:none;border-radius:5px">
+                                        <select asp-for="GiftCard.PhotoShootType" 
+                                        asp-items="Html.GetEnumSelectList<PhotoShootType>()
+                                        .Where(ph => 
+                                               int.Parse(ph.Value) == (int)PhotoShootType.Personal
+                                            || int.Parse(ph.Value) == (int)PhotoShootType.PersonalPlus
+                                            || int.Parse(ph.Value) == (int)PhotoShootType.PersonalExtra
+                                            || int.Parse(ph.Value) == (int)PhotoShootType.Family
+                                            || int.Parse(ph.Value) == (int)PhotoShootType.FamilyPlus
+                                            || int.Parse(ph.Value) == (int)PhotoShootType.FamilyExtra
+                                            || int.Parse(ph.Value) == (int)PhotoShootType.Automotive 
+                                            || int.Parse(ph.Value) == (int)PhotoShootType.AutomotivePlus 
+                                            || int.Parse(ph.Value) == (int)PhotoShootType.AutomotiveExtra)
+                                        .OrderByDescending(ph => ph.Text)" 
+                                        class="form-control" style="background:#d0d5d9;font-weight:bold;text-align:center;color:#222;border:none;border-radius:5px">
                                             <option selected="selected" value="">Фотосесия</option>
                                         </select>
                                     </span>
@@ -93,7 +106,7 @@
                             </div>
                         </div>  
 
-                        <div class="footer" style="display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;text-center">
+                        <div class="footer text-center" style="display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;">
 
                             <div class="signature" style="width:240px;margin:0 auto">
                                 <span class="contacts" style="font-size:14px;color:#627582;">
@@ -108,7 +121,7 @@
         </div>
         <div class="col-lg-4 col-sm-12 col-summary-section mt-5">
             <div class="summary-section-photoshoot-type">
-                <p class="summary-section-icon text-primary"><i class="fa-solid fa-camera fa-lg"></i> <b>Фотосесия</b>: <span class="summary-data text-dark" id="summary-photoshoot-type">Абитуриентски бал Extra</span></p>
+                <p class="summary-section-icon text-primary"><i class="fa-solid fa-camera fa-lg"></i> <b>Фотосесия</b>: <span class="summary-data text-dark" id="summary-photoshoot-type"></span></p>
             </div>
             <hr />
             <div class="summary-section-location">
@@ -185,7 +198,9 @@
 
 <script>
     $("#GiftCard_Receiver").change(function(){
-        console.log($(this).text())
         $("#name-summary-text").html($(this).val());
+    })
+    $("#GiftCard_PhotoShootType").change(function(){
+        $("#summary-photoshoot-type").html($(this).find(":selected").text());
     })
 </script>
