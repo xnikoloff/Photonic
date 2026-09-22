@@ -88,16 +88,15 @@
                                     </span>
                                 </div>
 
-                                <div class="item mt-5">
+                                <div class="item item-valid-until" style="margin-top: 40px;">
                                     <span class="label" style="display:block;color:#627582;text-transform:uppercase;letter-spacing:1px;font-size:11px;margin-bottom:12px;">
                                         Валиден до
                                     </span>
                                     <span class="value" style="font-size:22px;color:#222;font-weight:500;">
-                                        --- г   
+                                        @DateTime.Now.AddYears(1).ToString("dd.MM.yyyy")    
                                     </span>
-                                    <h6 class="remove remove-valid-until-description" style="font-style:italic">/попълва се автоматично след изтегляне/</h6>
                                 </div>
-                                <div class="item mt-5">
+                                <div class="item item-cert-number" style="margin-top:40px">
                                     <div class="certificate-number" style="font-size:13px;color:#888;letter-spacing:2px;">
                                         #CERTIFICATE NUMBER
                                     </div>
@@ -119,7 +118,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-lg-4 col-sm-12 col-summary-section mt-5">
+        <div class="col-lg-4 col-sm-12 col-summary-section mt-lg-5">
             <div class="summary-section-photoshoot-type">
                 <p class="summary-section-icon text-primary"><i class="fa-solid fa-camera fa-lg"></i> <b>Фотосесия</b>: <span class="summary-data text-dark" id="summary-photoshoot-type"></span></p>
             </div>
@@ -159,11 +158,12 @@
     @@media only screen and (max-width: 995px) {
 
         .certificate-wrap{
-            padding: 10px !important;
+            padding: 0 0 !important;
+            min-height: unset !important;
         }
 
         .certificate{
-            padding: 40px 20px !important;
+            padding: 30px 10px !important;
         }
 
         .label{
@@ -191,7 +191,25 @@
         }
 
         .presented{
+            margin-top: -30px !important;
             font-size: 10px !important;
+
+        }
+
+        .details{
+            margin-top: -20px !important;
+        }
+
+        .item-valid-until{
+            margin-top: 20px !important;
+        }
+
+        .item-cert-number{
+            margin-top: 20px !important; 
+        }
+
+        .col-summary-section{
+            margin-top: 30px;
         }
     }
 </style>
