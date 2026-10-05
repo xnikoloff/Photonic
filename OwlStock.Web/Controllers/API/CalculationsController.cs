@@ -19,7 +19,7 @@ namespace OwlStock.Web.Controllers.API
         [Route("photoshootPrice")]
         public decimal CalculatePhotoshootPrice(PhotoShootType photoShootType, decimal fuelPrice, int numberOfParticipants)
         {
-                return _calculationsService.CalculatePhotoshootPrice(photoShootType, fuelPrice, numberOfParticipants);
+            return _calculationsService.CalculatePhotoshootPrice(photoShootType, fuelPrice, numberOfParticipants);
         }
 
         [HttpGet]
