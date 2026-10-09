@@ -1,0 +1,62 @@
+﻿@model IEnumerable<GalleryPhoto>
+
+@{
+    ViewData["Title"] = "ManagePhotos";
+}    
+
+<div class="container mt-5 py-5">
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (GalleryPhoto photo in Model)
+                {
+                    <tr>
+                        <td><a asp-action="PhotoById" asp-controller="Photo" asp-route-id="@photo.Id"><img class="photo" src="~/resources/@(photo.FilePathSmall)"></a></td>
+                        <td>@photo.Name</td>
+                        @if (photo.IsDeleted)
+                        {
+                            <td class="text-danger">
+                                <form asp-controller="Photo" asp-action="Recover" method="POST">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" asp-for="@photo.Id" />
+                                    <input type="hidden" asp-for="@photo.Name" />
+                                    <button type="submit" class="btn btn-warning text-white">Recover</button>
+                                </form>
+                            </td>
+                            <td class="text-danger"><b>HIDDEN</b></td>
+                        }
+                        else
+                        {
+                            <td class="text-success">
+                                <form asp-controller="Photo" asp-action="Remove" method="POST">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" asp-for="@photo.Id" />
+                                    <input type="hidden" asp-for="@photo.Name" />
+                                    <button type="submit" class="btn btn-danger text-white">Remove</button>
+                                </form>
+                            </td>
+                            <td class="text-success"><b>VISIBLE</b></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .card{
+        min-height: 400px;
+    }
+    .photo{
+        max-width: 250px;
+    }
+</style>

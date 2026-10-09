@@ -141,9 +141,9 @@ namespace OwlStock.Web.Controllers
 
                 await _photoService.Remove(dto.Photo);
 
-            }   
+            }
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction("ManagePhotos", "Administration");
         }
 
         [Authorize(Roles = "Administrator")]
@@ -167,7 +167,7 @@ namespace OwlStock.Web.Controllers
 
             }
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction("ManagePhotos", "Administration");
         }
 
         [Authorize(Roles = "Administrator")]

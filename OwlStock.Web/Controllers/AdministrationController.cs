@@ -308,7 +308,7 @@ namespace OwlStock.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Photos()
+        public async Task<IActionResult> ManagePhotos()
         {
             return View(await _galleryService.All());
         }
