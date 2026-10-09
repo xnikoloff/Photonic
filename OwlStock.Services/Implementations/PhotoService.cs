@@ -224,11 +224,11 @@ namespace OwlStock.Services.Implementations
         /// </summary>
         /// <param name="photo">A PhotoBase object</param>
         /// <returns>True if successful, else false</returns>
-        public async Task<bool> Delete(PhotoBase photo)
+        public async Task<bool> Remove(PhotoBase photo)
         {
             if (photo is null)
             {
-                _logger.LogError($"An error occurred at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}, {nameof(photo)} was null");
+                _logger.LogError($"An error occurred at {DateTime.UtcNow}, {nameof(Remove)}, {nameof(PhotoService)}, {nameof(photo)} was null");
                 return false;
             }
 
@@ -238,7 +238,7 @@ namespace OwlStock.Services.Implementations
 
                 if(photoBase is null)
                 {
-                    _logger.LogError($"${nameof(photoBase)} is null at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}");
+                    _logger.LogError($"${nameof(photoBase)} is null at {DateTime.UtcNow}, {nameof(Remove)}, {nameof(PhotoService)}");
                     return false;
                 }
 
@@ -250,7 +250,43 @@ namespace OwlStock.Services.Implementations
             
             catch(Exception ex)
             {
-                _logger.LogError(ex, $"An error occurred at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}, {ex.Message}");
+                _logger.LogError(ex, $"An error occurred at {DateTime.UtcNow}, {nameof(Remove)}, {nameof(PhotoService)}, {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Sets IsDeleted property to false
+        /// </summary>
+        /// <param name="photo">A PhotoBase object</param>
+        /// <returns>True if successful, else false</returns>
+        public async Task<bool> Recover(PhotoBase photo)
+        {
+            if (photo is null)
+            {
+                _logger.LogError($"An error occurred at {DateTime.UtcNow}, {nameof(Recover)}, {nameof(PhotoService)}, {nameof(photo)} was null");
+                return false;
+            }
+
+            try
+            {
+                PhotoBase? photoBase = await _context.PhotosBase.FindAsync(photo.Id);
+
+                if (photoBase is null)
+                {
+                    _logger.LogError($"${nameof(photoBase)} is null at {DateTime.UtcNow}, {nameof(Recover)}, {nameof(PhotoService)}");
+                    return false;
+                }
+
+                photoBase.IsDeleted = false;
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"An error occurred at {DateTime.UtcNow}, {nameof(Recover)}, {nameof(PhotoService)}, {ex.Message}");
                 return false;
             }
         }
@@ -274,7 +310,7 @@ namespace OwlStock.Services.Implementations
                 
                 if (photo is null)
                 {
-                    _logger.LogError($"${nameof(photo)} is null at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}");
+                    _logger.LogError($"${nameof(photo)} is null at {DateTime.UtcNow}, {nameof(Remove)}, {nameof(PhotoService)}");
                     return false;
                 }
 
@@ -367,7 +403,7 @@ namespace OwlStock.Services.Implementations
                         
                         if (galleryPhoto is null)
                         {
-                            _logger.LogError($"${nameof(galleryPhoto)} is null at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}");
+                            _logger.LogError($"${nameof(galleryPhoto)} is null at {DateTime.UtcNow}, {nameof(Remove)}, {nameof(PhotoService)}");
                             return false;
                         }
 
@@ -381,7 +417,7 @@ namespace OwlStock.Services.Implementations
 
                         if (photoShootPhoto is null)
                         {
-                            _logger.LogError($"${nameof(photoShootPhoto)} is null at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}");
+                            _logger.LogError($"${nameof(photoShootPhoto)} is null at {DateTime.UtcNow}, {nameof(Remove)}, {nameof(PhotoService)}");
                             return false;
                         }
 

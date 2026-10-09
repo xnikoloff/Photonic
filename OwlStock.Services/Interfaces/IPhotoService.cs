@@ -9,7 +9,8 @@ namespace OwlStock.Services.Interfaces
         Task<PhotoBase> GetPhotoBaseById(Guid id);
         Task<IEnumerable<Gear>> GetPhotoGears();
         Task<PhotoBase> Create(PhotoBase? photo, string userId);
-        Task<bool> Delete(PhotoBase photo);
+        Task<bool> Remove(PhotoBase photo);
+        Task<bool> Recover(PhotoBase photo);
         Task<bool> ChangeDownloadPermissions(Guid id);
     }
 }

@@ -123,9 +123,9 @@ namespace OwlStock.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpPost("delete")]
+        [HttpPost("remove")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(PhotoByIdDTO dto)
+        public async Task<IActionResult> Remove(PhotoByIdDTO dto)
         {
             if (!ModelState.IsValid)
             {
@@ -139,7 +139,31 @@ namespace OwlStock.Web.Controllers
                     throw new NullReferenceException($"{nameof(dto.Photo)} is null");
                 }
 
-                await _photoService.Delete(dto.Photo);
+                await _photoService.Remove(dto.Photo);
+
+            }   
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost("recover")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Recover(PhotoByIdDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(PhotoById), new { dto?.Photo?.Id });
+            }
+
+            if (dto is not null)
+            {
+                if (dto.Photo is null)
+                {
+                    throw new NullReferenceException($"{nameof(dto.Photo)} is null");
+                }
+
+                await _photoService.Recover(dto.Photo);
 
             }
 
