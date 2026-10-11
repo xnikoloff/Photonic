@@ -13,6 +13,7 @@
                     <th>Name</th>
                     <th>Action</th>
                     <th>State</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,10 +29,10 @@
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" asp-for="@photo.Id" />
                                     <input type="hidden" asp-for="@photo.Name" />
-                                    <button type="submit" class="btn btn-warning text-white">Recover</button>
+                                    <button type="submit" class="btn btn-sm btn-info text-white">RECOVER</button>
                                 </form>
                             </td>
-                            <td class="text-danger"><b>HIDDEN</b></td>
+                            <td class="text-warning"><b>HIDDEN</b></td>
                         }
                         else
                         {
@@ -40,11 +41,19 @@
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" asp-for="@photo.Id" />
                                     <input type="hidden" asp-for="@photo.Name" />
-                                    <button type="submit" class="btn btn-danger text-white">Remove</button>
+                                    <button type="submit" class="btn btn-sm btn-warning text-white">REMOVE</button>
                                 </form>
                             </td>
                             <td class="text-success"><b>VISIBLE</b></td>
                         }
+                        <td>
+                            <form asp-controller="Photo" asp-action="Delete" method="POST">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" asp-for="@photo.Id" />
+                                <input type="hidden" asp-for="@photo.Name" />
+                                <button type="submit" class="btn btn-sm btn-danger text-white">X</button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -58,5 +67,11 @@
     }
     .photo{
         max-width: 250px;
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .photo {
+            max-width: 150px;
+        }
     }
 </style>

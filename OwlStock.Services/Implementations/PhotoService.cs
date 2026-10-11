@@ -291,6 +291,41 @@ namespace OwlStock.Services.Implementations
             }
         }
 
+        public async Task<bool> Delete(PhotoBase photo)
+        {
+            if (photo is null)
+            {
+                _logger.LogError($"An error occurred at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}, {nameof(photo)} was null");
+                return false;
+            }
+
+            try
+            {
+                GalleryPhoto? galleryPhoto = await _context.GalleryPhotos
+                    .Where(ph => ph.PhotoBaseId == photo.Id)
+                    .FirstOrDefaultAsync();
+
+                if(galleryPhoto is null)
+                {
+                    _logger.LogError($"${nameof(galleryPhoto)} is null at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}");
+                    return false;
+                }
+
+                _context.GalleryPhotos.Remove(galleryPhoto);
+                _context.PhotosBase.Remove(photo);
+
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"An error occurred at {DateTime.UtcNow}, {nameof(Recover)}, {nameof(PhotoService)}, {ex.Message}");
+                return false;
+            }
+        }
+
         /// <summary>
         /// Swaps the IsDownloadable property from true to false and vice versa
         /// </summary>

@@ -171,6 +171,30 @@ namespace OwlStock.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
+        [HttpPost("delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(PhotoByIdDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(PhotoById), new { dto?.Photo?.Id });
+            }
+
+            if (dto is not null)
+            {
+                if (dto.Photo is null)
+                {
+                    throw new NullReferenceException($"{nameof(dto.Photo)} is null");
+                }
+
+                await _photoService.Delete(dto.Photo);
+
+            }
+
+            return RedirectToAction("ManagePhotos", "Administration");
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpPost("changeDownloadPermissions")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeDownloadPermissions(PhotoByIdDTO dto)
