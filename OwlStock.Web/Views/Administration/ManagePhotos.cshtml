@@ -51,6 +51,7 @@
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" asp-for="@photo.Id" />
                                 <input type="hidden" asp-for="@photo.Name" />
+                                <input type="hidden" asp-for="@photo.PhotoBaseId" />
                                 <button type="submit" class="btn btn-sm btn-danger text-white">X</button>
                             </form>
                         </td>

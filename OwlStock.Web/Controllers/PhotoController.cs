@@ -187,7 +187,7 @@ namespace OwlStock.Web.Controllers
                     throw new NullReferenceException($"{nameof(dto.Photo)} is null");
                 }
 
-                await _photoService.Delete(dto.Photo);
+                await _photoService.Delete(dto.Photo, _webHostEnvironment.WebRootPath);
 
             }
 

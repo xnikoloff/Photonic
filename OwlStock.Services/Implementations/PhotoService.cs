@@ -291,7 +291,14 @@ namespace OwlStock.Services.Implementations
             }
         }
 
-        public async Task<bool> Delete(PhotoBase photo)
+        /// <summary>
+        /// Deletes the GalleryPhoto and PhotoBase entries from the database and 
+        /// deletes the file related to them
+        /// </summary>
+        /// <param name="photo">GalleryPhoto</param>
+        /// <param name="wwwrootPath">The path to wwwroot folder</param>
+        /// <returns></returns>
+        public async Task<bool> Delete(GalleryPhoto photo, string wwwrootPath)
         {
             if (photo is null)
             {
@@ -301,18 +308,30 @@ namespace OwlStock.Services.Implementations
 
             try
             {
-                GalleryPhoto? galleryPhoto = await _context.GalleryPhotos
-                    .Where(ph => ph.PhotoBaseId == photo.Id)
+                PhotoBase? photoBase = await _context.PhotosBase
+                    .Where(ph => ph.Id == photo.PhotoBaseId)
                     .FirstOrDefaultAsync();
 
-                if(galleryPhoto is null)
+                if(photoBase is null)
                 {
-                    _logger.LogError($"${nameof(galleryPhoto)} is null at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}");
+                    _logger.LogError($"${nameof(photoBase)} is null at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}");
+                    return false;
+                }
+                
+                string filePathSmall = Path.Combine(wwwrootPath, "resources", "gallery-photos", "OriginalSize_" + photoBase.FileName);
+                string filePathOriginal = Path.Combine(wwwrootPath, "resources", "gallery-photos", "Small_" + photoBase.FileName);
+
+                _context.PhotosBase.Remove(photoBase);
+
+                if (photoBase.FileName.IsNullOrEmpty())
+                {
+                    _logger.LogError($"${nameof(photoBase.FileName)} is null or empty at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}");
                     return false;
                 }
 
-                _context.GalleryPhotos.Remove(galleryPhoto);
-                _context.PhotosBase.Remove(photo);
+
+                File.Delete(filePathOriginal);
+                File.Delete(filePathSmall);
 
                 await _context.SaveChangesAsync();
 
