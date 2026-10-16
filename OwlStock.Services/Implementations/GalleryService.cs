@@ -111,6 +111,7 @@ namespace OwlStock.Services.Implementations
                     List<GalleryPhoto?> photos = await _context.PhotosCategories
                         .Where(pc => pc.Category == category && pc.GalleryPhoto.IsDeleted == false)
                         .Select(pc => pc.GalleryPhoto)
+                        .OrderByDescending(pc => pc.CreatedOn)
                         .ToListAsync() ?? new();
 
                     categoriesWithPhotos.Add(category, photos);
