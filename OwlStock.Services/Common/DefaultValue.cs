@@ -22,7 +22,7 @@
         public const string ProductPlusPhotoshootDescription = "Кадри с артистични елементи (например за реклами, блогове и др.)";
         public const string BusinessPortraitPhotoshootDescription = "Включва всички сполучливи кадри от фотосесията";
         public const string AutomotiveDescription = "Включва всички сполучливи кадри от фотосесията";
-        public const string NegotiablePhotoshootDescription = "Ще изчислим цената спрямо вашите нужди";
+        public const string NegotiablePhotoshootDescription = "Цената се изчислява спрямо вашите нужди";
         
         /* PRICE PACKETS */
 
