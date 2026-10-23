@@ -2,6 +2,7 @@
 using OwlStock.Domain.Entities;
 using OwlStock.Services.DTOs;
 using OwlStock.Services.Interfaces;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace OwlStock.Web.Controllers
 {
@@ -29,28 +30,30 @@ namespace OwlStock.Web.Controllers
             return View();
         }
 
-        [HttpPost("nov-vaucher")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateGiftCardDTO dto)
+        [HttpPost("porachka")]
+        public async Task<IActionResult> Order(CreateGiftCardDTO dto)
         {
             GiftCard giftCard = await _giftCardService.Create(dto.GiftCard ?? new());
+            return View(giftCard);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult Create(GiftCard giftCard)
+        {
             string html = _giftCardService.GetHtmlTemplate(giftCard);
             byte[]? pdf = _pdfService.GeneratePdfFromHtml(html);
 
             if (pdf != null)
             {
-                return DownloadGiftCard(pdf);
+                return File(pdf, "application/pdf", "ваучер.pdf");
             }
 
             else
             {
                 return View("Error", "Неуспешно създаване на ваучер");
             }
-        }
-
-        private FileResult DownloadGiftCard(byte[] bytes)
-        {
-            return File(bytes, "application/pdf", "ваучер.pdf");
-        }
+        } 
     }
 }

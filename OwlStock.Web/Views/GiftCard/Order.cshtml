@@ -1,0 +1,100 @@
+﻿@model GiftCard
+@{
+    ViewData["Title"] = "Поръчка на ваучер";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mt-5">
+            <h2 class="text-danger"><b>ВАЖНО!</b> Този ваучер все още е неактивен!</h2>
+            <p>За да активирате ваучера, моля платете съответната сума, като преведете средства по банков път, използвайки тези данни:</p>
+            <p><b>IBAN: BG80BNBG96611020345678</b></p>
+            <p><b>BIC: UBBSBGSF </b></p>
+            <p><b>Въведете номера на ваучера като забележка при превода. Него ще намерите в профила Ви в секция „Подаръчни ваучери“</b></p>
+            <p>Може да следите статуса на Вашия ваучер от профила Ви. Веднага щом ваучерът стане активен ще получите имейл, който потвърджава това.</p>
+        </div>
+    </div>
+    <div class="row">
+    <div class="row">
+        <div class="col-12 mx-auto mt-5 text-center">
+            
+        </div>
+    </div>
+        <div class="col-lg-8 col-sm-12 mx-auto text-center mt-3">
+            <div class="mx-auto text-center">
+                <form asp-action="Create" asp-controller="GiftCard" style="display:inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="CreatedOn"/>
+                    <input type="hidden" asp-for="Receiver"/>
+                    <input type="hidden" asp-for="PhotoShootType"/>
+                    <input type="hidden" asp-for="GiftCardNumber"/>
+                    <button class="btn btn-primary btn-lg" type=submit><i class="fa-solid fa-circle-check fs-4"></i> Завърши поръчката</button>
+                </form>
+            </div>
+            
+            <div class="certificate-wrap" style="background:#f7f7f7;font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 40px;box-sizing:border-box;margin:0;">
+    
+                <div class="certificate" style="width:1000px;max-width:100%;box-shadow:0 15px 40px rgba(0,0,0,.12);padding:90px 100px 40px 100px;position:relative;background:#dae0e3;box-sizing:border-box;">
+
+                    <div class="header" style="text-align:center;margin-bottom:60px;position:relative;z-index:2;">
+                        <span class="small-title" style="text-transform:uppercase;letter-spacing:6px;color:#627582;font-size:13px;">
+                            Подаръчен ваучер
+                        </span>
+
+                        <h1 class="certificate-logo" style="font-family:'Cormorant Garamond',serif;font-size:62px;font-weight:600;color:#222;margin:15px 0;">
+                            <img src="~/img/icons/icon-1.png" alt="logo" />
+                        </h1>
+                    </div>
+
+                    <div class="content" style="position:relative;z-index:2;">
+
+                        <p class="presented" style="text-align:center;color:#777;letter-spacing:1px;margin-top:100px;margin-bottom:20px;font-size:24px;">
+                            Този ваучер е създаден специално за
+                        </p>
+
+                        <div class="recipient" style="text-align:center;font-style:italic;font-family:'Arial';font-size:56px;color:#111;border-bottom:2px solid #627582;display:block;width:100%;padding-bottom:12px;margin-bottom:60px;box-sizing:border-box;">
+                            <span>@Model.Receiver</span>
+                        </div>
+
+                        <div class="details">
+
+                            <div class="item">
+                                <span class="label" style="display:block;color:#627582;text-transform:uppercase;letter-spacing:1px;font-size:11px;margin-bottom:12px;">
+                                    Фотосесия
+                                </span>
+                                <span class="value" style="font-size:22px;color:#222;font-weight:500;">
+                                    @Model.PhotoShootType
+                                </span>
+                            </div>
+
+                            <div class="item item-valid-until" style="margin-top: 40px;">
+                                <span class="label" style="display:block;color:#627582;text-transform:uppercase;letter-spacing:1px;font-size:11px;margin-bottom:12px;">
+                                    Валиден до
+                                </span>
+                                <span class="value" style="font-size:22px;color:#222;font-weight:500;">
+                                    @DateTime.Now.AddYears(1).ToString("dd.MM.yyyy")    
+                                </span>
+                            </div>
+                            <div class="item item-cert-number" style="margin-top:40px">
+                                <div class="certificate-number" style="font-size:13px;color:#888;letter-spacing:2px;">
+                                    #CERTIFICATE NUMBER
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>  
+
+                    <div class="footer text-center" style="display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;">
+
+                        <div class="signature" style="width:240px;margin:0 auto">
+                            <span class="contacts" style="font-size:14px;color:#627582;">
+                                <b>PHOTONIC.bg</b>| +359 878 131828
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

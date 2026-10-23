@@ -37,7 +37,7 @@
     </div>
     <div class="row">
         <div class="col-lg-8 col-sm-12 mx-auto text-center mt-3">
-            <form asp-action="Create" method="post" id="gift-card-template-form">
+            <form asp-action="Order" method="post" id="gift-card-template-form">
                 <div class="certificate-wrap" style="background:#f7f7f7;font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 40px;box-sizing:border-box;margin:0;">
     
                     <div class="certificate" style="width:1000px;max-width:100%;box-shadow:0 15px 40px rgba(0,0,0,.12);padding:90px 100px 40px 100px;position:relative;background:#dae0e3;box-sizing:border-box;">
@@ -59,7 +59,7 @@
                             </p>
 
                             <div class="recipient" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:bold;color:#111;border-bottom:2px solid #627582;display:block;width:100%;padding-bottom:12px;margin-bottom:60px;box-sizing:border-box;">
-                                <input asp-for="GiftCard.Receiver" class="form-control" style="background:#d0d5d9;font-weight:bold;text-align:center;color:#222;border:none;border-radius:5px" />
+                                <input asp-for="GiftCard.Receiver" class="form-control" style="background:#d0d5d9;font-weight:bold;text-align:center;color:#222;border:none;border-radius:5px" placeholder="Въведете име на получател"/>
                             </div>
 
                             <div class="details">
