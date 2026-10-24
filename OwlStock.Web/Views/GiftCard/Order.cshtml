@@ -28,7 +28,7 @@
                     <input type="hidden" asp-for="Receiver"/>
                     <input type="hidden" asp-for="PhotoShootType"/>
                     <input type="hidden" asp-for="GiftCardNumber"/>
-                    <button class="btn btn-primary btn-lg" type=submit><i class="fa-solid fa-circle-check fs-4"></i> Завърши поръчката</button>
+                    <button class="btn btn-primary" type=submit><i class="fa-solid fa-circle-check fs-4"></i> Завърши поръчката</button>
                 </form>
             </div>
             
@@ -98,3 +98,74 @@
         </div>
     </div>
 </div>
+
+<style>
+    @@media only screen and (max-width: 995px) {
+        .certificate-wrap {
+            padding: 0 0 !important;
+            min-height: unset !important;
+        }
+
+        .certificate {
+            padding: 30px 10px !important;
+        }
+
+        .small-title{
+            font-size: 0.6rem !important;
+            letter-spacing: 1px !important;
+        }
+
+        .certificate-logo {
+            margin: 8px 0 !important;
+        }
+
+        .label {
+            font-size: 9px !important;
+        }
+
+        .value, .remove-valid-until-description, #GiftCard_PhotoShootType {
+            font-size: 10px !important;
+        }
+
+        .signature {
+            width: 150px !important;
+        }
+
+        .contacts {
+            font-size: 8px !important;
+        }
+
+        .certificate-number {
+            font-size: 8px !important;
+        }
+
+        .certificate-logo img {
+            width: 200px !important;
+        }
+
+        .presented {
+            margin-top: -30px !important;
+            font-size: 10px !important;
+        }
+
+        .details {
+            margin-top: -20px !important;
+        }
+
+        .recipient{
+            font-size: 1rem !important
+        }
+
+        .item-valid-until {
+            margin-top: 20px !important;
+        }
+
+        .item-cert-number {
+            margin-top: 20px !important;
+        }
+
+        .col-summary-section {
+            margin-top: 30px;
+        }
+    }
+</style>
