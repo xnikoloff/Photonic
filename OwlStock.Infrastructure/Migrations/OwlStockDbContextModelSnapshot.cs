@@ -443,6 +443,9 @@ namespace OwlStock.Infrastructure.Migrations
                     b.Property<int>("PhotoShootType")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Receiver")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -451,9 +454,17 @@ namespace OwlStock.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("UpdatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdentityUserId");
+
+                    b.HasIndex("UpdatedById");
 
                     b.ToTable("GiftCards");
                 });
@@ -1048,7 +1059,13 @@ namespace OwlStock.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("IdentityUserId");
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById");
+
                     b.Navigation("IdentityUser");
+
+                    b.Navigation("UpdatedBy");
                 });
 
             modelBuilder.Entity("OwlStock.Domain.Entities.Municipality", b =>

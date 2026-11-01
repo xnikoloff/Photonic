@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwlStock.Domain.Entities;
-using OwlStock.Services.DTOs;
+using OwlStock.Services.DTOs.GiftCard;
 using OwlStock.Services.Interfaces;
 using SixLabors.ImageSharp.PixelFormats;
+using System.Security.Claims;
 
 namespace OwlStock.Web.Controllers
 {
@@ -24,6 +25,12 @@ namespace OwlStock.Web.Controllers
             return View(await _giftCardService.GetById(id));
         }
 
+        [HttpGet("moite-vaucheri")]
+        public async Task<IActionResult> MyGiftCards()
+        {
+            return View(await _giftCardService.GiftCardsByUser(GetUserId()));
+        }
+
         [HttpGet("nov-vaucher")]
         public IActionResult Template()
         {
@@ -34,7 +41,14 @@ namespace OwlStock.Web.Controllers
         [HttpPost("porachka")]
         public async Task<IActionResult> Order(CreateGiftCardDTO dto)
         {
-            GiftCard giftCard = await _giftCardService.Create(dto.GiftCard ?? new());
+            dto.IdentityUserId = GetUserId();
+            GiftCard giftCard = await _giftCardService.Create(dto ?? new());
+
+            if(giftCard.Id == Guid.Empty)
+            {
+                return View("Error", "Възникна грешка при създаването на Вашия ваучер. Моля опитайте по-късно.");
+            }
+
             return View(giftCard);
         }
 
@@ -54,6 +68,11 @@ namespace OwlStock.Web.Controllers
             {
                 return View("Error", "Неуспешно създаване на ваучер");
             }
-        } 
+        }
+
+        private string GetUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+        }
     }
 }

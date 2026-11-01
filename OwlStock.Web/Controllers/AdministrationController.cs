@@ -250,12 +250,12 @@ namespace OwlStock.Web.Controllers
             return View(await _giftCardService.GetById(id));
         }
 
-        [HttpPost()]
+        [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeclineGiftCard(Guid id)
         {
-            bool result = await _giftCardService.ChangeStatus(id, GiftCardStatus.Declined);
+            bool result = await _giftCardService.ChangeStatus(id, GiftCardStatus.Declined, GetUserId());
 
             if (result)
             {
@@ -267,12 +267,12 @@ namespace OwlStock.Web.Controllers
             }
         }
 
-        [HttpPost()]
+        [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ValidateGiftCard(Guid id)
+        public async Task<IActionResult> ActivateGiftCard(Guid id)
         {
-            bool result = await _giftCardService.ChangeStatus(id, GiftCardStatus.Validated);
+            bool result = await _giftCardService.ChangeStatus(id, GiftCardStatus.Active, GetUserId());
 
             if (result)
             {
@@ -284,12 +284,12 @@ namespace OwlStock.Web.Controllers
             }
         }
 
-        [HttpPost()]
+        [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SetGiftCardAsUsed(Guid id)
         {
-            bool result = await _giftCardService.ChangeStatus(id, GiftCardStatus.Used);
+            bool result = await _giftCardService.ChangeStatus(id, GiftCardStatus.Used, GetUserId());
 
             if (result)
             {

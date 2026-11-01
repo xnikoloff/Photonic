@@ -21,7 +21,7 @@
                         <h5 class="text-danger">/ОТКАЗАН/</h5>
                         break;
                     }
-                case GiftCardStatus.Validated:
+                case GiftCardStatus.Active:
                     {
                         <h5 class="text-success">/ПЛАТЕН/</h5>
                         break;
@@ -59,7 +59,7 @@
             </div>
             <div class="row mt-5 pt-5">
                 <div class="col-4 mx-auto text-center">
-                    <form asp-action="DeclineGiftCard" method="post">
+                    <form asp-controller="Administration" asp-action="DeclineGiftCard" method="post">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="@(nameof(Model.Status))" value="@GiftCardStatus.Declined" />
                         <input type="hidden" name="@(nameof(Model.Id))" value="@(Model?.Id ?? Guid.Empty)" />
@@ -67,15 +67,15 @@
                     </form>
                 </div>
                 <div class="col-4 mx-auto text-center">
-                    <form asp-action="ValidateGiftCard" method="post">
+                    <form asp-controller="Administration" asp-action="ActivateGiftCard" method="post">
                         @Html.AntiForgeryToken()
-                        <input type="hidden" name="@(nameof(Model.Status))" value="@GiftCardStatus.Validated" />
+                        <input type="hidden" name="@(nameof(Model.Status))" value="@GiftCardStatus.Active" />
                         <input type="hidden" name="@(nameof(Model.Id))" value="@(Model?.Id ?? Guid.Empty)" />
-                        <button type="submit" class="btn btn-success btn-sm">ВАЛИДНА</button>
+                        <button type="submit" class="btn btn-success btn-sm">АКТИВИРАНЕ</button>
                     </form>
                 </div>
                 <div class="col-4 mx-auto text-center">
-                    <form asp-action="SetGiftCardAsUsed" method="post">
+                    <form asp-controller="Administration" asp-action="SetGiftCardAsUsed" method="post">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="@(nameof(Model.Status))" value="@GiftCardStatus.Used" />
                         <input type="hidden" name="@(nameof(Model.Id))" value="@(Model?.Id ?? Guid.Empty)" />

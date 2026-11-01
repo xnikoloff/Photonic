@@ -5,9 +5,30 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-4 mb-5 text-primary"><i class="fa-regular fa-face-grin-beam fa-2x"></i></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-12 text-center mx-auto">
+            <h1>Благодаря Ви за поръчката!</h1>
+            <p class="mt-4">Вашия подаръчен ваучер е създаден успешно</p>
+        </div>
+        <div class="mx-auto text-center mt-5">
+            <form asp-action="Create" asp-controller="GiftCard" style="display:inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="CreatedOn" />
+                <input type="hidden" asp-for="Receiver" />
+                <input type="hidden" asp-for="PhotoShootType" />
+                <input type="hidden" asp-for="GiftCardNumber" />
+                <button class="btn btn-primary btn-lg" type=submit><i class="fa-solid fa-download fs-4"></i> ИЗТЕГЛИ PDF</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12 text-center mt-5">
-            <h2 class="text-danger"><b>ВАЖНО!</b> Този ваучер все още е неактивен!</h2>
-            <p>За да активирате ваучера, моля платете съответната сума, като преведете средства по банков път, използвайки тези данни:</p>
+            <h2 class="text-danger mt-5"><b>ВАЖНО!</b> Този ваучер все още е неактивен!</h2>
+            <p>За да активирате ваучера, моля платете цената на ваучера, като преведете средства по банков път, използвайки тези данни:</p>
             <p><b>IBAN: BG80BNBG96611020345678</b></p>
             <p><b>BIC: UBBSBGSF </b></p>
             <p><b>Въведете номера на ваучера като забележка при превода. Него ще намерите в профила Ви в секция „Подаръчни ваучери“</b></p>
@@ -15,23 +36,7 @@
         </div>
     </div>
     <div class="row">
-    <div class="row">
-        <div class="col-12 mx-auto mt-5 text-center">
-            
-        </div>
-    </div>
         <div class="col-lg-8 col-sm-12 mx-auto text-center mt-3">
-            <div class="mx-auto text-center">
-                <form asp-action="Create" asp-controller="GiftCard" style="display:inline">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" asp-for="CreatedOn"/>
-                    <input type="hidden" asp-for="Receiver"/>
-                    <input type="hidden" asp-for="PhotoShootType"/>
-                    <input type="hidden" asp-for="GiftCardNumber"/>
-                    <button class="btn btn-primary" type=submit><i class="fa-solid fa-circle-check fs-4"></i> Завърши поръчката</button>
-                </form>
-            </div>
-            
             <div class="certificate-wrap" style="background:#f7f7f7;font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 40px;box-sizing:border-box;margin:0;">
     
                 <div class="certificate" style="width:1000px;max-width:100%;box-shadow:0 15px 40px rgba(0,0,0,.12);padding:90px 100px 40px 100px;position:relative;background:#dae0e3;box-sizing:border-box;">

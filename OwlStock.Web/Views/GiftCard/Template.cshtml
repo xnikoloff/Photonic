@@ -1,6 +1,8 @@
 ﻿@model CreateGiftCardDTO
 
 @{
+    /*@inject IConfiguration configuration
+    string siteKey = configuration["ReCaptcha:SiteKey"] ?? "";*/
     ViewData["Title"] = "Подаръчен ваучер";
 }
 
@@ -38,6 +40,7 @@
     <div class="row">
         <div class="col-lg-8 col-sm-12 mx-auto text-center mt-3">
             <form asp-action="Order" method="post" id="gift-card-template-form">
+                <!--<input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />-->
                 <div class="certificate-wrap" style="background:#f7f7f7;font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 40px;box-sizing:border-box;margin:0;">
     
                     <div class="certificate" style="width:1000px;max-width:100%;box-shadow:0 15px 40px rgba(0,0,0,.12);padding:90px 100px 40px 100px;position:relative;background:#dae0e3;box-sizing:border-box;">
@@ -59,7 +62,7 @@
                             </p>
 
                             <div class="recipient" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:bold;color:#111;border-bottom:2px solid #627582;display:block;width:100%;padding-bottom:12px;margin-bottom:60px;box-sizing:border-box;">
-                                <input asp-for="GiftCard.Receiver" class="form-control" style="background:#d0d5d9;font-weight:bold;text-align:center;color:#222;border:none;border-radius:5px" placeholder="Въведете име на получател"/>
+                                <input asp-for="Receiver" class="form-control" style="background:#d0d5d9;font-weight:bold;text-align:center;color:#222;border:none;border-radius:5px" placeholder="Въведете име на получател"/>
                             </div>
 
                             <div class="details">
@@ -69,7 +72,7 @@
                                         Фотосесия
                                     </span>
                                     <span class="value" style="font-size:22px;color:#222;font-weight:500;">
-                                        <select asp-for="GiftCard.PhotoShootType" 
+                                        <select asp-for="PhotoShootType" 
                                         asp-items="Html.GetEnumSelectList<PhotoShootType>()
                                         .Where(ph => 
                                                int.Parse(ph.Value) == (int)PhotoShootType.Personal
@@ -243,12 +246,15 @@
     }
 </style>
 
+<!--<script src="https://www.google.com/recaptcha/api.js"></script>
+<script src="~/js/custom//recaptcha.js" data-siteKey="siteKey"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>-->
 <script>
     $(document).ready(function(){
-        $("#GiftCard_Receiver").change(function(){
+        $("#Receiver").change(function(){
             $("#name-summary-text").html($(this).val());
         });
-        $("#GiftCard_PhotoShootType").change(function(){
+        $("#PhotoShootType").change(function(){
             $("#summary-photoshoot-type").html($(this).find(":selected").text());
             calculatePrice($(this).find(":selected").val());
         });

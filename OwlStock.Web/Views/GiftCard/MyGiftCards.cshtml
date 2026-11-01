@@ -1,0 +1,186 @@
+﻿@model List<MyGiftCardDTO>
+
+@{
+    ViewData["Title"] = "Моите ваучери";
+}
+
+<div class="container my-container mt-5">
+    <div class="row mb-5">
+        <div class="col-12 text-dark text-center">
+            @if(Model.Count == 0)
+            {
+                <h6 class="text-primary mt-5">Нямате поръчани ваучери</h6>
+                <hr />
+                <div class="mt-5">
+                    <h1 id="book-cta-icon"><i class="fa-solid fa-camera text-primary"></i></h1>
+                    <h4 class="mt-3">Зарадвай любим човек от тук:</h4>
+                    <a asp-action="Template" asp-controller="GiftCard" class="btn btn-primary mt-4">ПОРЪЧАЙ ВАУЧЕР</a>
+                </div>
+            }
+
+            @if (Model.Where(gf => gf.Status == GiftCardStatus.Active).Any())
+            {
+
+                <h1 class="mt-5 text-start">ОЧАКВАЩИ ПЛАЩАНЕ</h1>
+
+                @foreach (MyGiftCardDTO dto in Model.Where(gf => gf.Status == GiftCardStatus.New))
+                {
+                    <div class="card text-dark mt-3 my-card">
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <div class="card-body">
+                                    <h3><a asp-controller="Photoshoot" asp-action="PhotoshootById" asp-route-id="@dto?.Id" class="text-primary mb-3">@(dto?.PhotoshootType.GetAttribute<DisplayAttribute>()?.Name)</a></h3>
+                                    <span>Поръчан за</span>
+                                    <h4 class="text-data">@dto?.Receiver</h4>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-3">
+                                <div class="card-body">
+                                    <p>Дата</p>
+                                    <h2 class="text-data">@dto?.CreatedOn.ToString("dd.MM")</h2>
+                                    <h3 class="text-data text-year">@dto?.CreatedOn.ToString("yyyy") г.</h3>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-3">
+                                <div class="card-body">
+                                    <p>Цена</p>
+                                    <h2 class="text-data service-price">€@dto?.Price</h2>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-2">
+                                <div class="card-body text-center mx-auto">
+                                    <span><i class="fa-solid fa-clock text-warning fa-lg"></i></span>
+                                    <p class="text-warning">@(dto?.Status.GetAttribute<DisplayAttribute>().Name)</p>
+                                    <a asp-controller="GiftCard" asp-action="GiftCardById" asp-route-id="@dto?.Id" class="btn btn-primary btn btn-lg text-white">Преглед</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+            @if (Model.Where(gf => gf.Status == GiftCardStatus.Active).Any())
+            {
+
+                <h1 class="mt-5 text-start">АКТИВНИ</h1>
+
+                @foreach (MyGiftCardDTO dto in Model.Where(gf => gf.Status == GiftCardStatus.Active))
+                {
+                    <div class="card text-dark mt-3 my-card">
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <div class="card-body">
+                                    <h3><a asp-controller="GiftCard" asp-action="GiftCardById" asp-route-id="@dto?.Id" class="text-primary mb-3">@(dto?.PhotoshootType.GetAttribute<DisplayAttribute>()?.Name)</a></h3>
+                                    <span>Поръчан за</span>
+                                    <h4 class="text-data">@dto?.Receiver</h4>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-3">
+                                <div class="card-body">
+                                    <p>Дата</p>
+                                    <h2 class="text-data">@dto?.CreatedOn.ToString("dd.MM")</h2>
+                                    <h3 class="text-data text-year">@dto?.CreatedOn.ToString("yyyy") г.</h3>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-3">
+                                <div class="card-body">
+                                    <p>Цена</p>
+                                    <h2 class="text-data service-price">€@dto?.Price</h2>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-2">
+                                <div class="card-body text-center mx-auto">
+                                    <span><i class="fa-solid fa-wand-magic-sparkles text-info fa-lg"></i></span>
+                                    <p class="text-info">@(dto?.Status.GetAttribute<DisplayAttribute>().Name)</p>
+                                    <a asp-controller="GiftCard" asp-action="GiftCardById" asp-route-id="@dto?.Id" class="btn btn-primary btn btn-lg text-white">Преглед</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @if(Model.Where(gf => gf.Status == GiftCardStatus.Used).Any())
+            {
+
+                <h1 class="mt-5 text-start">ИЗПОЛЗВАНИ</h1>
+                
+                @foreach (MyGiftCardDTO dto in Model.Where(gf => gf.Status == GiftCardStatus.Used))
+                {
+                    <div class="card text-dark mt-3 my-card">
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <div class="card-body">
+                                    <h3><a asp-controller="GiftCard" asp-action="GiftCardById" asp-route-id="@dto?.Id" class="text-primary mb-3">@(dto?.PhotoshootType.GetAttribute<DisplayAttribute>()?.Name)</a></h3>
+                                    <span>Поръчан за</span>
+                                    <h4 class="text-data">@dto?.Receiver</h4>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-3">
+                                <div class="card-body">
+                                    <p>Дата</p>
+                                    <h2 class="text-data">@dto?.CreatedOn.ToString("dd.MM")</h2>
+                                    <h3 class="text-data text-year">@dto?.CreatedOn.ToString("yyyy") г.</h3>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-3">
+                                <div class="card-body">
+                                    <p>Цена</p>
+                                    <h2 class="text-data service-price">€@dto?.Price</h2>
+                                </div>
+                            </div>
+                            <div class="col-4 col-lg-2">
+                                <div class="card-body text-center mx-auto">
+                                    <span><i class="fa-solid fa-check text-muted fa-lg"></i></span>
+                                    <p class="text-muted">@(dto?.Status.GetAttribute<DisplayAttribute>().Name)</p>
+                                    <a asp-controller="GiftCard" asp-action="GiftCardById" asp-route-id="@dto?.Id" class="btn btn-primary btn btn-lg text-white">Преглед</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    tr:hover{
+        cursor: pointer;
+    }
+
+    #book-cta-icon {
+        font-size: 4rem;
+    }
+
+
+            @@media only screen and (max-width: 768px) {
+        .my-card .text-data {
+            font-size: 1.1rem;
+        }
+
+        .my-card .text-year, h6, span, p {
+            font-size: .9rem;
+        }
+
+        #book-cta-icon {
+            font-size: 3rem;
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function(){
+        let scheme = "@Context.Request.Scheme";
+        let host = "@Context.Request.Host";
+        let path = "/GiftCard/GiftCardById"
+        let id = 0;
+
+        $("tr").mouseover(function () {
+            id = this.id;
+        });
+        
+        $(".clickable").click(function (){
+            window.location = scheme + "://" + host + path + '/' + id;
+        });
+    });
+</script>

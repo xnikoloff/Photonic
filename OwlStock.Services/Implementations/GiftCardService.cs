@@ -5,6 +5,7 @@ using OwlStock.Domain.Entities;
 using OwlStock.Domain.Enumerations;
 using OwlStock.Infrastructure;
 using OwlStock.Infrastructure.Common.PdfTemplates.GiftCard;
+using OwlStock.Services.DTOs.GiftCard;
 using OwlStock.Services.Interfaces;
 
 namespace OwlStock.Services.Implementations
@@ -12,11 +13,13 @@ namespace OwlStock.Services.Implementations
     public class GiftCardService : IGiftCardService
     {
         private PhotonicDbContext _context;
+        private ICalculationsService _calculationsService;
         private ILogger<GiftCardService> _logger;
 
-        public GiftCardService(PhotonicDbContext context, ILogger<GiftCardService> logger) 
+        public GiftCardService(PhotonicDbContext context, ILogger<GiftCardService> logger, ICalculationsService calculationsService) 
         {
             _context = context ?? new PhotonicDbContext();
+            _calculationsService = calculationsService;
             _logger = logger;
         }
 
@@ -39,6 +42,40 @@ namespace OwlStock.Services.Implementations
             {
                 _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
                 return new List<GiftCard>();
+            }
+        }
+
+        public async Task<IEnumerable<MyGiftCardDTO>> GiftCardsByUser(string userId)
+        {
+            if (_context.GiftCards is null)
+            {
+                _logger.LogError($"{nameof(_context.GiftCards)} is null at {DateTime.UtcNow} in {nameof(GiftCardService)}, {nameof(GiftCardsByUser)}");
+                return new List<MyGiftCardDTO>();
+            }
+
+            try
+            {
+                IEnumerable<MyGiftCardDTO> giftCards = await _context.GiftCards
+                    .Where(gf => gf.IdentityUserId!.Equals(userId))
+                    .Select(gf => new MyGiftCardDTO
+                    {
+                        Id = gf.Id,
+                        CreatedOn = gf.CreatedOn,
+                        PhotoshootType = gf.PhotoShootType,
+                        Price = gf.Price.ToString(),
+                        Receiver = gf.Receiver ?? "",
+                        Status = gf.Status
+                    })
+                    .OrderByDescending(gf => gf.Id)
+                    .ToListAsync();
+
+                return giftCards;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new List<MyGiftCardDTO>();
             }
         }
 
@@ -68,23 +105,30 @@ namespace OwlStock.Services.Implementations
             }
         }
 
-        public async Task<GiftCard> Create(GiftCard giftCard)
+        public async Task<GiftCard> Create(CreateGiftCardDTO dto)
         {
-            if(giftCard == null)
+            if(dto == null)
             {
-                _logger.LogError($"{nameof(giftCard)} is null at {DateTime.UtcNow} in {nameof(GiftCardService)}, {nameof(Create)}");
+                _logger.LogError($"{nameof(dto)} is null at {DateTime.UtcNow} in {nameof(GiftCardService)}, {nameof(Create)}");
                 return new();
             }
 
-            if (giftCard.Receiver.IsNullOrEmpty())
+            if (dto.Receiver.IsNullOrEmpty())
             {
-                _logger.LogError($"${nameof(giftCard.Receiver)} is null or empty at {DateTime.UtcNow} in {nameof(GiftCardService)}, {nameof(Create)}");
+                _logger.LogError($"${nameof(dto.Receiver)} is null or empty at {DateTime.UtcNow} in {nameof(GiftCardService)}, {nameof(Create)}");
                 return new();
             }
 
-            giftCard.CreatedOn = DateTime.Now;
-            giftCard.GiftCardNumber = GenerateGiftCardNumber(giftCard.PhotoShootType);
-            giftCard.Status = GiftCardStatus.New;
+            GiftCard giftCard = new()
+            {
+                Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, 0, 0),
+                Receiver = dto.Receiver,
+                IdentityUserId = dto.IdentityUserId,
+                CreatedOn = DateTime.Now,
+                GiftCardNumber = GenerateGiftCardNumber(dto.PhotoShootType),
+                PhotoShootType = dto.PhotoShootType,
+                Status = GiftCardStatus.New
+            };
 
             try
             {
@@ -100,7 +144,7 @@ namespace OwlStock.Services.Implementations
             }
         }
 
-        public async Task<bool> ChangeStatus(Guid id, GiftCardStatus status)
+        public async Task<bool> ChangeStatus(Guid id, GiftCardStatus status, string userId)
         {
             if (_context.GiftCards is null)
             {
@@ -123,6 +167,8 @@ namespace OwlStock.Services.Implementations
                     if (giftCard != null) 
                     {
                         giftCard.Status = status;
+                        giftCard.UpdatedOn = DateTime.Now;
+                        giftCard.UpdatedById = userId;
                         await _context.SaveChangesAsync();
                         return true;
                     }

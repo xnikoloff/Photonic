@@ -24,6 +24,15 @@ namespace OwlStock.Domain.Entities
 
         public GiftCardStatus Status { get; set; }
 
+        public decimal Price { get; set; }
+
+        public DateTime UpdatedOn { get; set; }
+
+        [ForeignKey(nameof(UpdatedBy))]
+        public string? UpdatedById { get; set; }
+
+        public IdentityUser? UpdatedBy { get; set; }
+
         [ForeignKey(nameof(IdentityUser))]
         public string? IdentityUserId { get; set; }
 

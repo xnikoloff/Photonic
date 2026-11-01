@@ -1,8 +1,8 @@
 ﻿@model CreateGiftCardDTO
 
 @{
-    @inject IConfiguration configuration
-    string siteKey = configuration["ReCaptcha:SiteKey"] ?? "";
+    /*@inject IConfiguration configuration
+    string siteKey = configuration["ReCaptcha:SiteKey"] ?? "";*/
     ViewData["Title"] = "Нов ваучер";
 }
 <div class="container py-5">
@@ -25,17 +25,17 @@
             <!--<h4 class="mb-4">Опитваме се да отговаряме на всички Ваши запитвания в най-кратък срок</h4>-->
             <form asp-action="Create" asp-controller="GiftCard" method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />
+                <!--<input type="hidden" asp-for="ReCaptchaToken" id="recaptchaTokenInputId" />-->
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-floating"> 
-                                <input type="text" class="form-control" asp-for="GiftCard.Receiver" placeholder="Име">
+                                <input type="text" class="form-control" asp-for="Receiver" placeholder="Име">
                                 <label for="name">Име на получател</label>
                             </div>
                          </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <select asp-for="GiftCard.PhotoShootType" asp-items="Html.GetEnumSelectList<PhotoShootType>()" class="form-control">
+                                <select asp-for="PhotoShootType" asp-items="Html.GetEnumSelectList<PhotoShootType>()" class="form-control">
                                     <option selected="selected" value="">Фотосесия</option>
                                 </select>
                                 <label for="name">Избор на фотосесия</label>
@@ -57,6 +57,6 @@
 
 
 
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script src="~/js/custom//recaptcha.js" data-siteKey="@siteKey"></script>
-<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
+<!--<script src="https://www.google.com/recaptcha/api.js"></script>
+<script src="~/js/custom//recaptcha.js" data-siteKey="siteKey"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>-->
