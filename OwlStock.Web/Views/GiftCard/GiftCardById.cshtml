@@ -37,15 +37,32 @@
     <hr />
 </div>
 <div class="photoshoot-details-section-wrap mt-5">
-    <div class="container mt-5 py-5">
-        <div class="row">
+    <div class="container">
+
+        @if(Model.Status == GiftCardStatus.New)
+        {
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-danger mt-5"><b>ВАЖНО!</b> Този ваучер все още е неактивен!</h2>
+                    <p>За да активирате ваучера, моля платете цената на ваучера /<b><i>€@Model.Price</i></b>/, като преведете средства по банков път, използвайки тези данни:</p>
+                    <p class="mt-5">IBAN: <b><i>BG80BNBG96611020345678</i></b></p>
+                    <p>BIC: <b><i>UBBSBGSF </i></b></p>
+                    <p>Въведете номера на ваучера като забележка при превода: <b><i>@Model.GiftCardNumber</i></b></p>
+                    <p class="mt-5">Веднага щом ваучерът стане активен ще получите имейл, който потвърджава това.</p>
+                </div>
+            </div>
+
+        }
+
+        <div class="row mt-5 py-5">
             <div class="col-4 mx-auto text-center">
                 <h2 class="text-primary"><i class="fa-solid fa-camera fa-lg"></i></h2>
                 <h4 class="photoshoot-details-top">@(Model.PhotoShootType.GetAttribute<DisplayAttribute>().Name)</h4>
             </div>
             <div class="col-4 mx-auto text-center">
-                <h2 class="text-primary"><i class="fa-solid fa-calendar-days fa-lg"></i></h2>
-                <h3 class="photoshoot-details-top">@Model?.CreatedOn.ToString("dd.MM.yyyy") г.</h3>
+                <h2 class="text-primary"><i class="fa-solid fa-sack-dollar fa-lg"></i></h2>
+                <h3 class="photoshoot-details-top">€@Model.Price</h3>
             </div>
             <div class="col-4 mx-auto text-center">
                 <h2 class="text-primary"><i class="fa-solid fa-user-tie fa-lg"></i></h2>
