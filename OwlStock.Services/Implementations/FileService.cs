@@ -149,9 +149,15 @@ namespace OwlStock.Services.Implementations
 
             try
             {
-                string filePath = Path.Combine(webRootPath, "resources", "images", file.FileName);
+                string folderPath = Path.Combine(webRootPath, "resources", "blog");
+                string filePath = Path.Combine(folderPath, file.FileName);
                 if (file.Length > 0)
                 {
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+
                     using Stream fileStream = new FileStream(filePath, FileMode.Create);
                     await file.CopyToAsync(fileStream);
                 }
