@@ -8,6 +8,8 @@ using OwlStock.Infrastructure.Common.EmailTemplates.Account;
 using OwlStock.Infrastructure.Common.EmailTemplates.Inquiry;
 using Microsoft.Extensions.Logging;
 using OwlStock.Services.Interfaces;
+using System.Xml;
+using OwlStock.Infrastructure.Common.EmailTemplates.GiftCard;
 
 namespace OwlStock.Services.Implementations
 {
@@ -65,7 +67,7 @@ namespace OwlStock.Services.Implementations
 
             try
             {
-                if (dto.EmailTemplate is EmailTemplate.CreatePhotoShoot)
+                if (dto.EmailTemplate is EmailTemplate.CreatePhotoShoot || dto.EmailTemplate is EmailTemplate.CreateGiftCard)
                 {
                     //if email template is for created photoshoot
                     //send template to user and to Photonic
@@ -221,6 +223,17 @@ namespace OwlStock.Services.Implementations
                     );
                 }
 
+                case EmailTemplate.CreateGiftCard:
+                {
+                    return GiftCardEmailTemplates.CreateGiftCardTemplate
+                    (
+                        ((GiftCardEmailTemplateDTO)dto)?.Id ?? Guid.Empty,
+                        ((GiftCardEmailTemplateDTO)dto)?.GiftCardNumber ?? "",
+                        ((GiftCardEmailTemplateDTO)dto)?.PhotoShootType ?? 0,
+                        ((GiftCardEmailTemplateDTO)dto)?.Price ?? ""
+                    );
+                }
+
                 default:
                 {
                     throw new ArgumentException($"{dto.EmailTemplate} is invalid {nameof(EmailTemplate)}");
@@ -244,6 +257,15 @@ namespace OwlStock.Services.Implementations
                     (
                          ((PhotoShootEmailTemplateDTO)dto).Date ?? new DateTime(),
                          ((PhotoShootEmailTemplateDTO)dto).Type
+                    );
+                }
+
+                case EmailTemplate.CreateGiftCard:
+                {
+                        return PhotoShootEmailTemplates.CreatePhotoShootTemplateDreampix
+                    (
+                        DateTime.Now, //DateTime is now because gift cards are not booked, their due date one year after the order date
+                         ((GiftCardEmailTemplateDTO)dto).PhotoShootType
                     );
                 }
 

@@ -28,7 +28,7 @@
             }
             case GiftCardStatus.Used:
             {
-                <h5 class="text-info">/ИЗПОЛЗВАН/</h5>
+                <h5 class="text-muted">/ИЗПОЛЗВАН/</h5>
                 break;
             }
         }
@@ -69,11 +69,14 @@
                 <h4 class="photoshoot-details-top">@Model?.Receiver</h4>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-12 text-center">
-                <h4><i>Ваучерът е валиден до: <span class="text-primary">@Model?.CreatedOn.AddYears(1).ToString("dd.MM.yyyy")</span></i></h4>
+        @if((Model.Status) != GiftCardStatus.Used)
+        {
+           <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <h4><i>Ваучерът е валиден до: <span class="text-primary">@Model?.CreatedOn.AddYears(1).ToString("dd.MM.yyyy")</span></i></h4>
+                </div>
             </div>
-        </div>
+        }
 
     </div>
 </div>

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OwlStock.Domain.Entities;
+using OwlStock.Domain.Enumerations;
+using OwlStock.Infrastructure.Common.EmailTemplates.GiftCard;
 using OwlStock.Services.DTOs.GiftCard;
 using OwlStock.Services.Interfaces;
-using SixLabors.ImageSharp.PixelFormats;
 using System.Security.Claims;
 
 namespace OwlStock.Web.Controllers
@@ -12,11 +14,13 @@ namespace OwlStock.Web.Controllers
     {
         private readonly IGiftCardService _giftCardService;
         private readonly IPdfService _pdfService;
+        private readonly IEmailService _emailService;
 
-        public GiftCardController(IGiftCardService giftCardService, IPdfService pdfService)
+        public GiftCardController(IGiftCardService giftCardService, IPdfService pdfService, IEmailService emailService)
         {
             _giftCardService = giftCardService;
             _pdfService = pdfService;
+            _emailService = emailService;
         }
 
         [HttpGet("vaucher")]
@@ -31,6 +35,7 @@ namespace OwlStock.Web.Controllers
             return View(await _giftCardService.GiftCardsByUser(GetUserId()));
         }
 
+        [Authorize]
         [HttpGet("nov-vaucher")]
         public IActionResult Template()
         {
@@ -49,12 +54,31 @@ namespace OwlStock.Web.Controllers
                 return View("Error", "Възникна грешка при създаването на Вашия ваучер. Моля опитайте по-късно.");
             }
 
+            //send email
+            GiftCardEmailTemplateDTO emailDto = new()
+            {
+                Id = giftCard.Id,
+                Topic = "Нов подаръчен ваучер",
+                Price = giftCard.Price.ToString(),
+                PhotoShootType = giftCard.PhotoShootType,
+                EmailTemplate = EmailTemplate.CreateGiftCard,
+                GiftCardNumber = giftCard.GiftCardNumber,
+                Recipient = User?.Identity?.Name,
+            };
+
+            bool isPhotoshootEmailSent = await _emailService.Send(emailDto);
+
+            if (!isPhotoshootEmailSent)
+            {
+                return View("Error", "Неуспешно създаване на ваучер");
+            }
+
             return View(giftCard);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult Create(GiftCard giftCard)
+        public async Task<IActionResult> Create(GiftCard giftCard)
         {
             string html = _giftCardService.GetHtmlTemplate(giftCard);
             byte[]? pdf = _pdfService.GeneratePdfFromHtml(html);

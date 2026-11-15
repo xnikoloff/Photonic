@@ -11,6 +11,7 @@
         SendInquiry = 7,
         ResetPassword = 8,
         CreateConfirmedAccount = 9,
-        UpdatePhotoShoot = 10
+        UpdatePhotoShoot = 10,
+        CreateGiftCard = 11
     }
 }

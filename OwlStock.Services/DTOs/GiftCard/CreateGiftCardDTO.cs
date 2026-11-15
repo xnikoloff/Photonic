@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using OwlStock.Domain.Common;
-using OwlStock.Domain.Entities;
-using OwlStock.Domain.Enumerations;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using OwlStock.Domain.Enumerations;
 
 namespace OwlStock.Services.DTOs.GiftCard
 {
