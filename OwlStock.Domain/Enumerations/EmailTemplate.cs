@@ -12,6 +12,7 @@
         ResetPassword = 8,
         CreateConfirmedAccount = 9,
         UpdatePhotoShoot = 10,
-        CreateGiftCard = 11
+        CreateGiftCard = 11,
+        ActivateGiftCard = 12,
     }
 }

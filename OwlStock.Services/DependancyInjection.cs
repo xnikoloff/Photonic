@@ -34,6 +34,7 @@ namespace OwlStock.Services
             services.AddTransient<IGiftCardService, GiftCardService>();
             services.AddTransient<IPhotoshootFacade, PhotoshootFacade>();
             services.AddTransient<IPhotoFacade, PhotoFacade>();
+            services.AddTransient<IGiftCardFacade, GiftCardFacade>();
             services.AddTransient<IBlogServiceFacade, BlogServiceFacade>();
             services.AddTransient<IHomeFacade, HomeFacade>();
             services.AddTransient<IPdfService, PdfService>();

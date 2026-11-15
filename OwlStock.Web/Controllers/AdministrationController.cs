@@ -21,6 +21,7 @@ namespace OwlStock.Web.Controllers
     {
         private readonly IAdministrationService _administrationService;
         private readonly IPhotoShootService _photoShootService;
+        private readonly IGiftCardFacade _giftCardFacade;
         private readonly IGiftCardService _giftCardService;
         private readonly IPhotoService _photoService;
         private readonly IGalleryService _galleryService;
@@ -38,6 +39,7 @@ namespace OwlStock.Web.Controllers
             IAdministrationService administrationService, 
             IPhotoShootService photoShootService, 
             IGiftCardService giftCardService, 
+            IGiftCardFacade giftCardFacade, 
             IPhotoService photoService, 
             IGalleryService galleryService, 
             IFileService fileService, 
@@ -53,6 +55,7 @@ namespace OwlStock.Web.Controllers
             _administrationService = administrationService;
             _photoShootService = photoShootService;
             _giftCardService = giftCardService;
+            _giftCardFacade = giftCardFacade;
             _photoService = photoService;
             _galleryService = galleryService;
             _fileService = fileService;
@@ -272,7 +275,7 @@ namespace OwlStock.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ActivateGiftCard(Guid id)
         {
-            bool result = await _giftCardService.ChangeStatus(id, GiftCardStatus.Active, GetUserId());
+            bool result = await _giftCardFacade.ChangeStatus(id, GiftCardStatus.Active, GetUserId());
 
             if (result)
             {

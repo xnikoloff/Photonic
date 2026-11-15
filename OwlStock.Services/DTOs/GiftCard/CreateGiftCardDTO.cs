@@ -10,5 +10,6 @@ namespace OwlStock.Services.DTOs.GiftCard
         public string? GiftCardNumber { get; set; }
         public GiftCardStatus Status { get; set; }
         public string? IdentityUserId { get; set; }
+        public decimal Price { get; set; }
     }
 }

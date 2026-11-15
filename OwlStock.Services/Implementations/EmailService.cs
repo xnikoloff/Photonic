@@ -234,6 +234,17 @@ namespace OwlStock.Services.Implementations
                     );
                 }
 
+                case EmailTemplate.ActivateGiftCard:
+                {
+                    return GiftCardEmailTemplates.ActivateGiftCardTemplate
+                    (
+                        ((GiftCardEmailTemplateDTO)dto)?.Id ?? Guid.Empty,
+                        ((GiftCardEmailTemplateDTO)dto)?.GiftCardNumber ?? "",
+                        ((GiftCardEmailTemplateDTO)dto)?.PhotoShootType ?? 0,
+                        ((GiftCardEmailTemplateDTO)dto)?.Price ?? ""
+                    );
+                }
+
                 default:
                 {
                     throw new ArgumentException($"{dto.EmailTemplate} is invalid {nameof(EmailTemplate)}");

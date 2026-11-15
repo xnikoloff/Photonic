@@ -13,13 +13,11 @@ namespace OwlStock.Services.Implementations
     public class GiftCardService : IGiftCardService
     {
         private PhotonicDbContext _context;
-        private ICalculationsService _calculationsService;
         private ILogger<GiftCardService> _logger;
 
-        public GiftCardService(PhotonicDbContext context, ILogger<GiftCardService> logger, ICalculationsService calculationsService) 
+        public GiftCardService(PhotonicDbContext context, ILogger<GiftCardService> logger) 
         {
             _context = context ?? new PhotonicDbContext();
-            _calculationsService = calculationsService;
             _logger = logger;
         }
 
@@ -34,6 +32,7 @@ namespace OwlStock.Services.Implementations
             try
             {
                 return await _context.GiftCards
+                    .Include(gf => gf.IdentityUser)
                     .OrderByDescending(gf => gf.Id)
                     .ToListAsync();
             }
@@ -95,7 +94,10 @@ namespace OwlStock.Services.Implementations
 
             try
             {
-               return await _context.GiftCards.FindAsync(id) ?? new GiftCard();
+               return await _context.GiftCards
+                    .Include(gf => gf.IdentityUser)
+                    .Where(gf => gf.Id == id)
+                    .FirstOrDefaultAsync() ?? new GiftCard();
             }
 
             catch (Exception ex)
@@ -121,7 +123,7 @@ namespace OwlStock.Services.Implementations
 
             GiftCard giftCard = new()
             {
-                Price = _calculationsService.CalculatePhotoshootPrice(dto.PhotoShootType, 0, 0),
+                Price = dto.Price,
                 Receiver = dto.Receiver,
                 IdentityUserId = dto.IdentityUserId,
                 CreatedOn = DateTime.Now,
