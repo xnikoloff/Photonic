@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using OwlStock.Infrastructure.Common;
 using OwlStock.Services.Interfaces;
 using System.Text.Json.Nodes;
 
@@ -12,26 +11,6 @@ namespace OwlStock.Services.Common
         public CommonServices(IConfiguration configuration)
         {
             _configuration = configuration;
-        }
-
-        public string GetEnumDescription(Enum enumeration)
-        {
-            
-            if (string.IsNullOrEmpty(enumeration.ToString()))
-            {
-                throw new ArgumentNullException(nameof(enumeration));
-            }
-
-            CategoryDescriptions enumerationDescriptions = new();
-
-            object field = enumerationDescriptions
-                .GetType()
-                .GetFields()
-                .Where(f => f.Name.Contains(enumeration.ToString()))
-                .Select(f => f.GetValue(enumerationDescriptions))
-                .FirstOrDefault() ?? throw new NullReferenceException($"Member that contains name {enumeration} does not exists");
-
-            return field.ToString() ?? "N/A";
         }
 
         public async Task<bool> VerifyReCaptcha(string response)

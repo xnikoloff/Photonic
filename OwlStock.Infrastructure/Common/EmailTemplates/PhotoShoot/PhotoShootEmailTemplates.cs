@@ -1,4 +1,5 @@
 ﻿using OwlStock.Domain.Enumerations;
+using OwlStock.Infrastructure.Common;
 
 namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
 {
@@ -7,20 +8,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
         public static string CreatePhotoShootTemplate(DateTime date, PhotoShootType photoshootType, decimal price, Guid photoshootId)
         {
             string dateString = date == default ? "-" : date.ToString();
-            decimal priceEuro = Math.Round(price / 1.95583M, 2);
-            string euroString = "";
-
-            //make sure the decimal separator is a dot
-            if (priceEuro.ToString().Contains(','))
-            {
-                euroString = priceEuro.ToString().Replace(',', '.');
-            }
-
-            else
-            {
-                euroString = priceEuro.ToString();
-            }
-
+            
             return @$"<!DOCTYPE html>
                 <html lang=""en"">
                 <head>
@@ -76,7 +64,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                     <strong>Фотосесия</strong>
                                   </td>
                                   <td style=""padding:12px; border:1px solid #e5e7eb;"">
-                                    {photoshootType}
+                                    {photoshootType.GetEnumDescription()}
                                   </td>
                                 </tr>
                                 <tr>
@@ -84,7 +72,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                     <strong>Цена</strong>
                                   </td>
                                   <td style=""padding:12px; border:1px solid #e5e7eb;"">
-                                    {euroString} € / {price}.00 лв.
+                                    €{price}
                                   </td>
                                 </tr>
                               </table>
@@ -212,15 +200,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
         public static string UpdatePhotoShootDataTemplate(Guid photoshootId, PhotoShootType photoshootType, string photoshootNumber, DateTime date, decimal price)
         {
             string dateString = date == default ? "-" : date.ToString();
-            decimal priceEuro = Math.Round(price / 1.95583M, 2);
-            string euroString = "";
-            //make sure the decimal separator is a dot
-
-            if (priceEuro.ToString().Contains(','))
-            {
-                euroString = priceEuro.ToString().Replace(',', '.');
-            }
-
+            
             return @$"<!DOCTYPE html>
                     <html lang=""en"">
                     <head>
@@ -275,7 +255,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.PhotoShoot
                                         <strong>Цена</strong>
                                       </td>
                                       <td style=""padding:12px; border:1px solid #e5e7eb;"">
-                                        {euroString} € / {price}.00 лв.
+                                        €{price}
                                       </td>
                                     </tr>
                                   </table>

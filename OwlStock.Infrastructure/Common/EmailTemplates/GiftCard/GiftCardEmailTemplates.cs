@@ -99,7 +99,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.GiftCard
                                 <strong>Фотосесия</strong>
                               </td>
                               <td style=""padding:12px; border:1px solid #e5e7eb;"">
-                                {photoshootType}
+                                {photoshootType.GetEnumDescription()}
                               </td>
                             </tr>
                             <tr>
@@ -215,7 +215,7 @@ namespace OwlStock.Infrastructure.Common.EmailTemplates.GiftCard
                                 <strong>Фотосесия</strong>
                                 </td>
                                 <td style=""padding:12px; border:1px solid #e5e7eb;"">
-                                {photoshootType}
+                                {photoshootType.GetEnumDescription()}
                                 </td>
                             </tr>
                             <tr>
