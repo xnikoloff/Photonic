@@ -203,7 +203,7 @@ namespace OwlStock.Services.Implementations
             GiftCardTemplateBaseDTO dto = new()
             {
                 GiftCardNumber = giftCard.GiftCardNumber,
-                Photoshoot = giftCard.PhotoShootType.ToString(),
+                Photoshoot = giftCard.PhotoShootType,
                 Receiver = giftCard.Receiver,
                 ValidUntil = giftCard.CreatedOn.AddYears(1).ToString("dd.MM.yyyy")
             };

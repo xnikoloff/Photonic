@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Подаръчен ваучер";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <h1 class="display-1 text-white animated slideInDown">@ViewData["Title"]</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb text-uppercase mb-0">
+                <li class="breadcrumb-item"><a class="text-white" asp-controller="Home" asp-action="Index">Начало</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">@ViewData["Title"]</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- About Start -->
+<div class="container-fluid py-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s" style="min-height: 650px">
+                <div class="about-img">
+                    <img class="img-fluid" src="~/img/podarachen-vaucher.png" alt="about1">
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <h4 class="section-title">Подари спомен</h4>
+                <h1 class="display-5 mb-4">Подари спомен с <i class="text-primary">подаръчен ваучер </i></h1>
+                <p>Подари не просто подарък, а спомен, който остава завинаги. С подаръчен ваучер за фотосесия ще зарадваш любим човек с възможността да запечата своите специални моменти в красиви снимки. Защото най-ценните подаръци са тези, към които се връщаме с усмивка.</p>
+                <p>Ваучерът е подходящ за всеки повод – рожден ден, годишнина, празник или просто като мил жест без специална причина. Избери подарък, който носи личен смисъл и дава възможност за създаване на красиви спомени, запечатани във времето.</p>
+                <p>Всеки ваучер е покана за нещо специално – споделени мигове с любимите хора или възможност да отпразнуваш важен етап от живота. Подари преживяване, което няма да събира прах на рафта, а ще остане запечатано в кадри, към които винаги ще има причина да се връщаш.</p>
+                <p><a asp-action="Template" asp-controller="GiftCard" class="btn btn-primary mt-4" style="padding:20px 30px;font-size:1.2rem"><i class="fa-solid fa-gift fa-lg text-white"></i> ПОРЪЧАЙ ОТ ТУК</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+<!-- Feature Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <h5 class="section-title">Защо да подарите ваучер?</h5>
+                <p class="mb-4"></p>
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="d-flex align-items-start">
+                            <h1><i class="fa-solid fa-infinity text-primary"></i></h1>
+                            <div class="ms-4">
+                                <h3>Оригинален подарък с лично отношение</h3>
+                                <p class="mb-0">Ако търсиш нещо различно от обичайните подаръци, подаръчният ваучер за фотосесия е чудесен избор. Той показва внимание, лично отношение и желание да подариш нещо наистина специално.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex align-items-start">
+                            <h1><i class="fa-solid fa-check-double text-primary"></i></h1>
+                            <div class="ms-4">
+                                <h3>Подходящ за всеки повод</h3>
+                                <p class="mb-0">Рожден ден, годишнина, празник или просто мил жест без специална причина – фотосесията е оригинален начин да покажеш на някого колко много означава за теб.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex align-items-start">
+                            <h1><i class="fa-regular fa-face-grin-beam text-primary"></i></h1>
+                            <div class="ms-4">
+                                <h3>Лесна поръчка - изцяло онлайн</h3>
+                                <p class="mb-0">Само с няколко клика можеш да поръчаш своя подаръчен ваучер, без да губиш време в обикаляне по магазини. Избери желания ваучер, направи поръчката онлайн и си готов да зарадваш някого с нещо специално!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="feature-img">
+                    <img class="img-fluid" src="~/img/abiturienti-fotosesii-plovdiv-1.jpg" alt="about3" style="max-height:450px">
+                    <img class="img-fluid" src="~/img/portretna-fotografiya.jpg" alt="about3" style="max-height:450px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature End -->

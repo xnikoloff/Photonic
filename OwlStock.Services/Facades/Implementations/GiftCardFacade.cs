@@ -6,7 +6,7 @@ using OwlStock.Services.DTOs.GiftCard;
 using OwlStock.Services.Facades.Interfaces;
 using OwlStock.Services.Interfaces;
 
-namespace OwlStock.Services.Implementations
+namespace OwlStock.Services.Facades.Implementations
 {
     public class GiftCardFacade : IGiftCardFacade
     {

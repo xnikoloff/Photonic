@@ -24,6 +24,12 @@ namespace OwlStock.Web.Controllers
             _emailService = emailService;
         }
 
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet("vaucher")]
         public async Task<IActionResult> GiftCardById(Guid id)
         {

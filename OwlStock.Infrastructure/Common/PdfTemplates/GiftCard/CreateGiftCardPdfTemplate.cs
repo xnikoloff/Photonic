@@ -173,7 +173,7 @@
                             </div>
 
                             <div class=""photoshoot"">
-                                {dto.Photoshoot}
+                                {dto.Photoshoot.GetEnumDescription()}
                             </div>
 
                             <div class=""validity-container"">
@@ -182,7 +182,7 @@
                                     </div>
     
                                     <div class=""valid-until"">
-                                        {dto.ValidUntil}
+                                        {dto.ValidUntil} г.
                                     </div>
                                 </div>
 
