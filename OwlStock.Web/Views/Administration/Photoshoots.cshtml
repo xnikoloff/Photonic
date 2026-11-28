@@ -7,7 +7,7 @@
 <div class="container container-all-photoshoots">
     <div class="row">
         <div class="col-12">
-            <a asp-action="PhotoshootDates" asp-controller="Administration" class="btn btn-success">Служебни фотосесии</a>
+            <a asp-action="ServicePhotoshoots" asp-controller="Administration" class="btn btn-success">Служебни фотосесии</a>
         </div>
     </div>
     <div class="row">
@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(PhotoShoot photoShoot in Model)
+                    @foreach(PhotoShoot photoShoot in Model.Where(ph => ph.Status != PhotoshootStatus.Service))
                     {
                         string tableRowColor = "";
                         switch (photoShoot.Status)

@@ -21,6 +21,22 @@ namespace OwlStock.Services.Implementations
             _logger = logger;
         }
 
+        public async Task<IEnumerable<PhotoShoot>> GetAtAllServicePhotoshoots()
+        {
+            try
+            {
+                return await _context.PhotoShoots
+                    .Where(ph => ph.Status == PhotoshootStatus.Service)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred at {Time}", DateTime.UtcNow);
+                return new List<PhotoShoot>();
+            }
+        }
+
+
         /// <summary>
         /// Sets a manually reserved date by the admin
         /// </summary>

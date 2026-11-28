@@ -119,6 +119,12 @@ namespace OwlStock.Web.Controllers
             return View(await _photoshootFacade.GetCalendarWithStatus());
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ServicePhotoshoots()
+        {
+            return View(await _photoShootService.GetAtAllServicePhotoshoots());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ServiceReservation(DateTime date)
@@ -126,7 +132,7 @@ namespace OwlStock.Web.Controllers
             bool success = await _photoShootService.SetReservedDate(date);
             if (success)
             {
-                return RedirectToAction(nameof(PhotoshootDates));
+                return RedirectToAction(nameof(ServicePhotoshoots));
             }
             else
             {

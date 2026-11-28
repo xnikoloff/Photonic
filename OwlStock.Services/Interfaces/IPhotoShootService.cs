@@ -15,6 +15,12 @@ namespace OwlStock.Services.Interfaces
         /// <returns>True if succesfull or false if not successful</returns>
         Task<bool> SetReservedDate(DateTime dates);
 
+        /// <summary>
+        /// Gets all photoshoots that aren't reserved by a user
+        /// </summary>
+        /// <returns>IEnumerable<PhotoShoots> that contains all service photoshoots</returns>
+        public Task<IEnumerable<PhotoShoot>> GetAtAllServicePhotoshoots();
+
         Task<Guid> Add(CreateRegularPhotoShootDTO dto);
         Task<Guid> AddSmallProductPhotoShoot(CreateSmallProductPhotoshootDTO dto);
         Task<bool> Update(UpdatePhotoShootDTO dto);

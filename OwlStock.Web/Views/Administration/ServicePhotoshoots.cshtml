@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PhotoShoot>
+
+@{
+    ViewData["Title"] = "Служебни фотосесии";
+}
+
+<div class="container container-all-photoshoots">
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="PhotoshootDates" asp-controller="Administration" class="btn btn-success">Служебна резервация</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-stripe">
+                <thead>
+                    <tr>
+                        <th>Управление</th>
+                        <th>Id</th>
+                        <th>Статус</th>
+                        <th>Модел</th>
+                        <th>Място</th>
+                        <th>Дата</th>
+                        <th>Създаден</th>
+                        <th>Създаден от</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (PhotoShoot photoShoot in Model.Where(ph => ph.Status == PhotoshootStatus.Service))
+                    {
+                        <a asp-controller="PhotoShoot" asp-action="PhotoShootById" asp-route-id="@photoShoot?.Id">
+                            <tr style="background-color:#4b0f75; color:#fff">
+                                <td><a asp-controller="Administration" asp-action="ManagePhotoshoot" asp-route-id="@photoShoot.Id" class="btn btn-light btn-sm">Управление</a></td>
+                                <td>@photoShoot.Id</td>
+                                <td>@photoShoot.Status</td>
+                                <td>@photoShoot.PersonFullName</td>
+                                <td>@photoShoot?.Place?.Name</td>
+                                <td>@photoShoot?.ReservationDate.ToString("dd.MM.yyyy")</td>
+                                <td>@photoShoot?.CreatedOn.ToString("dd.MM.yyyy")</td>
+                                <td>@photoShoot?.IdentityUser?.Email</td>
+                            </tr>
+                        </a>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container-all-photoshoots {
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+</style>
