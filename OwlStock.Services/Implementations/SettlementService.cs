@@ -173,7 +173,7 @@ namespace OwlStock.Services.Implementations
                 throw new NullReferenceException($"{nameof(place.City)} is null");
             }
 
-            if (place.City.NameLatin.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(place.City.NameLatin))
             {
                 throw new NullReferenceException($"{nameof(place.City.NameLatin)} is null");
             }

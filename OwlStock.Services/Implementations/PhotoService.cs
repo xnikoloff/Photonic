@@ -179,7 +179,7 @@ namespace OwlStock.Services.Implementations
                     {
                         string extractedPath = ExtractPath(photo!.FilePath);
 
-                        if (extractedPath.IsNullOrEmpty())
+                        if (string.IsNullOrEmpty(extractedPath))
                         {
                             return new();
                         }
@@ -323,7 +323,7 @@ namespace OwlStock.Services.Implementations
 
                 _context.PhotosBase.Remove(photoBase);
 
-                if (photoBase.FileName.IsNullOrEmpty())
+                if (string.IsNullOrEmpty(photoBase.FileName))
                 {
                     _logger.LogError($"${nameof(photoBase.FileName)} is null or empty at {DateTime.UtcNow}, {nameof(Delete)}, {nameof(PhotoService)}");
                     return false;

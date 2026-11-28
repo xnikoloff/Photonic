@@ -26,7 +26,7 @@ namespace OwlStock.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateTestimonyDTO dto)
         {
-            if (dto.ReCaptchaToken.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(dto.ReCaptchaToken))
             {
                 ModelState.AddModelError(string.Empty, $"Липсва проверка за робот");
                 return View(dto);

@@ -64,7 +64,7 @@ namespace OwlStock.Services.Implementations
         /// <exception cref="NullReferenceException">Thrown when the provided argument is null or empty</exception>
         public async Task<WeatherForecast> GetForecast(string settlementId)
         {
-            if (settlementId.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(settlementId))
             {
                 throw new NullReferenceException($"{nameof(settlementId)} is null or empty");
             }

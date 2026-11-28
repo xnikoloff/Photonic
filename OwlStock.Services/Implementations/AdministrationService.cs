@@ -42,7 +42,7 @@ namespace OwlStock.Services.Implementations
                     Password = string.Empty
                 };
             }
-            if (user.Email.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(user.Email))
             {
                 _logger.LogError("{email)} is null or empty in {Method}, {Class}, {DateTime}", nameof(user.Email), nameof(CreateUser), nameof(AdministrationService), DateTime.Now);
                 return new()
@@ -97,7 +97,7 @@ namespace OwlStock.Services.Implementations
         /// <returns>Email of the user as string</returns>
         public async Task<string> GetUserEmailByIdAsync(string userId)
         {
-            if (userId.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(userId))
             {
                 return string.Empty;
             }
@@ -127,7 +127,7 @@ namespace OwlStock.Services.Implementations
         /// <returns>An IdentityUser object</returns>
         public async Task<IdentityUser?> GetUserByEmailAsync(string email)
         {
-            if (email.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(email))
             {
                 return new();
             }

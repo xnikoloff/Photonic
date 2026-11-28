@@ -115,7 +115,7 @@ namespace OwlStock.Services.Implementations
                 return new();
             }
 
-            if (dto.Receiver.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(dto.Receiver))
             {
                 _logger.LogError($"${nameof(dto.Receiver)} is null or empty at {DateTime.UtcNow} in {nameof(GiftCardService)}, {nameof(Create)}");
                 return new();

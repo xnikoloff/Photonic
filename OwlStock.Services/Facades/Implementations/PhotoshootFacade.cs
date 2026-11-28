@@ -44,7 +44,7 @@ namespace OwlStock.Services.Facades.Implementations
 
             //create place only when user has set a name for it
             //otherwise no new place should be created
-            if (!dto.UserPlace.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(dto.UserPlace))
             {
                 Guid placeGuid = await HandlePlace(new CreatePlaceDTO()
                 {
@@ -232,14 +232,14 @@ namespace OwlStock.Services.Facades.Implementations
         {
             //get user id and email
             
-            if (dto.IdentityUserId.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(dto.IdentityUserId))
             {
                 //check if user already exists
                 IdentityUser? user = await _administrationService.GetUserByEmailAsync(dto?.PersonEmail ?? "");
 
                 if(user != null)
                 {
-                    dto.IdentityUserId = user.Id;
+                    dto?.IdentityUserId = user.Id;
                     return true;
                 }
 
@@ -253,16 +253,16 @@ namespace OwlStock.Services.Facades.Implementations
                 
                 CreateIdentityUserDTO userDTO = await _administrationService.CreateUser(user);
 
-                if (userDTO.Password.IsNullOrEmpty())
+                if (string.IsNullOrEmpty(userDTO.Password))
                 {
                     return false;
                 }
 
                 //assign id of newly created user to the photoshoot DTO
-                dto.IdentityUserId = user.Id;
+                dto?.IdentityUserId = user.Id;
 
                 //assign password of newly created user to the photoshoot DTO
-                dto.Password = userDTO.Password;
+                dto?.Password = userDTO.Password;
 
                 return true;
             }
@@ -312,7 +312,7 @@ namespace OwlStock.Services.Facades.Implementations
                 return false;
             }
 
-            if (!dto.Password.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(dto.Password))
             {
                 CreateAccountEmailTemplateDTO accountEmailDTO = new()
                 {

@@ -23,7 +23,7 @@ namespace OwlStock.Services.Implementations
         /// <returns>Byte array</returns>
         public byte[]? GeneratePdfFromHtml(string html)
         {
-            if (html.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(html))
             {
                 _logger.LogError("{html} is null in {Method}, {Class}, {DateTime}", nameof(html), nameof(GeneratePdfFromHtml), nameof(PdfService), DateTime.Now);
                 return null;

@@ -345,13 +345,13 @@ namespace OwlStock.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateUser(IdentityUser user)
         {
-            if (user.Id.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(user.Id))
             {
                 ModelState.AddModelError("", "Id is empty");
                 return View(nameof(UserById), user);
             }
 
-            if (user.Email.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(user.Email))
             {
                 ModelState.AddModelError("", "Email is required");
                 return View(nameof(UserById), user);
@@ -367,7 +367,7 @@ namespace OwlStock.Web.Controllers
                 }
             }
 
-            if (user.UserName.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(user.UserName))
             {
                 ModelState.AddModelError("", "Username is required");
                 return View(nameof(UserById), user);

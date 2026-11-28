@@ -32,7 +32,7 @@ namespace OwlStock.Services.Implementations
                 return false;
             }
 
-            if (announcement.Content.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(announcement.Content))
             {
                 _logger.LogError($"Announcement content is null or empty at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(Create)}");
                 return false;
@@ -79,7 +79,7 @@ namespace OwlStock.Services.Implementations
                 return false;
             }
 
-            if (announcement.Content.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(announcement.Content))
             {
                 _logger.LogError($"{nameof(announcement.Content)} is null or empty at {DateTime.UtcNow} in {nameof(AnnouncementService)}, {nameof(Update)}");
                 return false;

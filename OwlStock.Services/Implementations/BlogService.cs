@@ -510,7 +510,7 @@ namespace OwlStock.Services.Implementations
 
             try
             {
-                if (!dto.Name.IsNullOrEmpty())
+                if (!string.IsNullOrEmpty(dto.Name))
                 {
                     ArticleCategory category = new()
                     {

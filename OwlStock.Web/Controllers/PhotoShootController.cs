@@ -71,7 +71,7 @@ namespace OwlStock.Web.Controllers
             }
 
             //if there is a custom place created remove the PlaceId (the Id of a popular place)
-            else if(!dto.UserPlace.IsNullOrEmpty())
+            else if(!string.IsNullOrEmpty(dto.UserPlace))
             {
                 ModelState.Remove("PlaceId");
             }
@@ -92,7 +92,7 @@ namespace OwlStock.Web.Controllers
             }
 
             //Photoshoot description is required when photshoot type is Other
-            if(dto.PhotoShootType == PhotoShootType.Other && dto.PhotoShootTypeDescription.IsNullOrEmpty())
+            if(dto.PhotoShootType == PhotoShootType.Other && string.IsNullOrEmpty(dto.PhotoShootTypeDescription))
             {
                 ModelState.AddModelError(string.Empty, "Описането на фотосесията е задължително");
 

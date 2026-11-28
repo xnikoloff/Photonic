@@ -116,7 +116,7 @@ namespace OwlStock.Web.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            if (ReCaptchaToken.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(ReCaptchaToken))
             {
                 ModelState.AddModelError(string.Empty, $"Липсва проверка за робот");
                 return Page();

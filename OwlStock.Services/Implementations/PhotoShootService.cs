@@ -144,7 +144,7 @@ namespace OwlStock.Services.Implementations
                 return new();
             }
 
-            if (userId.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(userId))
             {
                 _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(PhotoShootById)}, {nameof(userId)} is null or empty");
                 return new();
@@ -213,7 +213,7 @@ namespace OwlStock.Services.Implementations
         /// <returns>List of PhotoShootsDTO objects containing the required data</returns>
         public async Task<List<MyPhotoShootsDTO>> PhotoShootsByUser(string userId)
         {
-            if (userId.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(userId))
             {
                 _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(PhotoShootsByUser)}, {nameof(userId)} is empty");
                 return new();
@@ -257,7 +257,7 @@ namespace OwlStock.Services.Implementations
             {
                 string number = GeneratePhotoshootNumber(dto.PersonEmail ?? throw new NullReferenceException($"{nameof(dto.PersonEmail)} is null"), dto.PhotoShootType);
                 
-                if(number.IsNullOrEmpty())
+                if(string.IsNullOrEmpty(number))
                 {
                     _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(Add)}, {nameof(GeneratePhotoshootNumber)} returned empty string");
                     return Guid.Empty;
@@ -313,7 +313,7 @@ namespace OwlStock.Services.Implementations
             {
                 string number = GeneratePhotoshootNumber(dto.PersonEmail, dto.PhotoShootType);
 
-                if(number.IsNullOrEmpty())
+                if(string.IsNullOrEmpty(number))
                 {
                     _logger.LogError(null, $"An error occurred at {DateTime.UtcNow}, {nameof(AddSmallProductPhotoShoot)}, {nameof(GeneratePhotoshootNumber)} returned empty string");
                     return Guid.Empty;

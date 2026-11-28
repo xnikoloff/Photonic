@@ -333,7 +333,7 @@ namespace OwlStock.Services.Implementations
         /// <returns>Time in minutes</returns>
         public int CalculateReadingTime(string text)
         {
-            if (text.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(text))
             {
                 return 0;
             }
